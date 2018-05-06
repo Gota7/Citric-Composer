@@ -1,0 +1,35 @@
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Citric Composer.exe.config
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Citric Composer.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Citric Composer.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csprojResolveAssemblyReference.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.MainWindow.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Properties.Resources.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csproj.GenerateResource.Cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric Composer.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric Composer.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Syroot.BinaryData.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.AboutWindow.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.IsabelleSoundEditor.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\NAudio.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\NAudio.xml
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\msvcp110.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\msvcr110.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\SoundFoundation.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\SoundFoundation.LegacyFormats.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\SoundFoundationCafe.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\SoundFoundationCtr.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\SoundRuntimeCafe.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\ToolDevelopmentKit.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\WavConvCafe.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\WaveCodecCafe.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\dspadpcm.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\dsptool.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Tools\soundfile.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.IsabelleAbout.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\MediaServer.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Image\pause.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\Data\Image\play4.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.SaveCloseDialog.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.SaveQuitDialog.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csproj.CoreCompileInputs.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csproj.CopyComplete
