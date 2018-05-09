@@ -14,6 +14,7 @@ using NAudio.Wave;
 using System.Threading;
 using Syroot.BinaryData;
 using Softpae.Media;
+using CSCore;
 
 namespace Citric_Composer
 {
@@ -33,12 +34,20 @@ namespace Citric_Composer
         public channelPlayer[] players; //Players.
         public bool playing; //If playing.
         int timer = 0; //Timer.
+        public Mixer soundMixer; //Sound mixer.
+        public bool scrolling = false; //No scrolling.
+        public bool scrollingLeft = false;
+        public bool scrollingRight = false;
 
         //Channel player.
         public struct channelPlayer {
             public byte[] file; //File.
             public WaveOutEvent player; //Player.
+            public CSCore.WaveFormat player2;
             public IWaveProvider playerFile; //Audio File.
+            public ISampleSource playerFile2;
+            public CSCore.IWaveSource source; //Source.
+            public CSCore.SoundOut.WasapiOut soundOut; //Sound out.
         }
 
 
@@ -64,8 +73,11 @@ namespace Citric_Composer
                 for (int i = 0; i < players.Length; i++)
                 {
                     players[i].player.Stop();
+                    try { players[i].soundOut.Stop(); } catch { }
+                    try { players[i].soundOut.Dispose(); } catch { }
+                    players[i].soundOut = null;
 
-                    players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                    players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                     players[i].player.Init(players[i].playerFile);
 
                 }
@@ -324,10 +336,6 @@ namespace Citric_Composer
                 {
                     n.ContextMenuStrip = nodeMenu;
                 }
-
-                //Tables.
-                if (file.channelData.Count > 0) { tableLayoutPanel1.Enabled = true; } else { tableLayoutPanel1.Enabled = false; }
-                if (/*file.stream.loop == 1 && */file.channelData.Count > 0) { tableLayoutPanel2.Enabled = true; } else { tableLayoutPanel2.Enabled = false; }
 
 
             }
@@ -658,9 +666,12 @@ namespace Citric_Composer
 
             for (int i = 0; i < players.Length; i++)
             {
+                try { players[i].soundOut.Dispose(); } catch { }
+                players[i].soundOut = null;
+
                 players[i].player.Stop();
 
-                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                 players[i].player.Init(players[i].playerFile);
 
             }
@@ -813,7 +824,7 @@ namespace Citric_Composer
                 {
                     players[i].player.Stop();
 
-                    players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                    players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                     players[i].player.Init(players[i].playerFile);
                 }
 
@@ -847,7 +858,7 @@ namespace Citric_Composer
             {
                 players[i].player.Stop();
 
-                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                 players[i].player.Init(players[i].playerFile);
 
             }
@@ -917,8 +928,11 @@ namespace Citric_Composer
                     for (int i = 0; i < players.Length; i++)
                     {
                         players[i].player.Stop();
+                        try { players[i].soundOut.Stop(); } catch { }
+                        try { players[i].soundOut.Dispose(); } catch { }
+                        players[i].soundOut = null;
 
-                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                         players[i].player.Init(players[i].playerFile);
 
                     }
@@ -963,7 +977,7 @@ namespace Citric_Composer
                     {
                         players[i].player.Stop();
 
-                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                         players[i].player.Init(players[i].playerFile);
                     }
                 }
@@ -1006,7 +1020,7 @@ namespace Citric_Composer
             {
                 players[i].player.Stop();
 
-                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                 players[i].player.Init(players[i].playerFile);
 
             }
@@ -1022,6 +1036,15 @@ namespace Citric_Composer
         #region loadChannelFiles
         public void loadChannelFiles() {
 
+            if (players != null)
+            {
+                for (int i = 0; i < players.Count(); i++)
+                {
+                    try { players[i].source.Dispose(); } catch { }
+                    try { players[i].soundOut.Dispose(); } catch { }
+                }
+            }
+
             players = new channelPlayer[file.channelData.Count];
             for (int i = 0; i < file.channelData.Count; i++) {
 
@@ -1032,8 +1055,28 @@ namespace Citric_Composer
 
                 players[i].file = channelData.ToArray();
                 players[i].player = new WaveOutEvent();
-                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(channelData.ToArray()), new WaveFormat((int)file.stream.sampleRate, 1));
+                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(channelData.ToArray()), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                 players[i].player.Init(players[i].playerFile);
+
+                //CSCore.WaveFormat wf = new CSCore.WaveFormat((int)file.stream.sampleRate, 16, 1, AudioEncoding.Pcm);
+
+                try { players[i].source.Dispose(); } catch { }
+                players[i].source = null;
+
+                RIFF r = new RIFF();
+                r.fmt = new RIFF.fmtBlock();
+                r.fmt.bitsPerSample = 16;
+                r.fmt.sampleRate = file.stream.sampleRate;
+                r.fmt.numChannels = 1;
+                r.fmt.chunkFormat = 1;
+                r.fmt.restOfData = new byte[0];
+                r.data = new RIFF.dataBlock();
+                r.data.data = players[i].file;
+                r.fixOffsets();
+                Directory.CreateDirectory("Data/TEMP");
+                File.WriteAllBytes("Data/TEMP/tmp" + i + ".wav", r.toBytes());
+                players[i].source = CSCore.Codecs.CodecFactory.Instance.GetCodec("Data/TEMP/tmp" + i + ".wav");
+                File.Delete("tmp" + i + ".wav");
 
             }
 
@@ -1073,9 +1116,9 @@ namespace Citric_Composer
 
                 foreach (channelPlayer p in players)
                 {
-                    if (p.player != null)
+                    if (p.soundOut != null)
                     {
-                        p.player.Pause();
+                        p.soundOut.Pause();
                     }
                 }
 
@@ -1088,26 +1131,36 @@ namespace Citric_Composer
 
                 for (int i = 0; i < players.Length; i++)
                 {
-                    if (players[i].player.PlaybackState == PlaybackState.Playing)
-                    {
-                        players[i].player.Stop();
 
-                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
-                        players[i].player.Init(players[i].playerFile);
+                    if (players[i].soundOut == null) {
+
+                        players[i].soundOut = new CSCore.SoundOut.WasapiOut();
+                        players[i].soundOut.Initialize(players[i].source);
+
+                    }
+
+                    else if (players[i].soundOut.PlaybackState == CSCore.SoundOut.PlaybackState.Playing)
+                    {
+                        try { players[i].soundOut.Stop(); } catch { }
+                        try { players[i].soundOut.Dispose(); } catch { }
+
+                        //players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
+                        players[i].soundOut = new CSCore.SoundOut.WasapiOut();
+                        players[i].soundOut.Initialize(players[i].source);
                     }
                 }
 
                 foreach (channelPlayer p in players)
                 {
-                    if (p.player != null)
+                    if (p.soundOut != null)
                     {
-                        p.player.Volume = (float)volume.Value / (float)100;
+                        p.soundOut.Volume = (float)volume.Value / (float)100;
                     }
                 }
 
                 for (int i = 0; i < file.channelData.Count; i++)
                 {
-                    players[i].player.Play();
+                    players[i].soundOut.Play();
                 }
 
                 playPauseButton.Image = new Bitmap("Data/Image/pause.png");
@@ -1122,10 +1175,10 @@ namespace Citric_Composer
         {
             for (int i = 0; i < players.Length; i++)
             {
-                players[i].player.Stop();
-
-                players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
-                players[i].player.Init(players[i].playerFile);
+                try { players[i].soundOut.Stop(); } catch { }
+                try { players[i].soundOut.Dispose(); } catch { }
+                players[i].soundOut = null;
+                players[i].source.Position = 0;
 
             }
 
@@ -1143,14 +1196,16 @@ namespace Citric_Composer
 
             while (true) {
 
-                try { timeBar.Value = (int)(((decimal)players[0].player.GetPosition() / ((decimal)file.channelData[0].Length * 2)) * 1440); } catch { }
+                if (!scrolling) try { timeBar.Value = (int)(((decimal)players[0].source.Position / ((decimal)file.channelData[0].Length * 2)) * 1440); if (playLikeGameBox.Checked) { if (players[0].source.Position >= file.stream.loopEnd*2 && players[0].soundOut.PlaybackState == CSCore.SoundOut.PlaybackState.Playing) { for (int i = 0; i < players.Count(); i++) { players[i].source.Position = (long)file.stream.loopStart*2; } } } } catch { }
                 
                 try
                 {
-                    spltStart.SplitPosition = (int)((decimal)file.stream.loopStart / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
-                    spltEnd.SplitPosition = pnlLoop.Size.Width - (int)((decimal)file.stream.loopEnd / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
+                    if (!scrollingLeft) spltStart.SplitPosition = (int)((decimal)file.stream.loopStart / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
+                    if (!scrollingRight) spltEnd.SplitPosition = pnlLoop.Size.Width - (int)((decimal)file.stream.loopEnd / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
                 }
                 catch { }
+
+                try { if (file.channelData.Count() == 0) { playPauseButton.Enabled = false; stopButton.Enabled = false; timeBar.Enabled = false; spltStart.Enabled = false; spltEnd.Enabled = false; setLoopStartButton.Enabled = false; setLoopEndButton.Enabled = false; } else { playPauseButton.Enabled = true; stopButton.Enabled = true; timeBar.Enabled = true; spltStart.Enabled = true; spltEnd.Enabled = true; setLoopStartButton.Enabled = true; setLoopEndButton.Enabled = true; } } catch { }
 
             }
 
@@ -1164,7 +1219,7 @@ namespace Citric_Composer
         private void setLoopStartButton_Click(object sender, EventArgs e)
         {
             file.stream.loop = 1;
-            file.stream.loopStart = (UInt32)(players[0].player.GetPosition()/2);
+            file.stream.loopStart = (UInt32)(players[0].source.Position/2);
             doInfoStuff();
 
             spltStart.SplitPosition = (int)((decimal)file.stream.loopStart / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
@@ -1176,7 +1231,7 @@ namespace Citric_Composer
         private void setLoopEndButton_Click(object sender, EventArgs e)
         {
             file.stream.loop = 1;
-            file.stream.loopEnd = (UInt32)(players[0].player.GetPosition() / 2);
+            file.stream.loopEnd = (UInt32)(players[0].source.Position / 2);
             doInfoStuff();
 
             spltEnd.SplitPosition = pnlLoop.Size.Width - (int)((decimal)file.stream.loopEnd / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
@@ -1241,7 +1296,7 @@ namespace Citric_Composer
                     {
                         players[i].player.Stop();
 
-                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                         players[i].player.Init(players[i].playerFile);
 
                     }
@@ -1553,8 +1608,11 @@ namespace Citric_Composer
                     for (int i = 0; i < players.Length; i++)
                     {
                         players[i].player.Stop();
+                        try { players[i].soundOut.Stop(); } catch { }
+                        try { players[i].soundOut.Dispose(); } catch { }
+                        players[i].soundOut = null;
 
-                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new WaveFormat((int)file.stream.sampleRate, 1));
+                        players[i].playerFile = new RawSourceWaveStream(new MemoryStream(players[i].file), new NAudio.Wave.WaveFormat((int)file.stream.sampleRate, 1));
                         players[i].player.Init(players[i].playerFile);
 
                     }
@@ -1619,6 +1677,11 @@ namespace Citric_Composer
                 {
                     this.Close();
                 }
+
+            }
+            else {
+
+                this.Close();
 
             }
 
@@ -1756,5 +1819,122 @@ namespace Citric_Composer
         {
             System.Diagnostics.Process.Start("http://discord.gg/6VDPGne");
         }
+
+        //Form closing.
+        public void formClosing(object sender, System.EventArgs e) {
+
+            try
+            {
+                for (int i = 0; i < players.Count(); i++)
+                {
+                    players[i].soundOut.Dispose();
+                    players[i].soundOut = null;
+                }
+            }
+            catch { }
+
+        }
+
+
+        //Allow scrolling.
+        private void timeBar_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            scrolling = true;
+
+        }
+
+        private void timeBar_MouseUp(object sender, MouseEventArgs e)
+        {
+
+            scrolling = false;
+
+            if (true) {
+
+                try
+                {
+
+                    //timeBar.Value = (int)(((decimal)players[0].source.Position / ((decimal)file.channelData[0].Length * 2)) * 1440);
+                    for (int i = 0; i < players.Count(); i++)
+                    {
+                        players[i].source.Position = (long)(((decimal)file.channelData[0].Length) * 2 * ((decimal)timeBar.Value / (decimal)timeBar.Maximum));
+                    }
+
+                }
+                catch { }
+
+            }
+
+        }
+
+
+        private void loopStart_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            scrollingLeft = true;
+
+        }
+
+        private void loopStart_MouseUp(object sender, MouseEventArgs e)
+        {
+
+            scrollingLeft = false;
+
+            if (true)
+            {
+
+                try
+                {
+                    //if (!scrollingLeft) spltStart.SplitPosition = (int)((decimal)file.stream.loopStart / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
+                    //if (!scrollingRight) spltEnd.SplitPosition = pnlLoop.Size.Width - (int)((decimal)file.stream.loopEnd / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
+
+                    file.stream.loopStart = (UInt32)(spltStart.SplitPosition * (decimal)file.channelData[0].Length / (decimal)pnlLoop.Size.Width);
+                    doInfoStuff();
+
+                }
+                catch { }
+
+            }
+
+        }
+
+
+        private void loopEnd_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            scrollingRight = true;
+
+        }
+
+        private void loopEnd_MouseUp(object sender, MouseEventArgs e)
+        {
+
+            scrollingRight = false;
+
+            if (true)
+            {
+
+                try
+                {
+
+                    try
+                    {
+                        //if (!scrollingLeft) spltStart.SplitPosition = (int)((decimal)file.stream.loopStart / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
+                        //if (!scrollingRight) spltEnd.SplitPosition = pnlLoop.Size.Width - (int)((decimal)file.stream.loopEnd / (decimal)file.channelData[0].Length * (decimal)pnlLoop.Size.Width);
+
+                        file.stream.loopEnd = (UInt32)((decimal)file.channelData[0].Length * (pnlLoop.Size.Width - spltEnd.SplitPosition) / (decimal)pnlLoop.Size.Width);
+                        doInfoStuff();
+
+                    }
+                    catch { }
+
+                }
+                catch { }
+
+            }
+
+        }
+
+
     }
 }

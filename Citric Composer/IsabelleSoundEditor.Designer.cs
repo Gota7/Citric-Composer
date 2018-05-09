@@ -42,14 +42,14 @@
             this.exportBinaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportWavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleWaveToGameWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleWaveToGameStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleGameFileToWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameFileToGameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportWavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +94,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.noInfoPanel = new System.Windows.Forms.Panel();
             this.noInfoLabel = new System.Windows.Forms.Label();
+            this.playLikeGameBox = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.volume = new System.Windows.Forms.TrackBar();
             this.tree = new System.Windows.Forms.TreeView();
@@ -155,8 +157,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
             this.toolsToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -246,35 +248,6 @@
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importFileToolStripMenuItem,
-            this.exportWavToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // importFileToolStripMenuItem
-            // 
-            this.importFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importFileToolStripMenuItem.Image")));
-            this.importFileToolStripMenuItem.Name = "importFileToolStripMenuItem";
-            this.importFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.I)));
-            this.importFileToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.importFileToolStripMenuItem.Text = "Import File";
-            this.importFileToolStripMenuItem.Click += new System.EventHandler(this.importFileToolStripMenuItem_Click);
-            // 
-            // exportWavToolStripMenuItem
-            // 
-            this.exportWavToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportWavToolStripMenuItem.Image")));
-            this.exportWavToolStripMenuItem.Name = "exportWavToolStripMenuItem";
-            this.exportWavToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.E)));
-            this.exportWavToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.exportWavToolStripMenuItem.Text = "Export Wav";
-            this.exportWavToolStripMenuItem.Click += new System.EventHandler(this.exportWavToolStripMenuItem_Click);
-            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -318,6 +291,35 @@
             this.gameFileToGameFileToolStripMenuItem.Text = "Game File to Game File";
             this.gameFileToGameFileToolStripMenuItem.Click += new System.EventHandler(this.gameFileToGameFileToolStripMenuItem_Click);
             // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importFileToolStripMenuItem,
+            this.exportWavToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // importFileToolStripMenuItem
+            // 
+            this.importFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importFileToolStripMenuItem.Image")));
+            this.importFileToolStripMenuItem.Name = "importFileToolStripMenuItem";
+            this.importFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.importFileToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.importFileToolStripMenuItem.Text = "Import File";
+            this.importFileToolStripMenuItem.Click += new System.EventHandler(this.importFileToolStripMenuItem_Click);
+            // 
+            // exportWavToolStripMenuItem
+            // 
+            this.exportWavToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportWavToolStripMenuItem.Image")));
+            this.exportWavToolStripMenuItem.Name = "exportWavToolStripMenuItem";
+            this.exportWavToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.E)));
+            this.exportWavToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.exportWavToolStripMenuItem.Text = "Export Wav";
+            this.exportWavToolStripMenuItem.Click += new System.EventHandler(this.exportWavToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -330,7 +332,7 @@
             // 
             this.getHelpToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("getHelpToolStripMenuItem.Image")));
             this.getHelpToolStripMenuItem.Name = "getHelpToolStripMenuItem";
-            this.getHelpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.getHelpToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.getHelpToolStripMenuItem.Text = "View Help";
             this.getHelpToolStripMenuItem.Click += new System.EventHandler(this.getHelpToolStripMenuItem_Click);
             // 
@@ -360,7 +362,6 @@
             this.tableLayoutPanel1.Controls.Add(this.playPauseButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.timeBar, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Enabled = false;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -371,6 +372,7 @@
             // stopButton
             // 
             this.stopButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stopButton.Enabled = false;
             this.stopButton.Image = ((System.Drawing.Image)(resources.GetObject("stopButton.Image")));
             this.stopButton.Location = new System.Drawing.Point(791, 3);
             this.stopButton.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
@@ -383,6 +385,7 @@
             // playPauseButton
             // 
             this.playPauseButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playPauseButton.Enabled = false;
             this.playPauseButton.Image = ((System.Drawing.Image)(resources.GetObject("playPauseButton.Image")));
             this.playPauseButton.Location = new System.Drawing.Point(752, 3);
             this.playPauseButton.Name = "playPauseButton";
@@ -394,11 +397,14 @@
             // timeBar
             // 
             this.timeBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timeBar.Enabled = false;
             this.timeBar.Location = new System.Drawing.Point(3, 3);
             this.timeBar.Maximum = 1440;
             this.timeBar.Name = "timeBar";
             this.timeBar.Size = new System.Drawing.Size(743, 32);
             this.timeBar.TabIndex = 1;
+            this.timeBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.timeBar_MouseDown);
+            this.timeBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.timeBar_MouseUp);
             // 
             // splitContainer1
             // 
@@ -416,6 +422,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.playLikeGameBox);
+            this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.volume);
             this.splitContainer1.Panel2.Controls.Add(this.tree);
@@ -867,12 +875,34 @@
             this.noInfoLabel.Text = "No Valid Info Selected!";
             this.noInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // playLikeGameBox
+            // 
+            this.playLikeGameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.playLikeGameBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.playLikeGameBox.Location = new System.Drawing.Point(455, 70);
+            this.playLikeGameBox.Name = "playLikeGameBox";
+            this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
+            this.playLikeGameBox.TabIndex = 17;
+            this.playLikeGameBox.UseVisualStyleBackColor = false;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label4.Location = new System.Drawing.Point(454, 56);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Loop Playback:";
+            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(479, 7);
+            this.label3.Location = new System.Drawing.Point(473, 7);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -883,12 +913,12 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(453, 28);
+            this.volume.Location = new System.Drawing.Point(441, 21);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);
             this.volume.TabIndex = 14;
-            this.volume.Value = 10;
+            this.volume.Value = 50;
             this.volume.Scroll += new System.EventHandler(this.volume_Scroll);
             // 
             // tree
@@ -960,7 +990,6 @@
             this.tableLayoutPanel2.Controls.Add(this.setLoopStartButton, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.setLoopEndButton, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Enabled = false;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 62);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -976,7 +1005,6 @@
             this.pnlLoop.Controls.Add(this.spltStart);
             this.pnlLoop.Controls.Add(this.pnlLoopStart);
             this.pnlLoop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLoop.Enabled = false;
             this.pnlLoop.Location = new System.Drawing.Point(13, 0);
             this.pnlLoop.Margin = new System.Windows.Forms.Padding(13, 0, 13, 3);
             this.pnlLoop.Name = "pnlLoop";
@@ -987,6 +1015,7 @@
             // 
             this.spltEnd.BackColor = System.Drawing.Color.Red;
             this.spltEnd.Dock = System.Windows.Forms.DockStyle.Right;
+            this.spltEnd.Enabled = false;
             this.spltEnd.Location = new System.Drawing.Point(720, 0);
             this.spltEnd.MinExtra = 0;
             this.spltEnd.MinSize = 0;
@@ -994,6 +1023,8 @@
             this.spltEnd.Size = new System.Drawing.Size(3, 19);
             this.spltEnd.TabIndex = 3;
             this.spltEnd.TabStop = false;
+            this.spltEnd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.loopEnd_MouseDown);
+            this.spltEnd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.loopEnd_MouseUp);
             // 
             // pnlLoopEnd
             // 
@@ -1007,6 +1038,7 @@
             // spltStart
             // 
             this.spltStart.BackColor = System.Drawing.Color.Yellow;
+            this.spltStart.Enabled = false;
             this.spltStart.Location = new System.Drawing.Point(0, 0);
             this.spltStart.MinExtra = 0;
             this.spltStart.MinSize = 0;
@@ -1014,6 +1046,8 @@
             this.spltStart.Size = new System.Drawing.Size(3, 19);
             this.spltStart.TabIndex = 0;
             this.spltStart.TabStop = false;
+            this.spltStart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.loopStart_MouseDown);
+            this.spltStart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.loopStart_MouseUp);
             // 
             // pnlLoopStart
             // 
@@ -1026,6 +1060,7 @@
             // 
             // setLoopStartButton
             // 
+            this.setLoopStartButton.Enabled = false;
             this.setLoopStartButton.Location = new System.Drawing.Point(752, 3);
             this.setLoopStartButton.Name = "setLoopStartButton";
             this.setLoopStartButton.Size = new System.Drawing.Size(33, 16);
@@ -1036,6 +1071,7 @@
             // 
             // setLoopEndButton
             // 
+            this.setLoopEndButton.Enabled = false;
             this.setLoopEndButton.Location = new System.Drawing.Point(791, 3);
             this.setLoopEndButton.Name = "setLoopEndButton";
             this.setLoopEndButton.Size = new System.Drawing.Size(35, 16);
@@ -1150,6 +1186,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "IsabelleSoundEditor";
             this.Text = "Isabelle Sound Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClosing);
             this.Resize += new System.EventHandler(this.formResized);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1278,5 +1315,7 @@
         private System.Windows.Forms.ToolStripMenuItem moveDownItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveGameFile;
+        private System.Windows.Forms.CheckBox playLikeGameBox;
+        private System.Windows.Forms.Label label4;
     }
 }
