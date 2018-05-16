@@ -1,0 +1,15 @@
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\bin\Debug\Images\Retsuko.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\bin\Debug\Retsuko Sound Tool.exe.config
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\bin\Debug\Retsuko Sound Tool.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\bin\Debug\Retsuko Sound Tool.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\bin\Debug\Syroot.BinaryData.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\bin\Debug\Syroot.BinaryData.xml
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko Sound Tool.csprojResolveAssemblyReference.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko_Sound_Tool.MainWindow.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko_Sound_Tool.Properties.Resources.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko Sound Tool.csproj.GenerateResource.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko Sound Tool.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko Sound Tool.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\bin\Debug\Images\Retsuko.ico
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko Sound Tool.csproj.CoreCompileInputs.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Retsuko Sound Tool\Retsuko Sound Tool\obj\Debug\Retsuko Sound Tool.csproj.CopyComplete
