@@ -158,7 +158,7 @@ namespace Retsuko_Sound_Tool
                 BinaryDataReader br = new BinaryDataReader(src);
                 List<byte> newFile = br.ReadBytes((int)src.Length).ToList();
 
-                if (f.path.StartsWith("FGRP") || f.path.StartsWith("CGRP") || f.path.StartsWith("FWAR") || f.path.StartsWith("CWAR") || f.path.StartsWith("FWSD") || f.path.StartsWith("CWSD")) {
+                if (f.path.EndsWith("fgrp") || f.path.EndsWith("cgrp") || f.path.EndsWith("fwar") || f.path.EndsWith("cwar") || f.path.EndsWith("fwsd") || f.path.EndsWith("cwsd")) {
 
                     List<MainWindow.fileReplacement> h = new List<MainWindow.fileReplacement>();
                     string[] map = File.ReadAllLines(Path.GetDirectoryName(mapDirectory + "/" + f.path) + "/" + Path.GetFileNameWithoutExtension(f.path) + f.path.Substring(0, 4) + "/fileMap.txt");
