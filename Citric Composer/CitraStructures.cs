@@ -988,11 +988,14 @@ namespace CitraFileLoader
                 info.trackReferences.count = br.ReadUInt32();
                 for (int i = 0; i < (int)info.trackReferences.count; i++)
                 {
-                    reference r = new reference();
-                    r.identifier = br.ReadUInt16();
-                    r.padding = br.ReadUInt16();
-                    r.offset = br.ReadUInt32();
-                    info.trackReferences.references.Add(r);
+                    try
+                    {
+                        reference r = new reference();
+                        r.identifier = br.ReadUInt16();
+                        r.padding = br.ReadUInt16();
+                        r.offset = br.ReadUInt32();
+                        info.trackReferences.references.Add(r);
+                    } catch { }
                 }
             }
             br.Position = (int)(infoRecord.r.offset + 8 + info.channelRecord.offset);
@@ -1014,37 +1017,39 @@ namespace CitraFileLoader
 
                 foreach (reference r in info.trackReferences.references)
                 {
-
-                    br.Position = (UInt32)(infoRecord.r.offset + 8 + info.trackRecord.offset + r.offset);
-
-                    infoBlock.trackInfo t = new infoBlock.trackInfo();
-                    t.volume = br.ReadByte();
-                    t.pan = br.ReadByte();
-                    t.flags = br.ReadUInt16();
-
-                    t.byteTableRecord = new reference();
-                    t.byteTableRecord.identifier = br.ReadUInt16();
-                    t.byteTableRecord.padding = br.ReadUInt16();
-                    t.byteTableRecord.offset = br.ReadUInt32();
-
-                    br.Position = (UInt32)(infoRecord.r.offset + 8 + info.trackRecord.offset + r.offset + t.byteTableRecord.offset);
-                    t.byteTable = new infoBlock.trackInfo.byteTableTrack();
-                    t.byteTable.count = br.ReadUInt32();
-                    t.byteTable.channelIndexes = new List<byte>();
-                    for (int j = 0; j < t.byteTable.count; j++)
+                    try
                     {
-                        t.byteTable.channelIndexes.Add(br.ReadByte());
+                        br.Position = (UInt32)(infoRecord.r.offset + 8 + info.trackRecord.offset + r.offset);
+
+                        infoBlock.trackInfo t = new infoBlock.trackInfo();
+                        t.volume = br.ReadByte();
+                        t.pan = br.ReadByte();
+                        t.flags = br.ReadUInt16();
+
+                        t.byteTableRecord = new reference();
+                        t.byteTableRecord.identifier = br.ReadUInt16();
+                        t.byteTableRecord.padding = br.ReadUInt16();
+                        t.byteTableRecord.offset = br.ReadUInt32();
+
+                        br.Position = (UInt32)(infoRecord.r.offset + 8 + info.trackRecord.offset + r.offset + t.byteTableRecord.offset);
+                        t.byteTable = new infoBlock.trackInfo.byteTableTrack();
+                        t.byteTable.count = br.ReadUInt32();
+                        t.byteTable.channelIndexes = new List<byte>();
+                        for (int j = 0; j < t.byteTable.count; j++)
+                        {
+                            t.byteTable.channelIndexes.Add(br.ReadByte());
+                        }
+
+                        int reservedSize = (int)t.byteTable.count;
+                        while (reservedSize % 4 != 0)
+                        {
+                            reservedSize += 1;
+                        }
+                        t.reserved = br.ReadBytes(reservedSize - (int)t.byteTable.count);
+
+                        info.track.Add(t);
                     }
-
-                    int reservedSize = (int)t.byteTable.count;
-                    while (reservedSize % 4 != 0)
-                    {
-                        reservedSize += 1;
-                    }
-                    t.reserved = br.ReadBytes(reservedSize - (int)t.byteTable.count);
-
-                    info.track.Add(t);
-
+                    catch { }
                 }
             }
 

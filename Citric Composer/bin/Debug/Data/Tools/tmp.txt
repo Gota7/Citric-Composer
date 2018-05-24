@@ -2,29 +2,29 @@
 Header size: 96 bytes
 
 Sample     : 'tmp.dsp'
-Length     : 1154622 samples
-Num nibbles: 1319568 ADPCM nibbles
+Length     : 1873298 samples
+Num nibbles: 5352280 ADPCM nibbles
 Sample Rate: 44100 Hz
 Loop Flag  : NOT LOOPED
 
 Start Addr : 0x00000002 + ARAM_offset (ADPCM nibble mode)
-End Addr   : 0x0014228F + ARAM_offset (ADPCM nibble mode)
+End Addr   : 0x0051AB57 + ARAM_offset (ADPCM nibble mode)
 Curr Addr  : 0x00000002 + ARAM_offset (ADPCM nibble mode)
 
-a1[0]: 0x01D1 a2[0]: 0xFE2F 
-a1[1]: 0x0A72 a2[1]: 0xFC55 
-a1[2]: 0x057F a2[2]: 0x0190 
-a1[3]: 0x0EBB a2[3]: 0xF8F5 
-a1[4]: 0x04F2 a2[4]: 0x003E 
-a1[5]: 0x0B4E a2[5]: 0xFC70 
-a1[6]: 0x06D4 a2[6]: 0x00F4 
-a1[7]: 0x0EF2 a2[7]: 0xF901 
+a1[0]: 0xF4A2 a2[0]: 0xFBF9 
+a1[1]: 0xF48E a2[1]: 0xFA08 
+a1[2]: 0xF480 a2[2]: 0xFAEE 
+a1[3]: 0xF8D1 a2[3]: 0xFE0A 
+a1[4]: 0xF78A a2[4]: 0xFE6E 
+a1[5]: 0xF629 a2[5]: 0xFA7D 
+a1[6]: 0xF6C8 a2[6]: 0xFCA5 
+a1[7]: 0xF8E7 a2[7]: 0xFBE1 
 
 Gain      : 0x0000
-Pred/Scale: 0x0078
+Pred/Scale: 0x0000
 y[n-1]    : 0x0000
 y[n-2]    : 0x0000
 
-Loop Pred/Scale: 0x0078
+Loop Pred/Scale: 0x0000
 Loop y[n-1]    : 0x0000
 Loop y[n-2]    : 0x0000

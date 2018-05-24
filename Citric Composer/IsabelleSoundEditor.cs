@@ -955,8 +955,8 @@ namespace Citric_Composer
                 this.Text = "Isabelle Sound Editor - " + Path.GetFileName(fileNamePath);
                 openCISP.FileName = "";
                 fileOpen = true;
-                loadChannelFiles();
                 updateNodes();
+                loadChannelFiles();
 
             }
         }
