@@ -35,3 +35,5 @@ C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Comp
 C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csproj.CopyComplete
 C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\CSCore.dll
 C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\bin\Debug\CSCore.xml
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Brewster_WAR_Brewer.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.BrewsterAbout.resources

@@ -625,6 +625,7 @@ namespace CitraFileLoader
         string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         public endianNess endian; //Endian.
+        public int numSamples = -1; //Number of samples.
 
         public char[] magic; //CSTM, FSTM.
         public UInt16 byteOrder; //0xFEFF Big, 0xFFFE Small.
@@ -970,6 +971,8 @@ namespace CitraFileLoader
             info.stream.lastSampleBlockPaddingSize = br.ReadUInt32();
             info.stream.seekSize = br.ReadUInt32();
             info.stream.seekIntervalSampleCount = br.ReadUInt32();
+
+            numSamples = (int)(info.stream.sampleBlockCount * info.stream.sampleBlockSampleCount + info.stream.lastSampleBlockSampleCount);
 
             info.stream.sampleRecord = new reference();
             info.stream.sampleRecord.identifier = br.ReadUInt16();
@@ -1342,7 +1345,7 @@ namespace CitraFileLoader
         /// Convert to bytes.
         /// </summary>
         /// <param name="b"></param>
-        public byte[] toBytes(endianNess e)
+        public byte[] toBytes2(endianNess e)
         {
 
             update(e, false);
@@ -1572,6 +1575,266 @@ namespace CitraFileLoader
         }
 
 
+        public byte[] toBytes(endianNess e, RIFF source) {
+
+            update(e, false);
+
+            Directory.SetCurrentDirectory(path + "/Data/Tools/Pack");
+
+            File.WriteAllBytes("tmp.wav", source.toBytes(true));
+            Process p = new Process();
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            p.StartInfo.FileName = "BCSTM.bat";
+            p.StartInfo.Arguments = "tmp.wav";
+            p.Start();
+            p.WaitForExit();
+
+            b_stm h = new b_stm();
+            data = h.data;
+            info.channel = h.info.channel;
+            info.stream.encoding = h.info.stream.encoding;
+            info.stream.lastSampleBlockSampleCount = h.info.stream.lastSampleBlockSampleCount;
+            info.stream.lastSampleBlockSize = h.info.stream.lastSampleBlockSize;
+            info.stream.lastSampleBlockPaddingSize = h.info.stream.lastSampleBlockPaddingSize;
+            info.stream.loopEnd = h.info.stream.loopEnd;
+            info.stream.numberOfChannels = h.info.stream.numberOfChannels;
+            info.stream.seekSize = h.info.stream.seekSize;
+            info.stream.seekIntervalSampleCount = h.info.stream.seekIntervalSampleCount;
+            info.stream.sampleRate = h.info.stream.sampleRate;
+            info.stream.sampleBlockSize = h.info.stream.sampleBlockSize;
+            info.stream.sampleBlockSampleCount = h.info.stream.sampleBlockSampleCount;
+            info.stream.sampleBlockCount = h.info.stream.sampleBlockCount;
+            update(e, false);
+
+            Directory.SetCurrentDirectory(path);
+
+            MemoryStream o = new MemoryStream();
+            BinaryDataWriter bw = new BinaryDataWriter(o);
+
+            //Magic.
+            bw.Write(magic);
+
+            //Get endianess.
+            if (e == endianNess.little)
+            {
+                bw.ByteOrder = ByteOrder.LittleEndian;
+            }
+            else
+            {
+                bw.ByteOrder = ByteOrder.BigEndian;
+            }
+            bw.Write(byteOrder);
+
+            //Header stuff.
+            bw.Write(headerSize);
+            bw.Write(version);
+            bw.Write(fileSize);
+            bw.Write(nBlocks);
+            bw.Write(padding);
+
+            bw.Write(infoRecord.r.identifier);
+            bw.Write(infoRecord.r.padding);
+            bw.Write(infoRecord.r.offset);
+            bw.Write(infoRecord.size);
+
+            bw.Write(seekRecord.r.identifier);
+            bw.Write(seekRecord.r.padding);
+            bw.Write(seekRecord.r.offset);
+            bw.Write(seekRecord.size);
+
+            bw.Write(dataRecord.r.identifier);
+            bw.Write(dataRecord.r.padding);
+            bw.Write(dataRecord.r.offset);
+            bw.Write(dataRecord.size);
+
+            //Write padding.
+            while (bw.Position % 0x20 != 0)
+            {
+                bw.Write((byte)0);
+            }
+
+
+            //Write INFO.
+            bw.Write(info.magic);
+            bw.Write(info.size);
+
+            bw.Write(info.streamRecord.identifier);
+            bw.Write(info.streamRecord.padding);
+            bw.Write(info.streamRecord.offset);
+
+            bw.Write(info.trackRecord.identifier);
+            bw.Write(info.trackRecord.padding);
+            bw.Write(info.trackRecord.offset);
+
+            bw.Write(info.channelRecord.identifier);
+            bw.Write(info.channelRecord.padding);
+            bw.Write(info.channelRecord.offset);
+
+            //Stream info.
+            bw.Write(info.stream.encoding);
+            bw.Write(info.stream.loop);
+            bw.Write(info.stream.numberOfChannels);
+            bw.Write(info.stream.numberOfRegions);
+            bw.Write(info.stream.sampleRate);
+            bw.Write(info.stream.loopStart);
+            bw.Write(info.stream.loopEnd);
+            bw.Write(info.stream.sampleBlockCount);
+            bw.Write(info.stream.sampleBlockSize);
+            bw.Write(info.stream.sampleBlockSampleCount);
+            bw.Write(info.stream.lastSampleBlockSize);
+            bw.Write(info.stream.lastSampleBlockSampleCount);
+            bw.Write(info.stream.lastSampleBlockPaddingSize);
+            bw.Write(info.stream.seekSize);
+            bw.Write(info.stream.seekIntervalSampleCount);
+
+            bw.Write(info.stream.sampleRecord.identifier);
+            bw.Write(info.stream.sampleRecord.padding);
+            bw.Write(info.stream.sampleRecord.offset);
+
+
+            //Write track and channel records. I un-nullify all records so I write them.
+            bw.Write(info.trackReferences.count);
+            foreach (reference r in info.trackReferences.references)
+            {
+                bw.Write(r.identifier);
+                bw.Write(r.padding);
+                bw.Write(r.offset);
+            }
+
+            bw.Write(info.channelReferences.count);
+            foreach (reference r in info.channelReferences.references)
+            {
+                bw.Write(r.identifier);
+                bw.Write(r.padding);
+                bw.Write(r.offset);
+            }
+
+
+            //Write tracks.
+            foreach (infoBlock.trackInfo t in info.track)
+            {
+
+                bw.Write(t.volume);
+                bw.Write(t.pan);
+                bw.Write(t.flags);
+
+                bw.Write(t.byteTableRecord.identifier);
+                bw.Write(t.byteTableRecord.padding);
+                bw.Write(t.byteTableRecord.offset);
+
+                bw.Write(t.byteTable.count);
+                for (int j = 0; j < t.byteTable.channelIndexes.Count; j++)
+                {
+                    bw.Write(t.byteTable.channelIndexes[j]);
+                }
+
+                bw.Write(t.reserved);
+
+            }
+
+            //Write channels.
+            foreach (infoBlock.channelInfo c in info.channel)
+            {
+
+                bw.Write(c.sampleRecord.identifier);
+                bw.Write(c.sampleRecord.padding);
+                bw.Write(c.sampleRecord.offset);
+
+            }
+
+
+            foreach (infoBlock.channelInfo c in info.channel)
+            {
+
+                if (info.stream.encoding == 2)
+                {
+
+                    bw.Write(c.dspAdpcm.coefficients);
+                    bw.Write(c.dspAdpcm.predScale);
+                    bw.Write(c.dspAdpcm.yn1);
+                    bw.Write(c.dspAdpcm.yn2);
+                    bw.Write(c.dspAdpcm.loopPredScale);
+                    bw.Write(c.dspAdpcm.loopYn1);
+                    bw.Write(c.dspAdpcm.loopYn2);
+                    bw.Write(c.dspAdpcm.padding);
+
+                }
+                else if (info.stream.encoding == 3)
+                {
+
+                    bw.Write(c.imaAdpcm.data);
+                    bw.Write(c.imaAdpcm.tableIndex);
+                    bw.Write(c.imaAdpcm.padding);
+
+                    bw.Write(c.imaAdpcm.loopData);
+                    bw.Write(c.imaAdpcm.loopTableIndex);
+                    bw.Write(c.imaAdpcm.loopPadding);
+
+                }
+
+            }
+
+            //Write padding.
+            while (bw.Position % 0x20 != 0)
+            {
+                bw.Write((byte)0);
+            }
+
+            //Write SEEK.
+            bw.Write(seek.magic);
+            bw.Write(seek.size);
+            bw.Write(seek.data);
+
+
+            //Great, time to write the data somehow.
+            bw.Write(data.magic);
+            bw.Write(data.fileSize);
+            bw.Write(data.padding);
+
+            //Write out each channel
+            MemoryStream soundDataOut = new MemoryStream();
+            BinaryDataWriter bw2 = new BinaryDataWriter(soundDataOut);
+
+            int[] positions = new int[(int)info.stream.numberOfChannels];
+            for (int j = 0; j < info.stream.sampleBlockCount - 1; j++)
+            {
+
+                for (int i = 0; i < info.stream.numberOfChannels; i++)
+                {
+
+                    BinaryDataReader br = new BinaryDataReader(new MemoryStream(data.samples[i]));
+                    br.Position = positions[i];
+
+                    bw2.Write(br.ReadBytes((int)info.stream.sampleBlockSize));
+
+                    positions[i] = (int)br.Position;
+
+                }
+
+            }
+
+            for (int i = 0; i < info.stream.numberOfChannels; i++)
+            {
+
+                BinaryDataReader br = new BinaryDataReader(new MemoryStream(data.samples[i]));
+                br.Position = positions[i];
+
+                //Write the data then the padding!
+                bw2.Write(br.ReadBytes((int)info.stream.lastSampleBlockSize));
+
+                int paddingSize = (int)(info.stream.lastSampleBlockPaddingSize - info.stream.lastSampleBlockSize);
+                bw2.Write(new byte[paddingSize]);
+
+            }
+
+            bw.Write(soundDataOut.ToArray());
+
+            return o.ToArray();
+
+        }
+
+
         /// <summary>
         /// Update the final.
         /// </summary>
@@ -1611,11 +1874,11 @@ namespace CitraFileLoader
             seekRecord.r.padding = 0;
             seekRecord.r.offset = 0xFFFFFFFF;
 
-            dataRecord = new sizedReference();
-            dataRecord.size = 0xFFFFFFFF;
-            dataRecord.r.identifier = 0x4002;
-            dataRecord.r.padding = 0;
-            dataRecord.r.offset = 0xFFFFFFFF;
+            //dataRecord = new sizedReference();
+            //dataRecord.size = 0xFFFFFFFF;
+            //dataRecord.r.identifier = 0x4002;
+            //dataRecord.r.padding = 0;
+            //dataRecord.r.offset = 0xFFFFFFFF;
 
             reserved = new byte[8];
 
@@ -1648,30 +1911,35 @@ namespace CitraFileLoader
             info.stream.numberOfRegions = 0;
             info.stream.numberOfChannels = (byte)info.channel.Count;
 
-            info.stream.seekSize = 4;
-            info.stream.seekIntervalSampleCount = 0x00003800;
+            //info.stream.seekSize = 4;
+            //info.stream.seekIntervalSampleCount = 0x00003800;
 
             infoTracker.Write(new byte[56]);
 
             //Get data.
-            info.stream.sampleBlockSize = 0x2000;
-            info.stream.sampleBlockSampleCount = 14336;
-            info.stream.sampleBlockCount = (UInt32)(Math.Ceiling((decimal)data.samples[0].Length / (decimal)info.stream.sampleBlockSize));
+           // info.stream.sampleBlockSize = 0x2000;
+           // info.stream.sampleBlockSampleCount = 14336;
+            //info.stream.sampleBlockCount = (UInt32)(Math.Ceiling((decimal)data.samples[0].Length / (decimal)info.stream.sampleBlockSize));
 
-            info.stream.lastSampleBlockSize = (UInt32)(data.samples[0].Length % info.stream.sampleBlockSize);
-            if (updateLastSampleBlock) { info.stream.lastSampleBlockSampleCount = (UInt32)(Math.Round((decimal)(info.stream.lastSampleBlockSize / info.stream.sampleBlockSize) * info.stream.sampleBlockSampleCount * (decimal)(.9998385065), MidpointRounding.AwayFromZero)); }
+            //if (numSamples < 0) { throw new Exception("No amount of samples specified!"); }
+            //else {
 
-            int paddingSize = (int)info.stream.lastSampleBlockSize;
-            while (paddingSize % 0x20 != 0)
-            {
-                paddingSize += 1;
-            }
-            info.stream.lastSampleBlockPaddingSize = (UInt32)paddingSize;
+                //info.stream.lastSampleBlockSampleCount = (UInt32)(numSamples % info.stream.sampleBlockSampleCount);
+                //info.stream.lastSampleBlockSize = (UInt32)Math.Ceiling((decimal)((decimal)(1/.875)*((decimal)info.stream.lastSampleBlockSampleCount/ (decimal)2)));
 
-            info.stream.sampleRecord = new reference();
-            info.stream.sampleRecord.identifier = 0x1F00;
-            info.stream.sampleRecord.padding = 0;
-            info.stream.sampleRecord.offset = 0x18;
+            //}
+            
+            //int paddingSize = (int)info.stream.lastSampleBlockSize;
+            //while (paddingSize % 0x20 != 0)
+            //{
+            //    paddingSize += 1;
+            //}
+            //info.stream.lastSampleBlockPaddingSize = (UInt32)paddingSize;
+
+            //info.stream.sampleRecord = new reference();
+            //info.stream.sampleRecord.identifier = 0x1F00;
+            //info.stream.sampleRecord.padding = 0;
+            //info.stream.sampleRecord.offset = 0x18;
 
 
 
@@ -1797,6 +2065,13 @@ namespace CitraFileLoader
             seek = new seekBlock();
             seek.magic = "SEEK".ToCharArray();
             seek.data = new byte[(int)((info.stream.sampleBlockCount + 1) * info.stream.seekSize * info.channel.Count)];
+
+            List<byte> extraSeekData = new List<byte>(seek.data);
+            while ((extraSeekData.Count+8) % 0x20 != 0) {
+                extraSeekData.Add(0);
+            }
+            seek.data = extraSeekData.ToArray();
+
             seek.size = (UInt32)(seek.data.Length + 8);
             seekRecord.size = seek.size;
 
@@ -2070,58 +2345,8 @@ namespace CitraFileLoader
             seek.size = (UInt32)(o.ToArray().Length - seekRecord.r.offset);
             seekRecord.size = seek.size;
             dataRecord.r.offset = (UInt32)o.ToArray().Length;
-            data.padding = new byte[0x18];
 
-            //Great, time to write the data somehow.
-            bw.Write(data.magic);
-            bw.Write(0);
-            bw.Write(data.padding);
-
-            //Write out each channel
-            MemoryStream soundDataOut = new MemoryStream();
-            BinaryDataWriter bw2 = new BinaryDataWriter(soundDataOut);
-
-            int[] positions = new int[(int)info.stream.numberOfChannels];
-            for (int j = 0; j < info.stream.sampleBlockCount - 1; j++)
-            {
-
-                for (int i = 0; i < info.stream.numberOfChannels; i++)
-                {
-
-                    BinaryDataReader br = new BinaryDataReader(new MemoryStream(data.samples[i]));
-                    br.Position = positions[i];
-
-                    bw2.Write(br.ReadBytes((int)info.stream.sampleBlockSize));
-
-                    positions[i] = (int)br.Position;
-
-                }
-
-            }
-
-            for (int i = 0; i < info.stream.numberOfChannels; i++)
-            {
-
-                BinaryDataReader br = new BinaryDataReader(new MemoryStream(data.samples[i]));
-                br.Position = positions[i];
-
-                //Write the data then the padding!
-                bw2.Write(br.ReadBytes((int)info.stream.lastSampleBlockSize));
-
-                int paddingSize2 = (int)(info.stream.lastSampleBlockPaddingSize - info.stream.lastSampleBlockSize);
-                bw2.Write(new byte[paddingSize2]);
-
-
-            }
-
-            bw.Write(soundDataOut.ToArray());
-
-
-            dataRecord.size = (UInt32)(o.ToArray().Length - dataRecord.r.offset);
-            data.fileSize = dataRecord.size;
-
-
-            fileSize = (UInt32)o.ToArray().Length;
+            fileSize = (UInt32)info.size + headerSize + data.fileSize;
 
         }
 
@@ -2685,22 +2910,29 @@ namespace CitraFileLoader
 		/// Convert to stream.
 		/// </summary>
 		/// <returns>The b stm.</returns>
-		public b_stm toB_stm()
+		public b_stm toB_stm(b_wav h2 = null)
         {
 
             b_stm b = new b_stm();
+            RIFF r;
+            b_wav h;
+            r = this.toRiff();
+            h = r.toGameWav();
+            b.numSamples = r.data.data.Length / ((r.fmt.bitsPerSample / 8) * r.fmt.numChannels);
+            
+
             b.data = new b_stm.dataBlock();
-            b.data.samples = data.samples;
-            b.data.pcm16 = data.pcm16;
+            b.data.samples = h.data.samples;
+            b.data.pcm16 = h.data.pcm16;
 
             //Info
-            b.info.stream.encoding = info.soundEncoding;
-            b.info.stream.loop = info.loop;
-            b.info.stream.loopStart = info.loopStart;
-            b.info.stream.loopEnd = info.loopEnd;
-            b.info.stream.numberOfChannels = (byte)info.channels.Count;
+            b.info.stream.encoding = h.info.soundEncoding;
+            b.info.stream.loop = h.info.loop;
+            b.info.stream.loopStart = h.info.loopStart;
+            b.info.stream.loopEnd = h.info.loopEnd;
+            b.info.stream.numberOfChannels = (byte)h.info.channels.Count;
             b.info.stream.numberOfRegions = 0;
-            b.info.stream.sampleRate = info.samplingRate;
+            b.info.stream.sampleRate = h.info.samplingRate;
 
             if (b.info.stream.encoding != 2)
             {
@@ -2709,7 +2941,7 @@ namespace CitraFileLoader
 
             //Track
             b.info.track = new List<b_stm.infoBlock.trackInfo>();
-            for (int i = 0; i < info.channels.Count; i += 2)
+            for (int i = 0; i < h.info.channels.Count; i += 2)
             {
 
 
@@ -2736,7 +2968,7 @@ namespace CitraFileLoader
 
             //Channel
             b.info.channel = new List<b_stm.infoBlock.channelInfo>();
-            for (int i = 0; i < info.channels.Count; i++)
+            for (int i = 0; i < h.info.channels.Count; i++)
             {
 
                 b_stm.infoBlock.channelInfo c = new b_stm.infoBlock.channelInfo();
@@ -2744,21 +2976,21 @@ namespace CitraFileLoader
                 c.dspAdpcm = new b_stm.infoBlock.dspAdpcmInfo();
                 c.imaAdpcm = new b_stm.infoBlock.imaAdpcmInfo();
 
-                c.dspAdpcm.coefficients = info.channels[i].dspAdpcm.coefficients;
-                c.dspAdpcm.loopPredScale = info.channels[i].dspAdpcm.loopPredScale;
-                c.dspAdpcm.loopYn1 = info.channels[i].dspAdpcm.loopYn1;
-                c.dspAdpcm.loopYn2 = info.channels[i].dspAdpcm.loopYn2;
-                c.dspAdpcm.padding = info.channels[i].dspAdpcm.padding;
-                c.dspAdpcm.predScale = info.channels[i].dspAdpcm.predScale;
-                c.dspAdpcm.yn1 = info.channels[i].dspAdpcm.yn1;
-                c.dspAdpcm.yn2 = info.channels[i].dspAdpcm.yn2;
+                c.dspAdpcm.coefficients = h.info.channels[i].dspAdpcm.coefficients;
+                c.dspAdpcm.loopPredScale = h.info.channels[i].dspAdpcm.loopPredScale;
+                c.dspAdpcm.loopYn1 = h.info.channels[i].dspAdpcm.loopYn1;
+                c.dspAdpcm.loopYn2 = h.info.channels[i].dspAdpcm.loopYn2;
+                c.dspAdpcm.padding = h.info.channels[i].dspAdpcm.padding;
+                c.dspAdpcm.predScale = h.info.channels[i].dspAdpcm.predScale;
+                c.dspAdpcm.yn1 = h.info.channels[i].dspAdpcm.yn1;
+                c.dspAdpcm.yn2 = h.info.channels[i].dspAdpcm.yn2;
 
-                c.imaAdpcm.data = info.channels[i].imaAdpcm.data;
-                c.imaAdpcm.loopData = info.channels[i].imaAdpcm.loopData;
-                c.imaAdpcm.loopPadding = info.channels[i].imaAdpcm.loopPadding;
-                c.imaAdpcm.loopTableIndex = info.channels[i].imaAdpcm.loopTableIndex;
-                c.imaAdpcm.padding = info.channels[i].imaAdpcm.padding;
-                c.imaAdpcm.tableIndex = info.channels[i].imaAdpcm.tableIndex;
+                c.imaAdpcm.data = h.info.channels[i].imaAdpcm.data;
+                c.imaAdpcm.loopData = h.info.channels[i].imaAdpcm.loopData;
+                c.imaAdpcm.loopPadding = h.info.channels[i].imaAdpcm.loopPadding;
+                c.imaAdpcm.loopTableIndex = h.info.channels[i].imaAdpcm.loopTableIndex;
+                c.imaAdpcm.padding = h.info.channels[i].imaAdpcm.padding;
+                c.imaAdpcm.tableIndex = h.info.channels[i].imaAdpcm.tableIndex;
 
                 b.info.channel.Add(c);
 
@@ -3231,6 +3463,440 @@ namespace CitraFileLoader
 
         }
 
+
+    }
+
+
+
+    /// <summary>
+	/// Warchive.
+	/// </summary>
+	public class b_war
+    {
+
+        public char[] magic; //FWAR; CWAR.
+        public UInt16 byteOrder; //0xFEFF Big, 0xFFFE Little.
+        public UInt16 headerSize; //Size of header.
+        public UInt32 version; //0x00010000 for FWAR.
+        public UInt32 fileSize; //File size.
+        public UInt16 nBlocks; //Number of blocks, 2.
+        public UInt16 padding; //Padding.
+
+        public sizedReference infoReference; //INFO reference.
+        public sizedReference fileReference; //FILE reference.
+
+        public byte[] reserved; //Padding to make it aligned to the headerSize.
+
+        public infoBlock info; //Info.
+        public fileBlock file; //Files.
+
+
+        /// <summary>
+        /// Info block.
+        /// </summary>
+        public struct infoBlock
+        {
+
+            public char[] magic; //INFO.
+            public UInt32 size; //Size.
+
+            public sizedReferenceTable entries; //Entries.
+            public byte[] reserved; //For 0x20 alignment.
+
+        }
+
+
+        /// <summary>
+        /// File block.
+        /// </summary>
+        public struct fileBlock
+        {
+
+            public char[] magic; //FILE.
+            public UInt32 size; //Size.
+            public byte[] reserved; //Reserved.
+
+            public List<fileEntry> files; //Files.
+
+            /// <summary>
+            /// File entry.
+            /// </summary>
+            public struct fileEntry
+            {
+
+                public byte[] file; //File.
+                public byte[] padding; //To make it 0x20 aligned.
+
+            }
+
+        }
+
+
+        /// <summary>
+        /// Sized reference.
+        /// </summary>
+        public struct sizedReference
+        {
+
+            public UInt16 identifier; //Identifier.
+                                      /*
+                                       * 0x6800 - INFO.
+                                       * 0x6801 - FILE.
+                                       * 0x1F00 - INFO ENTRY.
+                                       */
+            public UInt16 padding; //Padding.
+            public UInt32 offset; //Offset.
+            public UInt32 size; //Size.
+
+        }
+
+
+        /// <summary>
+        /// Sized reference table.
+        /// </summary>
+        public struct sizedReferenceTable
+        {
+
+            public UInt32 count; //Count.
+            public List<sizedReference> references; //References.
+
+        }
+
+
+        /// <summary>
+        /// Load the file.
+        /// </summary>
+        public void load(byte[] b)
+        {
+
+            //Reader.
+            MemoryStream src = new MemoryStream(b);
+            BinaryDataReader br = new BinaryDataReader(src);
+            br.ByteOrder = ByteOrder.BigEndian;
+
+            //Read stuff.
+            magic = br.ReadChars(4);
+            byteOrder = br.ReadUInt16();
+
+            if (byteOrder == 0xFEFF)
+            {
+                br.ByteOrder = ByteOrder.BigEndian;
+            }
+            else
+            {
+                br.ByteOrder = ByteOrder.LittleEndian;
+                byteOrder = 0xFEFF;
+            }
+            headerSize = br.ReadUInt16();
+            version = br.ReadUInt32();
+            fileSize = br.ReadUInt32();
+            nBlocks = br.ReadUInt16();
+            padding = br.ReadUInt16();
+
+            infoReference = new sizedReference();
+            infoReference.identifier = br.ReadUInt16();
+            infoReference.padding = br.ReadUInt16();
+            infoReference.offset = br.ReadUInt32();
+            infoReference.size = br.ReadUInt32();
+
+            fileReference = new sizedReference();
+            fileReference.identifier = br.ReadUInt16();
+            fileReference.padding = br.ReadUInt16();
+            fileReference.offset = br.ReadUInt32();
+            fileReference.size = br.ReadUInt32();
+
+            reserved = br.ReadBytes((int)headerSize - (int)br.Position);
+
+            //Info block.
+            info = new infoBlock();
+            br.Position = (int)infoReference.offset;
+
+            info.magic = br.ReadChars(4);
+            info.size = br.ReadUInt32();
+            info.entries = new sizedReferenceTable();
+            info.entries.count = br.ReadUInt32();
+            info.entries.references = new List<sizedReference>();
+            for (int i = 0; i < info.entries.count; i++)
+            {
+
+                sizedReference r = new sizedReference();
+                r.identifier = br.ReadUInt16();
+                r.padding = br.ReadUInt16();
+                r.offset = br.ReadUInt32();
+                r.size = br.ReadUInt32();
+                info.entries.references.Add(r);
+
+            }
+            List<byte> reservedTemp = new List<byte>();
+            int size = 12 + (int)info.entries.count * 12;
+            while (size % 0x20 != 0)
+            {
+                reservedTemp.Add(0);
+                size += 1;
+            }
+            info.reserved = reservedTemp.ToArray();
+
+            //File block.
+            file = new fileBlock();
+            br.Position = (int)fileReference.offset;
+
+            file.magic = br.ReadChars(4);
+            file.size = br.ReadUInt32();
+            int relOffset = (int)br.Position;
+            file.reserved = br.ReadBytes(0x18);
+            file.files = new List<fileBlock.fileEntry>();
+            foreach (sizedReference r in info.entries.references)
+            {
+
+                br.Position = relOffset + (int)(r.offset);
+                fileBlock.fileEntry e = new fileBlock.fileEntry();
+                e.file = br.ReadBytes((int)r.size);
+
+                List<byte> paddingTemp = new List<byte>();
+                int size2 = (int)r.size;
+                while (size2 % 0x20 != 0)
+                {
+                    paddingTemp.Add(0);
+                    size2 += 1;
+                }
+                e.padding = paddingTemp.ToArray();
+
+                file.files.Add(e);
+
+            }
+
+        }
+
+
+        /// <summary>
+        /// Convert to bytes.
+        /// </summary>
+        /// <returns></returns>
+        public byte[] toBytes(ByteOrder endian)
+        {
+
+            //Update.
+            update(endian);
+
+
+            //New writer.
+            MemoryStream o = new MemoryStream();
+            BinaryDataWriter bw = new BinaryDataWriter(o);
+            bw.ByteOrder = endian;
+
+
+            //Start writing.
+            bw.Write(magic);
+            bw.Write(byteOrder);
+            bw.Write(headerSize);
+            bw.Write(version);
+            bw.Write(fileSize);
+            bw.Write(nBlocks);
+            bw.Write(padding);
+
+            bw.Write(infoReference.identifier);
+            bw.Write(infoReference.padding);
+            bw.Write(infoReference.offset);
+            bw.Write(infoReference.size);
+
+            bw.Write(fileReference.identifier);
+            bw.Write(fileReference.padding);
+            bw.Write(fileReference.offset);
+            bw.Write(fileReference.size);
+
+            bw.Write(reserved);
+
+
+            //Info.
+            bw.Write(info.magic);
+            bw.Write(info.size);
+            bw.Write(info.entries.count);
+            foreach (sizedReference r in info.entries.references)
+            {
+                bw.Write(r.identifier);
+                bw.Write(r.padding);
+                bw.Write(r.offset);
+                bw.Write(r.size);
+            }
+            bw.Write(info.reserved);
+
+
+            //File.
+            bw.Write(file.magic);
+            bw.Write(file.size);
+            bw.Write(file.reserved);
+            foreach (fileBlock.fileEntry e in file.files)
+            {
+                bw.Write(e.file);
+                bw.Write(e.padding);
+            }
+
+
+            //Return new file.
+            return o.ToArray();
+
+        }
+
+
+        /// <summary>
+        /// Update the file.
+        /// </summary>
+        /// <param name="endian"></param>
+        public void update(ByteOrder endian)
+        {
+
+            //General stuff.
+            if (endian == ByteOrder.BigEndian)
+            {
+                magic = "FWAR".ToCharArray();
+            }
+            else
+            {
+                magic = "CWAR".ToCharArray();
+            }
+
+            for (int i = 0; i < file.files.Count; i++)
+            {
+                b_wav bW = new b_wav();
+                bW.load(file.files[i].file);
+                fileBlock.fileEntry e = file.files[i];
+                if (endian == ByteOrder.BigEndian) { e.file = bW.toBytes(endianNess.big); } else { e.file = bW.toBytes(endianNess.little); }
+                file.files[i] = e;
+            }
+
+            byteOrder = 0xFEFF;
+            headerSize = 0x40;
+            version = 0x00010000;
+            fileSize = 0xFFFFFFFF;
+            nBlocks = 2;
+            padding = 0;
+
+            infoReference = new sizedReference();
+            infoReference.identifier = 0x6800;
+            infoReference.padding = 0;
+            infoReference.offset = 0x40;
+            infoReference.size = 0xFFFFFFFF;
+
+            fileReference = new sizedReference();
+            fileReference.identifier = 0x6801;
+            fileReference.padding = 0;
+            fileReference.offset = 0xFFFFFFFF;
+            fileReference.size = 0xFFFFFFFF;
+
+            reserved = new byte[0x14];
+
+
+            //Info.
+            info.magic = "INFO".ToCharArray();
+            info.size = 0xFFFFFFFF;
+            info.entries = new sizedReferenceTable();
+            info.entries.references = new List<sizedReference>();
+            UInt32 offset = 0x18;
+            UInt32 filesSizes = 0;
+            for (int i = 0; i < file.files.Count; i++)
+            {
+
+                fileBlock.fileEntry f = file.files[i];
+
+                sizedReference s = new sizedReference();
+                s.offset = offset;
+                s.padding = 0;
+                s.identifier = 0x1F00;
+                s.size = (UInt32)f.file.Length;
+
+                int size = (int)s.size;
+                List<byte> reservedT = new List<byte>();
+                while (size % 0x20 != 0)
+                {
+                    reservedT.Add(0);
+                    size += 1;
+                }
+                f.padding = reservedT.ToArray();
+                offset += s.size + (UInt32)reservedT.Count;
+                filesSizes += s.size + (UInt32)reservedT.Count;
+                file.files[i] = f;
+                info.entries.references.Add(s);
+
+            }
+            info.entries.count = (UInt32)info.entries.references.Count;
+
+            int newReserved = 12 + 12 * (int)info.entries.count;
+            List<byte> newReserved2 = new List<byte>();
+            while (newReserved % 0x20 != 0)
+            {
+                newReserved2.Add(0);
+                newReserved += 1;
+            }
+            info.reserved = newReserved2.ToArray();
+            info.size = (UInt32)newReserved;
+            infoReference.size = info.size;
+
+            //File.
+            file.magic = "FILE".ToCharArray();
+            file.size = filesSizes + 8 + 0x18;
+            file.reserved = new byte[0x18];
+            fileReference.size = file.size;
+            fileReference.offset = 0x40 + info.size;
+
+            fileSize = 0x40 + info.size + file.size;
+
+        }
+
+
+        /// <summary>
+        /// Extract to folder.
+        /// </summary>
+        /// <param name="path"></param>
+        public void extract(string path, ByteOrder endian)
+        {
+
+            int id = 0;
+            foreach (fileBlock.fileEntry file in file.files)
+            {
+                b_wav b = new b_wav();
+                b.load(file.file);
+                if (endian == ByteOrder.BigEndian)
+                {
+                    File.WriteAllBytes(path + "/" + id.ToString("D4") + ".bfwav", b.toBytes(endianNess.big));
+                }
+                else
+                {
+                    File.WriteAllBytes(path + "/" + id.ToString("D4") + ".bcwav", b.toBytes(endianNess.little));
+                }
+                id += 1;
+            }
+
+        }
+
+
+        /// <summary>
+        /// Compress path to file.
+        /// </summary>
+        /// <param name="path"></param>
+        public void compress(string path)
+        {
+
+            string[] names = Directory.GetFiles(path);
+            List<byte[]> files = new List<byte[]>();
+            foreach (string name in names)
+            {
+                files.Add(File.ReadAllBytes(name));
+            }
+
+            file = new fileBlock();
+            file.files = new List<fileBlock.fileEntry>();
+            foreach (byte[] b in files)
+            {
+
+                fileBlock.fileEntry e = new fileBlock.fileEntry();
+                e.file = b;
+                e.padding = new byte[0];
+                file.files.Add(e);
+
+            }
+            update(ByteOrder.BigEndian);
+
+        }
 
     }
 

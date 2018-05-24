@@ -42,14 +42,14 @@
             this.exportBinaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportWavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleWaveToGameWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleWaveToGameStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleGameFileToWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameFileToGameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportWavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,6 +126,7 @@
             this.moveDownItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveGameFile = new System.Windows.Forms.SaveFileDialog();
+            this.saveGameStreamBox = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeBar)).BeginInit();
@@ -157,8 +158,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.toolsToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -187,7 +188,7 @@
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -196,7 +197,7 @@
             this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -205,7 +206,7 @@
             this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -215,7 +216,7 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -224,7 +225,7 @@
             this.exportBinaryToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportBinaryToolStripMenuItem.Image")));
             this.exportBinaryToolStripMenuItem.Name = "exportBinaryToolStripMenuItem";
             this.exportBinaryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.exportBinaryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.exportBinaryToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.exportBinaryToolStripMenuItem.Text = "Export Binary";
             this.exportBinaryToolStripMenuItem.Click += new System.EventHandler(this.exportBinaryToolStripMenuItem_Click);
             // 
@@ -234,8 +235,8 @@
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.C)));
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.closeToolStripMenuItem.Text = "Close File";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
@@ -244,9 +245,38 @@
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importFileToolStripMenuItem,
+            this.exportWavToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // importFileToolStripMenuItem
+            // 
+            this.importFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importFileToolStripMenuItem.Image")));
+            this.importFileToolStripMenuItem.Name = "importFileToolStripMenuItem";
+            this.importFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.importFileToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.importFileToolStripMenuItem.Text = "Import File";
+            this.importFileToolStripMenuItem.Click += new System.EventHandler(this.importFileToolStripMenuItem_Click);
+            // 
+            // exportWavToolStripMenuItem
+            // 
+            this.exportWavToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportWavToolStripMenuItem.Image")));
+            this.exportWavToolStripMenuItem.Name = "exportWavToolStripMenuItem";
+            this.exportWavToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.E)));
+            this.exportWavToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.exportWavToolStripMenuItem.Text = "Export Wav";
+            this.exportWavToolStripMenuItem.Click += new System.EventHandler(this.exportWavToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -290,35 +320,6 @@
             this.gameFileToGameFileToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.gameFileToGameFileToolStripMenuItem.Text = "Game File to Game File";
             this.gameFileToGameFileToolStripMenuItem.Click += new System.EventHandler(this.gameFileToGameFileToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importFileToolStripMenuItem,
-            this.exportWavToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // importFileToolStripMenuItem
-            // 
-            this.importFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importFileToolStripMenuItem.Image")));
-            this.importFileToolStripMenuItem.Name = "importFileToolStripMenuItem";
-            this.importFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.I)));
-            this.importFileToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.importFileToolStripMenuItem.Text = "Import File";
-            this.importFileToolStripMenuItem.Click += new System.EventHandler(this.importFileToolStripMenuItem_Click);
-            // 
-            // exportWavToolStripMenuItem
-            // 
-            this.exportWavToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportWavToolStripMenuItem.Image")));
-            this.exportWavToolStripMenuItem.Name = "exportWavToolStripMenuItem";
-            this.exportWavToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.E)));
-            this.exportWavToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.exportWavToolStripMenuItem.Text = "Export Wav";
-            this.exportWavToolStripMenuItem.Click += new System.EventHandler(this.exportWavToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -880,7 +881,9 @@
             this.playLikeGameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.playLikeGameBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.playLikeGameBox.Location = new System.Drawing.Point(455, 70);
+            this.playLikeGameBox.Checked = true;
+            this.playLikeGameBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.playLikeGameBox.Location = new System.Drawing.Point(461, 70);
             this.playLikeGameBox.Name = "playLikeGameBox";
             this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
             this.playLikeGameBox.TabIndex = 17;
@@ -891,7 +894,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(454, 56);
+            this.label4.Location = new System.Drawing.Point(460, 56);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 16;
@@ -902,7 +905,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(473, 7);
+            this.label3.Location = new System.Drawing.Point(479, 7);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -913,7 +916,7 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(441, 21);
+            this.volume.Location = new System.Drawing.Point(447, 21);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);
@@ -1173,6 +1176,11 @@
             this.saveGameFile.Filter = "Cafe Wave|*.bfwav|Citra Wave|*.bcwav|Cafe Stream|*.bfstm|Citra Stream|*.bcstm";
             this.saveGameFile.RestoreDirectory = true;
             // 
+            // saveGameStreamBox
+            // 
+            this.saveGameStreamBox.Filter = "Cafe Stream|*.bfstm|Citra Stream|*.bcstm";
+            this.saveGameStreamBox.RestoreDirectory = true;
+            // 
             // IsabelleSoundEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1317,5 +1325,6 @@
         private System.Windows.Forms.SaveFileDialog saveGameFile;
         private System.Windows.Forms.CheckBox playLikeGameBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.SaveFileDialog saveGameStreamBox;
     }
 }

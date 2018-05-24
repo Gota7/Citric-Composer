@@ -123,9 +123,9 @@ An extension of Citric Composer
 for wave and stream editing.
 
 
-
 Credits:
 Nintendo, Tools, Structure Docs
+Soneek, Tools, Packer
 Libertyernie, Loop Panel
 Wexos, Structure Docs
 Steveice10, Structure Docs
@@ -136,8 +136,8 @@ Abood, Structure Docs
 Gota7, Tools, Structure Docs
 
 
-©2018 Gota7
-(Everything but some Tools and Images)</value>
+©2018 Gota7, Nintendo, Soneek
+(Everything But Some Images)</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -578,6 +578,7 @@ namespace IsabelleLib
             else {
                 stream.sampleSize = (UInt32)(channelData[0].Count() * 2);
             }
+            seekBlock = new byte[0];
             seekSize = (UInt32)seekBlock.Length;
             channelMagic = "CHAN".ToCharArray();
             for (int i = 0; i < tracks.Count; i++) {
@@ -667,6 +668,7 @@ namespace IsabelleLib
                 t.byteTable.channelIndexes = tracks[i].channels;
                 b.info.track.Add(t);
             }
+            b.numSamples = channelData[0].Length;
             b.update(endianNess.big, true);
 
             return b;

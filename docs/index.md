@@ -4,13 +4,22 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 
 # Downloads
-[Isabelle Sound Editor (Haida Edition)](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/bin/Debug/Isabelle%20Sound%20Editor.zip?raw=true) - GUI editor for WiiU/3ds streams and waves.
+[Isabelle Sound Editor (Solar Edition)](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/bin/Debug/Isabelle%20Sound%20Editor.zip?raw=true) - GUI editor for WiiU/3ds streams and waves. May require python3 installation for streams to build.
 
 [Retsuko Sound Tool (Extractor/Injector)](https://github.com/Gota7/Citric-Composer/blob/master/Retsuko%20Sound%20Tool/Retsuko%20Sound%20Tool/bin/Debug/Retsuko%20Sound%20Tool.zip?raw=true) - For extracting and re-injecting files in a bfsar, bcsar, whatever. Just make sure the new files you want to add are less than or equal to the original files' file size.
 
 
 # Credits
-TODO (Sorry)
+Nintendo, Tools, Structure Docs
+Soneek, Tools, Packer
+Libertyernie, Loop Panel
+Wexos, Structure Docs
+Steveice10, Structure Docs
+TiniVi, Structure Docs
+Hiccup, Structure Docs
+Xcution, Structure Docs
+Abood, Structure Docs
+Gota7, Tools, Structure Docs
 
-2018 Gota7
+2018 Gota7, Nintendo, Soneek
 (Everything but some tools and images)

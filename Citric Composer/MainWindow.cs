@@ -37,5 +37,13 @@ namespace Citric_Composer
             IsabelleSoundEditor a = new IsabelleSoundEditor();
             a.Show();
         }
+
+
+        private void brewstersArchiveBrewerWARToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Brewster window.
+            Brewster_WAR_Brewer a = new Brewster_WAR_Brewer();
+            a.Show();
+        }
     }
 }

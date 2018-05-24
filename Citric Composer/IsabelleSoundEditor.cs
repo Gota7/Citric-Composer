@@ -15,6 +15,8 @@ using System.Threading;
 using Syroot.BinaryData;
 using Softpae.Media;
 using CSCore;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace Citric_Composer
 {
@@ -38,6 +40,7 @@ namespace Citric_Composer
         public bool scrolling = false; //No scrolling.
         public bool scrollingLeft = false;
         public bool scrollingRight = false;
+        public string isabellePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
         //Channel player.
         public struct channelPlayer {
@@ -1254,7 +1257,7 @@ namespace Citric_Composer
         //To RIFF.
         private void exportWavToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (file.channelData.Count > 0)
+            if (file.channelData.Count > 0 && fileOpen)
             {
                 saveWaveBox.ShowDialog();
                 if (saveWaveBox.FileName != "")
@@ -1555,15 +1558,76 @@ namespace Citric_Composer
                         break;
 
                     case 3:
+
+                        List<UInt16[]> bak = file.channelData;
+
+                        for (int i = 0; i < file.channelData.Count; i++) {
+
+                            List<UInt16> sb22 = file.channelData[i].ToList();
+                            sb22.RemoveRange((int)file.stream.loopEnd, sb22.Count - (int)file.stream.loopEnd);
+                            file.channelData[i] = sb22.ToArray();
+
+                        }
+
                         file.update();
-                        b_stm b3 = file.toB_stm();
-                        File.WriteAllBytes(saveGameFile.FileName, b3.toBytes(endianNess.big));
+                        Directory.SetCurrentDirectory(isabellePath + "/Data/Tools/Pack");
+
+                        File.WriteAllBytes("tmp.wav", file.toRIFF().toBytes(true));
+                        loadChannelFiles();
+                        Process p = new Process();
+                        p.StartInfo.CreateNoWindow = true;
+                        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        p.StartInfo.FileName = "BCSTM.bat";
+                        p.StartInfo.Arguments = "tmp.wav";
+                        p.Start();
+                        p.WaitForExit();
+
+                        b_stm h = new b_stm();
+                        h.load(File.ReadAllBytes("tmp.bcstm"));
+                        b_stm s = file.toB_stm();
+                        h.info.stream.loop = s.info.stream.loop;
+                        h.info.stream.loopStart = s.info.stream.loopStart;
+                        h.info.track = s.info.track;
+                        Directory.SetCurrentDirectory(isabellePath);
+
+                        File.WriteAllBytes(saveGameFile.FileName, h.toBytes2(endianNess.big));
                         break;
 
                     case 4:
+
+                        List<UInt16[]> bak2 = file.channelData;
+
+                        for (int i = 0; i < file.channelData.Count; i++)
+                        {
+
+                            List<UInt16> sb22 = file.channelData[i].ToList();
+                            sb22.RemoveRange((int)file.stream.loopEnd, sb22.Count - (int)file.stream.loopEnd);
+                            file.channelData[i] = sb22.ToArray();
+
+                        }
+
                         file.update();
-                        b_stm b4 = file.toB_stm();
-                        File.WriteAllBytes(saveGameFile.FileName, b4.toBytes(endianNess.little));
+                        Directory.SetCurrentDirectory(isabellePath + "/Data/Tools/Pack");
+
+                        File.WriteAllBytes("tmp.wav", file.toRIFF().toBytes(true));
+                        loadChannelFiles();
+                        Process p2 = new Process();
+                        p2.StartInfo.CreateNoWindow = true;
+                        p2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        p2.StartInfo.FileName = "BCSTM.bat";
+                        p2.StartInfo.Arguments = "tmp.wav";
+                        p2.Start();
+                        p2.WaitForExit();
+
+                        b_stm h2 = new b_stm();
+                        h2.load(File.ReadAllBytes("tmp.bcstm"));
+                        b_stm s2 = file.toB_stm();
+                        h2.info.stream.loop = s2.info.stream.loop;
+                        h2.info.stream.loopStart = s2.info.stream.loopStart;
+                        h2.info.track = s2.info.track;
+                        Directory.SetCurrentDirectory(isabellePath);
+
+                        File.WriteAllBytes(saveGameFile.FileName, h2.toBytes2(endianNess.little));
                         break;
 
                 }
@@ -1690,35 +1754,46 @@ namespace Citric_Composer
         //Save stream from wave.
         private void simpleWaveToGameStreamToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            b_stm b = new b_stm();
             waveSelectorBox.ShowDialog();
             if (waveSelectorBox.FileName != "")
             {
                 RIFF r = new RIFF();
                 r.load(File.ReadAllBytes(waveSelectorBox.FileName));
                 waveSelectorBox.FileName = "";
-                b = r.toGameWav().toB_stm();
-                b.update(endianNess.big, true);
 
+                Directory.SetCurrentDirectory(isabellePath + "/Data/Tools/Pack");
 
-                saveGameWaveBox.ShowDialog();
-                if (saveGameWaveBox.FileName != "")
+                File.WriteAllBytes("tmp.wav", r.toBytes(false));
+                Process p = new Process();
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                p.StartInfo.FileName = "BCSTM.bat";
+                p.StartInfo.Arguments = "tmp.wav";
+                p.Start();
+                p.WaitForExit();
+
+                b_stm h = new b_stm();
+                h.load(File.ReadAllBytes("tmp.bcstm"));
+                Directory.SetCurrentDirectory(isabellePath);
+
+                saveGameStreamBox.ShowDialog();
+                if (saveGameStreamBox.FileName != "")
                 {
 
-                    if (saveGameWaveBox.FilterIndex == 1)
+                    if (saveGameStreamBox.FilterIndex == 1)
                     {
 
-                        File.WriteAllBytes(saveGameWaveBox.FileName, b.toBytes(endianNess.big));
+                        File.WriteAllBytes(saveGameStreamBox.FileName, h.toBytes2(endianNess.big));
 
                     }
                     else
                     {
 
-                        File.WriteAllBytes(saveGameWaveBox.FileName, b.toBytes(endianNess.little));
+                        File.WriteAllBytes(saveGameStreamBox.FileName, h.toBytes2(endianNess.little));
 
                     }
-                    
-                    saveGameWaveBox.FileName = "";
+
+                    saveGameStreamBox.FileName = "";
 
                 }
             }
@@ -1754,11 +1829,47 @@ namespace Citric_Composer
                                     break;
 
                                 case 3:
-                                    File.WriteAllBytes(saveGameFile.FileName, b.toB_stm().toBytes(endianNess.big));
+                                    RIFF r = b.toRiff();
+                                    Directory.SetCurrentDirectory(isabellePath + "/Data/Tools/Pack");
+
+                                    File.WriteAllBytes("tmp.wav", r.toBytes(true));
+                                    Process p = new Process();
+                                    p.StartInfo.CreateNoWindow = true;
+                                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                                    p.StartInfo.FileName = "BCSTM.bat";
+                                    p.StartInfo.Arguments = "tmp.wav";
+                                    p.Start();
+                                    p.WaitForExit();
+
+                                    b_stm h = new b_stm();
+                                    h.load(File.ReadAllBytes("tmp.bcstm"));
+                                    h.info.stream.loop = b.info.loop;
+                                    h.info.stream.loopStart = b.info.loopStart;
+                                    Directory.SetCurrentDirectory(isabellePath);
+
+                                    File.WriteAllBytes(saveGameFile.FileName, h.toBytes2(endianNess.big));
                                     break;
 
                                 case 4:
-                                    File.WriteAllBytes(saveGameFile.FileName, b.toB_stm().toBytes(endianNess.little));
+                                    RIFF r2 = b.toRiff();
+                                    Directory.SetCurrentDirectory(isabellePath + "/Data/Tools/Pack");
+
+                                    File.WriteAllBytes("tmp.wav", r2.toBytes(true));
+                                    Process p2 = new Process();
+                                    p2.StartInfo.CreateNoWindow = true;
+                                    p2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                                    p2.StartInfo.FileName = "BCSTM.bat";
+                                    p2.StartInfo.Arguments = "tmp.wav";
+                                    p2.Start();
+                                    p2.WaitForExit();
+
+                                    b_stm h2 = new b_stm();
+                                    h2.load(File.ReadAllBytes("tmp.bcstm"));
+                                    h2.info.stream.loop = b.info.loop;
+                                    h2.info.stream.loopStart = b.info.loopStart;
+                                    Directory.SetCurrentDirectory(isabellePath);
+
+                                    File.WriteAllBytes(saveGameFile.FileName, h2.toBytes2(endianNess.little));
                                     break;
 
                             }
@@ -1791,11 +1902,12 @@ namespace Citric_Composer
                                     break;
 
                                 case 3:
-                                    File.WriteAllBytes(saveGameFile.FileName, s.toBytes(endianNess.big));
+
+                                    File.WriteAllBytes(saveGameFile.FileName, s.toBytes2(endianNess.big));
                                     break;
 
                                 case 4:
-                                    File.WriteAllBytes(saveGameFile.FileName, s.toBytes(endianNess.little));
+                                    File.WriteAllBytes(saveGameFile.FileName, s.toBytes2(endianNess.little));
                                     break;
 
                             }
