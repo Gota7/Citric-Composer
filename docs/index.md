@@ -8,6 +8,7 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 [Retsuko Sound Tool (Extractor/Injector)](https://github.com/Gota7/Citric-Composer/blob/master/Retsuko%20Sound%20Tool/Retsuko%20Sound%20Tool/bin/Debug/Retsuko%20Sound%20Tool.zip?raw=true) - For extracting and re-injecting files in a bfsar, bcsar, whatever. Just make sure the new files you want to add are less than or equal to the original files' file size.
 
+[Koopa Harmony (Bahp)](https://github.com/Gota7/Citric-Composer/blob/master/Koopa%20Harmony/Koopa%20Harmony/bin/Debug/Koopa%20Harmony.zip?raw=true) - For editing koopa dance moves in NSMB2, and maybe other games that use bbid.
 
 # Credits
 Nintendo, Tools, Structure Docs

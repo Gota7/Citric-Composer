@@ -1,0 +1,67 @@
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\Koopa Harmony.csprojResolveAssemblyReference.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\KoopaHarmony.KoopaHarmony.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\KoopaHarmony.SaveCloseDialog.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\Koopa Harmony.Properties.Resources.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\Koopa Harmony.csproj.GenerateResource.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\Koopa Harmony.csproj.CoreCompileInputs.cache
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\KoopaHarmony.SaveQuitDialog.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\KoopaHarmony.KoopaAbout.resources
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\pause.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\play4.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\dspadpcm.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\dsptool.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\msvcp110.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\msvcr110.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\soundfile.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\SoundFoundation.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\SoundFoundation.LegacyFormats.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\SoundFoundationCafe.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\SoundFoundationCtr.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\SoundRuntimeCafe.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\ToolDevelopmentKit.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\WavConvCafe.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Tools\WaveCodecCafe.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Koopa Harmony.exe.config
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Koopa Harmony.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Koopa Harmony.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\CSCore.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\NAudio.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Syroot.BinaryData.dll
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\CSCore.xml
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\MediaServer.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\NAudio.xml
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\Koopa Harmony.csproj.CopyComplete
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\Koopa Harmony.exe
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\obj\Debug\Koopa Harmony.pdb
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\anim\cheer.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\anim\idle.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\anim\left.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\anim\right.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\close.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\import.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\new.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\new2.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\open.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\quit.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\quitter.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\save.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\enemy\saveAs.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\bank.ico
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\bank.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\blank.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\FILES.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\group.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\lookup.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\player.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\player2.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\record.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\recordArc.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\seqArc.ico
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\seqArc.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\sseq.ico
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\sseq.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\strm.ico
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\strm.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\wave.ico
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\wave.png
+C:\Users\samsp\Documents\Visual Studio 2017\Projects\Koopa Harmony\Koopa Harmony\bin\Debug\Data\Image\tree\waveArchive.png
