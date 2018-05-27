@@ -60,6 +60,7 @@
             this.timeBar = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.projectPanel = new System.Windows.Forms.Panel();
+            this.loopStartRoundButton = new System.Windows.Forms.Button();
             this.updateProjectInfoButton = new System.Windows.Forms.Button();
             this.loopBox = new System.Windows.Forms.CheckBox();
             this.loopEndBox = new System.Windows.Forms.NumericUpDown();
@@ -435,6 +436,7 @@
             // 
             // projectPanel
             // 
+            this.projectPanel.Controls.Add(this.loopStartRoundButton);
             this.projectPanel.Controls.Add(this.updateProjectInfoButton);
             this.projectPanel.Controls.Add(this.loopBox);
             this.projectPanel.Controls.Add(this.loopEndBox);
@@ -450,12 +452,25 @@
             this.projectPanel.Size = new System.Drawing.Size(273, 411);
             this.projectPanel.TabIndex = 3;
             this.projectPanel.Visible = false;
+            this.projectPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.projectPanel_Paint);
+            // 
+            // loopStartRoundButton
+            // 
+            this.loopStartRoundButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loopStartRoundButton.Location = new System.Drawing.Point(3, 205);
+            this.loopStartRoundButton.Name = "loopStartRoundButton";
+            this.loopStartRoundButton.Size = new System.Drawing.Size(268, 23);
+            this.loopStartRoundButton.TabIndex = 10;
+            this.loopStartRoundButton.Text = "Eliminate Loop Static";
+            this.loopStartRoundButton.UseVisualStyleBackColor = true;
+            this.loopStartRoundButton.Click += new System.EventHandler(this.loopStartRoundButton_Click);
             // 
             // updateProjectInfoButton
             // 
             this.updateProjectInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateProjectInfoButton.Location = new System.Drawing.Point(3, 201);
+            this.updateProjectInfoButton.Location = new System.Drawing.Point(2, 234);
             this.updateProjectInfoButton.Name = "updateProjectInfoButton";
             this.updateProjectInfoButton.Size = new System.Drawing.Size(268, 23);
             this.updateProjectInfoButton.TabIndex = 9;
@@ -478,7 +493,7 @@
             // 
             this.loopEndBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopEndBox.Location = new System.Drawing.Point(2, 175);
+            this.loopEndBox.Location = new System.Drawing.Point(3, 179);
             this.loopEndBox.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -492,7 +507,7 @@
             // 
             this.loopEndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopEndLabel.Location = new System.Drawing.Point(2, 149);
+            this.loopEndLabel.Location = new System.Drawing.Point(3, 153);
             this.loopEndLabel.Name = "loopEndLabel";
             this.loopEndLabel.Size = new System.Drawing.Size(268, 23);
             this.loopEndLabel.TabIndex = 6;
@@ -883,7 +898,7 @@
             this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playLikeGameBox.Checked = true;
             this.playLikeGameBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.playLikeGameBox.Location = new System.Drawing.Point(461, 70);
+            this.playLikeGameBox.Location = new System.Drawing.Point(453, 77);
             this.playLikeGameBox.Name = "playLikeGameBox";
             this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
             this.playLikeGameBox.TabIndex = 17;
@@ -894,7 +909,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(460, 56);
+            this.label4.Location = new System.Drawing.Point(452, 63);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 16;
@@ -905,7 +920,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(479, 7);
+            this.label3.Location = new System.Drawing.Point(471, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -916,7 +931,7 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(447, 21);
+            this.volume.Location = new System.Drawing.Point(439, 28);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);
@@ -1326,5 +1341,6 @@
         private System.Windows.Forms.CheckBox playLikeGameBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.SaveFileDialog saveGameStreamBox;
+        private System.Windows.Forms.Button loopStartRoundButton;
     }
 }

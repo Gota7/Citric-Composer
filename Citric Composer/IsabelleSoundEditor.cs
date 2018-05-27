@@ -2047,6 +2047,53 @@ namespace Citric_Composer
 
         }
 
+        private void projectPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+
+        //Eliminate loop static.
+        private void loopStartRoundButton_Click(object sender, EventArgs e)
+        {
+
+            int rounded = (int)file.stream.loopStart / 14336;
+            int test1 = rounded * 14336;
+            int test2 = (rounded + 1) * 14336;
+            int close = Closer(test1, test2);
+            if (close == 0) { close = test1; }
+            file.stream.loopStart = (UInt32)close;
+            loopStartBox.Value = close;
+            updateNodes();
+
+        }
+
+        public int Closer(int a, int b)
+        {
+            int calcA = a - 14336;
+            int calcB = b - 14336;
+            if (Math.Abs(calcA) == Math.Abs(calcB))
+            {
+                return 0;
+            }
+            else if ((a >= 14336 || b >= 14336) && a < b)
+            {
+                return a;
+            }
+            else if ((a >= 14336 || b >= 14336) && b < a)
+            {
+                return b;
+            }
+            else if (calcB > calcA && Math.Abs(a) != Math.Abs(b))
+            {
+                return b;
+            }
+            else if ((calcA < 0 || calcB < 0) && (calcA > calcB && Math.Abs(a) != Math.Abs(b)))
+            {
+                return a;
+            }
+            else return Closer(a, b);
+        }
 
     }
 }
