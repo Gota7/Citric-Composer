@@ -349,14 +349,14 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.idleBox);
-            this.splitContainer1.Panel2.Controls.Add(this.rightSwingBox);
-            this.splitContainer1.Panel2.Controls.Add(this.cheerBox);
-            this.splitContainer1.Panel2.Controls.Add(this.leftSwingBox);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.playLikeGameBox);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.volume);
+            this.splitContainer1.Panel2.Controls.Add(this.idleBox);
+            this.splitContainer1.Panel2.Controls.Add(this.rightSwingBox);
+            this.splitContainer1.Panel2.Controls.Add(this.cheerBox);
+            this.splitContainer1.Panel2.Controls.Add(this.leftSwingBox);
             this.splitContainer1.Panel2.Controls.Add(this.tree);
             this.splitContainer1.Size = new System.Drawing.Size(883, 461);
             this.splitContainer1.SplitterDistance = 292;
@@ -797,7 +797,7 @@
             this.idleBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.idleBox.Image = ((System.Drawing.Image)(resources.GetObject("idleBox.Image")));
             this.idleBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("idleBox.InitialImage")));
-            this.idleBox.Location = new System.Drawing.Point(287, 96);
+            this.idleBox.Location = new System.Drawing.Point(287, 98);
             this.idleBox.Name = "idleBox";
             this.idleBox.Size = new System.Drawing.Size(279, 356);
             this.idleBox.TabIndex = 18;
@@ -821,7 +821,7 @@
             this.cheerBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.cheerBox.Image = ((System.Drawing.Image)(resources.GetObject("cheerBox.Image")));
             this.cheerBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("cheerBox.InitialImage")));
-            this.cheerBox.Location = new System.Drawing.Point(287, 96);
+            this.cheerBox.Location = new System.Drawing.Point(287, 98);
             this.cheerBox.Name = "cheerBox";
             this.cheerBox.Size = new System.Drawing.Size(279, 356);
             this.cheerBox.TabIndex = 19;
@@ -844,7 +844,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(504, 3);
+            this.label3.Location = new System.Drawing.Point(498, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -857,7 +857,7 @@
             this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playLikeGameBox.Checked = true;
             this.playLikeGameBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.playLikeGameBox.Location = new System.Drawing.Point(486, 66);
+            this.playLikeGameBox.Location = new System.Drawing.Point(480, 66);
             this.playLikeGameBox.Name = "playLikeGameBox";
             this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
             this.playLikeGameBox.TabIndex = 17;
@@ -868,7 +868,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(485, 52);
+            this.label4.Location = new System.Drawing.Point(479, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 16;
@@ -879,7 +879,7 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(472, 17);
+            this.volume.Location = new System.Drawing.Point(466, 17);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);

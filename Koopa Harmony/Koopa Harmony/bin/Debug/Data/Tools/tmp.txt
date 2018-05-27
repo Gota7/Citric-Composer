@@ -2,23 +2,23 @@
 Header size: 96 bytes
 
 Sample     : 'tmp.dsp'
-Length     : 2447977 samples
-Num nibbles: 6994590 ADPCM nibbles
+Length     : 2768862 samples
+Num nibbles: 7911400 ADPCM nibbles
 Sample Rate: 32000 Hz
 Loop Flag  : NOT LOOPED
 
 Start Addr : 0x00000002 + ARAM_offset (ADPCM nibble mode)
-End Addr   : 0x006ABA9D + ARAM_offset (ADPCM nibble mode)
+End Addr   : 0x0078B7E7 + ARAM_offset (ADPCM nibble mode)
 Curr Addr  : 0x00000002 + ARAM_offset (ADPCM nibble mode)
 
-a1[0]: 0xFF18 a2[0]: 0x02A2 
-a1[1]: 0x09E6 a2[1]: 0xFD56 
-a1[2]: 0x03E7 a2[2]: 0x0168 
-a1[3]: 0x0F83 a2[3]: 0xF83C 
-a1[4]: 0x02EB a2[4]: 0xFEDC 
-a1[5]: 0x0CCE a2[5]: 0xFAFB 
-a1[6]: 0x04E4 a2[6]: 0x022E 
-a1[7]: 0x0F92 a2[7]: 0xF84C 
+a1[0]: 0xFDD1 a2[0]: 0xFFD4 
+a1[1]: 0x017D a2[1]: 0x037C 
+a1[2]: 0x020B a2[2]: 0xFF1B 
+a1[3]: 0x07BC a2[3]: 0xFF3D 
+a1[4]: 0x0024 a2[4]: 0xFFBB 
+a1[5]: 0x0414 a2[5]: 0x02DD 
+a1[6]: 0x0415 a2[6]: 0xFFC6 
+a1[7]: 0x0F4D a2[7]: 0xF879 
 
 Gain      : 0x0000
 Pred/Scale: 0x0000
