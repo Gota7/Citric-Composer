@@ -997,24 +997,24 @@ namespace KoopaHarmony
                 if (fileOpen && players != null) {
                     if (players[0].source != null)
                     {
-                        currentSample.Text = "Current Sample: " + players[0].source.Position/2;
+                        currentSample.Text = "Current Sample: " + players[0].source.Position / 2;
                         gotoSampleBox.Enabled = true;
                         gotoSampleButton.Enabled = true;
                         gotoSampleBox.Maximum = file.stream.loopEnd;
-                        newEventButton.Enabled = true;
-                        setEventButton.Enabled = true;
-                        jumpToSampleButton.Enabled = true;
-                        afterLoopBox.Enabled = true;
 
                         try
                         {
 
                             if (idFile != null)
                             {
-                                for (int i = idFile.sampleNumbers.Count-1; i >= 0; i--)
+                                newEventButton.Enabled = true;
+                                setEventButton.Enabled = true;
+                                jumpToSampleButton.Enabled = true;
+                                afterLoopBox.Enabled = true;
+                                for (int i = idFile.sampleNumbers.Count - 1; i >= 0; i--)
                                 {
 
-                                    long pos = players[0].source.Position/2;
+                                    long pos = players[0].source.Position / 2;
                                     if (pos > file.stream.loopEnd) { pos = pos - file.stream.loopEnd + file.stream.loopStart; }
                                     UInt32 sam = idFile.sampleNumbers[i];
                                     if (sam > file.stream.loopEnd) { sam = sam - file.stream.loopEnd + file.stream.loopStart; }
@@ -1046,7 +1046,8 @@ namespace KoopaHarmony
 
                                         }
                                     }
-                                    else {
+                                    else
+                                    {
                                         koopaAnimationCounter += 1;
 
                                         if (fast)
@@ -1060,7 +1061,7 @@ namespace KoopaHarmony
                                             }
                                             else
                                             {
-                                                if (koopaAnimationCounter > (file.stream.sampleRate * (decimal)(3) * (decimal)(1 - (100 - idFile.tempo) * .01))/(decimal)1.7)
+                                                if (koopaAnimationCounter > (file.stream.sampleRate * (decimal)(3) * (decimal)(1 - (100 - idFile.tempo) * .01)) / (decimal)1.7)
                                                 {
                                                     idleBox.BringToFront();
                                                 }
@@ -1078,7 +1079,7 @@ namespace KoopaHarmony
                                             }
                                             else
                                             {
-                                                if (koopaAnimationCounter > file.stream.sampleRate * (decimal)(3)*(decimal)(1-(100-idFile.tempo)*.01))
+                                                if (koopaAnimationCounter > file.stream.sampleRate * (decimal)(3) * (decimal)(1 - (100 - idFile.tempo) * .01))
                                                 {
                                                     idleBox.BringToFront();
                                                 }
@@ -1088,10 +1089,22 @@ namespace KoopaHarmony
 
                                 }
                             }
+                            else
+                            {
+                                newEventButton.Enabled = false;
+                                setEventButton.Enabled = false;
+                                jumpToSampleButton.Enabled = false;
+                                afterLoopBox.Enabled = false;
+                            }
 
                         }
                         catch { }
 
+                    }
+                    else {
+                        gotoSampleBox.Enabled = false;
+                        gotoSampleButton.Enabled = false;
+                        gotoSampleBox.Maximum = 100;
                     }
                 }
                 else

@@ -745,7 +745,7 @@
             this.panBox.Name = "panBox";
             this.panBox.Size = new System.Drawing.Size(268, 20);
             this.panBox.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.panBox, "Pan of the track, between 0 and 127. 40 is middle.");
+            this.toolTip1.SetToolTip(this.panBox, "Pan of the track, between 0 and 127. 64 is middle.");
             this.panBox.ValueChanged += new System.EventHandler(this.panTrack);
             // 
             // panLabel
@@ -898,7 +898,7 @@
             this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playLikeGameBox.Checked = true;
             this.playLikeGameBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.playLikeGameBox.Location = new System.Drawing.Point(453, 77);
+            this.playLikeGameBox.Location = new System.Drawing.Point(455, 77);
             this.playLikeGameBox.Name = "playLikeGameBox";
             this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
             this.playLikeGameBox.TabIndex = 17;
@@ -909,7 +909,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(452, 63);
+            this.label4.Location = new System.Drawing.Point(454, 63);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 16;
@@ -920,7 +920,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(471, 14);
+            this.label3.Location = new System.Drawing.Point(473, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -931,7 +931,7 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(439, 28);
+            this.volume.Location = new System.Drawing.Point(441, 28);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);

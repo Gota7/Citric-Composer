@@ -473,7 +473,7 @@ namespace Citric_Composer
                 t.channels = new List<byte>();
                 t.flags = 0;
                 t.magic = "TRAC".ToCharArray();
-                t.pan = 40;
+                t.pan = 64;
                 t.volume = 127;
                 file.tracks.Add(t);
 
