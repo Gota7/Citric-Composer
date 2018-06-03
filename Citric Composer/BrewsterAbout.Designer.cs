@@ -38,7 +38,7 @@
             // aboutLabel
             // 
             this.aboutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aboutLabel.Location = new System.Drawing.Point(313, 9);
+            this.aboutLabel.Location = new System.Drawing.Point(316, 4);
             this.aboutLabel.Name = "aboutLabel";
             this.aboutLabel.Size = new System.Drawing.Size(100, 37);
             this.aboutLabel.TabIndex = 1;
@@ -56,15 +56,13 @@
             this.textBox1.Enabled = false;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.textBox1.Location = new System.Drawing.Point(237, 49);
+            this.textBox1.Location = new System.Drawing.Point(237, 44);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(251, 289);
             this.textBox1.TabIndex = 6;
-            this.textBox1.Text = "Brewster\'s Archive Brewer:\r\nAn extension of Citric Composer\r\nfor wave archive edi" +
-    "ting.\r\n\r\n\r\n\r\n\r\n\r\nCredits:\r\nGota7, Tools, Structure Docs\r\n\r\n\r\n\r\n\r\n\r\n©2018 Gota7\r\n" +
-    "(Everything but some Images)";
+            this.textBox1.Text = resources.GetString("textBox1.Text");
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pictureBox1

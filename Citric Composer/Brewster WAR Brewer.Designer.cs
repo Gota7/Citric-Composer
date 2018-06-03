@@ -45,13 +45,15 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutBrewsterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.noInfoPanel = new System.Windows.Forms.Panel();
             this.playerPanel = new System.Windows.Forms.Panel();
             this.stopButton = new System.Windows.Forms.Button();
             this.pauseButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.noInfoPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.volumeBar = new System.Windows.Forms.TrackBar();
             this.tree = new System.Windows.Forms.TreeView();
             this.treeIcons = new System.Windows.Forms.ImageList(this.components);
             this.warOpen = new System.Windows.Forms.OpenFileDialog();
@@ -68,16 +70,28 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byteStrip = new System.Windows.Forms.StatusStrip();
             this.bytesLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.warSave = new System.Windows.Forms.SaveFileDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.exportWavesToFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderOpen = new System.Windows.Forms.FolderBrowserDialog();
+            this.importWavesFromFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.soundOpen = new System.Windows.Forms.OpenFileDialog();
+            this.soundSave = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formClosing);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.noInfoPanel.SuspendLayout();
             this.playerPanel.SuspendLayout();
+            this.noInfoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).BeginInit();
             this.rootMenu.SuspendLayout();
             this.nodeMenu.SuspendLayout();
             this.byteStrip.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -109,7 +123,7 @@
             // 
             this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -117,7 +131,7 @@
             // 
             this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -125,35 +139,41 @@
             // 
             this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveAsToolStripMenuItem.Image")));
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("closeToolStripMenuItem.Image")));
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToolStripMenuItem.Text = "Close File";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("quitToolStripMenuItem.Image")));
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importFromFolderToolStripMenuItem,
-            this.exportToFolderToolStripMenuItem});
+            this.exportToFolderToolStripMenuItem,
+            this.importWavesFromFolderToolStripMenuItem,
+            this.exportWavesToFolderToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -162,15 +182,17 @@
             // 
             this.importFromFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importFromFolderToolStripMenuItem.Image")));
             this.importFromFolderToolStripMenuItem.Name = "importFromFolderToolStripMenuItem";
-            this.importFromFolderToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.importFromFolderToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.importFromFolderToolStripMenuItem.Text = "Import From Folder";
+            this.importFromFolderToolStripMenuItem.Click += new System.EventHandler(this.importFromFolderToolStripMenuItem_Click);
             // 
             // exportToFolderToolStripMenuItem
             // 
             this.exportToFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportToFolderToolStripMenuItem.Image")));
             this.exportToFolderToolStripMenuItem.Name = "exportToFolderToolStripMenuItem";
-            this.exportToFolderToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.exportToFolderToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.exportToFolderToolStripMenuItem.Text = "Export To Folder";
+            this.exportToFolderToolStripMenuItem.Click += new System.EventHandler(this.exportToFolderToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -197,64 +219,66 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.playerPanel);
             this.splitContainer1.Panel1.Controls.Add(this.noInfoPanel);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label3);
+            this.splitContainer1.Panel2.Controls.Add(this.volumeBar);
             this.splitContainer1.Panel2.Controls.Add(this.tree);
             this.splitContainer1.Size = new System.Drawing.Size(809, 415);
             this.splitContainer1.SplitterDistance = 269;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 1;
             // 
-            // noInfoPanel
-            // 
-            this.noInfoPanel.Controls.Add(this.playerPanel);
-            this.noInfoPanel.Controls.Add(this.label1);
-            this.noInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.noInfoPanel.Location = new System.Drawing.Point(0, 0);
-            this.noInfoPanel.Name = "noInfoPanel";
-            this.noInfoPanel.Size = new System.Drawing.Size(267, 413);
-            this.noInfoPanel.TabIndex = 0;
-            // 
             // playerPanel
             // 
+            this.playerPanel.Controls.Add(this.tableLayoutPanel1);
             this.playerPanel.Controls.Add(this.stopButton);
-            this.playerPanel.Controls.Add(this.pauseButton);
-            this.playerPanel.Controls.Add(this.playButton);
             this.playerPanel.Controls.Add(this.label2);
             this.playerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playerPanel.Location = new System.Drawing.Point(0, 0);
             this.playerPanel.Name = "playerPanel";
             this.playerPanel.Size = new System.Drawing.Size(267, 413);
             this.playerPanel.TabIndex = 1;
+            this.playerPanel.Visible = false;
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(3, 54);
+            this.stopButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.stopButton.Location = new System.Drawing.Point(6, 61);
             this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(261, 23);
+            this.stopButton.Size = new System.Drawing.Size(255, 23);
             this.stopButton.TabIndex = 3;
             this.stopButton.Text = "Stop";
             this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
             // pauseButton
             // 
-            this.pauseButton.Location = new System.Drawing.Point(139, 25);
+            this.pauseButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pauseButton.Location = new System.Drawing.Point(133, 3);
             this.pauseButton.Name = "pauseButton";
             this.pauseButton.Size = new System.Drawing.Size(125, 23);
             this.pauseButton.TabIndex = 2;
             this.pauseButton.Text = "Pause";
             this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // playButton
             // 
-            this.playButton.Location = new System.Drawing.Point(3, 25);
+            this.playButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.playButton.Location = new System.Drawing.Point(3, 3);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(130, 23);
+            this.playButton.Size = new System.Drawing.Size(124, 23);
             this.playButton.TabIndex = 1;
             this.playButton.Text = "Play";
             this.playButton.UseVisualStyleBackColor = true;
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // label2
             // 
@@ -267,6 +291,15 @@
             this.label2.Text = "Sound Player Deluxe™";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // noInfoPanel
+            // 
+            this.noInfoPanel.Controls.Add(this.label1);
+            this.noInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.noInfoPanel.Location = new System.Drawing.Point(0, 0);
+            this.noInfoPanel.Name = "noInfoPanel";
+            this.noInfoPanel.Size = new System.Drawing.Size(267, 413);
+            this.noInfoPanel.TabIndex = 0;
+            // 
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -276,6 +309,30 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "No Valid Info Selected!";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(405, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 23);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Volume:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // volumeBar
+            // 
+            this.volumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.volumeBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.volumeBar.Location = new System.Drawing.Point(401, 32);
+            this.volumeBar.Maximum = 100;
+            this.volumeBar.Name = "volumeBar";
+            this.volumeBar.Size = new System.Drawing.Size(104, 45);
+            this.volumeBar.TabIndex = 1;
+            this.volumeBar.TickFrequency = 10;
+            this.volumeBar.Value = 50;
+            this.volumeBar.Scroll += new System.EventHandler(this.volumeBar_Scroll);
             // 
             // tree
             // 
@@ -295,6 +352,7 @@
             this.tree.TabIndex = 0;
             this.tree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_NodeMouseClick);
             this.tree.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tree_NodeKey);
+            this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.lauchIsabelle);
             // 
             // treeIcons
             // 
@@ -323,6 +381,7 @@
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // expandToolStripMenuItem
             // 
@@ -330,6 +389,7 @@
             this.expandToolStripMenuItem.Name = "expandToolStripMenuItem";
             this.expandToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.expandToolStripMenuItem.Text = "Expand";
+            this.expandToolStripMenuItem.Click += new System.EventHandler(this.expandToolStripMenuItem_Click);
             // 
             // collapseToolStripMenuItem
             // 
@@ -337,6 +397,7 @@
             this.collapseToolStripMenuItem.Name = "collapseToolStripMenuItem";
             this.collapseToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.collapseToolStripMenuItem.Text = "Collapse";
+            this.collapseToolStripMenuItem.Click += new System.EventHandler(this.collapseToolStripMenuItem_Click);
             // 
             // nodeMenu
             // 
@@ -345,10 +406,11 @@
             this.addBelowToolStripMenuItem,
             this.moveUpToolStripMenuItem,
             this.moveDownToolStripMenuItem,
+            this.exportToolStripMenuItem,
             this.replaceToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.nodeMenu.Name = "nodeMenu";
-            this.nodeMenu.Size = new System.Drawing.Size(139, 136);
+            this.nodeMenu.Size = new System.Drawing.Size(139, 158);
             // 
             // addAboveToolStripMenuItem
             // 
@@ -356,6 +418,7 @@
             this.addAboveToolStripMenuItem.Name = "addAboveToolStripMenuItem";
             this.addAboveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.addAboveToolStripMenuItem.Text = "Add Above";
+            this.addAboveToolStripMenuItem.Click += new System.EventHandler(this.addAboveToolStripMenuItem_Click);
             // 
             // addBelowToolStripMenuItem
             // 
@@ -363,6 +426,7 @@
             this.addBelowToolStripMenuItem.Name = "addBelowToolStripMenuItem";
             this.addBelowToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.addBelowToolStripMenuItem.Text = "Add Below";
+            this.addBelowToolStripMenuItem.Click += new System.EventHandler(this.addBelowToolStripMenuItem_Click);
             // 
             // moveUpToolStripMenuItem
             // 
@@ -370,6 +434,7 @@
             this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
             this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.moveUpToolStripMenuItem.Text = "Move Up";
+            this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
             // 
             // moveDownToolStripMenuItem
             // 
@@ -377,6 +442,7 @@
             this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
             this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.moveDownToolStripMenuItem.Text = "Move Down";
+            this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
             // replaceToolStripMenuItem
             // 
@@ -384,6 +450,7 @@
             this.replaceToolStripMenuItem.Name = "replaceToolStripMenuItem";
             this.replaceToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.replaceToolStripMenuItem.Text = "Replace";
+            this.replaceToolStripMenuItem.Click += new System.EventHandler(this.replaceToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -391,6 +458,7 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // byteStrip
             // 
@@ -401,13 +469,71 @@
             this.byteStrip.Size = new System.Drawing.Size(809, 22);
             this.byteStrip.TabIndex = 4;
             this.byteStrip.Text = "statusStrip1";
-            this.byteStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // bytesLabel
             // 
             this.bytesLabel.Name = "bytesLabel";
             this.bytesLabel.Size = new System.Drawing.Size(104, 17);
             this.bytesLabel.Text = "No Bytes Selected!";
+            // 
+            // warSave
+            // 
+            this.warSave.Filter = "Cafe Wave Archive|*.bfwar|Citra Wave Archive|*.bcwar";
+            this.warSave.RestoreDirectory = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.playButton, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pauseButton, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 25);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(261, 30);
+            this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // exportWavesToFolderToolStripMenuItem
+            // 
+            this.exportWavesToFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportWavesToFolderToolStripMenuItem.Image")));
+            this.exportWavesToFolderToolStripMenuItem.Name = "exportWavesToFolderToolStripMenuItem";
+            this.exportWavesToFolderToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.exportWavesToFolderToolStripMenuItem.Text = "Export Waves To Folder";
+            this.exportWavesToFolderToolStripMenuItem.Click += new System.EventHandler(this.exportWavesToFolderToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportToolStripMenuItem.Image")));
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // folderOpen
+            // 
+            this.folderOpen.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // importWavesFromFolderToolStripMenuItem
+            // 
+            this.importWavesFromFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importWavesFromFolderToolStripMenuItem.Image")));
+            this.importWavesFromFolderToolStripMenuItem.Name = "importWavesFromFolderToolStripMenuItem";
+            this.importWavesFromFolderToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.importWavesFromFolderToolStripMenuItem.Text = "Import Waves From Folder";
+            this.importWavesFromFolderToolStripMenuItem.Click += new System.EventHandler(this.importWavesFromFolderToolStripMenuItem_Click);
+            // 
+            // soundOpen
+            // 
+            this.soundOpen.Filter = "Cafe Wave|*.bfwav|Citra Wave|*.bcwav|Sound Wave|*.wav";
+            this.soundOpen.RestoreDirectory = true;
+            // 
+            // soundSave
+            // 
+            this.soundSave.Filter = "Cafe Wave|*.bfwav|Citra Wave|*.bcwav|Sound Wave|*.wav";
+            this.soundSave.RestoreDirectory = true;
             // 
             // Brewster_WAR_Brewer
             // 
@@ -426,14 +552,17 @@
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.noInfoPanel.ResumeLayout(false);
             this.playerPanel.ResumeLayout(false);
+            this.noInfoPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).EndInit();
             this.rootMenu.ResumeLayout(false);
             this.nodeMenu.ResumeLayout(false);
             this.byteStrip.ResumeLayout(false);
             this.byteStrip.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -478,5 +607,16 @@
         private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button stopButton;
+        private System.Windows.Forms.SaveFileDialog warSave;
+        private System.Windows.Forms.TrackBar volumeBar;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ToolStripMenuItem exportWavesToFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog folderOpen;
+        private System.Windows.Forms.ToolStripMenuItem importWavesFromFolderToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog soundOpen;
+        private System.Windows.Forms.SaveFileDialog soundSave;
     }
 }

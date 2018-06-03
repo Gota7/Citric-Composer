@@ -2565,10 +2565,6 @@ namespace CitraFileLoader
 
 
 
-
-
-
-
     /// <summary>
     /// Wave file.
     /// </summary>
@@ -3479,6 +3475,8 @@ namespace CitraFileLoader
 	public class b_war
     {
 
+        public ByteOrder endian; //Endian.
+
         public char[] magic; //FWAR; CWAR.
         public UInt16 byteOrder; //0xFEFF Big, 0xFFFE Little.
         public UInt16 headerSize; //Size of header.
@@ -3585,10 +3583,12 @@ namespace CitraFileLoader
 
             if (byteOrder == 0xFEFF)
             {
+                endian = ByteOrder.BigEndian;
                 br.ByteOrder = ByteOrder.BigEndian;
             }
             else
             {
+                endian = ByteOrder.LittleEndian;
                 br.ByteOrder = ByteOrder.LittleEndian;
                 byteOrder = 0xFEFF;
             }
@@ -3873,6 +3873,26 @@ namespace CitraFileLoader
 
         }
 
+        /// <summary>
+        /// Extract waves to folder.
+        /// </summary>
+        /// <param name="path"></param>
+        public void extractWaves(string path)
+        {
+
+            int id = 0;
+            foreach (fileBlock.fileEntry file in file.files)
+            {
+                b_wav b = new b_wav();
+                b.load(file.file);
+                RIFF r = b.toRiff();
+                r.fixOffsets();
+                File.WriteAllBytes(path + "/" + id.ToString("D4") + ".wav", r.toBytes());
+                id += 1;
+            }
+
+        }
+
 
         /// <summary>
         /// Compress path to file.
@@ -3902,6 +3922,39 @@ namespace CitraFileLoader
             update(ByteOrder.BigEndian);
 
         }
+
+
+        /// <summary>
+        /// Compress waves to file.
+        /// </summary>
+        /// <param name="path"></param>
+        public void compressWaves(string path)
+        {
+
+            string[] names = Directory.GetFiles(path);
+            List<byte[]> files = new List<byte[]>();
+            foreach (string name in names)
+            {
+                RIFF r = new RIFF();
+                r.load(File.ReadAllBytes(name));
+                files.Add(r.toGameWav().toBytes(endianNess.big));
+            }
+
+            file = new fileBlock();
+            file.files = new List<fileBlock.fileEntry>();
+            foreach (byte[] b in files)
+            {
+
+                fileBlock.fileEntry e = new fileBlock.fileEntry();
+                e.file = b;
+                e.padding = new byte[0];
+                file.files.Add(e);
+
+            }
+            update(ByteOrder.BigEndian);
+
+        }
+
 
     }
 

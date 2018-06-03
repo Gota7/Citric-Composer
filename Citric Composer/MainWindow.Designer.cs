@@ -29,17 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Sequence Sounds", 3, 3);
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Sequence Sound Sets", 4, 4);
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Banks", 5, 5);
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Stream Sounds", 1, 1);
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Wave Sound Sets", 2, 2);
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Waveform Archives", 6, 6);
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Groups", 7, 7);
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Players", 8, 8);
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Lookup Table", 9, 9);
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Misc. Information", 10, 10);
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("FILES", 11, 11);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Sequence Sounds", 3, 3);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Sequence Sound Sets", 4, 4);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Banks", 5, 5);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Stream Sounds", 1, 1);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Wave Sound Sets", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Waveform Archives", 6, 6);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Groups", 7, 7);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Players", 8, 8);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Misc. Information", 10, 10);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("FILES", 11, 11);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.noInfoPanel = new System.Windows.Forms.Panel();
@@ -63,11 +62,12 @@
             this.importFromFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.isabelleSoundEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.brewstersArchiveBrewerWARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutCitricComposerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.brewstersArchiveBrewerWARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -123,62 +123,57 @@
             this.tree.Indent = 12;
             this.tree.Location = new System.Drawing.Point(0, 0);
             this.tree.Name = "tree";
-            treeNode12.ImageIndex = 3;
-            treeNode12.Name = "sequenceSounds";
-            treeNode12.SelectedImageIndex = 3;
-            treeNode12.Text = "Sequence Sounds";
-            treeNode13.ImageIndex = 4;
-            treeNode13.Name = "sequenceSoundSets";
-            treeNode13.SelectedImageIndex = 4;
-            treeNode13.Text = "Sequence Sound Sets";
-            treeNode14.ImageIndex = 5;
-            treeNode14.Name = "banks";
-            treeNode14.SelectedImageIndex = 5;
-            treeNode14.Text = "Banks";
-            treeNode15.ImageIndex = 1;
-            treeNode15.Name = "streamSounds";
-            treeNode15.SelectedImageIndex = 1;
-            treeNode15.Text = "Stream Sounds";
-            treeNode16.ImageIndex = 2;
-            treeNode16.Name = "waveSoundSets";
-            treeNode16.SelectedImageIndex = 2;
-            treeNode16.Text = "Wave Sound Sets";
-            treeNode17.ImageIndex = 6;
-            treeNode17.Name = "waveformArchives";
-            treeNode17.SelectedImageIndex = 6;
-            treeNode17.Text = "Waveform Archives";
-            treeNode18.ImageIndex = 7;
-            treeNode18.Name = "groups";
-            treeNode18.SelectedImageIndex = 7;
-            treeNode18.Text = "Groups";
-            treeNode19.ImageIndex = 8;
-            treeNode19.Name = "players";
-            treeNode19.SelectedImageIndex = 8;
-            treeNode19.Text = "Players";
-            treeNode20.ImageIndex = 9;
-            treeNode20.Name = "lookupTable";
-            treeNode20.SelectedImageIndex = 9;
-            treeNode20.Text = "Lookup Table";
-            treeNode21.ImageIndex = 10;
-            treeNode21.Name = "miscInfo";
-            treeNode21.SelectedImageIndex = 10;
-            treeNode21.Text = "Misc. Information";
-            treeNode22.ImageIndex = 11;
-            treeNode22.Name = "files";
-            treeNode22.SelectedImageIndex = 11;
-            treeNode22.Text = "FILES";
+            treeNode1.ImageIndex = 3;
+            treeNode1.Name = "sequenceSounds";
+            treeNode1.SelectedImageIndex = 3;
+            treeNode1.Text = "Sequence Sounds";
+            treeNode2.ImageIndex = 4;
+            treeNode2.Name = "sequenceSoundSets";
+            treeNode2.SelectedImageIndex = 4;
+            treeNode2.Text = "Sequence Sound Sets";
+            treeNode3.ImageIndex = 5;
+            treeNode3.Name = "banks";
+            treeNode3.SelectedImageIndex = 5;
+            treeNode3.Text = "Banks";
+            treeNode4.ImageIndex = 1;
+            treeNode4.Name = "streamSounds";
+            treeNode4.SelectedImageIndex = 1;
+            treeNode4.Text = "Stream Sounds";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "waveSoundSets";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "Wave Sound Sets";
+            treeNode6.ImageIndex = 6;
+            treeNode6.Name = "waveformArchives";
+            treeNode6.SelectedImageIndex = 6;
+            treeNode6.Text = "Waveform Archives";
+            treeNode7.ImageIndex = 7;
+            treeNode7.Name = "groups";
+            treeNode7.SelectedImageIndex = 7;
+            treeNode7.Text = "Groups";
+            treeNode8.ImageIndex = 8;
+            treeNode8.Name = "players";
+            treeNode8.SelectedImageIndex = 8;
+            treeNode8.Text = "Players";
+            treeNode9.ImageIndex = 10;
+            treeNode9.Name = "miscInfo";
+            treeNode9.SelectedImageIndex = 10;
+            treeNode9.Text = "Misc. Information";
+            treeNode10.ImageIndex = 11;
+            treeNode10.Name = "files";
+            treeNode10.SelectedImageIndex = 11;
+            treeNode10.Text = "FILES";
             this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode12,
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20,
-            treeNode21,
-            treeNode22});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10});
             this.tree.SelectedImageIndex = 0;
             this.tree.ShowLines = false;
             this.tree.Size = new System.Drawing.Size(609, 473);
@@ -241,7 +236,8 @@
             this.editToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(850, 24);
@@ -355,6 +351,14 @@
             this.isabelleSoundEditorToolStripMenuItem.Text = "Isabelle Sound Editor (WAV, STM)";
             this.isabelleSoundEditorToolStripMenuItem.Click += new System.EventHandler(this.isabelleSoundEditorToolStripMenuItem_Click);
             // 
+            // brewstersArchiveBrewerWARToolStripMenuItem
+            // 
+            this.brewstersArchiveBrewerWARToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("brewstersArchiveBrewerWARToolStripMenuItem.Image")));
+            this.brewstersArchiveBrewerWARToolStripMenuItem.Name = "brewstersArchiveBrewerWARToolStripMenuItem";
+            this.brewstersArchiveBrewerWARToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.brewstersArchiveBrewerWARToolStripMenuItem.Text = "Brewster\'s Archive Brewer (WAR)";
+            this.brewstersArchiveBrewerWARToolStripMenuItem.Click += new System.EventHandler(this.brewstersArchiveBrewerWARToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -386,13 +390,11 @@
             this.aboutCitricComposerToolStripMenuItem.Text = "About Citric Composer";
             this.aboutCitricComposerToolStripMenuItem.Click += new System.EventHandler(this.aboutCitricComposerToolStripMenuItem_Click);
             // 
-            // brewstersArchiveBrewerWARToolStripMenuItem
+            // nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem
             // 
-            this.brewstersArchiveBrewerWARToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("brewstersArchiveBrewerWARToolStripMenuItem.Image")));
-            this.brewstersArchiveBrewerWARToolStripMenuItem.Name = "brewstersArchiveBrewerWARToolStripMenuItem";
-            this.brewstersArchiveBrewerWARToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.brewstersArchiveBrewerWARToolStripMenuItem.Text = "Brewster\'s Archive Brewer (WAR)";
-            this.brewstersArchiveBrewerWARToolStripMenuItem.Click += new System.EventHandler(this.brewstersArchiveBrewerWARToolStripMenuItem_Click);
+            this.nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem.Name = "nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem";
+            this.nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem.Size = new System.Drawing.Size(258, 20);
+            this.nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem.Text = "NOTE: ONLY TOOLS WORK ATM, BUT ENJOY!";
             // 
             // MainWindow
             // 
@@ -404,7 +406,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
-            this.Text = "Citric Composer";
+            this.Text = "Citric Composer - TOOL DEMO";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -448,6 +450,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem isabelleSoundEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem brewstersArchiveBrewerWARToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nOTEONLYTOOLSWORKATMBUTENJOYToolStripMenuItem;
     }
 }
 

@@ -14,11 +14,18 @@ namespace Citric_Composer
     {
 
         IsabelleSoundEditor parent;
+        Brewster_WAR_Brewer parentTwo;
 
         public SaveQuitDialog(IsabelleSoundEditor parent2)
         {
             InitializeComponent();
             parent = parent2;
+        }
+
+        public SaveQuitDialog(Brewster_WAR_Brewer parent2)
+        {
+            InitializeComponent();
+            parentTwo = parent2;
         }
 
         private void SaveQuitDialog_Load(object sender, EventArgs e)
@@ -33,16 +40,19 @@ namespace Citric_Composer
 
         private void NoButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            try { parent.Close(); } catch { }
+            try { parentTwo.Close(); } catch { }
         }
 
         private void YesButton_Click(object sender, EventArgs e)
         {
             //Save application
-            parent.save();
+            try { parent.save(); } catch { }
+            try { parentTwo.save(); } catch { }
 
             //Exit application
-            Application.Exit();
+            try { parent.Close(); } catch { }
+            try { parentTwo.Close(); } catch { }
 
         }
     }

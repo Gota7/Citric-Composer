@@ -22,12 +22,109 @@ namespace Citric_Composer
 {
     public partial class IsabelleSoundEditor : Form
     {
+
+        Thread loopThread;
+
         public IsabelleSoundEditor()
+        {
+            InitializeComponent();
+            loopThread = new Thread(loop);
+            loopThread.IsBackground = true;
+            loopThread.Start();
+        }
+
+
+        public IsabelleSoundEditor(Brewster_WAR_Brewer war2, int index, string text)
         {
             InitializeComponent();
             Thread loopThread = new Thread(loop);
             loopThread.IsBackground = true;
             loopThread.Start();
+            war = war2;
+            launchMode = 1;
+            fileIndex = index;
+
+            //Transform Isabelle.
+            this.Text = "Isabelle Sound Editor (WAR Mode) - " + text;
+            fileNamePath = "INTERNAL";
+            openToolStripMenuItem.Text = "Import From File";
+            closeToolStripMenuItem.Visible = false;
+            exportBinaryToolStripMenuItem.Image = saveAsToolStripMenuItem.Image;
+            exportBinaryToolStripMenuItem.ShortcutKeys = saveAsToolStripMenuItem.ShortcutKeys;
+            exportBinaryToolStripMenuItem.Text = "Save As";
+            saveAsToolStripMenuItem.Visible = false;
+            b_wav b = new b_wav();
+            b.load(war.file.file.files[fileIndex].file);
+
+            //Make new CISP.
+            file = new CISP();
+            file.stream = new CISP.streamInfo();
+            file.stream.loop = 0;
+            file.stream.loopStart = 0;
+            file.stream.loopEnd = 0;
+            file.stream.sampleRate = 0xFFFFFFFF;
+            file.stream.sampleSize = 0;
+            byte[] seek = { 2 };
+            file.seekBlock = seek;
+            file.tracks = new List<CISP.trackInfo>();
+            file.channelData = new List<UInt16[]>();
+
+            projectPanel.Hide();
+            channelPanel.Hide();
+            trackPanel.Hide();
+            noInfoPanel.Show();
+            file.seekSize = 0;
+            file.seekBlock = new byte[0];
+            file.stream.loop = b.info.loop;
+            file.stream.loopEnd = b.info.loopEnd;
+            file.stream.loopStart = b.info.loopStart;
+            file.stream.sampleRate = b.info.samplingRate;
+            file.tracks = new List<CISP.trackInfo>();
+            file.channelData = new List<UInt16[]>();
+
+            //Import due to encoding.
+            switch (b.info.soundEncoding)
+            {
+
+                case 0:
+                    MessageBox.Show("Unsupported Data type! Must be PCM16 or DSPADPCM!");
+                    break;
+
+                case 1:
+                    file.stream.sampleRate = b.info.samplingRate;
+                    file.stream.loopEnd = b.info.loopEnd;
+                    file.stream.loop = b.info.loop;
+                    file.stream.loopStart = b.info.loopStart;
+                    for (int i = 0; i < b.data.pcm16.Count; i++)
+                    {
+                        file.channelData.Add(b.data.pcm16[i]);
+                    }
+                    break;
+
+                case 2:
+                    b_wav v2 = b;
+                    b = b.toRiff().toGameWavPCM();
+                    b.update(endianNess.big);
+                    file.stream.sampleRate = b.info.samplingRate;
+                    file.stream.loopEnd = v2.info.loopEnd;
+                    file.stream.loop = v2.info.loop;
+                    file.stream.loopStart = v2.info.loopStart;
+                    foreach (UInt16[] u in b.data.pcm16)
+                    {
+                        file.channelData.Add(u);
+                    }
+
+                    break;
+
+                case 3:
+                    MessageBox.Show("Unsupported Data type! Must be PCM16 or DSPADPCM!");
+                    break;
+            }
+
+            fileOpen = true;
+            updateNodes();
+            loadChannelFiles();
+
         }
 
         public bool fileOpen = false; //If a file is open.
@@ -41,6 +138,9 @@ namespace Citric_Composer
         public bool scrollingLeft = false;
         public bool scrollingRight = false;
         public string isabellePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        public int launchMode = 0; //0 = Normal, 1 = B_WAR, 2 = B_SAR
+        public Brewster_WAR_Brewer war;
+        public int fileIndex;
 
         //Channel player.
         public struct channelPlayer {
@@ -94,10 +194,13 @@ namespace Citric_Composer
 
             catch { }
 
-            //General stuff.
-            fileNamePath = "";
-            fileOpen = true;
-            this.Text = "Isabelle Sound Editor - New Project.cisp";
+            if (launchMode == 0)
+            {
+                //General stuff.
+                fileNamePath = "";
+                fileOpen = true;
+                this.Text = "Isabelle Sound Editor - New Project.cisp";
+            }
 
             //Make new CISP.
             file = new CISP();
@@ -893,17 +996,30 @@ namespace Citric_Composer
                 saveAs();
             }
             else {
-                File.WriteAllBytes(fileNamePath, file.toBytes());
+                if (launchMode == 0) { File.WriteAllBytes(fileNamePath, file.toBytes()); }
+                else {
+                    b_war.fileBlock.fileEntry f = war.file.file.files[fileIndex];
+                    f.file = file.toB_wav().toBytes(endianNess.big);
+                    war.file.file.files[fileIndex] = f;
+                    war.loadChannelFiles();
+                }
             }
         }
 
         public void saveAs() {
             saveCISP.ShowDialog();
             if (saveCISP.FileName != "") {
-                fileNamePath = saveCISP.FileName;
-                saveCISP.FileName = "";
-                this.Text = "Isabelle Sound Editor - " + Path.GetFileName(fileNamePath);
-                save();
+                if (launchMode == 0)
+                {
+                    fileNamePath = saveCISP.FileName;
+                    saveCISP.FileName = "";
+                    this.Text = "Isabelle Sound Editor - " + Path.GetFileName(fileNamePath);
+                    save();
+                }
+                else {
+                    File.WriteAllBytes(saveCISP.FileName, file.toBytes());
+                    saveCISP.FileName = "";
+                }
             }
         }
 
@@ -951,10 +1067,14 @@ namespace Citric_Composer
 
                 file = new CISP();
                 file.load(File.ReadAllBytes(openCISP.FileName));
-                fileNamePath = openCISP.FileName;
-                this.Text = "Isabelle Sound Editor - " + Path.GetFileName(fileNamePath);
-                openCISP.FileName = "";
-                fileOpen = true;
+
+                if (launchMode == 0)
+                {
+                    fileNamePath = openCISP.FileName;
+                    this.Text = "Isabelle Sound Editor - " + Path.GetFileName(fileNamePath);
+                    openCISP.FileName = "";
+                    fileOpen = true;
+                }
                 updateNodes();
                 loadChannelFiles();
 
@@ -1076,10 +1196,10 @@ namespace Citric_Composer
                 r.data = new RIFF.dataBlock();
                 r.data.data = players[i].file;
                 r.fixOffsets();
-                Directory.CreateDirectory("Data/TEMP");
-                File.WriteAllBytes("Data/TEMP/tmp" + i + ".wav", r.toBytes());
-                players[i].source = CSCore.Codecs.CodecFactory.Instance.GetCodec("Data/TEMP/tmp" + i + ".wav");
-                File.Delete("tmp" + i + ".wav");
+                //Directory.CreateDirectory("Data/TEMP");
+                //File.WriteAllBytes("Data/TEMP/tmp" + i + ".wav", r.toBytes());
+                players[i].source = new CSCore.MediaFoundation.MediaFoundationDecoder(new MemoryStream(r.toBytes()));
+                //File.Delete("tmp" + i + ".wav");
 
             }
 
@@ -1313,11 +1433,13 @@ namespace Citric_Composer
 
                 catch { }
 
-
-                //General stuff.
-                fileNamePath = "";
-                fileOpen = true;
-                this.Text = "Isabelle Sound Editor";
+                if (launchMode == 0)
+                {
+                    //General stuff.
+                    fileNamePath = "";
+                    fileOpen = true;
+                    this.Text = "Isabelle Sound Editor";
+                }
 
                 //Make new CISP.
                 file = new CISP();
@@ -1347,7 +1469,7 @@ namespace Citric_Composer
 
                     file = new CISP();
                     fileOpen = true;
-                    this.Text = "Isabelle Sound Editor - New Project.cisp";
+                    if (launchMode == 0) { this.Text = "Isabelle Sound Editor - New Project.cisp"; }
 
                     switch (anyFileSelectorSound.FilterIndex)
                     {
@@ -1496,7 +1618,7 @@ namespace Citric_Composer
 
                 }
                 else {
-                    this.Text = "Isabelle Sound Editor";
+                    if (launchMode == 0) { this.Text = "Isabelle Sound Editor"; }
                 }
 
                 anyFileSelectorSound.FileName = "";
@@ -1935,15 +2057,18 @@ namespace Citric_Composer
         //Form closing.
         public void formClosing(object sender, System.EventArgs e) {
 
-            try
+            if (players != null)
             {
                 for (int i = 0; i < players.Count(); i++)
                 {
-                    players[i].soundOut.Dispose();
-                    players[i].soundOut = null;
+                    try { players[i].player.Stop(); } catch { }
+                    try { players[i].soundOut.Stop(); } catch { }
+                    try { players[i].soundOut.Dispose(); } catch { }
+                    try { players[i].soundOut = null; } catch { }
+                    try { players[i].player.Dispose(); } catch { }
+                    try { players[i].source.Dispose(); } catch { }
                 }
             }
-            catch { }
 
         }
 
@@ -2068,6 +2193,7 @@ namespace Citric_Composer
 
         }
 
+        //Get closer int.
         public int Closer(int a, int b)
         {
             int calcA = a - 14336;
