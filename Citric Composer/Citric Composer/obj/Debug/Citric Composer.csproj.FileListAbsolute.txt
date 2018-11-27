@@ -69,5 +69,5 @@ C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Com
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Composer.pdb
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Rolf_Rescource_Researcher.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.RolfAbout.resources
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Data\Tools\FreeDsp.exe
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Data\Tools\About.txt
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\VGAudio.dll
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\VGAudio.xml

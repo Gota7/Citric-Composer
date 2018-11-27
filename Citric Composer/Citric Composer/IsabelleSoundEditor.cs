@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CitraFileLoader;
 using IsabelleLib;
 using NAudio.Wave;
 using System.Threading;
 using Syroot.BinaryData;
-using Softpae.Media;
-using CSCore;
 using System.Reflection;
 using System.Diagnostics;
 
@@ -2063,7 +2057,7 @@ namespace Citric_Composer
 
                             //CSTM.
                             case "cstm":
-                                File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(file, file.GetVersion(true)).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(file, file.GetVersion(false)).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
                                 break;
 
                         }

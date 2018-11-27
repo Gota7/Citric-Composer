@@ -510,23 +510,9 @@ namespace CitraFileLoader
 
             this.size += this.headerSize;
 
-            //Version.
-            if (magic[0] != 'C')
-            {
-
-                vMajor = (byte)((version & 0x00FF0000) >> 16);
-                vMinor = (byte)((version & 0x0000FF00) >> 8);
-                vRevision = (byte)(version & 0x000000FF);
-
-            }
-            else
-            {
-
-                vMajor = (byte)(version & 0x000000FF);
-                vMinor = (byte)((version & 0x0000FF00) >> 8);
-                vRevision = (byte)((version & 0x00FF0000) >> 16);
-
-            }
+            vMajor = (byte)((version & 0x00FF0000) >> 16);
+            vMinor = (byte)((version & 0x0000FF00) >> 8);
+            vRevision = (byte)(version & 0x000000FF);
 
         }
 
@@ -664,6 +650,31 @@ namespace CitraFileLoader
             }
 
         }
+
+        /// <summary>
+        /// Update version to read major, minor, etc. correctly.
+        /// </summary>
+        public void UpdateVersion() {
+
+            if (magic[0] != 'C')
+            {
+
+                vMajor = (byte)((version & 0x00FF0000) >> 16);
+                vMinor = (byte)((version & 0x0000FF00) >> 8);
+                vRevision = (byte)(version & 0x000000FF);
+
+            }
+            else
+            {
+
+                vMajor = (byte)(version & 0x000000FF);
+                vMinor = (byte)((version & 0x0000FF00) >> 8);
+                vRevision = (byte)((version & 0x00FF0000) >> 16);
+
+            }
+
+        }
+
 
         /// <summary>
         /// 1 - 4 Letters that identify the file.

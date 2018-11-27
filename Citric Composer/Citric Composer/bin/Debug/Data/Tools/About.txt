@@ -1,3 +1,0 @@
-﻿FreeDsp.exe is "gc-dspadpcm-encode" by jackoalan and Thealexbarney.
-You can find it here: https://github.com/jackoalan/gc-dspadpcm-encode/graphs/contributors.
-No SDK tools are present in this program, and there won't be.

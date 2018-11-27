@@ -1,0 +1,30 @@
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.AboutWindow.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.GoldiAbout.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.Goldi_GRP_Grouper.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.Brewster_WAR_Brewer.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.BrewsterAbout.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.IsabelleAbout.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.IsabelleSoundEditor.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.MainWindow.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.Rolf_Rescource_Researcher.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.RolfAbout.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.SaveCloseDialog.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.SaveQuitDialog.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric_Composer.Properties.Resources.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.csproj.GenerateResource.cache
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.csproj.CoreCompileInputs.cache
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\Data\Image\pause.png
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\Data\Image\play4.png
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\Citric Composer.exe.config
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\Citric Composer.exe
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\Citric Composer.pdb
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\CSCore.dll
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\NAudio.dll
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\Syroot.BinaryData.dll
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\VGAudio.dll
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\CSCore.xml
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\NAudio.xml
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\VGAudio.xml
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.csproj.CopyComplete
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.exe
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.pdb
