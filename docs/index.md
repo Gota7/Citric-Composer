@@ -1,5 +1,5 @@
 # Citric Composer
-Welcome to the Citric Composer collection by Gota7!
+Welcome to the Citric Composer collection by Gota7 and Aqua-San!
 Here you can find some useful tools for editing WiiU and 3ds sound.
 
 
@@ -13,6 +13,7 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 [Koopa Harmony (Bahp)](https://github.com/Gota7/Citric-Composer/blob/master/Koopa%20Harmony/Koopa%20Harmony/bin/Debug/Koopa%20Harmony.zip?raw=true) - For editing koopa dance moves in NSMB2, and maybe other games that use bbid.
 
 # Credits
+Aqua-San, Tools, Structure Docs
 Nintendo, Structure Docs
 Thealexbarney, Tools
 Soneek, Tools
@@ -24,5 +25,5 @@ Hiccup, Structure Docs
 Xcution, Structure Docs
 Abood, Structure Docs
 
-©2018 Gota7, Thealexbarney, Soneek
+©2018 Gota7, Aqua-San, Thealexbarney, Soneek
 (Everything But Some Images)

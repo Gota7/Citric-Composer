@@ -300,7 +300,7 @@ namespace CitraFileLoader
             //Update the file header.
             string magic = "FWAV";
             if (byteOrder == ByteOrder.LittleEndian) { magic = "CWAV"; }
-            fileHeader = new FileHeader(magic, byteOrder, fileHeader.version, fileSize, new List<SizedReference>() { new SizedReference(ReferenceTypes.WAV_Block_Info, 0, infoSize), new SizedReference(ReferenceTypes.WAV_Block_Data, (Int32)infoSize, dataSize) });
+            fileHeader = new FileHeader(magic, byteOrder, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, fileSize, new List<SizedReference>() { new SizedReference(ReferenceTypes.WAV_Block_Info, 0, infoSize), new SizedReference(ReferenceTypes.WAV_Block_Data, (Int32)infoSize, dataSize) });
 
         }
 
@@ -309,11 +309,12 @@ namespace CitraFileLoader
         /// Convert the file to bytes.
         /// </summary>
         /// <returns></returns>
-        public byte[] ToBytes(UInt16 byteOrder)
+        public byte[] ToBytes(UInt16 byteOrder, bool forceFwav = false)
         {
 
             //Update file.
             Update(byteOrder);
+            if (forceFwav) { fileHeader.magic = "FWAV".ToCharArray(); }
 
             //New stream.
             MemoryStream o = new MemoryStream();
@@ -405,13 +406,13 @@ namespace CitraFileLoader
         /// <param name="encoding">If samples is Pcm8[][] always 0. Must be 1 or 2 for if samples is Pcm16[][].</param>
         /// <param name="version">The version of the file.</param>
         /// <returns></returns>
-        public static b_wav CreateWave(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, UInt32 version)
+        public static b_wav CreateWave(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, byte vMajor, byte vMinor, byte vRevision)
         {
 
             //Create wav.
             b_wav b = new b_wav();
 
-            b.fileHeader = new FileHeader("FWAV", ByteOrder.BigEndian, version, 0, new List<SizedReference>());
+            b.fileHeader = new FileHeader("FWAV", ByteOrder.BigEndian, vMajor, vMinor, vRevision, 0, new List<SizedReference>());
             b.info = new b_wav.InfoBlock();
 
             b.info.magic = "INFO".ToCharArray();
@@ -468,10 +469,10 @@ namespace CitraFileLoader
         /// <param name="version">The version of the file.</param>
         /// <param name="loopStart">Loop starting point.</param>
         /// <returns></returns>
-        public static b_wav CreateWave(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, UInt32 version, UInt32 loopStart)
+        public static b_wav CreateWave(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, byte vMajor, byte vMinor, byte vRevision, UInt32 loopStart)
         {
 
-            b_wav b = CreateWave(sampleRate, numSamples, samples, encoding, version);
+            b_wav b = CreateWave(sampleRate, numSamples, samples, encoding, vMajor, vMinor, vRevision);
             b.info.loopStart = loopStart;
             b.info.isLoop = true;
             return b;
@@ -486,7 +487,7 @@ namespace CitraFileLoader
         /// <param name="encode">Whether or not to encode PCM16 data.</param>
         /// <param name="version">Version of the file.</param>
         /// <returns></returns>
-        public static b_wav CreateWave(RiffWave r, bool encode, UInt32 version)
+        public static b_wav CreateWave(RiffWave r, bool encode, byte vMajor, byte vMinor, byte vRevision)
         {
 
             b_wav b = new b_wav();
@@ -505,11 +506,11 @@ namespace CitraFileLoader
                 }
                 if (!loops)
                 {
-                    b = CreateWave(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, version);
+                    b = CreateWave(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, vMajor, vMinor, vRevision);
                 }
                 else
                 {
-                    b = CreateWave(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, version, r.smpl.loops[0].startSample);
+                    b = CreateWave(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, vMajor, vMinor, vRevision, r.smpl.loops[0].startSample);
                 }
             }
             else
@@ -527,11 +528,11 @@ namespace CitraFileLoader
                 if (encode) { encoding = EncodingTypes.DSP_ADPCM; }
                 if (!loops)
                 {
-                    b = CreateWave(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, version);
+                    b = CreateWave(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, vMajor, vMinor, vRevision);
                 }
                 else
                 {
-                    b = CreateWave(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, version, r.smpl.loops[0].startSample);
+                    b = CreateWave(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, vMajor, vMinor, vRevision, r.smpl.loops[0].startSample);
                 }
             }
 
@@ -546,10 +547,10 @@ namespace CitraFileLoader
         /// <param name="s">The stream.</param>
         /// <param name="version">Version of the file.</param>
         /// <returns></returns>
-        public static b_wav CreateWave(b_stm s, UInt32 version) {
+        public static b_wav CreateWave(b_stm s, byte vMajor, byte vMinor, byte vRevision) {
 
             b_wav b = new b_wav();
-            b.fileHeader = new FileHeader("FWAV", ByteOrder.BigEndian, version, 0, new List<SizedReference>());
+            b.fileHeader = new FileHeader("FWAV", ByteOrder.BigEndian, vMajor, vMinor, vRevision, 0, new List<SizedReference>());
             b.data = s.data;
 
             b.info = new b_wav.InfoBlock();
@@ -581,7 +582,7 @@ namespace CitraFileLoader
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
-        public static b_wav CreateWave(FISP f, UInt32 version)
+        public static b_wav CreateWave(FISP f, byte vMajor, byte vMinor, byte vRevision)
         {
 
             //New wave.
@@ -608,13 +609,13 @@ namespace CitraFileLoader
             //If looped.
             if (f.stream.isLoop)
             {
-                b = WaveFactory.CreateWave(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, version, f.stream.loopStart);
+                b = WaveFactory.CreateWave(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, vMajor, vMinor, vRevision, f.stream.loopStart);
             }
 
             //Not looped.
             else
             {
-                b = WaveFactory.CreateWave(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, version);
+                b = WaveFactory.CreateWave(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, vMajor, vMinor, vRevision);
             }
 
             return b;

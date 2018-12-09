@@ -28,3 +28,4 @@ C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Release\VGAudio.
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.csproj.CopyComplete
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.exe
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.pdb
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Release\Citric Composer.csprojAssemblyReference.cache

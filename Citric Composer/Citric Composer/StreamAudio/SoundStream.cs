@@ -486,7 +486,7 @@ namespace CitraFileLoader
 
                         //Seek block.
                         case ReferenceTypes.STRM_Block_Seek:
-                            seek = new SoundNStreamSeekBlock(ref br, info.streamSoundInfo);
+                            seek = new SoundNStreamSeekBlock(ref br, info.streamSoundInfo, fileHeader);
                             break;
 
                         //Region block.
@@ -620,7 +620,7 @@ namespace CitraFileLoader
             if (region != null) blocks.Add(new SizedReference(ReferenceTypes.STRM_Block_Region, (int)info.blockSize + (seek != null ? (int)seek.GetSize() : 0), region.GetSize()));
             blocks.Add(new SizedReference(ReferenceTypes.STRM_Block_Data, (int)info.blockSize + (seek != null ? (int)seek.GetSize() : 0) + (region != null ? (int)region.GetSize() : 0), data.GetSize(info.streamSoundInfo.encoding, ref info)));
             
-            fileHeader = new FileHeader(endian == ByteOrder.LittleEndian ? "CSTM" : "FSTM", endian, fileHeader.version, (uint)(info.blockSize + (seek != null ? (int)seek.GetSize() : 0) + (region != null ? (int)region.GetSize() : 0) + data.GetSize(info.streamSoundInfo.encoding, ref info)), blocks);
+            fileHeader = new FileHeader(endian == ByteOrder.LittleEndian ? "CSTM" : "FSTM", endian, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, (uint)(info.blockSize + (seek != null ? (int)seek.GetSize() : 0) + (region != null ? (int)region.GetSize() : 0) + data.GetSize(info.streamSoundInfo.encoding, ref info)), blocks);
 
             if (region == null) {
                 info.streamSoundInfo.regionDataOffset = new Reference(0, Reference.NULL_PTR);
@@ -629,7 +629,7 @@ namespace CitraFileLoader
             //Update stuff.
             MemoryStream o = new MemoryStream();
             BinaryDataWriter bw = new BinaryDataWriter(o);
-            if (seek != null) seek.Write(ref bw);
+            if (seek != null) seek.Write(ref bw, fileHeader);
             if (region != null) region.Write(ref bw);
             data.WriteSTM(ref bw, info, info.streamSoundInfo.sampleCount);
 
@@ -640,26 +640,18 @@ namespace CitraFileLoader
         /// </summary>
         /// <param name="endian"></param>
         /// <returns></returns>
-        public byte[] ToBytes(UInt16 endian) {
+        public byte[] ToBytes(UInt16 endian, bool forceFstm = false) {
 
             //Update file.
             Update(endian);
+            if (forceFstm) { fileHeader.magic = "FSTM".ToCharArray(); }
 
             //Writer.
             MemoryStream o = new MemoryStream();
             BinaryDataWriter bw = new BinaryDataWriter(o);
 
-            //Tangle up version if DS mode.
-            UInt32 oldV = fileHeader.version;
-            if (fileHeader.magic[0] == 'C') {
-                fileHeader.version = (byte)((oldV & 0x00FF0000) >> 16);
-                fileHeader.version += (byte)(oldV & 0x0000FF00);
-                fileHeader.version += (byte)((oldV & 0x000000FF) << 16);
-            }
-
             //Write header.
             fileHeader.Write(ref bw);
-            fileHeader.version = oldV;
 
             //Info block.
             bw.Write(info.magic);
@@ -771,7 +763,7 @@ namespace CitraFileLoader
             //Seek block (if needed).
             if (info.streamSoundInfo.encoding >= EncodingTypes.DSP_ADPCM)
             {
-                seek.Write(ref bw);
+                seek.Write(ref bw, fileHeader);
             }
 
             //Region block (if needed).
@@ -805,11 +797,11 @@ namespace CitraFileLoader
         /// <param name="encoding">If samples is Pcm8[][] always 0. Must be 1 or 2 for if samples is Pcm16[][].</param>
         /// <param name="version">The version of the file.</param>
         /// <returns></returns>
-        public static b_stm CreateStream(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, UInt32 version)
+        public static b_stm CreateStream(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, byte vMajor, byte vMinor, byte vRevision)
         {
 
             b_stm s = new b_stm();
-            s.fileHeader = new FileHeader("FSTM", ByteOrder.BigEndian, version, 0, new List<SizedReference>());
+            s.fileHeader = new FileHeader("FSTM", ByteOrder.BigEndian, vMajor, vMinor, vRevision, 0, new List<SizedReference>());
 
             s.info = new b_stm.InfoBlock();
             s.info.streamSoundInfo = new b_stm.StreamSoundInfo();
@@ -885,10 +877,10 @@ namespace CitraFileLoader
         /// <param name="version">The version of the file.</param>
         /// <param name="loopStart">Loop starting point.</param>
         /// <returns></returns>
-        public static b_stm CreateStream(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, UInt32 version, UInt32 loopStart)
+        public static b_stm CreateStream(UInt32 sampleRate, UInt32 numSamples, object samples, byte encoding, byte vMajor, byte vMinor, byte vRevision, UInt32 loopStart)
         {
 
-            b_stm s = CreateStream(sampleRate, numSamples, samples, encoding, version);
+            b_stm s = CreateStream(sampleRate, numSamples, samples, encoding, vMajor, vMinor, vRevision);
             s.info.streamSoundInfo.loopStart = loopStart;
             s.info.streamSoundInfo.isLoop = true;
             return s;
@@ -902,7 +894,7 @@ namespace CitraFileLoader
         /// <param name="encode">Whether or not to encode PCM16 data.</param>
         /// <param name="version">Version of the file.</param>
         /// <returns></returns>
-        public static b_stm CreateStream(RiffWave r, bool encode, UInt32 version)
+        public static b_stm CreateStream(RiffWave r, bool encode, byte vMajor, byte vMinor, byte vRevision)
         {
 
             b_stm s = new b_stm();
@@ -921,11 +913,11 @@ namespace CitraFileLoader
                 }
                 if (!loops)
                 {
-                    s = CreateStream(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, version);
+                    s = CreateStream(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, vMajor, vMinor, vRevision);
                 }
                 else
                 {
-                    s = CreateStream(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, version, r.smpl.loops[0].startSample);
+                    s = CreateStream(r.fmt.sampleRate, endSample, pcm8.ToArray(), EncodingTypes.PCM8, vMajor, vMinor, vRevision, r.smpl.loops[0].startSample);
                 }
             }
             else
@@ -943,11 +935,11 @@ namespace CitraFileLoader
                 if (encode) { encoding = EncodingTypes.DSP_ADPCM; }
                 if (!loops)
                 {
-                    s = CreateStream(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, version);
+                    s = CreateStream(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, vMajor, vMinor, vRevision);
                 }
                 else
                 {
-                    s = CreateStream(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, version, r.smpl.loops[0].startSample);
+                    s = CreateStream(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, vMajor, vMinor, vRevision, r.smpl.loops[0].startSample);
                 }
             }
 
@@ -961,11 +953,11 @@ namespace CitraFileLoader
         /// <param name="b">The b_wav.</param>
         /// <param name="version">Version of the output stream.</param>
         /// <returns></returns>
-        public static b_stm CreateStream(b_wav b, UInt32 version)
+        public static b_stm CreateStream(b_wav b, byte vMajor, byte vMinor, byte vRevision)
         {
 
             //Simple hack, but doesn't hurt optimization since SEEK must be recreated anyway.
-            return CreateStream(RiffWaveFactory.CreateRiffWave(b), b.info.encoding >= EncodingTypes.DSP_ADPCM, version);
+            return CreateStream(RiffWaveFactory.CreateRiffWave(b), b.info.encoding >= EncodingTypes.DSP_ADPCM, vMajor, vMinor, vRevision);
 
         }
 
@@ -975,7 +967,7 @@ namespace CitraFileLoader
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
-        public static b_stm CreateStream(FISP f, UInt32 version)
+        public static b_stm CreateStream(FISP f, byte vMajor, byte vMinor, byte vRevision)
         {
 
             //New stream.
@@ -1005,13 +997,13 @@ namespace CitraFileLoader
             //If looped.
             if (f.stream.isLoop)
             {
-                s = StreamFactory.CreateStream(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, version, f.stream.loopStart);
+                s = StreamFactory.CreateStream(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, vMajor, vMinor, vRevision, f.stream.loopStart);
             }
 
             //Not looped.
             else
             {
-                s = StreamFactory.CreateStream(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, version);
+                s = StreamFactory.CreateStream(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, vMajor, vMinor, vRevision);
             }
 
             //Make tracks.
@@ -1034,6 +1026,7 @@ namespace CitraFileLoader
             s.region = null;
             if (f.regions.Count > 0) {
 
+                s.region = new SoundNStreamRegionBlock();
                 s.region.regions = new SoundNStreamRegionBlock.RegionInfo[f.regions.Count];
                 int index = 0;
                 foreach (FISP.RegionInfo i in f.regions) {
@@ -1046,11 +1039,20 @@ namespace CitraFileLoader
 
                         for (int j = 0; j < s.info.channels.Count; j++) {
 
+                            short h1 = 0;
+                            short h2 = 0;
+                            if (r.start >= 1) {
+                                h1 = f.data.data[j][r.start - 1];
+                            }
+                            if (r.start >= 2) {
+                                h2 = f.data.data[j][r.start - 2];
+                            }
+
                             r.loopInfo[j] = new SoundNStreamRegionBlock.RegionInfo.DspAdpcmLoopInfo()
                             {
                                 loopPredScale = s.info.channels[j].dspAdpcmInfo.loop_pred_scale,
-                                loopYn1 = s.info.channels[j].dspAdpcmInfo.loop_yn1,
-                                loopYn2 = s.info.channels[j].dspAdpcmInfo.loop_yn2
+                                loopYn1 = h1,
+                                loopYn2 = h2
                             };
 
                         }

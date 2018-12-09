@@ -436,7 +436,7 @@ namespace CitraFileLoader
             blocks.Add(new SizedReference(ReferenceTypes.STRM_Block_Info, 0, info.blockSize));
             blocks.Add(new SizedReference(ReferenceTypes.STRM_Block_PrefetchData, (int)info.blockSize, pdat.GetSize()));
                                        
-			fileHeader = new FileHeader(endian == ByteOrder.LittleEndian ? "CSTM" : "FSTM", endian, fileHeader.version, (uint)(info.blockSize + pdat.GetSize()), blocks);
+			fileHeader = new FileHeader(endian == ByteOrder.LittleEndian ? "CSTM" : "FSTM", endian, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, (uint)(info.blockSize + pdat.GetSize()), blocks);
          
 
 		}
@@ -477,13 +477,13 @@ namespace CitraFileLoader
         /// <returns>The prefetch stream.</returns>
         /// <param name="s">S.</param>
         /// <param name="version">Version.</param>
-		public static b_stp CreatePrefetchStream(b_stm s, UInt32 version) {
+		public static b_stp CreatePrefetchStream(b_stm s, byte vMajor, byte vMinor, byte vRevision) {
 
             //New prefetch data.
 			b_stp p = new b_stp();
 
 			//Change version, and update info.
-			p.fileHeader = new FileHeader("FSTP", ByteOrder.BigEndian, version, 0, new System.Collections.Generic.List<SizedReference>());
+			p.fileHeader = new FileHeader("FSTP", ByteOrder.BigEndian, vMajor, vMinor, vRevision, 0, new System.Collections.Generic.List<SizedReference>());
 			p.info = s.info;
             
 			//Make prefetch data.

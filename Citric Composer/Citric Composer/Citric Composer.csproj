@@ -170,6 +170,7 @@
     <Compile Include="StreamAudio\SoundNStreamStructures.cs" />
     <Compile Include="StreamAudio\SoundStream.cs" />
     <Compile Include="StreamAudio\SoundWave.cs" />
+    <Compile Include="StreamAudio\StreamPrefetchFile.cs" />
     <EmbeddedResource Include="AboutWindow.resx">
       <DependentUpon>AboutWindow.cs</DependentUpon>
     </EmbeddedResource>

@@ -869,8 +869,15 @@ namespace CitraFileLoader
 		/// </summary>
 		/// <param name="br">The reader.</param>
 		/// <param name="info">The stream info.</param>
-		public SoundNStreamSeekBlock(ref BinaryDataReader br, b_stm.StreamSoundInfo info)
+		public SoundNStreamSeekBlock(ref BinaryDataReader br, b_stm.StreamSoundInfo info, FileHeader h)
 		{
+
+            //Set endian.
+            if (h.magic[0] == 'C') {
+                br.ByteOrder = Syroot.BinaryData.ByteOrder.LittleEndian;
+            } else {
+                br.ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
+            }
 
 			//Size and other useless data.
 			br.ReadUInt32s(2);
@@ -896,7 +903,17 @@ namespace CitraFileLoader
 
 			}
 
-		}
+            //Set endian.
+            if (h.byteOrder == ByteOrder.LittleEndian)
+            {
+                br.ByteOrder = Syroot.BinaryData.ByteOrder.LittleEndian;
+            }
+            else
+            {
+                br.ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
+            }
+
+        }
 
         /// <summary>
         /// Create a seek block from a bunch of samples.
@@ -958,11 +975,21 @@ namespace CitraFileLoader
         /// <summary>
         /// Write seek data.
         /// </summary>
-        public void Write(ref BinaryDataWriter bw) {
+        public void Write(ref BinaryDataWriter bw, FileHeader h) {
 
             //Write stuff.
             bw.Write("SEEK".ToCharArray());
             bw.Write(GetSize());
+
+            //Set endian.
+            if (h.magic[0] == 'C')
+            {
+                bw.ByteOrder = Syroot.BinaryData.ByteOrder.LittleEndian;
+            }
+            else
+            {
+                bw.ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
+            }
 
             foreach (HistoryInfo[] block in history) {
 
@@ -977,6 +1004,16 @@ namespace CitraFileLoader
 
             while (bw.Position % 0x20 != 0) {
                 bw.Write((byte)0);
+            }
+
+            //Set endian.
+            if (h.byteOrder == ByteOrder.LittleEndian)
+            {
+                bw.ByteOrder = Syroot.BinaryData.ByteOrder.LittleEndian;
+            }
+            else
+            {
+                bw.ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
             }
 
         }

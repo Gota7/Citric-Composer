@@ -58,6 +58,8 @@
             this.playPauseButton = new System.Windows.Forms.Button();
             this.timeBar = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.noInfoPanel = new System.Windows.Forms.Panel();
+            this.noInfoLabel = new System.Windows.Forms.Label();
             this.regionPanel = new System.Windows.Forms.Panel();
             this.regionSetStartButton = new System.Windows.Forms.Button();
             this.regionSetEndButton = new System.Windows.Forms.Button();
@@ -67,8 +69,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.regionLoopStartBox = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.noInfoPanel = new System.Windows.Forms.Panel();
-            this.noInfoLabel = new System.Windows.Forms.Label();
             this.projectPanel = new System.Windows.Forms.Panel();
             this.vRevisionBox = new System.Windows.Forms.NumericUpDown();
             this.vMajorBox = new System.Windows.Forms.NumericUpDown();
@@ -160,10 +160,10 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.noInfoPanel.SuspendLayout();
             this.regionPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.regionLoopEndBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.regionLoopStartBox)).BeginInit();
-            this.noInfoPanel.SuspendLayout();
             this.projectPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vRevisionBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vMajorBox)).BeginInit();
@@ -453,6 +453,25 @@
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 2;
             // 
+            // noInfoPanel
+            // 
+            this.noInfoPanel.Controls.Add(this.noInfoLabel);
+            this.noInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.noInfoPanel.Location = new System.Drawing.Point(0, 0);
+            this.noInfoPanel.Name = "noInfoPanel";
+            this.noInfoPanel.Size = new System.Drawing.Size(311, 510);
+            this.noInfoPanel.TabIndex = 0;
+            // 
+            // noInfoLabel
+            // 
+            this.noInfoLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.noInfoLabel.Location = new System.Drawing.Point(0, 0);
+            this.noInfoLabel.Name = "noInfoLabel";
+            this.noInfoLabel.Size = new System.Drawing.Size(311, 510);
+            this.noInfoLabel.TabIndex = 0;
+            this.noInfoLabel.Text = "No Valid Info Selected!";
+            this.noInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // regionPanel
             // 
             this.regionPanel.Controls.Add(this.regionSetStartButton);
@@ -569,25 +588,6 @@
             this.label11.TabIndex = 8;
             this.label11.Text = "Loop Start:";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // noInfoPanel
-            // 
-            this.noInfoPanel.Controls.Add(this.noInfoLabel);
-            this.noInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.noInfoPanel.Location = new System.Drawing.Point(0, 0);
-            this.noInfoPanel.Name = "noInfoPanel";
-            this.noInfoPanel.Size = new System.Drawing.Size(311, 510);
-            this.noInfoPanel.TabIndex = 0;
-            // 
-            // noInfoLabel
-            // 
-            this.noInfoLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.noInfoLabel.Location = new System.Drawing.Point(0, 0);
-            this.noInfoLabel.Name = "noInfoLabel";
-            this.noInfoLabel.Size = new System.Drawing.Size(311, 510);
-            this.noInfoLabel.TabIndex = 0;
-            this.noInfoLabel.Text = "No Valid Info Selected!";
-            this.noInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // projectPanel
             // 
@@ -1224,7 +1224,7 @@
             this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playLikeGameBox.Checked = true;
             this.playLikeGameBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.playLikeGameBox.Location = new System.Drawing.Point(533, 80);
+            this.playLikeGameBox.Location = new System.Drawing.Point(535, 80);
             this.playLikeGameBox.Name = "playLikeGameBox";
             this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
             this.playLikeGameBox.TabIndex = 17;
@@ -1235,7 +1235,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(532, 64);
+            this.label4.Location = new System.Drawing.Point(534, 64);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 16;
@@ -1246,7 +1246,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(548, 12);
+            this.label3.Location = new System.Drawing.Point(550, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -1257,7 +1257,7 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(522, 31);
+            this.volume.Location = new System.Drawing.Point(524, 31);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);
@@ -1318,7 +1318,7 @@
             // 
             // saveGameWaveBox
             // 
-            this.saveGameWaveBox.Filter = "Any Wave|*.bfwav;*.bcwav|Cafe Wave|*.bfwav|CTR Wave|*.bcwav";
+            this.saveGameWaveBox.Filter = "Any Wave|*.bfwav;*.bcwav|Cafe Wave|*.bfwav|CTR Wave|*.bcwav|NX Wave|*.bfwav";
             this.saveGameWaveBox.RestoreDirectory = true;
             // 
             // gameFileSelectorBox
@@ -1558,12 +1558,13 @@
             // saveGameFile
             // 
             this.saveGameFile.Filter = "Any Game File|*.bfwav;*.bcwav;*.bfstm;*.bcstm|Cafe Wave|*.bfwav|CTR Wave|*.bcwav|" +
-    "Cafe Stream|*.bfstm|CTR Stream|*.bcstm";
+    "Cafe Stream|*.bfstm|CTR Stream|*.bcstm|NX Wave|*.bfwav|NX Stream|*.bfstm";
             this.saveGameFile.RestoreDirectory = true;
             // 
             // saveGameStreamBox
             // 
-            this.saveGameStreamBox.Filter = "Any Stream|*.bfstm;*.bcstm|Cafe Stream|*.bfstm|CTR Stream|*.bcstm";
+            this.saveGameStreamBox.Filter = "Any Stream|*.bfstm;*.bcstm|Cafe Stream|*.bfstm|CTR Stream|*.bcstm|NX Stream|*.bfs" +
+    "tm";
             this.saveGameStreamBox.RestoreDirectory = true;
             // 
             // IsabelleSoundEditor
@@ -1592,10 +1593,10 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.noInfoPanel.ResumeLayout(false);
             this.regionPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.regionLoopEndBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.regionLoopStartBox)).EndInit();
-            this.noInfoPanel.ResumeLayout(false);
             this.projectPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vRevisionBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vMajorBox)).EndInit();

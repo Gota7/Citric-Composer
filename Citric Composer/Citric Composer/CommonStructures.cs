@@ -480,12 +480,15 @@ namespace CitraFileLoader
         /// <param name="version">Version of filetype.</param>
         /// <param name="size">Size of the file.</param>
         /// <param name="blockOffsets">Offsets to the blocks (Do not account for header size).</param>
-        public FileHeader(string magic, UInt16 byteOrder, UInt32 version, UInt32 size, List<SizedReference> blockOffsets)
+        public FileHeader(string magic, UInt16 byteOrder, byte vMajor, byte vMinor, byte vRevision, UInt32 size, List<SizedReference> blockOffsets)
         {
 
             this.magic = magic.ToCharArray();
             this.byteOrder = byteOrder;
-            this.version = version;
+            this.vMajor = vMajor;
+            this.vMinor = vMinor;
+            this.vRevision = vRevision;
+            UpdateVersion();
             this.size = size;
             this.nBlocks = (UInt16)blockOffsets.Count();
             this.padding = 0;
@@ -510,10 +513,6 @@ namespace CitraFileLoader
 
             this.size += this.headerSize;
 
-            vMajor = (byte)((version & 0x00FF0000) >> 16);
-            vMinor = (byte)((version & 0x0000FF00) >> 8);
-            vRevision = (byte)(version & 0x000000FF);
-
         }
 
         /// <summary>
@@ -535,17 +534,7 @@ namespace CitraFileLoader
             }
 
             headerSize = br.ReadUInt16();
-
-            //Byte order for version is always big endian (not really, but for the sake of coding some 3ds/WiiU things differently).
-            br.ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
             version = br.ReadUInt32();
-
-            //Change the byte order of the reader.
-            if (byteOrder == ByteOrder.LittleEndian)
-            {
-                br.ByteOrder = Syroot.BinaryData.ByteOrder.LittleEndian;
-            }
-
             size = br.ReadUInt32();
             nBlocks = br.ReadUInt16();
             padding = br.ReadUInt16();
@@ -569,9 +558,9 @@ namespace CitraFileLoader
             else
             {
 
-                vMajor = (byte)(version & 0x000000FF);
-                vMinor = (byte)((version & 0x0000FF00) >> 8);
-                vRevision = (byte)((version & 0x00FF0000) >> 16);
+                vMajor = (byte)((version & 0xFF000000) >> 24);
+                vMinor = (byte)((version & 0x00FF0000) >> 16);
+                vRevision = (byte)((version & 0x0000FF00) >> 8);
 
             }
 
@@ -599,13 +588,8 @@ namespace CitraFileLoader
             bw.ByteOrder = bo;
 
             bw.Write(headerSize);
-
-            //Version is big endian.
-            bw.ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
+            UpdateVersion();
             bw.Write(version);
-
-            //Restore real byte order.
-            bw.ByteOrder = bo;
             bw.Write(size);
             bw.Write(nBlocks);
             bw.Write(padding);
@@ -618,9 +602,9 @@ namespace CitraFileLoader
         }
 
         /// <summary>
-        /// Change version.
+        /// Update version.
         /// </summary>
-        public void ChangeVersion() {
+        public void UpdateVersion() {
 
             UInt32 temp = 0;
             if (magic[0] != 'C')
@@ -636,42 +620,7 @@ namespace CitraFileLoader
                 temp += (uint)vRevision << 8;
 
             }
-
-            if (byteOrder == ByteOrder.BigEndian)
-            {
-                version = temp;
-            }
-            else {
-                version = 0;
-                version += temp & 0xFF000000 >> 24;
-                version += temp & 0x00FF0000 >> 8;
-                version += temp & 0x0000FF00 << 8;
-                version += (uint)(temp & 0x000000FF << 24);
-            }
-
-        }
-
-        /// <summary>
-        /// Update version to read major, minor, etc. correctly.
-        /// </summary>
-        public void UpdateVersion() {
-
-            if (magic[0] != 'C')
-            {
-
-                vMajor = (byte)((version & 0x00FF0000) >> 16);
-                vMinor = (byte)((version & 0x0000FF00) >> 8);
-                vRevision = (byte)(version & 0x000000FF);
-
-            }
-            else
-            {
-
-                vMajor = (byte)(version & 0x000000FF);
-                vMinor = (byte)((version & 0x0000FF00) >> 8);
-                vRevision = (byte)((version & 0x00FF0000) >> 16);
-
-            }
+            version = temp;
 
         }
 
@@ -692,9 +641,9 @@ namespace CitraFileLoader
         public UInt16 headerSize;
 
         /// <summary>
-        /// 4 - Version of the file: Padding, Major, Minor, Patch.
+        /// 4 - Version of the file: Major, Minor, Revision.
         /// </summary>
-        public UInt32 version;
+        public UInt32 version { get; private set; }
 
         /// <summary>
         /// 5 - Size of the file.

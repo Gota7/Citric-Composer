@@ -2036,28 +2036,33 @@ namespace Citric_Composer
                     if (saveGameFile.FileName != "")
                     {
 
+                        bool forceSwitch = false;
+                        if (saveGameFile.FilterIndex > 5) {
+                            forceSwitch = true;
+                        }
+
                         //See what file to save.
                         switch (saveGameFile.FileName.Substring(saveGameFile.FileName.Length - 4).ToLower())
                         {
 
                             //FWAV.
                             case "fwav":
-                                File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(file, file.GetVersion(false)).ToBytes(CitraFileLoader.ByteOrder.BigEndian));
+                                File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision).ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
                                 break;
 
                             //CWAV.
                             case "cwav":
-                                File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(file, file.GetVersion(true)).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
                                 break;
 
                             //FSTM.
                             case "fstm":
-                                File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(file, file.GetVersion(false)).ToBytes(CitraFileLoader.ByteOrder.BigEndian));
+                                File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision).ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
                                 break;
 
                             //CSTM.
                             case "cstm":
-                                File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(file, file.GetVersion(false)).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
                                 break;
 
                         }
@@ -2219,12 +2224,17 @@ namespace Citric_Composer
 
                         if (saveGameFile.FileName != "") {
 
+                            bool forceSwitch = false;
+                            if (saveGameFile.FilterIndex > 5) {
+                                forceSwitch = true;
+                            }
+
                             //Save game file.
                             switch (saveGameFile.FileName.Substring(saveGameFile.FileName.Length - 4).ToLower()) {
 
                                 //FWAV.
                                 case "fwav":
-                                    File.WriteAllBytes(saveGameFile.FileName, b.ToBytes(CitraFileLoader.ByteOrder.BigEndian));
+                                    File.WriteAllBytes(saveGameFile.FileName, b.ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
                                     break;
 
                                 //CWAV.
@@ -2234,12 +2244,12 @@ namespace Citric_Composer
 
                                 //FSTM.
                                 case "fstm":
-                                    File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(b, b.fileHeader.version).ToBytes(CitraFileLoader.ByteOrder.BigEndian));
+                                    File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(b, b.fileHeader.vMajor, b.fileHeader.vMinor, b.fileHeader.vRevision).ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
                                     break;
 
                                 //CSTM.
                                 case "cstm":
-                                    File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(b, b.fileHeader.version).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                    File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(b, b.fileHeader.vMajor, b.fileHeader.vMinor, b.fileHeader.vRevision).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
                                     break;
 
                             }
@@ -2262,23 +2272,28 @@ namespace Citric_Composer
                         if (saveGameFile.FileName != "")
                         {
 
+                            bool forceSwitch = false;
+                            if (saveGameFile.FilterIndex > 5) {
+                                forceSwitch = true;
+                            }
+
                             //Save game file.
                             switch (saveGameFile.FileName.Substring(saveGameFile.FileName.Length - 4).ToLower())
                             {
 
                                 //FWAV.
                                 case "fwav":
-                                    File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(s, s.fileHeader.version).ToBytes(CitraFileLoader.ByteOrder.BigEndian));
+                                    File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(s, s.fileHeader.vMajor, s.fileHeader.vMinor, s.fileHeader.vRevision).ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
                                     break;
 
                                 //CWAV.
                                 case "cwav":
-                                    File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(s, s.fileHeader.version).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                    File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(s, s.fileHeader.vMajor, s.fileHeader.vMinor, s.fileHeader.vRevision).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
                                     break;
 
                                 //FSTM.
                                 case "fstm":
-                                    File.WriteAllBytes(saveGameFile.FileName, s.ToBytes(CitraFileLoader.ByteOrder.BigEndian));
+                                    File.WriteAllBytes(saveGameFile.FileName, s.ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
                                     break;
 
                                 //CSTM.

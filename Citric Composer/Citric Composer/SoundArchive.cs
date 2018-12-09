@@ -119,7 +119,7 @@ namespace CitraFileLoader
 
             string magic = "FSAR";
             if (byteOrder == ByteOrder.LittleEndian) { magic = "CSAR"; }
-            fileHeader = new FileHeader(magic, byteOrder, fileHeader.version, strgSize + infoSize + fileSize, new List<SizedReference> { new SizedReference(ReferenceTypes.SAR_Block_String, 0, strgSize), new SizedReference(ReferenceTypes.SAR_Block_Info, (Int32)strgSize, infoSize), new SizedReference(ReferenceTypes.SAR_Block_File, (Int32)(strgSize + infoSize), fileSize) });
+            fileHeader = new FileHeader(magic, byteOrder, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, strgSize + infoSize + fileSize, new List<SizedReference> { new SizedReference(ReferenceTypes.SAR_Block_String, 0, strgSize), new SizedReference(ReferenceTypes.SAR_Block_Info, (Int32)strgSize, infoSize), new SizedReference(ReferenceTypes.SAR_Block_File, (Int32)(strgSize + infoSize), fileSize) });
 
         }
 
@@ -218,7 +218,7 @@ namespace CitraFileLoader
             //Nothing found.
             string name = "NO_NAME";
             string prefix = "bf";
-            if (fileHeader.byteOrder == ByteOrder.LittleEndian) {
+            if (fileHeader.magic[0] == 'C') {
                 prefix = "bc";
             }
             iconId = 0;
@@ -227,6 +227,19 @@ namespace CitraFileLoader
             int ssCount = 0;
             foreach (InfoBlock.soundInfo s in info.sounds)
             {
+
+                //Prefetch file.
+                if (s != null) {
+
+                    if (s.streamInfo != null && s.streamInfo.prefetchFileId == fileId)
+                    {
+
+                        iconId = 1;
+                        name = new string(strg.stringEntries[(int)s.flags.flagValues[0]].data) + "." + prefix + "stp";
+
+                    }
+
+                }
 
                 //Not null.
                 if (s != null && s.fileId == (UInt32)fileId)
@@ -282,7 +295,8 @@ namespace CitraFileLoader
                         {
                             name = new string(strg.stringEntries[(int)s.flags.flagValues[0]].data) + "." + prefix + "stm";
                         }
-                        else {
+                        else
+                        {
                             name += "." + prefix + "stm";
                         }
 
