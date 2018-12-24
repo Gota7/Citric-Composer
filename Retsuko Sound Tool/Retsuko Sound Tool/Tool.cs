@@ -47,8 +47,7 @@ namespace Retsuko_Sound_Tool
                 UInt16 t;
                 UInt32 l;
 
-                    Dictionary<string, Dictionary<int, int>> dic = new Dictionary<string, Dictionary<int, int>>();
-
+                bool found = false;
                 for (int i = 0; i < magicNumbersBin.Count(); i++)
                 {
 
@@ -56,6 +55,7 @@ namespace Retsuko_Sound_Tool
                     {
 
                         t = br.ReadUInt16();
+                        found = true;
                         if (t == 0xFFFE)
                         {
                             br.ByteOrder = ByteOrder.LittleEndian;
@@ -75,7 +75,8 @@ namespace Retsuko_Sound_Tool
                         Directory.CreateDirectory(path + "/" + magicNumbers[i]);
                         File.WriteAllBytes(path + "/" + magicNumbers[i] + "/" + number.ToString("D4") + ".b" + magicNumbers[i].ToLower(), f);
 
-                        if (i == 0 || i == 1 || i == 6 || i == 7 || i == 12 || i == 13) {
+                        if (i == 0 || i == 1 || i == 6 || i == 7 || i == 12 || i == 13)
+                        {
 
                             Directory.CreateDirectory(path + "/" + magicNumbers[i] + "/" + number.ToString("D4") + magicNumbers[i]);
                             extractFiles(f, path + "/" + magicNumbers[i] + "/" + number.ToString("D4") + magicNumbers[i]);
@@ -88,6 +89,10 @@ namespace Retsuko_Sound_Tool
 
                     }
 
+                }
+
+                if (!found) {
+                    br.Position -= 3;
                 }
 
             }
