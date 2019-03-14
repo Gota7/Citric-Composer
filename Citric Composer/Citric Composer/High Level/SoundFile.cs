@@ -44,7 +44,10 @@ namespace CitraFileLoader {
 
                 string ret = "bin";
                 if (File != null) {
-                    return File.GetExtension();
+                    ret = File.GetExtension();
+                }
+                if (ret.Equals("bin")) {
+                    ret = BackupExtension;
                 }
                 return ret;
 
@@ -72,6 +75,27 @@ namespace CitraFileLoader {
             }
         }
         private String m_fileName;
+
+        /// <summary>
+        /// Backup extension.
+        /// </summary>
+        public string BackupExtension {
+            get {
+                if (Reference == null) {
+                    return m_backupExtension;
+                } else {
+                    return Reference.m_backupExtension;
+                }
+            }
+            set {
+                if (Reference == null) {
+                    m_backupExtension = value;
+                } else {
+                    Reference.m_backupExtension = value;
+                }
+            }
+        }
+        private string m_backupExtension = "bin";
 
         /// <summary>
         /// Only used for recreating a SoundArchive, or editing a sub-file in independent mode. ALL UNKNOWN FILES KEEP THEIR FILE ID.

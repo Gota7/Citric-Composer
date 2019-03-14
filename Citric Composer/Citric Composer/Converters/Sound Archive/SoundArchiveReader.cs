@@ -577,6 +577,7 @@ namespace CitraFileLoader {
 
                                     //New wave sound data.
                                     WaveSoundDataEntry w = new WaveSoundDataEntry();
+                                    s.File.BackupExtension = ("b" + FileWriter.GetWriteModeChar(a.WriteMode) + "wsd").ToLower();
 
                                     //Set info.
                                     w.LoadSoundInfo(s);
@@ -608,6 +609,7 @@ namespace CitraFileLoader {
 
                                     //New sequence.
                                     SequenceEntry e = new SequenceEntry();
+                                    s.File.BackupExtension = ("b" + FileWriter.GetWriteModeChar(a.WriteMode) + "seq").ToLower();
 
                                     //Set info.
                                     e.LoadSoundInfo(s);
@@ -662,7 +664,10 @@ namespace CitraFileLoader {
 
                                     //New stream.
                                     StreamEntry m = new StreamEntry();
+                                    s.File.BackupExtension = ("b" + FileWriter.GetWriteModeChar(a.WriteMode) + "stm").ToLower();
 
+                                    //Set info.
+                                    m.LoadSoundInfo(s);
 
                                     //Add stream.
                                     a.Streams.Add(m);
@@ -872,6 +877,7 @@ namespace CitraFileLoader {
                             //Link the files.
                             e.File = new SoundFile<ISoundFile>() { Reference = a.Files[fileId] };
                             a.Files[fileId].ReferencedBy.Add(e.File);
+                            e.File.BackupExtension = ("b" + FileWriter.GetWriteModeChar(a.WriteMode) + "bnk").ToLower();
 
                         }
 
@@ -978,6 +984,7 @@ namespace CitraFileLoader {
                             //Link the files.
                             w.File = new SoundFile<ISoundFile>() { Reference = a.Files[fileId] };
                             a.Files[fileId].ReferencedBy.Add(w.File);
+                            w.File.BackupExtension = ("b" + FileWriter.GetWriteModeChar(a.WriteMode) + "war").ToLower();
 
                         }
 
@@ -1060,6 +1067,7 @@ namespace CitraFileLoader {
                             //Link the files.
                             g.File = new SoundFile<ISoundFile>() { Reference = a.Files[fileId] };
                             a.Files[fileId].ReferencedBy.Add(g.File);
+                            g.File.BackupExtension = ("b" + FileWriter.GetWriteModeChar(a.WriteMode) + "grp").ToLower();
 
                         }
 

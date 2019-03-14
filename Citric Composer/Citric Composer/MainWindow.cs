@@ -55,7 +55,7 @@ namespace Citric_Composer
                 //Make a new file, and load it.
                 file = SoundArchiveReader.ReadSoundArchive(File.ReadAllBytes(openB_sarBox.FileName));
                 fileOpen = true;
-                fileName = openB_sarBox.FileName;
+                fileName = Path.GetFileName(openB_sarBox.FileName);
                 Text = "Citric Composer - " + fileName;
 
                 //Fix things.
@@ -422,9 +422,6 @@ namespace Citric_Composer
 
             }
 
-            //Load sound groups. TODO
-            int sCount = 0;
-
             //Load groups.
             int gCount = 0;
             foreach (var g in file.Groups) {
@@ -468,6 +465,100 @@ namespace Citric_Composer
 
                 //Increment count.
                 wCount++;
+
+            }
+
+            //Load sound groups.
+            int sCount = 0;
+            foreach (var s in file.SoundSets) {
+
+                //Null.
+                if (s == null) {
+                    tree.Nodes["soundGroups"].Nodes.Add("soundGroup" + sCount, "[" + sCount + "] " + "{ Null Sound Group }", 4, 4);
+                }
+
+                //Valid.
+                else {
+
+                    //Add sound group.
+                    string name = s.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
+                    }
+                    tree.Nodes["soundGroups"].Nodes.Add("soundGroup" + sCount, "[" + sCount + "] " + name, 4, 4);
+
+                    //Add each sub entry.
+                    for (int i = s.StartIndex; i <= s.EndIndex; i++) {
+
+                        //Get the key name.
+                        string key = "null";
+                        switch (s.SoundType) {
+
+                            case SoundType.Bank:
+                                key = "banks";
+                                break;
+
+                            case SoundType.Group:
+                                key = "groups";
+                                break;
+
+                            case SoundType.Null:
+                                key = "null";
+                                break;
+
+                            case SoundType.Player:
+                                key = "players";
+                                break;
+
+                            case SoundType.Sound:
+                                key = "stream";
+                                if (i >= file.Streams.Count) {
+                                    key = "waveSoundSets";
+                                }
+                                if (i >= file.Streams.Count + file.WaveSoundDatas.Count) {
+                                    key = "sequences";
+                                }
+                                break;
+
+                            case SoundType.SoundGroup:
+                                key = "soundGroups";
+                                break;
+
+                            case SoundType.WaveArchive:
+                                key = "waveArchives";
+                                break;
+
+                        }
+
+                        //Null key.
+                        if (key.Equals("null")) {
+
+                            //Add null.
+                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, "{ Null Type }", 0, 0);
+
+                        } else if (key.Equals("waveSoundSets")) {
+
+                            //Add wave sound set.
+                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, tree.Nodes[key].Nodes[i - file.Streams.Count].Text, tree.Nodes[key].ImageIndex, tree.Nodes[key].SelectedImageIndex);
+
+                        } else if (key.Equals("sequences")) {
+
+                            //Add sequence file.
+                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, tree.Nodes[key].Nodes[i - file.Streams.Count - file.WaveSoundDatas.Count].Text, tree.Nodes[key].ImageIndex, tree.Nodes[key].SelectedImageIndex);
+
+                        } else {
+
+                            //Regular key.
+                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, tree.Nodes[key].Nodes[i].Text, tree.Nodes[key].ImageIndex, tree.Nodes[key].SelectedImageIndex);
+
+                        }
+
+                    }
+
+                }
+
+                //Increment count.
+                sCount++;
 
             }
 
