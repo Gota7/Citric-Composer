@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.3.3.2\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.3.3.2\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -26,6 +27,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,11 +56,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Costura, Version=3.3.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.3.3.2\lib\net40\Costura.dll</HintPath>
+    </Reference>
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
-    </Reference>
-    <Reference Include="MediaServer">
-      <HintPath>..\..\..\..\..\Downloads\2008_8_fflibnet_20080817\Release\MediaServer.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
@@ -89,9 +92,59 @@
     </Compile>
     <Compile Include="ArchiveRescourceSounds.cs" />
     <Compile Include="CommonStructures.cs" />
-    <Compile Include="StreamAudio\DspAdpcmDecode.cs" />
-    <Compile Include="StreamAudio\DspAdpcmEncode.cs" />
-    <Compile Include="StreamAudio\DspAdpcmMath.cs" />
+    <Compile Include="Converters\FileReader.cs" />
+    <Compile Include="Converters\FileWriter.cs" />
+    <Compile Include="Converters\ReferenceStructures.cs" />
+    <Compile Include="Converters\Sequence\SeqDataReader.cs" />
+    <Compile Include="Converters\Sound Archive\SoundArchiveReader.cs" />
+    <Compile Include="High Level\Bank\Instrument\InstrumentType.cs" />
+    <Compile Include="High Level\Bank\Key Region\DirectKeyRegion.cs" />
+    <Compile Include="High Level\Bank\Key Region\IKeyRegion.cs" />
+    <Compile Include="High Level\Bank\Key Region\IndexKeyRegion.cs" />
+    <Compile Include="High Level\Bank\Key Region\KeyRegionType.cs" />
+    <Compile Include="High Level\Bank\Key Region\VelocityRegionRange.cs" />
+    <Compile Include="High Level\Bank\Velocity Region\VelocityRegion.cs" />
+    <Compile Include="High Level\Bank\Key Region\RangeKeyRegion.cs" />
+    <Compile Include="High Level\Bank\Instrument\DirectInstrument.cs" />
+    <Compile Include="High Level\Bank\Instrument\IInstrument.cs" />
+    <Compile Include="High Level\Bank\Instrument\IndexInstrument.cs" />
+    <Compile Include="High Level\Bank\Instrument\KeyRegionRange.cs" />
+    <Compile Include="High Level\Bank\Instrument\RangeInstrument.cs" />
+    <Compile Include="High Level\Group\Group.cs" />
+    <Compile Include="High Level\Group\InfoExEntry.cs" />
+    <Compile Include="High Level\ISoundFile.cs" />
+    <Compile Include="High Level\Bank\SoundBank.cs" />
+    <Compile Include="High Level\Sequence\SequenceLabel.cs" />
+    <Compile Include="High Level\Sequence\SoundSequence.cs" />
+    <Compile Include="High Level\Sound Archive\BankEntry.cs" />
+    <Compile Include="High Level\Sound Archive\GroupEntry.cs" />
+    <Compile Include="High Level\Sound Archive\PlayerEntry.cs" />
+    <Compile Include="High Level\Sound Archive\SequenceEntry.cs" />
+    <Compile Include="High Level\Sound Archive\Sound3dInfo.cs" />
+    <Compile Include="High Level\Sound Archive\SoundArchive.cs" />
+    <Compile Include="High Level\Sound Archive\SoundInfo.cs" />
+    <Compile Include="High Level\Sound Archive\SoundSetEntry.cs" />
+    <Compile Include="High Level\Sound Archive\StreamEntry.cs" />
+    <Compile Include="High Level\Sound Archive\StreamTrackInfo.cs" />
+    <Compile Include="High Level\Sound Archive\WaveArchiveEntry.cs" />
+    <Compile Include="High Level\Sound Archive\WaveSoundDataEntry.cs" />
+    <Compile Include="High Level\SoundFile.cs" />
+    <Compile Include="High Level\Streaming\PrefetchFile.cs" />
+    <Compile Include="High Level\Streaming\Stream.cs" />
+    <Compile Include="High Level\UnknownFile.cs" />
+    <Compile Include="High Level\Wave Archive\SoundWaveArchive.cs" />
+    <Compile Include="High Level\Wave Archive\Wave.cs" />
+    <Compile Include="High Level\Wave Sound Data\NoteEvent.cs" />
+    <Compile Include="High Level\Wave Sound Data\NoteInfo.cs" />
+    <Compile Include="High Level\Wave Sound Data\WaveSoundData.cs" />
+    <Compile Include="High Level\Wave Sound Data\WaveSoundDataItem.cs" />
+    <Compile Include="High Level\WaveArchivePair.cs" />
+    <Compile Include="High Level\WriteMode.cs" />
+    <Compile Include="SDK Export\Export Project.cs" />
+    <Compile Include="SoundWaveArchive.cs" />
+    <Compile Include="Low Level\Stream Audio\DspAdpcmDecode.cs" />
+    <Compile Include="Low Level\Stream Audio\DspAdpcmEncode.cs" />
+    <Compile Include="Low Level\Stream Audio\DspAdpcmMath.cs" />
     <Compile Include="GoldiAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,8 +193,8 @@
     <Compile Include="PatriciaTree.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StreamAudio\OpusNX.cs" />
-    <Compile Include="StreamAudio\RiffWave.cs" />
+    <Compile Include="Low Level\Stream Audio\OpusNX.cs" />
+    <Compile Include="Low Level\Stream Audio\RiffWave.cs" />
     <Compile Include="Rolf Rescource Researcher.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,10 +220,10 @@
       <DependentUpon>SaveQuitDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SoundArchive.cs" />
-    <Compile Include="StreamAudio\SoundNStreamStructures.cs" />
-    <Compile Include="StreamAudio\SoundStream.cs" />
-    <Compile Include="StreamAudio\SoundWave.cs" />
-    <Compile Include="StreamAudio\StreamPrefetchFile.cs" />
+    <Compile Include="Low Level\Stream Audio\SoundNStreamStructures.cs" />
+    <Compile Include="Low Level\Stream Audio\SoundStream.cs" />
+    <Compile Include="Low Level\Stream Audio\SoundWave.cs" />
+    <Compile Include="Low Level\Stream Audio\StreamPrefetchFile.cs" />
     <EmbeddedResource Include="AboutWindow.resx">
       <DependentUpon>AboutWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,4 +305,12 @@
     <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.5\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.3.3.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.3.5\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.3.3.2\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.3.2\build\Costura.Fody.props'))" />
+  </Target>
 </Project>

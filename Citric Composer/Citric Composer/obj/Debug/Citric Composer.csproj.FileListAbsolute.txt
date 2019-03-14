@@ -44,13 +44,8 @@ C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Data\Image
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Citric Composer.exe.config
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Citric Composer.exe
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Citric Composer.pdb
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\CSCore.dll
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\NAudio.dll
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Syroot.BinaryData.dll
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\CSCore.xml
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\MediaServer.pdb
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\NAudio.xml
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csprojAssemblyReference.cache
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.AboutWindow.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.GoldiAbout.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Goldi_GRP_Grouper.resources
@@ -69,5 +64,5 @@ C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Com
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Composer.pdb
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Rolf_Rescource_Researcher.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.RolfAbout.resources
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\VGAudio.dll
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\VGAudio.xml
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csprojAssemblyReference.cache

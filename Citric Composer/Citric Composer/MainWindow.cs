@@ -30,7 +30,7 @@ namespace Citric_Composer
         /// <summary>
         /// The main file.
         /// </summary>
-        public b_sar file;
+        public SoundArchive file;
 
 
         public MainWindow()
@@ -52,19 +52,11 @@ namespace Citric_Composer
 
             if (openB_sarBox.FileName != "") {
 
-                try
-                {
-
-                    //Make a new file, and load it.
-                    file = new b_sar();
-                    file.Load(File.ReadAllBytes(openB_sarBox.FileName));
-                    fileOpen = true;
-                    fileName = openB_sarBox.FileName;
-                    
-                }
-                catch {
-
-                }
+                //Make a new file, and load it.
+                file = SoundArchiveReader.ReadSoundArchive(File.ReadAllBytes(openB_sarBox.FileName));
+                fileOpen = true;
+                fileName = openB_sarBox.FileName;
+                Text = "Citric Composer - " + fileName;
 
                 //Fix things.
                 openB_sarBox.FileName = "";
@@ -144,15 +136,15 @@ namespace Citric_Composer
                     projectInfoPanel.Show();
 
                     //Update boxes.
-                    maxSeqNumBox.Value = file.info.projectInfo.maxSeq;
-                    maxSeqTrackNumBox.Value = file.info.projectInfo.maxSeqTracks;
-                    maxStreamNumBox.Value = file.info.projectInfo.maxStreamSounds;
-                    maxStreamNumTracksBox.Value = file.info.projectInfo.maxStreamTracks;
-                    maxStreamNumChannelsBox.Value = file.info.projectInfo.maxStreamChannels;
-                    maxWaveNumBox.Value = file.info.projectInfo.maxWaveSounds;
-                    maxWaveNumTracksBox.Value = file.info.projectInfo.maxWaveTracks;
-                    streamBufferTimesBox.Value = file.info.projectInfo.streamBufferTimes;
-                    optionsPIBox.Value = file.info.projectInfo.options;
+                    maxSeqNumBox.Value = file.MaxSequences;
+                    maxSeqTrackNumBox.Value = file.MaxSequenceTracks;
+                    maxStreamNumBox.Value = file.MaxStreamSounds;
+                    maxStreamNumTracksBox.Value = file.MaxStreamTracks;
+                    maxStreamNumChannelsBox.Value = file.MaxStreamChannels;
+                    maxWaveNumBox.Value = file.MaxWaveSounds;
+                    maxWaveNumTracksBox.Value = file.MaxWaveTracks;
+                    streamBufferTimesBox.Value = file.StreamBufferTimes;
+                    optionsPIBox.Value = file.Options;
 
                 }
 
@@ -300,8 +292,8 @@ namespace Citric_Composer
         /// </summary>
         public void UpdateNodes() {
 
-            //Update the file.
-            file.Update(file.fileHeader.byteOrder);
+            //Update file.
+            //NOTHING?
 
             //Get nodes that are currently expanded.
             List<string> expandedNodes = collectExpandedNodes(tree.Nodes);
@@ -315,403 +307,238 @@ namespace Citric_Composer
 
             }
 
-            //Load sounds.
-            int ssCount = 0;
-            foreach (b_sar.InfoBlock.soundInfo s in file.info.sounds) {
+            //Load streams.
+            int stmCount = 0;
+            foreach (var s in file.Streams) {
 
                 //Null.
-                if (s == null)
-                {
-                    tree.Nodes["sequences"].Nodes.Add("[" + ssCount + "] " + "%PLACEHOLDER%");
+                if (s == null) {
+                    tree.Nodes["streams"].Nodes.Add("stream" + stmCount, "[" + stmCount + "] " + "{ Null Stream }", 1, 1);
                 }
 
-                //Not null.
-                else
-                {
-
-                    //Not stream info.
-                    if (s.streamInfo == null)
-                    {
-
-                        //Not wave info, so sequence info.
-                        if (s.waveInfo == null)
-                        {
-
-                            //Null.
-                            if (s.sequenceInfo == null)
-                            {
-
-                                tree.Nodes["sequences"].Nodes.Add("[" + ssCount + "] " + "%PLACEHOLDER%");
-
-                            }
-
-                            //Not null.
-                            else
-                            {
-
-                                //Get node name.
-                                string nodeName = "NO_NAME";
-                                if (s.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)s.flags.flagValues[0]].data); }
-                                tree.Nodes["sequences"].Nodes.Add("[" + ssCount + "] " + nodeName, "[" + ssCount + "] " + nodeName, 3, 3);
-
-                            }
-
-                        }
-
-                        //Wave info.
-                        else
-                        {
-
-                            //Get node name.
-                            string nodeName = "NO_NAME";
-                            if (s.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)s.flags.flagValues[0]].data); }
-                            tree.Nodes["waveSoundSets"].Nodes.Add("[" + ssCount + "] " + nodeName, "[" + ssCount + "] " + nodeName, 2, 2);
-
-                        }
-
+                //Valid.
+                else {
+                    string name = s.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
                     }
-
-                    //Stream info.
-                    else
-                    {
-
-                        //Get node name.
-                        string nodeName = "NO_NAME";
-                        if (s.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)s.flags.flagValues[0]].data); }
-                        tree.Nodes["streams"].Nodes.Add("[" + ssCount + "] " + nodeName, "[" + ssCount + "] " + nodeName, 1, 1);
-
-                    }
-
+                    tree.Nodes["streams"].Nodes.Add("stream" + stmCount, "[" + stmCount + "] " + name, 1, 1);
                 }
 
-                ssCount += 1;
+                //Increment count.
+                stmCount++;
+
+            }
+
+            //Load wave sound infos.
+            int wsdCount = stmCount;
+            foreach (var w in file.WaveSoundDatas) {
+
+                //Null.
+                if (w == null) {
+                    tree.Nodes["waveSoundSets"].Nodes.Add("waveSoundSet" + wsdCount, "[" + wsdCount + "] " + "{ Null Wave Sound Set }", 2, 2);
+                }
+
+                //Valid.
+                else {
+                    string name = w.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
+                    }
+                    tree.Nodes["waveSoundSets"].Nodes.Add("waveSoundSet" + wsdCount, "[" + wsdCount + "] " + name, 2, 2);
+                }
+
+                //Increment count.
+                wsdCount++;
+
+            }
+
+            //Load sequences.
+            int seqCount = wsdCount;
+            foreach (var s in file.Sequences) {
+
+                //Null.
+                if (s == null) {
+                    tree.Nodes["sequences"].Nodes.Add("sequence" + seqCount, "[" + seqCount + "] " + "{ Null Sequence }", 3, 3);
+                }
+
+                //Valid.
+                else {
+                    string name = s.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
+                    }
+                    tree.Nodes["sequences"].Nodes.Add("sequence" + seqCount, "[" + seqCount + "] " + name, 3, 3);
+                }
+
+                //Increment count.
+                seqCount++;
 
             }
 
             //Load banks.
             int bCount = 0;
-            foreach (b_sar.InfoBlock.bankInfo b in file.info.banks) {
+            foreach (var b in file.Banks) {
 
                 //Null.
-                if (b == null)
-                {
-
-                    tree.Nodes["banks"].Nodes.Add("[" + bCount + "] " + "%PLACEHOLDER%");
-
-                }
-                else
-                {
-
-                    //Get node name.
-                    string nodeName = "NO_NAME";
-                    if (b.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)b.flags.flagValues[0]].data); }
-                    tree.Nodes["banks"].Nodes.Add("[" + bCount + "] " + nodeName, "[" + bCount + "] " + nodeName, 5, 5);
-
+                if (b == null) {
+                    tree.Nodes["banks"].Nodes.Add("bank" + bCount, "[" + bCount + "] " + "{ Null Bank }", 5, 5);
                 }
 
-                bCount += 1;
+                //Valid.
+                else {
+                    string name = b.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
+                    }
+                    tree.Nodes["banks"].Nodes.Add("bank" + bCount, "[" + bCount + "] " + name, 5, 5);
+                }
+
+                //Increment count.
+                bCount++;
 
             }
 
             //Load players.
             int pCount = 0;
-            foreach (b_sar.InfoBlock.playerInfo p in file.info.players)
-            {
+            foreach (var p in file.Players) {
 
                 //Null.
-                if (p == null)
-                {
-
-                    tree.Nodes["players"].Nodes.Add("[" + pCount + "] " + "%PLACEHOLDER%");
-
-                }
-                else
-                {
-
-                    //Get node name.
-                    string nodeName = "NO_NAME";
-                    if (p.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)p.flags.flagValues[0]].data); }
-                    tree.Nodes["players"].Nodes.Add("[" + pCount + "] " + nodeName, "[" + pCount + "] " + nodeName, 8, 8);
-
+                if (p == null) {
+                    tree.Nodes["players"].Nodes.Add("player" + pCount, "[" + pCount + "] " + "{ Null Player }", 8, 8);
                 }
 
-                pCount += 1;
-
-            }
-
-            //Load sound groups.
-            int sCount = 0;
-            foreach (b_sar.InfoBlock.soundGroupInfo s in file.info.soundGroups)
-            {
-
-                //Null.
-                if (s == null)
-                {
-
-                    tree.Nodes["soundGroups"].Nodes.Add("[" + sCount + "] " + "%PLACEHOLDER%");
-
-                }
-                else
-                {
-
-                    //Get node name.
-                    string nodeName = "NO_NAME";
-                    if (s.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)s.flags.flagValues[0]].data); }
-                    tree.Nodes["soundGroups"].Nodes.Add("[" + sCount + "] " + nodeName, "[" + sCount + "] " + nodeName, 4, 4);
-
-                    //Add the other entries to the node.
-                    for (int i = (int)s.firstId.index; i <= s.lastId.index; i++) {
-
-                        switch (s.firstId.type) {
-
-                            case SoundTypes.Null:
-                                tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("NULL");
-                                break;
-
-                            case SoundTypes.Sound:
-                                if (file.info.sounds[i] == null)
-                                {
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("%PLACEHOLDER%");
-                                }
-                                else {
-
-                                    string nodeName2 = "NO_NAME";
-                                    if (file.info.sounds[i].flags.isFlagEnabled[0]) { nodeName2 = new string(file.strg.stringEntries[(int)file.info.sounds[i].flags.flagValues[0]].data); }
-                                    if (file.info.sounds[i].sequenceInfo != null) {
-                                        tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 3, 3);
-                                    } else if (file.info.sounds[i].waveInfo != null) {
-                                        tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 2, 2);
-                                    } else if (file.info.sounds[i].streamInfo != null) {
-                                        tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 1, 1);
-                                    } else {
-                                        tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("WTF HOW AM I HERE??? PLS REPORT IMMEDIATELY");
-                                    }
-
-                                }
-                                break;
-
-                            case SoundTypes.SoundGroup:
-                                if (file.info.soundGroups[i] == null)
-                                {
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("%PLACEHOLDER%");
-                                }
-                                else
-                                {
-
-                                    string nodeName2 = "NO_NAME";
-                                    if (file.info.soundGroups[i].flags.isFlagEnabled[0]) {
-                                        nodeName2 = new string(file.strg.stringEntries[(int)file.info.soundGroups[i].flags.flagValues[0]].data);
-                                    }
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 4, 4);
-
-                                }
-                                break;
-
-                            case SoundTypes.Bank:
-                                if (file.info.banks[i] == null)
-                                {
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("%PLACEHOLDER%");
-                                }
-                                else
-                                {
-
-                                    string nodeName2 = "NO_NAME";
-                                    if (file.info.banks[i].flags.isFlagEnabled[0])
-                                    {
-                                        nodeName2 = new string(file.strg.stringEntries[(int)file.info.banks[i].flags.flagValues[0]].data);
-                                    }
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 5, 5);
-
-                                }
-                                break;
-
-                            case SoundTypes.Player:
-                                if (file.info.players[i] == null)
-                                {
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("%PLACEHOLDER%");
-                                }
-                                else
-                                {
-
-                                    string nodeName2 = "NO_NAME";
-                                    if (file.info.players[i].flags.isFlagEnabled[0])
-                                    {
-                                        nodeName2 = new string(file.strg.stringEntries[(int)file.info.players[i].flags.flagValues[0]].data);
-                                    }
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 8, 8);
-
-                                }
-                                break;
-
-                            case SoundTypes.WaveArchive:
-                                if (file.info.wars[i] == null)
-                                {
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("%PLACEHOLDER%");
-                                }
-                                else
-                                {
-
-                                    string nodeName2 = "NO_NAME";
-                                    if (file.info.wars[i].flags.isFlagEnabled[0])
-                                    {
-                                        nodeName2 = new string(file.strg.stringEntries[(int)file.info.wars[i].flags.flagValues[0]].data);
-                                    }
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 4, 4);
-
-                                }
-                                break;
-
-                            case SoundTypes.Group:
-                                if (file.info.groups[i] == null)
-                                {
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add("%PLACEHOLDER%");
-                                }
-                                else
-                                {
-
-                                    string nodeName2 = "NO_NAME";
-                                    if (file.info.groups[i].flags.isFlagEnabled[0])
-                                    {
-                                        nodeName2 = new string(file.strg.stringEntries[(int)file.info.groups[i].flags.flagValues[0]].data);
-                                    }
-                                    tree.Nodes["soundGroups"].Nodes[sCount].Nodes.Add(nodeName2, nodeName2, 7, 7);
-
-                                }
-                                break;
-
-                        }
-
+                //Valid.
+                else {
+                    string name = p.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
                     }
-
+                    tree.Nodes["players"].Nodes.Add("player" + pCount, "[" + pCount + "] " + name, 8, 8);
                 }
 
-                sCount += 1;
+                //Increment count.
+                pCount++;
 
             }
+
+            //Load sound groups. TODO
+            int sCount = 0;
 
             //Load groups.
             int gCount = 0;
-            foreach (b_sar.InfoBlock.groupInfo g in file.info.groups)
-            {
+            foreach (var g in file.Groups) {
 
                 //Null.
-                if (g == null)
-                {
-
-                    tree.Nodes["groups"].Nodes.Add("[" + gCount + "] " + "%PLACEHOLDER%");
-
-                }
-                else
-                {
-
-                    //Get node name.
-                    string nodeName = "NO_NAME";
-                    if (g.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)g.flags.flagValues[0]].data); }
-                    tree.Nodes["groups"].Nodes.Add("[" + gCount + "] " + nodeName, "[" + gCount + "] " + nodeName, 7, 7);
-
+                if (g == null) {
+                    tree.Nodes["players"].Nodes.Add("group" + gCount, "[" + gCount + "] " + "{ Null Group }", 7, 7);
                 }
 
-                gCount += 1;
+                //Valid.
+                else {
+                    string name = g.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
+                    }
+                    tree.Nodes["groups"].Nodes.Add("group" + gCount, "[" + gCount + "] " + name, 7, 7);
+                }
+
+                //Increment count.
+                gCount++;
 
             }
 
             //Load wave archives.
             int wCount = 0;
-            foreach (b_sar.InfoBlock.waveArchiveInfo w in file.info.wars)
-            {
+            foreach (var w in file.WaveArchives) {
 
                 //Null.
-                if (w == null)
-                {
-
-                    tree.Nodes["waveArchives"].Nodes.Add("[" + wCount + "] " + "%PLACEHOLDER%");
-
-                }
-                else
-                {
-
-                    //Get node name.
-                    string nodeName = "NO_NAME";
-                    if (w.flags.isFlagEnabled[0]) { nodeName = new string(file.strg.stringEntries[(int)w.flags.flagValues[0]].data); }
-                    tree.Nodes["waveArchives"].Nodes.Add("[" + wCount + "] " + nodeName, "[" + wCount + "] " + nodeName, 4, 4);
-
+                if (w == null) {
+                    tree.Nodes["waveArchives"].Nodes.Add("waveArchives" + wCount, "[" + wCount + "] " + "{ Null Wave Archive }", 6, 6);
                 }
 
-                wCount += 1;
+                //Valid.
+                else {
+                    string name = w.Name;
+                    if (name == null) {
+                        name = "{ Null Name }";
+                    }
+                    tree.Nodes["waveArchives"].Nodes.Add("waveArchive" + wCount, "[" + wCount + "] " + name, 6, 6);
+                }
+
+                //Increment count.
+                wCount++;
 
             }
 
             //Load files.
             int fCount = 0;
-            tree.Nodes["files"].Nodes.Add("internalFiles", "Internal", 11, 11);
-            tree.Nodes["files"].Nodes.Add("externalFiles", "External", 11, 11);
-            foreach (b_sar.InfoBlock.fileInfo f in file.info.files)
+            foreach (var f in file.Files)
             {
 
-                int icon = 0;
-
-                if (f == null)
-                {
-                    tree.Nodes["files"].Nodes.Add("[" + fCount + "] " + "%PLACEHOLDER%");
+                //Null.
+                if (f == null) {
+                    tree.Nodes["files"].Nodes.Add("file" + fCount, "[" + fCount + "] " + "{ Null File }", 0, 0);
                 }
+
+                //Valid.
                 else {
 
-                    if (f.internalFileInfo == null)
-                    {
-                        if (f.externalFileName == null)
-                        {
-                            tree.Nodes["files"].Nodes.Add("[" + fCount + "] " + "%PLACEHOLDER%");
-                        }
-                        else {
+                    string name = f.FileName;
+                    if (name == null) {
+                        name = "{ Null File Name }";
+                    }
+                    name += "." + f.FileExtension;
 
-                            if (f.externalFileName.EndsWith("seq"))
-                            {
+                    //Get the icon.
+                    int icon = 0;
+                    if (f.FileExtension.Length > 3) {
+                        switch (f.FileExtension.Substring(2, 3)) {
+
+                            case "seq":
                                 icon = 3;
-                            }
-                            else if (f.externalFileName.EndsWith("wsd"))
-                            {
-                                icon = 2;
-                            }
-                            else if (f.externalFileName.EndsWith("stm"))
-                            {
+                                break;
+
+                            case "stm":
                                 icon = 1;
-                            }
-                            else if (f.externalFileName.EndsWith("bnk"))
-                            {
+                                break;
+
+                            case "wsd":
+                                icon = 2;
+                                break;
+
+                            case "bnk":
                                 icon = 5;
-                            }
-                            else if (f.externalFileName.EndsWith("war"))
-                            {
-                                icon = 4;
-                            }
-                            else if (f.externalFileName.EndsWith("grp"))
-                            {
+                                break;
+
+                            case "war":
+                                icon = 6;
+                                break;
+
+                            case "stp":
+                                icon = 1;
+                                break;
+
+                            case "grp":
                                 icon = 7;
-                            }
-
-                            tree.Nodes["files"].Nodes["externalFiles"].Nodes.Add("[" + fCount + "] " + f.externalFileName, "[" + fCount + "] " + f.externalFileName, icon, icon);
+                                break;
 
                         }
                     }
-                    else {
 
-                        if (f.externalFileName == null)
-                        {
-                            tree.Nodes["files"].Nodes["internalFiles"].Nodes.Add("[" + fCount + "] " + file.FindFileName(fCount, ref icon), "[" + fCount + "] " + file.FindFileName(fCount, ref icon), icon, icon);
-                        }
-                        else {
-
-                            tree.Nodes["files"].Nodes.Add("[" + fCount + "] " + "%PLACEHOLDER%");
-                        }
-
+                    //Get content type.
+                    string type = "(" + f.FileType.ToString() + ")";
+                    if (f.FileType == EFileType.Internal && f.File == null) {
+                        type = "(Internal But Null)";
                     }
 
+                    tree.Nodes["files"].Nodes.Add("file" + fCount, "[" + fCount + "] " + name + " " + type, icon, icon);
                 }
 
-                fCount += 1;
+                //Increment count.
+                fCount++;
 
             }
-
 
             //Restore the nodes if they exist.
             if (expandedNodes.Count > 0)
@@ -732,7 +559,7 @@ namespace Citric_Composer
 
 
         /// <summary>
-        /// Extract to a folder.
+        /// Extract to a folder. MAKE THIS WORK IN THE FUTURE!
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -743,7 +570,7 @@ namespace Citric_Composer
             folderSelector.ShowDialog();
 
             if (folderSelector.SelectedPath != null) {
-                file.Extract(folderSelector.SelectedPath, file.fileHeader.byteOrder);
+                //file.Extract(folderSelector.SelectedPath, file.fileHeader.byteOrder);
             }
 
         }

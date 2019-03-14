@@ -956,6 +956,21 @@ namespace CitraFileLoader
 
     }
 
+    /// <summary>
+    /// Sound type constants.
+    /// </summary>
+    public enum SoundType {
+
+        Null = 0,
+        Sound = 1,
+        SoundGroup = 2,
+        Bank = 3,
+        Player = 4,
+        WaveArchive = 5,
+        Group = 6
+
+    }
+
 
     /// <summary>
     /// Reference type constants.

@@ -37,12 +37,8 @@
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Sound Groups", 4, 4);
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Groups", 7, 7);
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Wave Archives", 6, 6);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Internal", 11, 11);
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("External", 11, 11);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Files", 11, 11, new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Project Information", 10, 10);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Files", 11, 11);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Project Information", 10, 10);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.fileIdPanel = new System.Windows.Forms.Panel();
@@ -521,21 +517,13 @@
             treeNode8.SelectedImageIndex = 6;
             treeNode8.Text = "Wave Archives";
             treeNode9.ImageIndex = 11;
-            treeNode9.Name = "internalFiles";
+            treeNode9.Name = "files";
             treeNode9.SelectedImageIndex = 11;
-            treeNode9.Text = "Internal";
-            treeNode10.ImageIndex = 11;
-            treeNode10.Name = "externalFiles";
-            treeNode10.SelectedImageIndex = 11;
-            treeNode10.Text = "External";
-            treeNode11.ImageIndex = 11;
-            treeNode11.Name = "files";
-            treeNode11.SelectedImageIndex = 11;
-            treeNode11.Text = "Files";
-            treeNode12.ImageIndex = 10;
-            treeNode12.Name = "projectInfo";
-            treeNode12.SelectedImageIndex = 10;
-            treeNode12.Text = "Project Information";
+            treeNode9.Text = "Files";
+            treeNode10.ImageIndex = 10;
+            treeNode10.Name = "projectInfo";
+            treeNode10.SelectedImageIndex = 10;
+            treeNode10.Text = "Project Information";
             this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
@@ -545,8 +533,8 @@
             treeNode6,
             treeNode7,
             treeNode8,
-            treeNode11,
-            treeNode12});
+            treeNode9,
+            treeNode10});
             this.tree.SelectedImageIndex = 0;
             this.tree.ShowLines = false;
             this.tree.Size = new System.Drawing.Size(609, 473);

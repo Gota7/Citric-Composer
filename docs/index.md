@@ -4,7 +4,9 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 
 # Downloads
-[Citric Composer (TOOLS WIP)](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/Citric%20Composer/bin/Release/Citric%20Composer.zip?raw=true) - GUI editor for B_SARs. Currently WIP.
+[Citric Composer (WIP)](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/Citric%20Composer/bin/Release/Citric%20Composer.zip?raw=true) - GUI editor for B_SARs. Currently WIP.
+
+[Citric Composer Installer](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/Citric%20Installer.msi?raw=true) - An installer for the current version of Citric Composer.
 
 [Isabelle Sound Editor (Aqua Edition)](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/Citric%20Composer/bin/Release/Isabelle%20Sound%20Editor.zip?raw=true) - GUI editor for WiiU/3ds streams and waves. May require python3 installation for streams to build.
 

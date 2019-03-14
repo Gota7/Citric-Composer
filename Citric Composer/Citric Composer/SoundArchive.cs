@@ -54,7 +54,7 @@ namespace CitraFileLoader
 
                     case ReferenceTypes.SAR_Block_Info:
                         info = new InfoBlock();
-                        info.Load(n, fileHeader.byteOrder, fileHeader.version);
+                        info.Load(n, fileHeader.byteOrder, fileHeader.version, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, fileHeader.magic[0] == 'C');
                         break;
 
                     case ReferenceTypes.SAR_Block_File:
@@ -110,11 +110,11 @@ namespace CitraFileLoader
         {
 
             strg.update(byteOrder);
-            info.Update(fileHeader.version);
+            info.Update(fileHeader.version, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, fileHeader.magic[0] == 'C');
             file.Update(info);
 
             UInt32 strgSize = (UInt32)strg.toBytes(byteOrder).Length;
-            UInt32 infoSize = (UInt32)info.ToBytes(byteOrder, fileHeader.version).Length;
+            UInt32 infoSize = (UInt32)info.ToBytes(byteOrder, fileHeader.version, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, fileHeader.magic[0] == 'C').Length;
             UInt32 fileSize = (UInt32)file.ToBytes(byteOrder, info).Length;
 
             string magic = "FSAR";
@@ -142,7 +142,7 @@ namespace CitraFileLoader
 
             //Write blocks.
             bw.Write(strg.toBytes(endian));
-            bw.Write(info.ToBytes(endian, fileHeader.version));
+            bw.Write(info.ToBytes(endian, fileHeader.version, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, fileHeader.magic[0] == 'C'));
             bw.Write(file.ToBytes(endian, info));
 
             //Return bytes.
@@ -165,7 +165,7 @@ namespace CitraFileLoader
 
             Update(byteOrder);
 
-            File.WriteAllBytes(path + "/info.bin", info.ToBytes(byteOrder, fileHeader.version));
+            File.WriteAllBytes(path + "/info.bin", info.ToBytes(byteOrder, fileHeader.version, fileHeader.vMajor, fileHeader.vMinor, fileHeader.vRevision, fileHeader.magic[0] == 'C'));
             File.WriteAllBytes(path + "/strg.bin", strg.toBytes(byteOrder));
 
             //Get the files.
@@ -376,6 +376,118 @@ namespace CitraFileLoader
                 }
 
                 wCount += 1;
+
+            }
+
+            return name;
+
+        }
+
+
+        public string GetItemName(SDKSoundType type, int index) {
+
+            string prefix = "";
+            switch (type) {
+
+                case SDKSoundType.StreamSound:
+                    prefix = "STRM";
+                    break;
+
+                case SDKSoundType.WaveSoundSet:
+                    prefix = "WSDSET";
+                    break;
+
+                case SDKSoundType.SequenceSound:
+                    prefix = "SEQ";
+                    break;
+
+                case SDKSoundType.SequenceSoundSet:
+                    prefix = "SEQSET";
+                    break;
+
+                case SDKSoundType.SoundSetBank:
+                    prefix = "BANK";
+                    break;
+
+                case SDKSoundType.WaveArchive:
+                    prefix = "WARC";
+                    break;
+
+                case SDKSoundType.Group:
+                    prefix = "GROUP";
+                    break;
+
+                case SDKSoundType.Player:
+                    prefix = "PLAYER";
+                    break;
+
+            }
+
+            string name = prefix + "_" + index;
+
+            switch (type) {
+
+                case SDKSoundType.StreamSound:
+                case SDKSoundType.SequenceSound:
+                case SDKSoundType.WaveSoundSet:
+                    if (info.sounds[index] != null) {
+                        if (info.sounds[index].flags.isFlagEnabled[0]) {
+                            name = new string(strg.stringEntries[(int)info.sounds[index].flags.flagValues[0]].data);
+                        }
+                    } else {
+                        return "%PLACEHOLDER%";
+                    }
+                    break;
+
+                case SDKSoundType.SequenceSoundSet:
+                    if (info.soundGroups[index] != null) {
+                        if (info.soundGroups[index].flags.isFlagEnabled[0]) {
+                            name = new string(strg.stringEntries[(int)info.soundGroups[index].flags.flagValues[0]].data);
+                        }
+                    } else {
+                        return "%PLACEHOLDER%";
+                    }
+                    break;
+
+                case SDKSoundType.SoundSetBank:
+                    if (info.banks[index] != null) {
+                        if (info.banks[index].flags.isFlagEnabled[0]) {
+                            name = new string(strg.stringEntries[(int)info.banks[index].flags.flagValues[0]].data);
+                        }
+                    } else {
+                        return "%PLACEHOLDER%";
+                    }
+                    break;
+
+                case SDKSoundType.WaveArchive:
+                    if (info.wars[index] != null) {
+                        if (info.wars[index].flags.isFlagEnabled[0]) {
+                            name = new string(strg.stringEntries[(int)info.wars[index].flags.flagValues[0]].data);
+                        }
+                    } else {
+                        return "%PLACEHOLDER%";
+                    }
+                    break;
+
+                case SDKSoundType.Group:
+                    if (info.groups[index] != null) {
+                        if (info.groups[index].flags.isFlagEnabled[0]) {
+                            name = new string(strg.stringEntries[(int)info.groups[index].flags.flagValues[0]].data);
+                        }
+                    } else {
+                        return "%PLACEHOLDER%";
+                    }
+                    break;
+
+                case SDKSoundType.Player:
+                    if (info.players[index] != null) {
+                        if (info.players[index].flags.isFlagEnabled[0]) {
+                            name = new string(strg.stringEntries[(int)info.players[index].flags.flagValues[0]].data);
+                        }
+                    } else {
+                        return "%PLACEHOLDER%";
+                    }
+                    break;
 
             }
 
@@ -1607,7 +1719,7 @@ namespace CitraFileLoader
             /// Load a file.
             /// </summary>
             /// <param name="b">The blue component.</param>
-            public void Load(byte[] b, UInt16 endian, UInt32 version)
+            public void Load(byte[] b, UInt16 endian, UInt32 version, byte majVer, byte minVer, byte revVer, bool CTR)
             {
 
                 //Setup source.
@@ -1714,7 +1826,7 @@ namespace CitraFileLoader
                                                 case ReferenceTypes.SAR_ItemInfos + 1:
 
                                                     //If version is old.
-                                                    if (version < NWConstants.NEW_STREAM_VERSION)
+                                                    if (((minVer < NWConstants.NEW_STREAM_VERSION_MIN && majVer == NWConstants.NEW_STREAM_VERSION_MAJ) || majVer < NWConstants.NEW_STREAM_VERSION_MAJ) || CTR)
                                                     {
 
                                                         s.streamInfo = new soundInfo.streamSoundInfo
@@ -2400,7 +2512,7 @@ namespace CitraFileLoader
                                                 {
                                                     f.internalFileInfo = new SizedReference(ref br);
 
-                                                    if (version >= NWConstants.NEW_FILE_VERSION)
+                                                    if (majVer >= NWConstants.NEW_FILE_VERSION_MAJ)
                                                     {
                                                         f.internalFileGroupTableRef = new Reference(ref br);
 
@@ -2479,11 +2591,11 @@ namespace CitraFileLoader
             /// </summary>
             /// <param name="endian"></param>
             /// <returns>The new INFO block binary.</returns>
-            public byte[] ToBytes(UInt16 endian, UInt32 version)
+            public byte[] ToBytes(UInt16 endian, UInt32 version, byte majVer, byte minVer, byte revVer, bool CTR)
             {
 
                 //Update.
-                Update(version);
+                Update(version, majVer, minVer, revVer, CTR);
 
                 //Setup the stream output.
                 MemoryStream o = new MemoryStream();
@@ -2566,7 +2678,7 @@ namespace CitraFileLoader
 
                         case ReferenceTypes.SAR_Info_StreamSound:
 
-                            if (version < NWConstants.NEW_STREAM_VERSION)
+                            if (((minVer < NWConstants.NEW_STREAM_VERSION_MIN && majVer == NWConstants.NEW_STREAM_VERSION_MAJ) || majVer < NWConstants.NEW_STREAM_VERSION_MAJ) || CTR)
                             {
 
                                 bw.Write(s.streamInfo.allocateTrackFlags);
@@ -2764,7 +2876,7 @@ namespace CitraFileLoader
                     {
                         f.internalFileInfo.Write(ref bw);
 
-                        if (version >= NWConstants.NEW_FILE_VERSION)
+                        if (majVer >= NWConstants.NEW_FILE_VERSION_MAJ)
                         {
                             f.internalFileGroupTableRef.Write(ref bw);
                             if (f.internalFileGroupTable != null)
@@ -2820,7 +2932,7 @@ namespace CitraFileLoader
             /// Update the file offsets and stuff.
             /// </summary>
             /// <param name="version"></param>
-            public void Update(UInt32 version)
+            public void Update(UInt32 version, byte majVer, byte minVer, byte revVer, bool CTR)
             {
 
                 magic = "INFO".ToCharArray();
@@ -2938,7 +3050,7 @@ namespace CitraFileLoader
                             sounds[i].detailSoundRef = new Reference(ReferenceTypes.SAR_Info_StreamSound, insideSoundInfoOffset);
 
                             //Old version.
-                            if (version < NWConstants.NEW_STREAM_VERSION)
+                            if (((minVer < NWConstants.NEW_STREAM_VERSION_MIN && majVer == NWConstants.NEW_STREAM_VERSION_MAJ) || majVer < NWConstants.NEW_STREAM_VERSION_MAJ) || CTR)
                             {
 
                                 insideSoundInfoOffset += 4 + sounds[i].streamInfo.oldFlags.GetSize();
@@ -3466,7 +3578,7 @@ namespace CitraFileLoader
                             currentFileOffset += 12;
 
                             //If new version.
-                            if (version >= NWConstants.NEW_FILE_VERSION)
+                            if (majVer >= NWConstants.NEW_FILE_VERSION_MAJ)
                             {
 
                                 if (files[i].internalFileGroupTable != null)
@@ -3552,12 +3664,32 @@ namespace CitraFileLoader
         /// </summary>
         public const UInt32 NEW_STREAM_VERSION = 0x00020200;
 
+        public const byte NEW_STREAM_VERSION_MAJ = 2;
+        public const byte NEW_STREAM_VERSION_MIN = 2;
+
         /// <summary>
         /// Contains extra file info if this version.
         /// </summary>
         public const UInt32 NEW_FILE_VERSION = 0x00020000;
 
+        public const byte NEW_FILE_VERSION_MAJ = 2;
+
     }
 
+    /// <summary>
+    /// SDK Sound Type.
+    /// </summary>
+    public enum SDKSoundType {
+
+        StreamSound,
+        WaveSoundSet,
+        SequenceSound,
+        SequenceSoundSet,
+        SoundSetBank,
+        WaveArchive,
+        Group,
+        Player
+
+    }
 
 }
