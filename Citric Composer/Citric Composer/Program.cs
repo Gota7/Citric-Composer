@@ -52,6 +52,7 @@ namespace Citric_Composer
                         //Isabelle.
                         case "stm":
                         case "wav":
+                        case "isp":
                             IsabelleSoundEditor i = new IsabelleSoundEditor(args[0]);
                             Application.Run(i);
                             break;

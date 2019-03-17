@@ -166,12 +166,6 @@
     <Compile Include="Goldi GRP Grouper.Designer.cs">
       <DependentUpon>Goldi GRP Grouper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Brewster WAR Brewerz.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Brewster WAR Brewerz.Designer.cs">
-      <DependentUpon>Brewster WAR Brewerz.cs</DependentUpon>
-    </Compile>
     <Compile Include="CitraStructures.cs" />
     <Compile Include="BrewsterAbout.cs">
       <SubType>Form</SubType>
@@ -244,9 +238,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Goldi GRP Grouper.resx">
       <DependentUpon>Goldi GRP Grouper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Brewster WAR Brewerz.resx">
-      <DependentUpon>Brewster WAR Brewerz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BrewsterAbout.resx">
       <DependentUpon>BrewsterAbout.cs</DependentUpon>

@@ -340,7 +340,6 @@ namespace Citric_Composer {
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.nullifyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormClosing += new FormClosingEventHandler(this.form_Close);
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -565,6 +564,7 @@ namespace Citric_Composer {
             this.vWavRevBox.Size = new System.Drawing.Size(77, 20);
             this.vWavRevBox.TabIndex = 2;
             this.toolTip.SetToolTip(this.vWavRevBox, "Revision version of the file.");
+            this.vWavRevBox.ValueChanged += new System.EventHandler(this.vWavRevBox_ValueChanged);
             // 
             // vWavMinBox
             // 
@@ -579,6 +579,7 @@ namespace Citric_Composer {
             this.vWavMinBox.Size = new System.Drawing.Size(76, 20);
             this.vWavMinBox.TabIndex = 1;
             this.toolTip.SetToolTip(this.vWavMinBox, "Minor version of the file.");
+            this.vWavMinBox.ValueChanged += new System.EventHandler(this.vWavMinBox_ValueChanged);
             // 
             // vWavMajBox
             // 
@@ -593,6 +594,7 @@ namespace Citric_Composer {
             this.vWavMajBox.Size = new System.Drawing.Size(76, 20);
             this.vWavMajBox.TabIndex = 0;
             this.toolTip.SetToolTip(this.vWavMajBox, "Major version of the file.");
+            this.vWavMajBox.ValueChanged += new System.EventHandler(this.vWavMajBox_ValueChanged);
             // 
             // label6
             // 
@@ -637,6 +639,7 @@ namespace Citric_Composer {
             this.vRevBoxWar.Size = new System.Drawing.Size(77, 20);
             this.vRevBoxWar.TabIndex = 2;
             this.toolTip.SetToolTip(this.vRevBoxWar, "Revision version of the file.");
+            this.vRevBoxWar.ValueChanged += new System.EventHandler(this.vRevBoxWar_ValueChanged);
             // 
             // vMinBoxWar
             // 
@@ -651,6 +654,7 @@ namespace Citric_Composer {
             this.vMinBoxWar.Size = new System.Drawing.Size(76, 20);
             this.vMinBoxWar.TabIndex = 1;
             this.toolTip.SetToolTip(this.vMinBoxWar, "Minor version of the file.");
+            this.vMinBoxWar.ValueChanged += new System.EventHandler(this.vMinBoxWar_ValueChanged);
             // 
             // vMajBoxWar
             // 
@@ -665,6 +669,7 @@ namespace Citric_Composer {
             this.vMajBoxWar.Size = new System.Drawing.Size(76, 20);
             this.vMajBoxWar.TabIndex = 0;
             this.toolTip.SetToolTip(this.vMajBoxWar, "Major version of the file.");
+            this.vMajBoxWar.ValueChanged += new System.EventHandler(this.vMajBoxWar_ValueChanged);
             // 
             // label5
             // 
@@ -975,7 +980,7 @@ namespace Citric_Composer {
             // 
             this.addToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addToolStripMenuItem.Image")));
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
@@ -983,7 +988,7 @@ namespace Citric_Composer {
             // 
             this.expandToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("expandToolStripMenuItem.Image")));
             this.expandToolStripMenuItem.Name = "expandToolStripMenuItem";
-            this.expandToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.expandToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.expandToolStripMenuItem.Text = "Expand";
             this.expandToolStripMenuItem.Click += new System.EventHandler(this.expandToolStripMenuItem_Click);
             // 
@@ -991,7 +996,7 @@ namespace Citric_Composer {
             // 
             this.collapseToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("collapseToolStripMenuItem.Image")));
             this.collapseToolStripMenuItem.Name = "collapseToolStripMenuItem";
-            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.collapseToolStripMenuItem.Text = "Collapse";
             this.collapseToolStripMenuItem.Click += new System.EventHandler(this.collapseToolStripMenuItem_Click);
             // 
@@ -1009,13 +1014,13 @@ namespace Citric_Composer {
             this.nullifyToolStripMenuItem1,
             this.deleteToolStripMenuItem1});
             this.nodeMenu.Name = "contextMenuStrip1";
-            this.nodeMenu.Size = new System.Drawing.Size(181, 224);
+            this.nodeMenu.Size = new System.Drawing.Size(139, 202);
             // 
             // addAboveToolStripMenuItem1
             // 
             this.addAboveToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("addAboveToolStripMenuItem1.Image")));
             this.addAboveToolStripMenuItem1.Name = "addAboveToolStripMenuItem1";
-            this.addAboveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.addAboveToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.addAboveToolStripMenuItem1.Text = "Add Above";
             this.addAboveToolStripMenuItem1.Click += new System.EventHandler(this.addAboveToolStripMenuItem1_Click);
             // 
@@ -1023,7 +1028,7 @@ namespace Citric_Composer {
             // 
             this.addBelowToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("addBelowToolStripMenuItem1.Image")));
             this.addBelowToolStripMenuItem1.Name = "addBelowToolStripMenuItem1";
-            this.addBelowToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.addBelowToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.addBelowToolStripMenuItem1.Text = "Add Below";
             this.addBelowToolStripMenuItem1.Click += new System.EventHandler(this.addBelowToolStripMenuItem1_Click);
             // 
@@ -1031,7 +1036,7 @@ namespace Citric_Composer {
             // 
             this.moveUpToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("moveUpToolStripMenuItem1.Image")));
             this.moveUpToolStripMenuItem1.Name = "moveUpToolStripMenuItem1";
-            this.moveUpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.moveUpToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.moveUpToolStripMenuItem1.Text = "Move Up";
             this.moveUpToolStripMenuItem1.Click += new System.EventHandler(this.moveUpToolStripMenuItem1_Click);
             // 
@@ -1039,7 +1044,7 @@ namespace Citric_Composer {
             // 
             this.moveDownToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("moveDownToolStripMenuItem1.Image")));
             this.moveDownToolStripMenuItem1.Name = "moveDownToolStripMenuItem1";
-            this.moveDownToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.moveDownToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.moveDownToolStripMenuItem1.Text = "Move Down";
             this.moveDownToolStripMenuItem1.Click += new System.EventHandler(this.moveDownToolStripMenuItem1_Click);
             // 
@@ -1047,7 +1052,7 @@ namespace Citric_Composer {
             // 
             this.blankToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("blankToolStripMenuItem.Image")));
             this.blankToolStripMenuItem.Name = "blankToolStripMenuItem";
-            this.blankToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blankToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.blankToolStripMenuItem.Text = "Blank";
             this.blankToolStripMenuItem.Click += new System.EventHandler(this.blankToolStripMenuItem_Click);
             // 
@@ -1055,7 +1060,7 @@ namespace Citric_Composer {
             // 
             this.replaceFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("replaceFileToolStripMenuItem.Image")));
             this.replaceFileToolStripMenuItem.Name = "replaceFileToolStripMenuItem";
-            this.replaceFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.replaceFileToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.replaceFileToolStripMenuItem.Text = "Replace";
             this.replaceFileToolStripMenuItem.Click += new System.EventHandler(this.replaceFileToolStripMenuItem_Click);
             // 
@@ -1063,7 +1068,7 @@ namespace Citric_Composer {
             // 
             this.exportToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("exportToolStripMenuItem1.Image")));
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.exportToolStripMenuItem1.Text = "Export";
             this.exportToolStripMenuItem1.Click += new System.EventHandler(this.exportToolStripMenuItem1_Click);
             // 
@@ -1071,7 +1076,7 @@ namespace Citric_Composer {
             // 
             this.nullifyToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("nullifyToolStripMenuItem1.Image")));
             this.nullifyToolStripMenuItem1.Name = "nullifyToolStripMenuItem1";
-            this.nullifyToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.nullifyToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.nullifyToolStripMenuItem1.Text = "Nullify";
             this.nullifyToolStripMenuItem1.Click += new System.EventHandler(this.nullifyToolStripMenuItem1_Click);
             // 
@@ -1079,7 +1084,7 @@ namespace Citric_Composer {
             // 
             this.deleteToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem1.Image")));
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
@@ -1091,6 +1096,7 @@ namespace Citric_Composer {
             this.Controls.Add(this.statusStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "EditorBase";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.form_Close);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -1885,6 +1891,43 @@ namespace Citric_Composer {
             return true;
 
         }
+
+        #endregion
+
+
+        //War boxes.
+        #region warBoxes
+
+        private void vMajBoxWar_ValueChanged(object sender, EventArgs e) {
+            BoxWarMajChanged();
+        }
+
+        private void vMinBoxWar_ValueChanged(object sender, EventArgs e) {
+            BoxWarMinChanged();
+        }
+
+        private void vRevBoxWar_ValueChanged(object sender, EventArgs e) {
+            BoxWarRevChanged();
+        }
+
+        private void vWavMajBox_ValueChanged(object sender, EventArgs e) {
+            BoxWavMajChanged();
+        }
+
+        private void vWavMinBox_ValueChanged(object sender, EventArgs e) {
+            BoxWavMinChanged();
+        }
+
+        private void vWavRevBox_ValueChanged(object sender, EventArgs e) {
+            BoxWavRevChanged();
+        }
+
+        public virtual void BoxWarMajChanged() {}
+        public virtual void BoxWarMinChanged() {}
+        public virtual void BoxWarRevChanged() {}
+        public virtual void BoxWavMajChanged() {}
+        public virtual void BoxWavMinChanged() {}
+        public virtual void BoxWavRevChanged() {}
 
         #endregion
 

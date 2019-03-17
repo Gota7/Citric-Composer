@@ -44,6 +44,9 @@ namespace Citric_Composer {
             Icon = Properties.Resources.Brewster;
         }
 
+        //Info and updates.
+        #region InfoAndUpdates
+
         /// <summary>
         /// Do info stuff.
         /// </summary>
@@ -117,7 +120,6 @@ namespace Citric_Composer {
 
         }
 
-
         /// <summary>
         /// Update nodes.
         /// </summary>
@@ -185,45 +187,6 @@ namespace Citric_Composer {
 
         }
 
-
-        /// <summary>
-        /// Play sound player deluxe.
-        /// </summary>
-        public override void Play() {
-
-            if (!paused || prevIndex != tree.SelectedNode.Index) {
-                waveOut.Stop();
-                var n = new WaveFileReader(new MemoryStream((File as SoundWaveArchive)[tree.SelectedNode.Index].Riff.ToBytes()));
-                waveOut.Initialize(n);
-                prevIndex = tree.SelectedNode.Index;
-            }
-            waveOut.Play();
-            paused = false;
-
-        }
-
-
-        /// <summary>
-        /// Pause sound player deluxe.
-        /// </summary>
-        public override void Pause() {
-
-            paused = true;
-            waveOut.Pause();
-
-        }
-
-
-        /// <summary>
-        /// Stop sound player deluxe.
-        /// </summary>
-        public override void Stop() {
-
-            paused = false;
-            waveOut.Stop();
-
-        }
-
         /// <summary>
         /// Node is double clicked.
         /// </summary>
@@ -255,6 +218,54 @@ namespace Citric_Composer {
 
         }
 
+        #endregion
+
+
+        //Player.
+        #region Player
+
+        /// <summary>
+        /// Play sound player deluxe.
+        /// </summary>
+        public override void Play() {
+
+            if (!paused || prevIndex != tree.SelectedNode.Index) {
+                waveOut.Stop();
+                var n = new WaveFileReader(new MemoryStream((File as SoundWaveArchive)[tree.SelectedNode.Index].Riff.ToBytes()));
+                waveOut.Initialize(n);
+                prevIndex = tree.SelectedNode.Index;
+            }
+            waveOut.Play();
+            paused = false;
+
+        }
+
+        /// <summary>
+        /// Pause sound player deluxe.
+        /// </summary>
+        public override void Pause() {
+
+            paused = true;
+            waveOut.Pause();
+
+        }
+
+        /// <summary>
+        /// Stop sound player deluxe.
+        /// </summary>
+        public override void Stop() {
+
+            paused = false;
+            waveOut.Stop();
+
+        }
+
+        #endregion
+
+
+        //File info.
+        #region FileInfo
+
         /// <summary>
         /// Force the internal waves to have the same version.
         /// </summary>
@@ -271,6 +282,54 @@ namespace Citric_Composer {
             }
 
         }
+
+        /// <summary>
+        /// WAR major.
+        /// </summary>
+        public override void BoxWarMajChanged() {
+            (File as SoundWaveArchive).Version.Major = (byte)vMajBoxWar.Value;
+        }
+
+        /// <summary>
+        /// WAR minor.
+        /// </summary>
+        public override void BoxWarMinChanged() {
+            (File as SoundWaveArchive).Version.Minor = (byte)vMinBoxWar.Value;
+        }
+
+        /// <summary>
+        /// WAR revision.
+        /// </summary>
+        public override void BoxWarRevChanged() {
+            (File as SoundWaveArchive).Version.Revision = (byte)vRevBoxWar.Value;
+        }
+
+        /// <summary>
+        /// WAV major.
+        /// </summary>
+        public override void BoxWavMajChanged() {
+            forceWavMaj = (byte)vWavMajBox.Value;
+        }
+
+        /// <summary>
+        /// WAV minor.
+        /// </summary>
+        public override void BoxWavMinChanged() {
+            forceWavMin = (byte)vWavMinBox.Value;
+        }
+
+        /// <summary>
+        /// WAV revision.
+        /// </summary>
+        public override void BoxWavRevChanged() {
+            forceWavRev = (byte)vWavRevBox.Value;
+        }
+
+        #endregion
+
+
+        //Node menus.
+        #region NodeMenus
 
         /// <summary>
         /// Add a wave.
@@ -440,6 +499,12 @@ namespace Citric_Composer {
             DoInfoStuff();
         }
 
+        #endregion
+
+
+        //Other functions.
+        #region OtherFunctions
+
         /// <summary>
         /// Get a path to a wave.
         /// </summary>
@@ -502,6 +567,8 @@ namespace Citric_Composer {
             waveOut.Stop();
             try { waveOut.Dispose(); } catch { }
         }
+
+        #endregion
 
     }
 
