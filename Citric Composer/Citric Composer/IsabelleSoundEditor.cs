@@ -305,8 +305,9 @@ namespace Citric_Composer
                 }
 
 
-
-                playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                try {
+                    playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                } catch { }
                 playing = false;
 
             }
@@ -1176,7 +1177,9 @@ namespace Citric_Composer
 
             }
 
-            playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+            try {
+                playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+            } catch { }
             playing = false;
 
             //Channels.
@@ -1446,7 +1449,9 @@ namespace Citric_Composer
 
                     }
 
-                    playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    try {
+                        playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    } catch { }
                     playing = false;
 
                 }
@@ -1692,7 +1697,9 @@ namespace Citric_Composer
                     }
                 }
 
-                playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                try {
+                    playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                } catch { }
                 playing = false;
 
             }
@@ -1733,7 +1740,9 @@ namespace Citric_Composer
                     players[i].soundOut.Play();
                 }
 
-                playPauseButton.Image = new Bitmap("Data/Image/pause.png");
+                try {
+                    playPauseButton.Image = new Bitmap("Data/Image/pause.png");
+                } catch { }
                 playing = true;
 
             }
@@ -1756,7 +1765,9 @@ namespace Citric_Composer
 
             }
 
-            playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+            try {
+                playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+            } catch { }
             playing = false;
 
         }
@@ -1973,7 +1984,9 @@ namespace Citric_Composer
 
 
 
-                    playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    try {
+                        playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    } catch { }
                     playing = false;
 
                 }
@@ -2185,7 +2198,9 @@ namespace Citric_Composer
 
                     }
 
-                    playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    try {
+                        playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    } catch { }
                     playing = false;
 
                 }

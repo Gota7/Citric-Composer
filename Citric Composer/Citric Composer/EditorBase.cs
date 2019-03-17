@@ -269,6 +269,12 @@ namespace Citric_Composer {
         private ToolStripMenuItem nullifyToolStripMenuItem1;
         private ToolStripMenuItem deleteToolStripMenuItem1;
         private ToolStripMenuItem exportToolStripMenuItem1;
+        public ToolStripMenuItem toolsWarToolStripMenuItem;
+        private ToolStripMenuItem batchExtractWavesToolStripMenuItem;
+        private ToolStripMenuItem batchExtract3dsWavesToolStripMenuItem;
+        private ToolStripMenuItem batchExtractWiiUWavesToolStripMenuItem;
+        private ToolStripMenuItem batchExtractSwitchWavesToolStripMenuItem;
+        private ToolStripMenuItem batchImportToolStripMenuItem;
 
         public void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
@@ -287,6 +293,12 @@ namespace Citric_Composer {
             this.importFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nullifyFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsWarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchExtractWavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchExtract3dsWavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchExtractWiiUWavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchExtractSwitchWavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.warFileInfoPanel = new System.Windows.Forms.Panel();
             this.forceWaveVersionButton = new System.Windows.Forms.Button();
@@ -374,7 +386,8 @@ namespace Citric_Composer {
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
-            this.editToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.toolsWarToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(744, 24);
@@ -484,6 +497,59 @@ namespace Citric_Composer {
             this.nullifyFileToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.nullifyFileToolStripMenuItem.Text = "Nullify File";
             this.nullifyFileToolStripMenuItem.Click += new System.EventHandler(this.nullifyFileToolStripMenuItem_Click);
+            // 
+            // toolsWarToolStripMenuItem
+            // 
+            this.toolsWarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.batchExtractWavesToolStripMenuItem,
+            this.batchExtract3dsWavesToolStripMenuItem,
+            this.batchExtractWiiUWavesToolStripMenuItem,
+            this.batchExtractSwitchWavesToolStripMenuItem,
+            this.batchImportToolStripMenuItem});
+            this.toolsWarToolStripMenuItem.Name = "toolsWarToolStripMenuItem";
+            this.toolsWarToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsWarToolStripMenuItem.Text = "Tools";
+            this.toolsWarToolStripMenuItem.Visible = false;
+            // 
+            // batchExtractWavesToolStripMenuItem
+            // 
+            this.batchExtractWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtractWavesToolStripMenuItem.Image")));
+            this.batchExtractWavesToolStripMenuItem.Name = "batchExtractWavesToolStripMenuItem";
+            this.batchExtractWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtractWavesToolStripMenuItem.Text = "Batch Extract Waves";
+            this.batchExtractWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtractWavesToolStripMenuItem_Click);
+            // 
+            // batchExtract3dsWavesToolStripMenuItem
+            // 
+            this.batchExtract3dsWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtract3dsWavesToolStripMenuItem.Image")));
+            this.batchExtract3dsWavesToolStripMenuItem.Name = "batchExtract3dsWavesToolStripMenuItem";
+            this.batchExtract3dsWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtract3dsWavesToolStripMenuItem.Text = "Batch Extract 3ds Waves";
+            this.batchExtract3dsWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtract3dsWavesToolStripMenuItem_Click);
+            // 
+            // batchExtractWiiUWavesToolStripMenuItem
+            // 
+            this.batchExtractWiiUWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtractWiiUWavesToolStripMenuItem.Image")));
+            this.batchExtractWiiUWavesToolStripMenuItem.Name = "batchExtractWiiUWavesToolStripMenuItem";
+            this.batchExtractWiiUWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtractWiiUWavesToolStripMenuItem.Text = "Batch Extract Wii U Waves";
+            this.batchExtractWiiUWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtractWiiUWavesToolStripMenuItem_Click);
+            // 
+            // batchExtractSwitchWavesToolStripMenuItem
+            // 
+            this.batchExtractSwitchWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtractSwitchWavesToolStripMenuItem.Image")));
+            this.batchExtractSwitchWavesToolStripMenuItem.Name = "batchExtractSwitchWavesToolStripMenuItem";
+            this.batchExtractSwitchWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtractSwitchWavesToolStripMenuItem.Text = "Batch Extract Switch Waves";
+            this.batchExtractSwitchWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtractSwitchWavesToolStripMenuItem_Click);
+            // 
+            // batchImportToolStripMenuItem
+            // 
+            this.batchImportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchImportToolStripMenuItem.Image")));
+            this.batchImportToolStripMenuItem.Name = "batchImportToolStripMenuItem";
+            this.batchImportToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchImportToolStripMenuItem.Text = "Batch Import";
+            this.batchImportToolStripMenuItem.Click += new System.EventHandler(this.batchImportToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -1161,7 +1227,7 @@ namespace Citric_Composer {
 
             //Set filer.
             saveFileDialog.FileName = "";
-            saveFileDialog.Filter = description + " (3ds or WiiU)|" + "*.bf" + extension.ToLower() + ";*.bc" + extension.ToLower() + "|" + description + " (Switch)|*.bf" + extension.ToLower();
+            saveFileDialog.Filter = description + " (3ds or Wii U)|" + "*.bf" + extension.ToLower() + ";*.bc" + extension.ToLower() + "|" + description + " (Switch)|*.bf" + extension.ToLower();
             saveFileDialog.ShowDialog();
 
             //Set write mode.
@@ -1928,6 +1994,38 @@ namespace Citric_Composer {
         public virtual void BoxWavMajChanged() {}
         public virtual void BoxWavMinChanged() {}
         public virtual void BoxWavRevChanged() {}
+
+        #endregion
+
+
+        //War tools.
+        #region warTools
+
+        private void batchExtractWavesToolStripMenuItem_Click(object sender, EventArgs e) {
+            WarExtractWave();
+        }
+
+        private void batchExtract3dsWavesToolStripMenuItem_Click(object sender, EventArgs e) {
+            WarExtractWave3ds();
+        }
+
+        private void batchExtractWiiUWavesToolStripMenuItem_Click(object sender, EventArgs e) {
+            WarExtractWaveWiiU();
+        }
+
+        private void batchExtractSwitchWavesToolStripMenuItem_Click(object sender, EventArgs e) {
+            WarExtractWaveSwitch();
+        }
+
+        private void batchImportToolStripMenuItem_Click(object sender, EventArgs e) {
+            WarBatchImport();
+        }
+
+        public virtual void WarExtractWave() {}
+        public virtual void WarExtractWave3ds() {}
+        public virtual void WarExtractWaveWiiU() {}
+        public virtual void WarExtractWaveSwitch() {}
+        public virtual void WarBatchImport() {}
 
         #endregion
 

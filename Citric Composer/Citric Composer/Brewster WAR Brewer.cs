@@ -26,12 +26,14 @@ namespace Citric_Composer {
             InitializeComponent();
             Text = "Brewster's War Brewer";
             Icon = Properties.Resources.Brewster;
+            toolsWarToolStripMenuItem.Visible = true;
         }
 
         public Brewster_WAR_Brewer(string fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
             InitializeComponent();
             Text = "Brewster's War Brewer - " + Path.GetFileName(fileToOpen);
             Icon = Properties.Resources.Brewster;
+            toolsWarToolStripMenuItem.Visible = true;
         }
 
         public Brewster_WAR_Brewer(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
@@ -42,6 +44,7 @@ namespace Citric_Composer {
             }
             Text = EditorName + " - " + name + "." + ExtFile.FileExtension;
             Icon = Properties.Resources.Brewster;
+            toolsWarToolStripMenuItem.Visible = true;
         }
 
         //Info and updates.
@@ -403,6 +406,7 @@ namespace Citric_Composer {
             Wave w = GetWave();
             if (w != null) {
                 (File as SoundWaveArchive)[tree.SelectedNode.Index] = w;
+                UpdateNodes();
                 DoInfoStuff();
             }
         }
@@ -418,7 +422,7 @@ namespace Citric_Composer {
                 SaveFileDialog s = new SaveFileDialog();
                 s.RestoreDirectory = true;
                 s.FileName = tree.SelectedNode.Text;
-                s.Filter = "Wave|*.wav|Wave (3ds or WiiU)|*.bfwav;*.bcwav|Wave (Switch)|*.bfwav|Stream (3ds or WiiU)|*.bfstm;*.bcstm|Stream (Switch)|*.bfstm";
+                s.Filter = "Wave|*.wav|Wave (3ds or Wii U)|*.bfwav;*.bcwav|Wave (Switch)|*.bfwav|Stream (3ds or Wii U)|*.bfstm;*.bcstm|Stream (Switch)|*.bfstm";
                 s.ShowDialog();
                 if (s.FileName != "") {
 
@@ -482,6 +486,7 @@ namespace Citric_Composer {
         /// </summary>
         public override void NodeNullify() {
             (File as SoundWaveArchive)[tree.SelectedNode.Index] = null;
+            UpdateNodes();
             DoInfoStuff();
         }
 
@@ -497,6 +502,208 @@ namespace Citric_Composer {
                 tree.SelectedNode = tree.Nodes["waves"];
             }          
             DoInfoStuff();
+        }
+
+        #endregion
+
+
+        //War tools.
+        #region WarTools
+
+        /// <summary>
+        /// Extract waves.
+        /// </summary>
+        public override void WarExtractWave() {
+
+            //File open check.
+            if (!FileTest(null, null, false, true)) {
+                return;
+            }
+
+            //Safety.
+            string path = GetFolderPath();
+            if (path == "") {
+                return;
+            }
+
+            //Write each wave.
+            int count = 0;
+            foreach (var w in (File as SoundWaveArchive)) {
+
+                if (w == null) {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).wav", new byte[0]);
+                } else {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".wav", RiffWaveFactory.CreateRiffWave(w.Wav).ToBytes());
+                }
+
+                count++;
+            }
+
+        }
+
+        /// <summary>
+        /// Extract 3ds.
+        /// </summary>
+        public override void WarExtractWave3ds() {
+
+            //File open check.
+            if (!FileTest(null, null, false, true)) {
+                return;
+            }
+
+            //Safety.
+            string path = GetFolderPath();
+            if (path == "") {
+                return;
+            }
+
+            //Write each wave.
+            int count = 0;
+            foreach (var w in (File as SoundWaveArchive)) {
+
+                if (w == null) {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).bcwav", new byte[0]);
+                } else {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".bcwav", w.Wav.ToBytes(ByteOrder.LittleEndian));
+                }
+
+                count++;
+            }
+
+        }
+
+        /// <summary>
+        /// Extract WiiU.
+        /// </summary>
+        public override void WarExtractWaveWiiU() {
+
+            //File open check.
+            if (!FileTest(null, null, false, true)) {
+                return;
+            }
+
+            //Safety.
+            string path = GetFolderPath();
+            if (path == "") {
+                return;
+            }
+
+            //Write each wave.
+            int count = 0;
+            foreach (var w in (File as SoundWaveArchive)) {
+
+                if (w == null) {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).bfwav", new byte[0]);
+                } else {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".bfwav", w.Wav.ToBytes(ByteOrder.BigEndian, true));
+                }
+
+                count++;
+            }
+
+        }
+
+        /// <summary>
+        /// Extract Switch.
+        /// </summary>
+        public override void WarExtractWaveSwitch() {
+
+            //File open check.
+            if (!FileTest(null, null, false, true)) {
+                return;
+            }
+
+            //Safety.
+            string path = GetFolderPath();
+            if (path == "") {
+                return;
+            }
+
+            //Write each wave.
+            int count = 0;
+            foreach (var w in (File as SoundWaveArchive)) {
+
+                if (w == null) {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).bfwav", new byte[0]);
+                } else {
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".bfwav", w.Wav.ToBytes(ByteOrder.LittleEndian, true));
+                }
+
+                count++;
+            }
+
+        }
+
+        /// <summary>
+        /// Import files.
+        /// </summary>
+        public override void WarBatchImport() {
+
+            //File open check.
+            if (!FileTest(null, null, false, true)) {
+                return;
+            }
+
+            //Safety.
+            string path = GetFolderPath();
+            if (path == "") {
+                return;
+            }
+
+            //Sort files.
+            List<string> files = Directory.EnumerateFiles(path).ToList();
+            for (int i = files.Count - 1; i >= 0; i--) {
+                if (!files[i].Contains("wav")) {
+                    files.RemoveAt(i);
+                }
+            }
+
+            //Read each file.
+            foreach (string d in files) {
+
+                if (Path.GetExtension(d).ToLower().Contains(".wav")) {
+
+                    byte[] b = System.IO.File.ReadAllBytes(d);
+                    if (b.Length > 0) {
+                        RiffWave r = new RiffWave();
+                        r.Load(b);
+                        (File as SoundWaveArchive).Add(new Wave() { Wav = WaveFactory.CreateWave(r, true, forceWavMaj, forceWavMin, forceWavRev) });
+                    } else {
+                        (File as SoundWaveArchive).Add(null);
+                    }
+
+                } else {
+
+                    byte[] b = System.IO.File.ReadAllBytes(d);
+                    if (b.Length > 0) {
+                        Wave a = new Wave();
+                        a.Wav = new b_wav();
+                        a.Wav.Load(b);
+                        (File as SoundWaveArchive).Add(a);
+                    } else {
+                        (File as SoundWaveArchive).Add(null);
+                    }
+
+                }
+
+            }
+
+            //Update.
+            UpdateNodes();
+            DoInfoStuff();
+
+        }
+
+        /// <summary>
+        /// Get a folder path.
+        /// </summary>
+        /// <returns></returns>
+        public string GetFolderPath() {
+
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            f.ShowDialog();
+            return f.SelectedPath;
+
         }
 
         #endregion
