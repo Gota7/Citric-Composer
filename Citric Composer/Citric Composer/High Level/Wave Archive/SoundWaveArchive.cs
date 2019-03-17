@@ -17,7 +17,7 @@ namespace CitraFileLoader {
 
         public FileWriter.Version Version = new FileWriter.Version(1, 0, 0);
 
-        private List<Wave> waves;
+        private List<Wave> waves = new List<Wave>();
 
         public Wave this[int index] { get => waves[index]; set => waves[index] = value; }
 

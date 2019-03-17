@@ -1,906 +1,508 @@
-﻿using System;
-using System.IO;
-using CitraFileLoader;
+﻿using CitraFileLoader;
+using CSCore.Codecs.WAV;
+using CSCore.SoundOut;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using IsabelleLib;
-using NAudio.Wave;
-using CitraFileLoaderz;
 
-namespace Citric_Composer
-{
-    public partial class Brewster_WAR_Brewer : Form
-    {
-        public Brewster_WAR_Brewer()
-        {
+namespace Citric_Composer {
+    public partial class Brewster_WAR_Brewer : EditorBase {
+
+        WaveOut waveOut = new WaveOut();
+        bool paused;
+        int prevIndex;
+        byte forceWavMaj = 1;
+        byte forceWavMin = 0;
+        byte forceWavRev = 0;
+
+        public Brewster_WAR_Brewer(MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", mainWindow) {
             InitializeComponent();
+            Text = "Brewster's War Brewer";
+            Icon = Properties.Resources.Brewster;
         }
 
-
-        //Variables.
-        public b_warO file; //File.
-        public string filePath = ""; //File path to save.
-        public bool fileOpen = false; //If file open.
-        public channelPlayer[][] players; //Players.
-        public Syroot.BinaryData.ByteOrder endian; //Endianess.
-        int lastIndex = -1;
-        bool paused = false;
-
-        //Channel player.
-        public struct channelPlayer
-        {
-            public byte[] file; //File.
-            public WaveOutEvent player; //Player.
-            public IWaveProvider playerFile; //Audio File.
-            public int samplingRate; //Sampling Rate.
+        public Brewster_WAR_Brewer(string fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
+            InitializeComponent();
+            Text = "Brewster's War Brewer - " + Path.GetFileName(fileToOpen);
+            Icon = Properties.Resources.Brewster;
         }
 
-        //Open about.
-        private void aboutBrewsterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BrewsterAbout a = new BrewsterAbout();
-            a.Show();
+        public Brewster_WAR_Brewer(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
+            InitializeComponent();
+            string name = ExtFile.FileName;
+            if (name == null) {
+                name = "{ Null File Name }";
+            }
+            Text = EditorName + " - " + name + "." + ExtFile.FileExtension;
+            Icon = Properties.Resources.Brewster;
         }
 
-
-
-        //Load Channel Files
-        /*
-        public void loadChannelFiles() {
-
-            if (fileOpen) {
-
-                players = new channelPlayer[file.file.files.Count][];
-                for (int i = 0; i < file.file.files.Count(); i++) {
-
-                    b_wavO w = new b_wavO();
-                    w.load(file.file.files[i].file);
-                    w = w.toRiff().toGameWavPCM();
-                    players[i] = new channelPlayer[w.data.pcm16.Count()];
-                    for (int j = 0; j < w.data.pcm16.Count(); j++) {
-
-                        players[i][j] = new channelPlayer();
-                        MemoryStream o = new MemoryStream();
-                        BinaryWriter bw = new BinaryWriter(o);
-                        foreach (UInt16 sample in w.data.pcm16[j])
-                        {
-                            bw.Write(sample);
-                        }
-                        players[i][j].file = o.ToArray();
-                        players[i][j].player = new WaveOutEvent();
-                        players[i][j].playerFile = new RawSourceWaveStream(new MemoryStream(o.ToArray()), new NAudio.Wave.WaveFormat((int)w.info.samplingRate, 1));
-                        players[i][j].player.Init(players[i][j].playerFile);
-                        players[i][j].samplingRate = (int)w.info.samplingRate;
-
-                    }
-
-                }
-
-            }
-
-        }
-        */
-
-
-        //Player Stuff.
-        #region playerStuff
-
-        //Play.
-        private void playButton_Click(object sender, EventArgs e)
-        {
-
-            if (fileOpen && file.file.files.Count() > 0)
-            {
-
-                //Stop players.
-                for (int i = 0; i < players.Count(); i++)
-                {
-
-                    for (int j = 0; j < players[i].Count(); j++)
-                    {
-                        if (i != tree.SelectedNode.Index || (tree.SelectedNode.Index != lastIndex || !paused))
-                        {
-                            try { players[i][j].player.Stop(); } catch { }
-                            players[i][j].player = new WaveOutEvent();
-                            players[i][j].playerFile = new RawSourceWaveStream(new MemoryStream(players[i][j].file), new NAudio.Wave.WaveFormat(players[i][j].samplingRate, 1));
-                            players[i][j].player.Init(players[i][j].playerFile);
-                        }
-
-                    }
-
-                }
-
-            }
-            if (fileOpen) {
-
-                lastIndex = tree.SelectedNode.Index;
-                foreach (channelPlayer p in players[tree.SelectedNode.Index]) {
-
-                    p.player.Play();
-                    paused = false;
-
-                }
-
-            }
-
-        }
-
-        //Pause.
-        private void pauseButton_Click(object sender, EventArgs e)
-        {
-            if (fileOpen && file.file.files.Count() > 0)
-            {
-
-                //Pause players.
-                for (int i = 0; i < players.Count(); i++)
-                {
-
-                    for (int j = 0; j < players[i].Count(); j++)
-                    {
-
-                        try { players[i][j].player.Pause(); } catch { }
-
-                    }
-
-                }
-                paused = true;
-            }
-        }
-
-        //Stop.
-        private void stopButton_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-        }
-
-        //Stop all music.
-        public void stopMusic() {
-
-            if (fileOpen && file.file.files.Count() > 0)
-            {
-
-                //Stop players.
-                for (int i = 0; i < players.Count(); i++)
-                {
-
-                    for (int j = 0; j < players[i].Count(); j++)
-                    {
-
-                        try { players[i][j].player.Stop(); } catch { }
-                        players[i][j].player = new WaveOutEvent();
-                        players[i][j].playerFile = new RawSourceWaveStream(new MemoryStream(players[i][j].file), new NAudio.Wave.WaveFormat(players[i][j].samplingRate, 1));
-                        players[i][j].player.Init(players[i][j].playerFile);
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        #endregion
-
-
-
-        //Do Info Stuff.
-        public void doInfoStuff() {
-
-            if (fileOpen) {
-
-                if (tree.SelectedNode != null) {
-
-                    if (tree.SelectedNode.Parent != null)
-                    {
-
-                        noInfoPanel.Hide();
-                        playerPanel.Show();
-                        bytesLabel.Text = "Wave " + tree.SelectedNode.Index + ", " + (decimal)file.file.files[tree.SelectedNode.Index].file.Length/1000 + " KB.";
-
-                    }
-                    else {
-
-                        noInfoPanel.Show();
-                        playerPanel.Hide();
-                        bytesLabel.Text = "No Bytes Selected!";
-
-                    }
-
-                } else
-                {
-
-                    noInfoPanel.Show();
-                    playerPanel.Hide();
-                    bytesLabel.Text = "No Bytes Selected!";
-
-                }
-
-            }
-            else
-            {
-
-                noInfoPanel.Show();
-                playerPanel.Hide();
-                bytesLabel.Text = "No Bytes Selected!";
-
-            }
-
-        }
-
-
-
-        //Update nodes.
-        #region updateNodes
-        public void updateNodes()
-        {
-
-            //Start stuff.
-            tree.BeginUpdate();
-
-            tree.SelectedNode = tree.Nodes[0];
-            tree.Nodes[0].ContextMenuStrip = null;
-
-            List<string> expandedNodes = collectExpandedNodes(tree.Nodes);
-
-            foreach (TreeNode e in tree.Nodes[0].Nodes)
-            {
-                tree.Nodes[0].Nodes.RemoveAt(0);
-            }
-
-
-            //Only if file is open.
-            if (fileOpen)
-            {
-
-                int count = 0;
-                foreach (b_warO.fileBlock.fileEntry f in file.file.files) {
-
-                    tree.Nodes[0].Nodes.Add("Wave " + count, "Wave " + count, 1, 1);
-                    tree.Nodes[0].Nodes[count].ContextMenuStrip = nodeMenu;
-                    count += 1;
-
-                }
-                tree.Nodes[0].ContextMenuStrip = rootMenu;
-
-            }
-
-            //Restore the nodes if they exist.
-            if (expandedNodes.Count > 0)
-            {
-                TreeNode IamExpandedNode;
-                for (int i = 0; i < expandedNodes.Count; i++)
-                {
-                    IamExpandedNode = FindNodeByName(tree.Nodes, expandedNodes[i]);
-                    expandNodePath(IamExpandedNode);
-                }
-
-            }
-
-            tree.EndUpdate();
-
-        }
-        #endregion
-
-
-
-        //Node shit.
-        #region nodeShit
-
-        //Expand node and parents.
-        void expandNodePath(TreeNode node)
-        {
-            if (node == null)
+        /// <summary>
+        /// Do info stuff.
+        /// </summary>
+        public override void DoInfoStuff() {
+
+            //Call base.
+            base.DoInfoStuff();
+
+            //Safety check.
+            if (!FileOpen || File == null) {
                 return;
-            if (node.Level != 0) //check if it is not root
-            {
-                node.Expand();
-                expandNodePath(node.Parent);
-            }
-            else
-            {
-                node.Expand(); // this is root 
             }
 
+            //Parent is not null, so a wave is selected.
+            if (tree.SelectedNode.Parent != null) {
 
+                //File is null.
+                if ((File as SoundWaveArchive)[tree.SelectedNode.Index] == null) {
 
-        }
+                    //Null info.
+                    nullDataPanel.BringToFront();
+                    nullDataPanel.Show();
 
-        //Make right click actually select, and show infoViewer.
-        void tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                // Select the clicked node
-                tree.SelectedNode = tree.GetNodeAt(e.X, e.Y);
+                    //Update status.
+                    status.Text = "No Valid Info Selected!";
+
+                }
+
+                //File is valid.
+                else {
+
+                    //Sound player deluxe.
+                    soundPlayerDeluxePanel.BringToFront();
+                    soundPlayerDeluxePanel.Show();
+
+                    //Update status.
+                    status.Text = "Wave: " + tree.SelectedNode.Index + ", Size: " + (File as SoundWaveArchive)[tree.SelectedNode.Index].Wav.fileHeader.size + " bytes.";
+
+                }
+
             }
-            else if (e.Button == MouseButtons.Left)
-            {
-                // Select the clicked node
-                tree.SelectedNode = tree.GetNodeAt(e.X, e.Y);
+
+            //Waves list is selected.
+            else if (tree.SelectedNode.Index == 1) {
+
+                //Show no info screen.
+                noInfoPanel.BringToFront();
+                noInfoPanel.Show();
+
+                //Show the status.
+                status.Text = "Wave Count: " + (File as SoundWaveArchive).Count;
+
             }
 
-            doInfoStuff();
+            //File information.
+            else if (tree.SelectedNode.Index == 0) {
 
-        }
+                //Proper info panel.
+                warFileInfoPanel.BringToFront();
+                warFileInfoPanel.Show();
 
-        void tree_NodeKey(object sender, KeyEventArgs e)
-        {
+                //Update boxes.
+                vMajBoxWar.Value = (File as SoundWaveArchive).Version.Major;
+                vMinBoxWar.Value = (File as SoundWaveArchive).Version.Minor;
+                vRevBoxWar.Value = (File as SoundWaveArchive).Version.Revision;
+                vWavMajBox.Value = forceWavMaj;
+                vWavMinBox.Value = forceWavMin;
+                vWavRevBox.Value = forceWavRev;
 
-            doInfoStuff();
-
-        }
-
-        //Get expanded nodes.
-        List<string> collectExpandedNodes(TreeNodeCollection Nodes)
-        {
-            List<string> _lst = new List<string>();
-            foreach (TreeNode checknode in Nodes)
-            {
-                if (checknode.IsExpanded)
-                    _lst.Add(checknode.Name);
-                if (checknode.Nodes.Count > 0)
-                    _lst.AddRange(collectExpandedNodes(checknode.Nodes));
             }
-            return _lst;
+
         }
 
 
         /// <summary>
-        /// Find nodes by name.
+        /// Update nodes.
         /// </summary>
-        /// <param name="NodesCollection"></param>
-        /// <param name="Name"></param>
-        /// <returns></returns>
-        TreeNode FindNodeByName(TreeNodeCollection NodesCollection, string Name)
-        {
-            TreeNode returnNode = null; // Default value to return
-            foreach (TreeNode checkNode in NodesCollection)
-            {
-                if (checkNode.Name == Name)  //checks if this node name is correct
-                    returnNode = checkNode;
-                else if (checkNode.Nodes.Count > 0) //node has child
-                {
-                    returnNode = FindNodeByName(checkNode.Nodes, Name);
-                }
+        public override void UpdateNodes() {
 
-                if (returnNode != null) //check if founded do not continue and break
-                {
-                    return returnNode;
-                }
+            //Begin update.
+            BeginUpdateNodes();
 
-            }
-            //not found
-            return returnNode;
-        }
-
-        #endregion
-
-
-
-        //File nodes.
-        #region fileNodes
-
-        //New File.
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            stopMusic();
-            file = new b_warO();
-            file.file = new b_warO.fileBlock();
-            file.file.files = new List<b_warO.fileBlock.fileEntry>();
-            file.info = new b_warO.infoBlock();
-            file.info.entries = new b_warO.sizedReferenceTable();
-            fileOpen = true;
-            filePath = "";
-            endian = Syroot.BinaryData.ByteOrder.BigEndian;
-            this.Text = "Brewster's Archive Brewer - New Archive.bfwar";
-
-            updateNodes();
-            //loadChannelFiles();
-
-        }
-
-        //Open File.
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            warOpen.ShowDialog();
-            if (warOpen.FileName != "")
-            {
-
-                stopMusic();
-                file = new b_warO();
-                file.load(File.ReadAllBytes(warOpen.FileName));
-                fileOpen = true;
-                filePath = warOpen.FileName;
-                this.Text = "Brewster's Archive Brewer - " + Path.GetFileName(filePath);
-                warOpen.FileName = "";
-                endian = file.endian;
-                //loadChannelFiles();
-                updateNodes();
-
+            //Add waves if node doesn't exist.
+            if (tree.Nodes.Count < 2) {
+                tree.Nodes.Add("waves", "Waves", 6, 6);
             }
 
-        }
-
-        //Close
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-            int res = 1;
-            if (fileOpen) {
-
-                SaveCloseDialog c = new SaveCloseDialog();
-                res = c.getValue();
-
-            }
-            if (res == 0) { save(); }
-            if (res == 0 || res == 1) {
-
-                fileOpen = false;
-                file = new b_warO();
-                this.Text = "Brewster's Archive Brewer";
-                updateNodes();
-                noInfoPanel.Show();
-                playerPanel.Hide();
-                tree.SelectedNode = tree.Nodes[0];
-
-            }
-
-        }
-
-        //Quit
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-            if (fileOpen)
-            {
-                SaveQuitDialog q = new SaveQuitDialog(this);
-                q.ShowDialog();
-            }
-            else {
-                this.Close();
-            }
-        }
-
-        #endregion
-
-
-
-        //Edit nodes.
-        #region editNodes
-
-        //Import
-        private void importFromFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-            if (fileOpen)
-            {
-                folderOpen.ShowDialog();
-                if (folderOpen.SelectedPath != "")
-                {
-
-                    file.compress(folderOpen.SelectedPath);
-                    folderOpen.SelectedPath = "";
-                    updateNodes();
-                    //loadChannelFiles();
-
-                }
-            }
-        }
-
-        //Export
-        private void exportToFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (fileOpen)
-            {
-                folderOpen.ShowDialog();
-                if (folderOpen.SelectedPath != "")
-                {
-
-                    file.extract(folderOpen.SelectedPath, endian);
-                    folderOpen.SelectedPath = "";
-
-                }
-            }
-        }
-
-        //Import Waves.
-        private void importWavesFromFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-            if (fileOpen)
-            {
-                folderOpen.ShowDialog();
-                if (folderOpen.SelectedPath != "")
-                {
-
-                    //file.compressWaves(folderOpen.SelectedPath);
-                    folderOpen.SelectedPath = "";
-                    updateNodes();
-                    //loadChannelFiles();
-
-                }
-            }
-        }
-
-        //Export waves.
-        private void exportWavesToFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            if (fileOpen)
-            {
-                folderOpen.ShowDialog();
-                if (folderOpen.SelectedPath != "")
-                {
-
-                    //file.extractWaves(folderOpen.SelectedPath);
-                    folderOpen.SelectedPath = "";
-
-                }
-            }
-
-        }
-
-        #endregion
-
-
-        //Save stuff.
-        #region saveStuff
-
-        //Save
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            save();
-        }
-
-        //Save
-        public void save() {
-
-            if (fileOpen)
-            {
-
-                file.update(Syroot.BinaryData.ByteOrder.BigEndian);
-                if (filePath != "")
-                {
-                    File.WriteAllBytes(filePath, file.toBytes(endian));
-                }
-                else
-                {
-                    saveAs();
-                }
-
-            }
-
-        }
-
-        //Save As.
-        public void saveAs() {
-
-            if (fileOpen) {
-
-                warSave.ShowDialog();
-                if (warSave.FileName != "") {
-
-                    if (warSave.FilterIndex == 1) { endian = Syroot.BinaryData.ByteOrder.BigEndian; } else { endian = Syroot.BinaryData.ByteOrder.LittleEndian; }
-                    filePath = warSave.FileName;
-                    this.Text = "Brewster's Archive Brewer - " + Path.GetFileName(filePath);
-                    save();
-                    warSave.FileName = "";
-
-                }
-
-            }
-
-        }
-
-        //Save As.
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveAs();
-        }
-
-        #endregion
-
-
-        //Root node.
-        #region rootNode
-
-        //Add.
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            stopMusic();
-            soundOpen.ShowDialog();
-            if (soundOpen.FileName != "") {
-
-                b_wavO b = new b_wavO();
-                switch (soundOpen.FilterIndex)
-                {
-
-                    case 1:
-                    case 2:
-                        b.load(File.ReadAllBytes(soundOpen.FileName));
-                        break;
-                    case 3:
-                        //RIFF r = new RIFF();
-                        //r.load(File.ReadAllBytes(soundOpen.FileName));
-                        //b = r.toGameWav();
-                        //b.update(endianNess.big);
-                        break;
-
-                }
-                b_warO.fileBlock.fileEntry e5 = new b_warO.fileBlock.fileEntry();
-                e5.file = b.toBytes(endianNess.big);
-                file.file.files.Add(e5);
-                soundOpen.FileName = "";
-                updateNodes();
-                //loadChannelFiles();
-
-            }
-
-        }
-
-        //Expand.
-        private void expandToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tree.SelectedNode.Expand();
-        }
-
-        //Collapse.
-        private void collapseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tree.SelectedNode.Collapse();
-        }
-
-        #endregion
-
-
-        //Node menu.
-        #region nodeMenu
-
-        //Add above.
-        private void addAboveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-            soundOpen.ShowDialog();
-            if (soundOpen.FileName != "")
-            {
-
-                b_wavO b = new b_wavO();
-                switch (soundOpen.FilterIndex)
-                {
-
-                    case 1:
-                    case 2:
-                        b.load(File.ReadAllBytes(soundOpen.FileName));
-                        break;
-                    case 3:
-                        //RIFF r = new RIFF();
-                        //r.load(File.ReadAllBytes(soundOpen.FileName));
-                        //b = r.toGameWav();
-                        //b.update(endianNess.big);
-                        break;
-
-                }
-                b_warO.fileBlock.fileEntry e5 = new b_warO.fileBlock.fileEntry();
-                e5.file = b.toBytes(endianNess.big);
-                file.file.files.Insert(tree.SelectedNode.Index, e5);
-                soundOpen.FileName = "";
-                updateNodes();
-                //loadChannelFiles();
-
-            }
-        }
-
-        //Add below.
-        private void addBelowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-            soundOpen.ShowDialog();
-            if (soundOpen.FileName != "")
-            {
-
-                b_wavO b = new b_wavO();
-                switch (soundOpen.FilterIndex)
-                {
-
-                    case 1:
-                    case 2:
-                        b.load(File.ReadAllBytes(soundOpen.FileName));
-                        break;
-                    case 3:
-                        //RIFF r = new RIFF();
-                        //r.load(File.ReadAllBytes(soundOpen.FileName));
-                        //b = r.toGameWav();
-                        //b.update(endianNess.big);
-                        break;
-
-                }
-                b_warO.fileBlock.fileEntry e5 = new b_warO.fileBlock.fileEntry();
-                e5.file = b.toBytes(endianNess.big);
-                file.file.files.Insert(tree.SelectedNode.Index+1, e5);
-                soundOpen.FileName = "";
-                updateNodes();
-                //loadChannelFiles();
-
-            }
-        }
-
-        //Move up.
-        private void moveUpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (tree.SelectedNode.Index != 0) {
-
-                b_warO.fileBlock.fileEntry temp1f = file.file.files[tree.SelectedNode.Index];
-                b_warO.fileBlock.fileEntry temp2f = file.file.files[tree.SelectedNode.Index-1];
-                channelPlayer[] temp1p = players[tree.SelectedNode.Index];
-                channelPlayer[] temp2p = players[tree.SelectedNode.Index-1];
-
-                file.file.files[tree.SelectedNode.Index - 1] = temp1f;
-                file.file.files[tree.SelectedNode.Index] = temp2f;
-                players[tree.SelectedNode.Index - 1] = temp1p;
-                players[tree.SelectedNode.Index] = temp2p;
-
-            }
-        }
-
-        //Move down.
-        private void moveDownToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (tree.SelectedNode.Index != tree.Nodes[0].Nodes.Count - 1)
-            {
-
-                b_warO.fileBlock.fileEntry temp1f = file.file.files[tree.SelectedNode.Index];
-                b_warO.fileBlock.fileEntry temp2f = file.file.files[tree.SelectedNode.Index + 1];
-                channelPlayer[] temp1p = players[tree.SelectedNode.Index];
-                channelPlayer[] temp2p = players[tree.SelectedNode.Index + 1];
-
-                file.file.files[tree.SelectedNode.Index + 1] = temp1f;
-                file.file.files[tree.SelectedNode.Index] = temp2f;
-                players[tree.SelectedNode.Index + 1] = temp1p;
-                players[tree.SelectedNode.Index] = temp2p;
-
-            }
-        }
-
-        //Export.
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            soundSave.ShowDialog();
-            if (soundSave.FileName != "") {
-
-                b_wavO b = new b_wavO();
-                b.load(file.file.files[tree.SelectedNode.Index].file);
-
-                switch (soundSave.FilterIndex) {
-
-                    case 1:
-                        File.WriteAllBytes(soundSave.FileName, b.toBytes(endianNess.big));
-                        break;
-
-                    case 2:
-                        File.WriteAllBytes(soundSave.FileName, b.toBytes(endianNess.little));
-                        break;
-
-                    case 3:
-                        //RIFF r = new RIFF();
-                        //r = b.toRiff();
-                        //r.fixOffsets();
-                        //File.WriteAllBytes(soundSave.FileName, r.toBytes());
-                        break;
-
-                }
-
-                soundSave.FileName = "";
-
-            }
-
-        }
-
-        //Import.
-        private void replaceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            stopMusic();
-            soundOpen.ShowDialog();
-            if (soundOpen.FileName != "") {
-
-                b_wavO b = new b_wavO();
-                switch (soundOpen.FilterIndex) {
-
-                    case 1:
-                    case 2:
-                        b.load(File.ReadAllBytes(soundOpen.FileName));
-                        break;
-                    case 3:
-                        //RIFF r = new RIFF();
-                        //r.load(File.ReadAllBytes(soundOpen.FileName));
-                        //b = r.toGameWav();
-                        //b.update(endianNess.big);
-                        break;
-
-                }
-                b_warO.fileBlock.fileEntry e5 = file.file.files[tree.SelectedNode.Index];
-                e5.file = b.toBytes(endianNess.big);
-                file.file.files[tree.SelectedNode.Index] = e5;
-                soundOpen.FileName = "";
-                //loadChannelFiles();
-
-            }
-
-        }
-
-        //Delete.
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stopMusic();
-            file.file.files.RemoveAt(tree.SelectedNode.Index);
-            updateNodes();
-            //loadChannelFiles();
-        }
-
-        #endregion
-
-
-        //Volume
-        private void volumeBar_Scroll(object sender, EventArgs e)
-        {
-
-            if (fileOpen) {
-
-                for (int i = 0; i < players.Count(); i++) {
-
-                    for (int j = 0; j < players[i].Count(); j++) {
-
-                        try { players[i][j].player.Volume = (float)((decimal)volumeBar.Value/100); } catch { }
-
+            //File is open and not null.
+            if (FileOpen && File != null) {
+
+                //Get the version.
+                for (int i = 0; i < (File as SoundWaveArchive).Count; i++) {
+
+                    if ((File as SoundWaveArchive)[i] != null) {
+                        forceWavMaj = (File as SoundWaveArchive)[i].Wav.fileHeader.vMajor;
+                        forceWavMin = (File as SoundWaveArchive)[i].Wav.fileHeader.vMinor;
+                        forceWavRev = (File as SoundWaveArchive)[i].Wav.fileHeader.vRevision;
                     }
 
                 }
 
-            }
+                //Context menu.
+                tree.Nodes["waves"].ContextMenuStrip = rootMenu;
 
-        }
+                //Add each wave.
+                var h = File as SoundWaveArchive;
+                for (int i = 0; i < (File as SoundWaveArchive).Count; i++) {
 
+                    //File is null.
+                    if ((File as SoundWaveArchive)[i] == null) {
 
-        //Isabelle
-        private void lauchIsabelle(object sender, TreeNodeMouseClickEventArgs e) {
+                        //Add null wave.
+                        tree.Nodes["waves"].Nodes.Add("wave" + i, "{ Null Wave " + i + " }", 0, 0);
 
-            if (tree.SelectedNode != null)
-            {
-                if (tree.SelectedNode.Parent != null)
-                {
-                    IsabelleSoundEditor s = new IsabelleSoundEditor(this, tree.SelectedNode.Index, tree.SelectedNode.Text + ".bfwav");
-                    s.Show();
-                }
-            }
+                    }
 
-        }
+                    //Valid info.
+                    else {
 
+                        //Add each wave.
+                        tree.Nodes["waves"].Nodes.Add("wave" + i, "Wave " + i, 2, 2);
 
-        //Stop the players.
-        private void formClosing(object sender, EventArgs e) {
+                    }
 
-            for (int i = 0; i < players.Count(); i++) {
-
-                for (int j = 0; j < players[i].Count(); j++) {
-
-                    try { players[i][j].player.Stop(); } catch { }
-                    try { players[i][j].player.Dispose(); } catch { }
+                    //Add context menu.
+                    tree.Nodes["waves"].Nodes["wave" + i].ContextMenuStrip = nodeMenu;
 
                 }
 
+            } else {
+
+                //Remove context menu.
+                tree.Nodes["waves"].ContextMenuStrip = null;
+
+            }
+
+            //End update.
+            EndUpdateNodes();
+
+        }
+
+
+        /// <summary>
+        /// Play sound player deluxe.
+        /// </summary>
+        public override void Play() {
+
+            if (!paused || prevIndex != tree.SelectedNode.Index) {
+                waveOut.Stop();
+                var n = new WaveFileReader(new MemoryStream((File as SoundWaveArchive)[tree.SelectedNode.Index].Riff.ToBytes()));
+                waveOut.Initialize(n);
+                prevIndex = tree.SelectedNode.Index;
+            }
+            waveOut.Play();
+            paused = false;
+
+        }
+
+
+        /// <summary>
+        /// Pause sound player deluxe.
+        /// </summary>
+        public override void Pause() {
+
+            paused = true;
+            waveOut.Pause();
+
+        }
+
+
+        /// <summary>
+        /// Stop sound player deluxe.
+        /// </summary>
+        public override void Stop() {
+
+            paused = false;
+            waveOut.Stop();
+
+        }
+
+        /// <summary>
+        /// Node is double clicked.
+        /// </summary>
+        public override void NodeMouseDoubleClick() {
+
+            //Safety check.
+            if (!FileOpen || File == null) {
+                return;
+            }
+
+            //If parent exists, then it is a wave.
+            if (tree.SelectedNode.Parent != null) {
+
+                //Wave is not null.
+                if ((File as SoundWaveArchive)[tree.SelectedNode.Index] != null) {
+
+                    //Open the wave in Isabelle.
+                    IsabelleSoundEditor e = new IsabelleSoundEditor(this, tree.SelectedNode.Index, "Wave " + tree.SelectedNode.Index);
+                    e.Show();
+
+                } else {
+
+                    //Insult user.
+                    MessageBox.Show("You can't open a null wave file!", "Notice:");
+
+                }
+
             }
 
         }
-        
+
+        /// <summary>
+        /// Force the internal waves to have the same version.
+        /// </summary>
+        public override void ForceWaveVersionButtonClick() {
+
+            for (int i = 0; i < (File as SoundWaveArchive).Count; i++) {
+
+                if ((File as SoundWaveArchive)[i] != null) {
+                    (File as SoundWaveArchive)[i].Wav.fileHeader.vMajor = forceWavMaj;
+                    (File as SoundWaveArchive)[i].Wav.fileHeader.vMinor = forceWavMin;
+                    (File as SoundWaveArchive)[i].Wav.fileHeader.vRevision = forceWavRev;
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// Add a wave.
+        /// </summary>
+        public override void RootAdd() {
+            Wave w = GetWave();
+            if (w != null) {
+                (File as SoundWaveArchive).Add(w);
+                UpdateNodes();
+            }
+        }
+
+        /// <summary>
+        /// Add the node above.
+        /// </summary>
+        public override void NodeAddAbove() {
+            Wave w = GetWave();
+            if (w != null) {
+                (File as SoundWaveArchive).Insert(tree.SelectedNode.Index, w);
+                UpdateNodes();
+                tree.SelectedNode = tree.Nodes["waves"].Nodes[tree.SelectedNode.Index + 1];
+                DoInfoStuff();
+            }
+        }
+
+        /// <summary>
+        /// Add the node below.
+        /// </summary>
+        public override void NodeAddBelow() {
+            Wave w = GetWave();
+            if (w != null) {
+                (File as SoundWaveArchive).Insert(tree.SelectedNode.Index + 1, w);
+                UpdateNodes();
+                DoInfoStuff();
+            }
+        }
+
+        /// <summary>
+        /// Move node up.
+        /// </summary>
+        public override void NodeMoveUp() {
+            if (Swap(File as SoundWaveArchive, tree.SelectedNode.Index - 1, tree.SelectedNode.Index)) {
+                UpdateNodes();
+                tree.SelectedNode = tree.Nodes["waves"].Nodes[tree.SelectedNode.Index - 1];
+                DoInfoStuff();
+            }
+        }
+
+        /// <summary>
+        /// Move node down.
+        /// </summary>
+        public override void NodeMoveDown() {
+            if (Swap(File as SoundWaveArchive, tree.SelectedNode.Index + 1, tree.SelectedNode.Index)) {
+                UpdateNodes();
+                tree.SelectedNode = tree.Nodes["waves"].Nodes[tree.SelectedNode.Index + 1];
+                DoInfoStuff();
+            }
+        }
+
+        /// <summary>
+        /// Blank a node.
+        /// </summary>
+        public override void NodeBlank() {
+            NodeReplace();
+        }
+
+        /// <summary>
+        /// Replace node.
+        /// </summary>
+        public override void NodeReplace() {
+            Wave w = GetWave();
+            if (w != null) {
+                (File as SoundWaveArchive)[tree.SelectedNode.Index] = w;
+                DoInfoStuff();
+            }
+        }
+
+        /// <summary>
+        /// Export node.
+        /// </summary>
+        public override void NodeExport() {
+            Wave w = (File as SoundWaveArchive)[tree.SelectedNode.Index];
+            if (w != null) {
+
+                //Get export path.
+                SaveFileDialog s = new SaveFileDialog();
+                s.RestoreDirectory = true;
+                s.FileName = tree.SelectedNode.Text;
+                s.Filter = "Wave|*.wav|Wave (3ds or WiiU)|*.bfwav;*.bcwav|Wave (Switch)|*.bfwav|Stream (3ds or WiiU)|*.bfstm;*.bcstm|Stream (Switch)|*.bfstm";
+                s.ShowDialog();
+                if (s.FileName != "") {
+
+                    //Get file data.
+                    WriteMode m = WriteMode.Cafe;
+                    if (Path.GetExtension(s.FileName).ToLower()[2] == 'c') {
+                        m = WriteMode.CTR;
+                    }
+                    byte[] b = null;
+                    switch (s.FilterIndex) {
+
+                        //Wave.
+                        case 1:
+                            b = RiffWaveFactory.CreateRiffWave(w.Wav).ToBytes();
+                            break;
+
+                        //SDK Wave.
+                        case 2:
+                            if (m == WriteMode.Cafe) {
+                                b = w.Wav.ToBytes(ByteOrder.BigEndian, true);
+                            } else {
+                                b = w.Wav.ToBytes(ByteOrder.LittleEndian);
+                            }
+                            break;
+
+                        //SDK Wave Switch.
+                        case 3:
+                            b = w.Wav.ToBytes(ByteOrder.LittleEndian, true);
+                            break;
+
+                        //SDK Stream.
+                        case 4:
+                            if (m == WriteMode.Cafe) {
+                                b = StreamFactory.CreateStream(w.Wav, w.Wav.fileHeader.vMajor, w.Wav.fileHeader.vMinor, w.Wav.fileHeader.vRevision).ToBytes(ByteOrder.BigEndian, true);
+                            } else {
+                                b = StreamFactory.CreateStream(w.Wav, w.Wav.fileHeader.vMajor, w.Wav.fileHeader.vMinor, w.Wav.fileHeader.vRevision).ToBytes(ByteOrder.LittleEndian);
+                            }
+                            break;
+
+                        //SDK Stream Switch.
+                        case 5:
+                            b = StreamFactory.CreateStream(w.Wav, w.Wav.fileHeader.vMajor, w.Wav.fileHeader.vMinor, w.Wav.fileHeader.vRevision).ToBytes(ByteOrder.LittleEndian, true);
+                            break;
+
+                    }
+
+                    //Write if possible.
+                    if (b != null) {
+                        System.IO.File.WriteAllBytes(s.FileName, b);
+                    }
+
+                }
+
+            } else {
+                MessageBox.Show("You can't export a null file!", "Notice:");
+            }
+        }
+
+        /// <summary>
+        /// Nullify the node.
+        /// </summary>
+        public override void NodeNullify() {
+            (File as SoundWaveArchive)[tree.SelectedNode.Index] = null;
+            DoInfoStuff();
+        }
+
+        /// <summary>
+        /// Delete the node.
+        /// </summary>
+        public override void NodeDelete() {
+            (File as SoundWaveArchive).RemoveAt(tree.SelectedNode.Index);
+            UpdateNodes();
+            try {
+                tree.SelectedNode = tree.Nodes["waves"].Nodes[tree.SelectedNode.Index - 1];
+            } catch {
+                tree.SelectedNode = tree.Nodes["waves"];
+            }          
+            DoInfoStuff();
+        }
+
+        /// <summary>
+        /// Get a path to a wave.
+        /// </summary>
+        /// <returns>Wave path.</returns>
+        public string GetWavePath() {
+
+            OpenFileDialog o = new OpenFileDialog();
+            o.RestoreDirectory = true;
+            o.FileName = "";
+            o.Filter = "Supported File|*.bfwav;*.bcwav;*.bfstm;*.bcstm;*.wav";
+            o.ShowDialog();
+            return o.FileName;
+
+        }
+
+        /// <summary>
+        /// Get the wave data from a file path.
+        /// </summary>
+        /// <returns>Wave data.</returns>
+        public Wave GetWave() {
+
+            string wavePath = GetWavePath();
+            if (wavePath == "") {
+                return null;
+            }
+
+            //Extension.
+            string ext = Path.GetExtension(wavePath).ToLower();
+
+            //RIFF.
+            if (ext.StartsWith(".w")) {
+                RiffWave r = new RiffWave();
+                r.Load(System.IO.File.ReadAllBytes(wavePath));
+                return new Wave() { Wav = WaveFactory.CreateWave(r, true, forceWavMaj, forceWavMin, forceWavRev) };
+            }
+
+            //Wave.
+            else if (ext.EndsWith("wav")) {
+                b_wav b = new b_wav();
+                b.Load(System.IO.File.ReadAllBytes(wavePath));
+                return new Wave() { Wav = b };
+            }
+
+            //Stream.
+            else if (ext.EndsWith("stm")) {
+                b_stm s = new b_stm();
+                s.Load(System.IO.File.ReadAllBytes(wavePath));
+                return new Wave() { Wav = WaveFactory.CreateWave(s, forceWavMaj, forceWavMin, forceWavRev) };
+            }
+
+            //Null.
+            return null;
+
+        }
+
+        /// <summary>
+        /// On closing.
+        /// </summary>
+        public override void OnClosing() {
+            waveOut.Stop();
+            try { waveOut.Dispose(); } catch { }
+        }
+
     }
+
 }

@@ -41,9 +41,7 @@ namespace Citric_Composer
         public IsabelleSoundEditor(Brewster_WAR_Brewer war2, int index, string text)
         {
 
-            //Will fix when WAR editing actually works first.
-
-            /*
+            //Init.
             InitializeComponent();
             Thread loopThread = new Thread(loop);
             loopThread.IsBackground = true;
@@ -61,77 +59,120 @@ namespace Citric_Composer
             exportBinaryToolStripMenuItem.ShortcutKeys = saveAsToolStripMenuItem.ShortcutKeys;
             exportBinaryToolStripMenuItem.Text = "Save As";
             saveAsToolStripMenuItem.Visible = false;
-            b_wavO b = new b_wavO();
-            b.load(war.file.file.files[fileIndex].file);
+            b_wav b = (war2.File as SoundWaveArchive)[index].Wav;
 
-            //Make new CISP.
-            file = new CISP();
-            file.stream = new CISP.streamInfo();
-            file.stream.loop = 0;
-            file.stream.loopStart = 0;
-            file.stream.loopEnd = 0;
-            file.stream.sampleRate = 0xFFFFFFFF;
-            file.stream.sampleSize = 0;
-            byte[] seek = { 2 };
-            file.seekBlock = seek;
-            file.tracks = new List<CISP.trackInfo>();
-            file.channelData = new List<UInt16[]>();
-
-            projectPanel.Hide();
-            channelPanel.Hide();
-            trackPanel.Hide();
-            noInfoPanel.Show();
-            file.seekSize = 0;
-            file.seekBlock = new byte[0];
-            file.stream.loop = b.info.loop;
-            file.stream.loopEnd = b.info.loopEnd;
-            file.stream.loopStart = b.info.loopStart;
-            file.stream.sampleRate = b.info.samplingRate;
-            file.tracks = new List<CISP.trackInfo>();
-            file.channelData = new List<UInt16[]>();
-
-            //Import due to encoding.
-            switch (b.info.soundEncoding)
-            {
-
-                case 0:
-                    MessageBox.Show("Unsupported Data type! Must be PCM16 or DSPADPCM!");
-                    break;
-
-                case 1:
-                    file.stream.sampleRate = b.info.samplingRate;
-                    file.stream.loopEnd = b.info.loopEnd;
-                    file.stream.loop = b.info.loop;
-                    file.stream.loopStart = b.info.loopStart;
-                    for (int i = 0; i < b.data.pcm16.Count; i++)
-                    {
-                        file.channelData.Add(b.data.pcm16[i]);
-                    }
-                    break;
-
-                case 2:
-                    b_wavO v2 = b;
-                    b = b.toRiff().toGameWavPCM();
-                    b.update(endianNess.big);
-                    file.stream.sampleRate = b.info.samplingRate;
-                    file.stream.loopEnd = v2.info.loopEnd;
-                    file.stream.loop = v2.info.loop;
-                    file.stream.loopStart = v2.info.loopStart;
-                    foreach (UInt16[] u in b.data.pcm16)
-                    {
-                        file.channelData.Add(u);
-                    }
-
-                    break;
-
-                case 3:
-                    MessageBox.Show("Unsupported Data type! Must be PCM16 or DSPADPCM!");
-                    break;
-            }
-
+            //Make new FISP.
+            file = new FISP(b);
             fileOpen = true;
             updateNodes();
-            loadChannelFiles();*/
+            loadChannelFiles();
+            doInfoStuff();
+            playLikeGameBox.Checked = false;
+            playPauseButton_Click(null, null);
+
+        }
+
+        /// <summary>
+        /// Make from a SAR editor.
+        /// </summary>
+        /// <param name="mainWindow"></param>
+        /// <param name="index"></param>
+        /// <param name="text"></param>
+        /// <param name="wave"></param>
+        public IsabelleSoundEditor(MainWindow mainWindow, int index, string text, bool wave) {
+            //Init.
+            InitializeComponent();
+            Thread loopThread = new Thread(loop);
+            loopThread.IsBackground = true;
+            loopThread.Start();
+
+            launchMode = 1;
+            fileIndex = index;
+            this.mainWindow = mainWindow;
+            outModeWave = wave;
+
+            //Transform Isabelle.
+            this.Text = "Isabelle Sound Editor (SAR Mode) - " + text;
+            fileNamePath = "INTERNAL";
+            openToolStripMenuItem.Text = "Import From File";
+            closeToolStripMenuItem.Visible = false;
+            exportBinaryToolStripMenuItem.Image = saveAsToolStripMenuItem.Image;
+            exportBinaryToolStripMenuItem.ShortcutKeys = saveAsToolStripMenuItem.ShortcutKeys;
+            exportBinaryToolStripMenuItem.Text = "Save As";
+            saveAsToolStripMenuItem.Visible = false;
+
+            //Make new FISP.
+            if (wave) {
+                file = new FISP(((Wave)mainWindow.file.Files[index].File).Wav);
+            } else {
+                file = new FISP(((CitraFileLoader.Stream)mainWindow.file.Files[index].File).Stm);
+            }
+            fileOpen = true;
+            updateNodes();
+            loadChannelFiles();
+            doInfoStuff();
+            playLikeGameBox.Checked = false;
+            playPauseButton_Click(null, null);
+        }
+
+        /// <summary>
+        /// Make from a file.
+        /// </summary>
+        /// <param name="fileToOpen">File to open.</param>
+        public IsabelleSoundEditor(string fileToOpen) {
+
+            InitializeComponent();
+            loopThread = new Thread(loop);
+            loopThread.IsBackground = true;
+            loopThread.Start();
+
+            file = new FISP();
+            fileOpen = true;
+            if (launchMode == 0) { this.Text = "Isabelle Sound Editor - New Project.fisp"; }
+
+            switch (fileToOpen.Substring(fileToOpen.Length - 4)) {
+
+                //Wave.
+                case ".wav":
+                    RiffWave w = new RiffWave();
+                    w.Load(File.ReadAllBytes(fileToOpen));
+                    file = new FISP(w);
+                    break;
+
+                //Game wave.
+                case "fwav":
+                case "cwav":
+                    b_wav b = new b_wav();
+                    b.Load(File.ReadAllBytes(fileToOpen));
+                    file = new FISP(b);
+                    break;
+
+                //Game stream.
+                case "fstm":
+                case "cstm":
+                    b_stm s = new b_stm();
+                    s.Load(File.ReadAllBytes(fileToOpen));
+                    file = new FISP(s);
+                    break;
+
+                //Project.
+                case "fisp":
+                case "cisp":
+                    //Open project.
+                    if (fileToOpen.EndsWith(".cisp")) {
+                        CISP c = new CISP();
+                        c.load(File.ReadAllBytes(fileToOpen));
+                    } else {
+                        file = new FISP(File.ReadAllBytes(fileToOpen));
+                        fileNamePath = fileToOpen;
+                        Text = "Isabelle Sound Editor - " + Path.GetFileName(fileToOpen);
+                    }
+                    break;
+
+            }
+
+            loadChannelFiles();
+            updateNodes();
 
         }
 
@@ -204,6 +245,16 @@ namespace Citric_Composer
         /// If launch mode is in WAR.
         /// </summary>
         public Brewster_WAR_Brewer war;
+
+        /// <summary>
+        /// Main window.
+        /// </summary>
+        public MainWindow mainWindow;
+
+        /// <summary>
+        /// Out mode wave;
+        /// </summary>
+        private bool outModeWave;
 
         /// <summary>
         /// Index of the file opened if not in normal mode.
@@ -1308,13 +1359,23 @@ namespace Citric_Composer
                 if (launchMode == 0) { File.WriteAllBytes(fileNamePath, file.ToBytes()); }
 
                 //Other mode.
-                else {
+                else if (launchMode == 1) {
 
-                    /*
-                    b_warO.fileBlock.fileEntry f = war.file.file.files[fileIndex];
-                    f.file = file.tob_wavO().toBytes(endianNess.big);
-                    war.file.file.files[fileIndex] = f;
-                    war.loadChannelFiles();*/
+                    //Save and refresh.
+                    (war.File as SoundWaveArchive)[fileIndex].Wav = WaveFactory.CreateWave(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision);
+                    war.UpdateNodes();
+                    war.DoInfoStuff();
+
+                } else {
+
+                    //Save and refresh.
+                    if (outModeWave) {
+                        (mainWindow.file.Files[fileIndex].File as Wave).Wav = WaveFactory.CreateWave(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision);
+                    } else {
+                        (mainWindow.file.Files[fileIndex].File as CitraFileLoader.Stream).Stm = StreamFactory.CreateStream(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision);
+                    }
+                    mainWindow.UpdateNodes();
+                    mainWindow.doInfoPanelStuff();
 
                 }
 
@@ -1922,7 +1983,6 @@ namespace Citric_Composer
                 if (launchMode == 0)
                 {
                     //General stuff.
-                    fileNamePath = "";
                     fileOpen = true;
                     this.Text = "Isabelle Sound Editor";
                 }
@@ -2591,12 +2651,27 @@ namespace Citric_Composer
             }
 
             int rounded = (int)file.stream.loopStart / numSamplesPerBlock;
+            uint orig = file.stream.loopStart;
             int test1 = rounded * numSamplesPerBlock;
             int test2 = (rounded + 1) * numSamplesPerBlock;
-            int close = Closer(test1, test2);
-            if (close == 0) { close = test1; }
+            uint close = (uint)test1;
+            if (Math.Abs(orig - test1) > Math.Abs(orig - test2)) {
+                close = (uint)test2;
+            } else {
+                close = (uint)test1;
+            }
+            int numChange = (int)file.stream.loopStart - (int)close;
             file.stream.loopStart = (UInt32)close;
+            if (numChange >= 0) {
+                file.stream.loopEnd -= (uint)Math.Abs(numChange);
+            } else {
+                file.stream.loopEnd += (uint)Math.Abs(numChange);
+            }
+            if (file.stream.loopEnd > file.data.data[0].Count()) {
+                file.stream.loopEnd = (uint)file.data.data[0].Count();
+            }
             loopStartBox.Value = close;
+            loopEndBox.Value = file.stream.loopEnd;
             updateNodes();
 
         }

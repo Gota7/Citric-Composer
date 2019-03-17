@@ -33,9 +33,22 @@ namespace Citric_Composer
         public SoundArchive file;
 
 
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
+        }
+
+        public MainWindow(string fileToOpen) {
+            InitializeComponent();
+
+            //Make a new file, and load it.
+            file = SoundArchiveReader.ReadSoundArchive(File.ReadAllBytes(fileToOpen));
+            fileOpen = true;
+            fileName = Path.GetFileName(fileToOpen);
+            Text = "Citric Composer - " + fileName;
+
+            //Fix things.
+            UpdateNodes();
+
         }
 
 
@@ -93,7 +106,7 @@ namespace Citric_Composer
         private void brewstersArchiveBrewerWARToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Brewster window.
-            Brewster_WAR_Brewer a = new Brewster_WAR_Brewer();
+            Brewster_WAR_Brewer a = new Brewster_WAR_Brewer(this);
             a.Show();
         }
 
@@ -121,6 +134,11 @@ namespace Citric_Composer
         /// Do the mario!
         /// </summary>
         public void doInfoPanelStuff() {
+
+            //Protect.
+            if (tree.SelectedNode == null) {
+                tree.SelectedNode = tree.Nodes[0];
+            }
 
             //Hide all things.
             hideAllThings();
@@ -220,6 +238,116 @@ namespace Citric_Composer
             }
 
             doInfoPanelStuff();
+
+        }
+
+        void tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
+
+            //Select.
+            if (e.Button == MouseButtons.Right) {
+                // Select the clicked node
+                tree.SelectedNode = tree.GetNodeAt(e.X, e.Y);
+            } else if (e.Button == MouseButtons.Left) {
+                // Select the clicked node
+                tree.SelectedNode = tree.GetNodeAt(e.X, e.Y);
+            }
+
+            //Do info stuff.
+            doInfoPanelStuff();
+
+            //Open the item if possible.
+            if (tree.SelectedNode.Parent != null) {
+
+                //Editor to open.
+                EditorBase b = null;
+
+                //Parent is the wave sound archives.
+                if (tree.SelectedNode.Parent == tree.Nodes["waveArchives"]) {
+
+                    //Open the wave archive file.
+                    if (file.WaveArchives[tree.SelectedNode.Index].File != null) {
+
+                        //Open the wave archive.
+                        b = new Brewster_WAR_Brewer(file.WaveArchives[tree.SelectedNode.Index].File, this);
+
+                    } else {
+
+                        //No file able to open.
+                        MessageBox.Show("You can't open a file for an entry that does not have a file attached!", "Notice:");
+
+                    }
+
+                }
+
+                //Last resort is the file.
+                if (tree.SelectedNode.Parent == tree.Nodes["files"]) {
+
+                    //Make sure file is not null.
+                    if (file.Files[tree.SelectedNode.Index] != null) {
+
+                        if (file.Files[tree.SelectedNode.Index].FileType != EFileType.Null) {
+
+                            //Get the extension.
+                            switch (file.Files[tree.SelectedNode.Index].FileExtension.Substring(file.Files[tree.SelectedNode.Index].FileExtension.Length - 3, 3).ToLower()) {
+
+                                //Wave archive.
+                                case "war":
+                                    b = new Brewster_WAR_Brewer(file.Files[tree.SelectedNode.Index], this);
+                                    break;
+
+                                //Steam.
+                                case "stm":
+
+                                    //Internal.
+                                    if (file.Files[tree.SelectedNode.Index].FileType == EFileType.Internal) {
+
+                                        //Valid.
+                                        if (file.Files[tree.SelectedNode.Index].File != null) {
+
+                                            //Open STM.
+                                            string name = file.Files[tree.SelectedNode.Index].FileName;
+                                            if (name == null) {
+                                                name = "{ Null File Name }";
+                                            }
+                                            IsabelleSoundEditor i = new IsabelleSoundEditor(this, tree.SelectedNode.Index, name + file.Files[tree.SelectedNode.Index].FileExtension, false);
+                                            i.Show();
+
+                                        }
+
+                                    } else {
+
+                                        //Open isabelle.
+                                        IsabelleSoundEditor i = new IsabelleSoundEditor(file.Files[tree.SelectedNode.Index].ExternalFileName);
+                                        i.Show();
+                                        break;
+
+                                    }
+                                    break;
+
+                            }
+
+                        } else {
+
+                            //No file able to open.
+                            MessageBox.Show("You can't open a null file!", "Notice:");
+
+                        }
+
+                    } else {
+
+                        //No file able to open.
+                        MessageBox.Show("You can't open a null file!", "Notice:");
+
+                    }
+
+                }
+
+                //Run editor.
+                if (b != null) {
+                    b.Show();
+                }
+
+            }
 
         }
 

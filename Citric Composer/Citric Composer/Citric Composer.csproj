@@ -91,12 +91,21 @@
       <DependentUpon>AboutWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ArchiveRescourceSounds.cs" />
+    <Compile Include="Brewster WAR Brewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Brewster WAR Brewer.Designer.cs">
+      <DependentUpon>Brewster WAR Brewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommonStructures.cs" />
     <Compile Include="Converters\FileReader.cs" />
     <Compile Include="Converters\FileWriter.cs" />
     <Compile Include="Converters\ReferenceStructures.cs" />
     <Compile Include="Converters\Sequence\SeqDataReader.cs" />
     <Compile Include="Converters\Sound Archive\SoundArchiveReader.cs" />
+    <Compile Include="EditorBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="High Level\Bank\Instrument\InstrumentType.cs" />
     <Compile Include="High Level\Bank\Key Region\DirectKeyRegion.cs" />
     <Compile Include="High Level\Bank\Key Region\IKeyRegion.cs" />
@@ -157,11 +166,11 @@
     <Compile Include="Goldi GRP Grouper.Designer.cs">
       <DependentUpon>Goldi GRP Grouper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Brewster WAR Brewer.cs">
+    <Compile Include="Brewster WAR Brewerz.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Brewster WAR Brewer.Designer.cs">
-      <DependentUpon>Brewster WAR Brewer.cs</DependentUpon>
+    <Compile Include="Brewster WAR Brewerz.Designer.cs">
+      <DependentUpon>Brewster WAR Brewerz.cs</DependentUpon>
     </Compile>
     <Compile Include="CitraStructures.cs" />
     <Compile Include="BrewsterAbout.cs">
@@ -227,14 +236,17 @@
     <EmbeddedResource Include="AboutWindow.resx">
       <DependentUpon>AboutWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditorBase.resx">
+      <DependentUpon>EditorBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GoldiAbout.resx">
       <DependentUpon>GoldiAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Goldi GRP Grouper.resx">
       <DependentUpon>Goldi GRP Grouper.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Brewster WAR Brewer.resx">
-      <DependentUpon>Brewster WAR Brewer.cs</DependentUpon>
+    <EmbeddedResource Include="Brewster WAR Brewerz.resx">
+      <DependentUpon>Brewster WAR Brewerz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BrewsterAbout.resx">
       <DependentUpon>BrewsterAbout.cs</DependentUpon>
@@ -268,6 +280,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -296,6 +309,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\Image\Brewster2.ico" />
     <Content Include="Data\Image\pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

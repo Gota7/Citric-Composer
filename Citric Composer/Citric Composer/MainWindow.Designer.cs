@@ -541,6 +541,7 @@
             this.tree.TabIndex = 0;
             this.tree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_NodeMouseClick);
             this.tree.KeyUp += new System.Windows.Forms.KeyEventHandler(this.treeArrowKey);
+            this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_NodeMouseDoubleClick);
             // 
             // treeIcons
             // 
