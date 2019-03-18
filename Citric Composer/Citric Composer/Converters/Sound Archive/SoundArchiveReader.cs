@@ -280,7 +280,7 @@ namespace CitraFileLoader {
                         FileReader.OpenReference(br, "FileRef");
 
                         //File type is null by default.
-                        s.FileType = EFileType.Null;
+                        s.FileType = EFileType.Undefined;
 
                         //Valid file data.
                         if (!FileReader.ReferenceIsNull("FileRef")) {
@@ -1215,6 +1215,41 @@ namespace CitraFileLoader {
                     //Read file.
                     a.Files[k.Key].File = ReadFile(br.ReadBytes((int)k.Value.size));
 
+                    //Get the group references.
+                    if (a.Files[k.Key].File as Group != null) {
+
+                        //Group.
+                        Group g = a.Files[k.Key].File as Group;
+
+                        //Get references.
+                        for (int i = 0; i < g.SoundFiles.Count; i++) {
+
+                            //Not null file.
+                            if (g.SoundFiles[i] != null) {
+
+                                //Set up null reference type if file is null.
+                                if (a.Files[g.SoundFiles[i].FileId] == null) {
+                                    a.Files[g.SoundFiles[i].FileId] = new SoundFile<ISoundFile>();
+                                    a.Files[g.SoundFiles[i].FileId].FileId = g.SoundFiles[i].FileId;
+                                    a.Files[g.SoundFiles[i].FileId].FileType = EFileType.NullReference;
+                                }
+
+                                //Set up reference.
+                                if (g.SoundFiles[i].File != null) { a.Files[g.SoundFiles[i].FileId].File = g.SoundFiles[i].File; }
+                                g.SoundFiles[i].Reference = a.Files[g.SoundFiles[i].FileId];
+                                a.Files[g.SoundFiles[i].FileId].ReferencedBy.Add(g.SoundFiles[i]);
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                //Group only.
+                else {
+                    a.Files[k.Key].FileType = EFileType.InGroupOnly;
                 }
 
             }

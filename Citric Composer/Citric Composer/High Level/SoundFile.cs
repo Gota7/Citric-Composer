@@ -209,7 +209,22 @@ namespace CitraFileLoader {
     /// File type.
     /// </summary>
     public enum EFileType {
-        Null, Internal, External
+
+        //Where the file is stored is unknown.
+        Undefined,
+
+        //File is stored inside the b_sar but has a reference to it.
+        Internal,
+
+        //File is stored outside of the b_sar.
+        External,
+
+        //Internal b_sar file that does not have a reference to a file, but the file exists in a group.
+        InGroupOnly,
+
+        //When a group defines a file entry that is null in the b_sar.
+        NullReference
+
     }
 
 }

@@ -22,21 +22,21 @@ namespace Citric_Composer {
         byte forceWavMin = 0;
         byte forceWavRev = 0;
 
-        public Brewster_WAR_Brewer(MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", mainWindow) {
+        public Brewster_WAR_Brewer(MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Wave Archive", "war", "Brewster's War Brewer", mainWindow) {
             InitializeComponent();
             Text = "Brewster's War Brewer";
             Icon = Properties.Resources.Brewster;
             toolsWarToolStripMenuItem.Visible = true;
         }
 
-        public Brewster_WAR_Brewer(string fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
+        public Brewster_WAR_Brewer(string fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
             InitializeComponent();
             Text = "Brewster's War Brewer - " + Path.GetFileName(fileToOpen);
             Icon = Properties.Resources.Brewster;
             toolsWarToolStripMenuItem.Visible = true;
         }
 
-        public Brewster_WAR_Brewer(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Sound Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
+        public Brewster_WAR_Brewer(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow, EditorBase otherEditor = null) : base(typeof(SoundWaveArchive), "Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
             InitializeComponent();
             string name = ExtFile.FileName;
             if (name == null) {
@@ -44,6 +44,7 @@ namespace Citric_Composer {
             }
             Text = EditorName + " - " + name + "." + ExtFile.FileExtension;
             Icon = Properties.Resources.Brewster;
+            OtherEditor = otherEditor;
             toolsWarToolStripMenuItem.Visible = true;
         }
 
@@ -424,6 +425,9 @@ namespace Citric_Composer {
                 s.FileName = tree.SelectedNode.Text;
                 s.Filter = "Wave|*.wav|Wave (3ds or Wii U)|*.bfwav;*.bcwav|Wave (Switch)|*.bfwav|Stream (3ds or Wii U)|*.bfstm;*.bcstm|Stream (Switch)|*.bfstm";
                 s.ShowDialog();
+                if (Path.GetExtension(s.FileName) == "") {
+                    s.FileName += "wav";
+                }
                 if (s.FileName != "") {
 
                     //Get file data.

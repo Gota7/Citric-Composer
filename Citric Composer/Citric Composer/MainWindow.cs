@@ -113,7 +113,7 @@ namespace Citric_Composer
         private void goldisGrouperGRPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Goldi window.
-            Goldi_GRP_Grouper a = new Goldi_GRP_Grouper();
+            Goldi_GRP_Grouper a = new Goldi_GRP_Grouper(this);
             a.Show();
         }
 
@@ -279,57 +279,100 @@ namespace Citric_Composer
 
                 }
 
+                //Parent is the streams.
+                else if (tree.SelectedNode.Parent == tree.Nodes["streams"]) {
+
+                    //Open the file.
+                    if (file.Streams[tree.SelectedNode.Index].File != null) {
+
+                        //Internal.
+                        if (file.Streams[tree.SelectedNode.Index].File.FileType != EFileType.External) {
+
+                            //Wut.
+                            MessageBox.Show("Do to the nature of Isabelle, you have to open internal streams through the files folder.", "Notice:");
+
+                        } else {
+
+                            //Open isabelle.
+                            IsabelleSoundEditor i = new IsabelleSoundEditor(file.Streams[tree.SelectedNode.Index].File.ExternalFileName);
+                            i.Show();
+
+                        }
+
+                    } else {
+
+                        //No file able to open.
+                        MessageBox.Show("You can't open a file for an entry that does not have a file attached!", "Notice:");
+
+                    }
+
+                }
+
+                //Parent is the groups.
+                else if (tree.SelectedNode.Parent == tree.Nodes["groups"]) {
+
+                    //Open the file.
+                    if (file.Groups[tree.SelectedNode.Index].File != null) {
+
+                        //Open it.
+                        b = new Goldi_GRP_Grouper(file.Groups[tree.SelectedNode.Index].File, this);
+
+                    } else {
+
+                        //No file able to open.
+                        MessageBox.Show("You can't open a file for an entry that does not have a file attached!", "Notice:");
+
+                    }
+
+                }
+
                 //Last resort is the file.
-                if (tree.SelectedNode.Parent == tree.Nodes["files"]) {
+                else if (tree.SelectedNode.Parent == tree.Nodes["files"]) {
 
                     //Make sure file is not null.
                     if (file.Files[tree.SelectedNode.Index] != null) {
 
-                        if (file.Files[tree.SelectedNode.Index].FileType != EFileType.Null) {
+                        //Get the extension.
+                        switch (file.Files[tree.SelectedNode.Index].FileExtension.Substring(file.Files[tree.SelectedNode.Index].FileExtension.Length - 3, 3).ToLower()) {
 
-                            //Get the extension.
-                            switch (file.Files[tree.SelectedNode.Index].FileExtension.Substring(file.Files[tree.SelectedNode.Index].FileExtension.Length - 3, 3).ToLower()) {
+                            //Wave archive.
+                            case "war":
+                                b = new Brewster_WAR_Brewer(file.Files[tree.SelectedNode.Index], this);
+                                break;
 
-                                //Wave archive.
-                                case "war":
-                                    b = new Brewster_WAR_Brewer(file.Files[tree.SelectedNode.Index], this);
-                                    break;
+                            //Group.
+                            case "grp":
+                                b = new Goldi_GRP_Grouper(file.Files[tree.SelectedNode.Index], this);
+                                break;
 
-                                //Steam.
-                                case "stm":
+                            //Steam.
+                            case "stm":
 
-                                    //Internal.
-                                    if (file.Files[tree.SelectedNode.Index].FileType == EFileType.Internal) {
+                                //Internal.
+                                if (file.Files[tree.SelectedNode.Index].FileType != EFileType.External) {
 
-                                        //Valid.
-                                        if (file.Files[tree.SelectedNode.Index].File != null) {
+                                    //Valid.
+                                    if (file.Files[tree.SelectedNode.Index].File != null) {
 
-                                            //Open STM.
-                                            string name = file.Files[tree.SelectedNode.Index].FileName;
-                                            if (name == null) {
-                                                name = "{ Null File Name }";
-                                            }
-                                            IsabelleSoundEditor i = new IsabelleSoundEditor(this, tree.SelectedNode.Index, name + file.Files[tree.SelectedNode.Index].FileExtension, false);
-                                            i.Show();
-
+                                        //Open STM.
+                                        string name = file.Files[tree.SelectedNode.Index].FileName;
+                                        if (name == null) {
+                                            name = "{ Null File Name }";
                                         }
-
-                                    } else {
-
-                                        //Open isabelle.
-                                        IsabelleSoundEditor i = new IsabelleSoundEditor(file.Files[tree.SelectedNode.Index].ExternalFileName);
+                                        IsabelleSoundEditor i = new IsabelleSoundEditor(this, tree.SelectedNode.Index, name + file.Files[tree.SelectedNode.Index].FileExtension, false);
                                         i.Show();
-                                        break;
 
                                     }
+
+                                } else {
+
+                                    //Open isabelle.
+                                    IsabelleSoundEditor i = new IsabelleSoundEditor(file.Files[tree.SelectedNode.Index].ExternalFileName);
+                                    i.Show();
                                     break;
 
-                            }
-
-                        } else {
-
-                            //No file able to open.
-                            MessageBox.Show("You can't open a null file!", "Notice:");
+                                }
+                                break;
 
                         }
 
@@ -747,8 +790,16 @@ namespace Citric_Composer
 
                     //Get content type.
                     string type = "(" + f.FileType.ToString() + ")";
-                    if (f.FileType == EFileType.Internal && f.File == null) {
-                        type = "(Internal But Null)";
+                    switch (f.FileType) {
+
+                        case EFileType.InGroupOnly:
+                            type = "(In Group Only)";
+                            break;
+
+                        case EFileType.NullReference:
+                            type = "(Null Reference)";
+                            break;
+
                     }
 
                     tree.Nodes["files"].Nodes.Add("file" + fCount, "[" + fCount + "] " + name + " " + type, icon, icon);

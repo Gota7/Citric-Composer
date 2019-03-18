@@ -106,6 +106,12 @@
     <Compile Include="EditorBase.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Goldi GRP Grouper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Goldi GRP Grouper.Designer.cs">
+      <DependentUpon>Goldi GRP Grouper.cs</DependentUpon>
+    </Compile>
     <Compile Include="High Level\Bank\Instrument\InstrumentType.cs" />
     <Compile Include="High Level\Bank\Key Region\DirectKeyRegion.cs" />
     <Compile Include="High Level\Bank\Key Region\IKeyRegion.cs" />
@@ -160,11 +166,11 @@
     <Compile Include="GoldiAbout.Designer.cs">
       <DependentUpon>GoldiAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Goldi GRP Grouper.cs">
+    <Compile Include="Goldi GRP Grouperz.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Goldi GRP Grouper.Designer.cs">
-      <DependentUpon>Goldi GRP Grouper.cs</DependentUpon>
+    <Compile Include="Goldi GRP Grouperz.Designer.cs">
+      <DependentUpon>Goldi GRP Grouperz.cs</DependentUpon>
     </Compile>
     <Compile Include="CitraStructures.cs" />
     <Compile Include="BrewsterAbout.cs">
@@ -236,8 +242,8 @@
     <EmbeddedResource Include="GoldiAbout.resx">
       <DependentUpon>GoldiAbout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Goldi GRP Grouper.resx">
-      <DependentUpon>Goldi GRP Grouper.cs</DependentUpon>
+    <EmbeddedResource Include="Goldi GRP Grouperz.resx">
+      <DependentUpon>Goldi GRP Grouperz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BrewsterAbout.resx">
       <DependentUpon>BrewsterAbout.cs</DependentUpon>
@@ -301,6 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Image\Brewster2.ico" />
+    <None Include="Data\Image\floweyIco.ico" />
     <Content Include="Data\Image\pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -1,288 +1,350 @@
-﻿using System;
-using System.IO;
-using CitraFileLoader;
+﻿using CitraFileLoader;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using IsabelleLib;
-using NAudio.Wave;
-using CitraFileLoaderz;
 
-namespace Citric_Composer
-{
-    public partial class Goldi_GRP_Grouper : Form
-    {
-        public Goldi_GRP_Grouper()
-        {
+namespace Citric_Composer {
+    public partial class Goldi_GRP_Grouper : EditorBase {
+
+        public Goldi_GRP_Grouper(MainWindow mainWindow) : base(typeof(Group), "Group", "grp", "Goldi's Grouper", mainWindow) {
             InitializeComponent();
+            Text = "Goldi's Grouper";
+            Icon = Properties.Resources.Goldi;
         }
 
-
-        //Variables.
-        public CitraFileLoaderz.b_grpO file; //File.
-        public string filePath = ""; //File path to save.
-        public bool fileOpen = false; //If file open.
-        public channelPlayer[][] players; //Players.
-        public Syroot.BinaryData.ByteOrder endian; //Endianess.
-        int lastIndex = -1;
-        bool paused = false;
-
-        //Channel player.
-        public struct channelPlayer
-        {
-            public byte[] file; //File.
-            public WaveOutEvent player; //Player.
-            public IWaveProvider playerFile; //Audio File.
-            public int samplingRate; //Sampling Rate.
+        public Goldi_GRP_Grouper(string fileToOpen, MainWindow mainWindow) : base(typeof(Group), "Group", "grp", "Goldi's Grouper", fileToOpen, mainWindow) {
+            InitializeComponent();
+            Text = "Goldi's Grouper - " + Path.GetFileName(fileToOpen);
+            Icon = Properties.Resources.Goldi;
         }
 
-        //Open about.
-        private void aboutBrewsterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GoldiAbout a = new GoldiAbout();
-            a.Show();
-        }
-
-
-        //Do Info Stuff.
-        public void doInfoStuff() {
-
-
-
-        }
-
-
-
-        //Update nodes.
-        #region updateNodes
-        public void updateNodes()
-        {
-
-            //Start stuff.
-            tree.BeginUpdate();
-
-            tree.SelectedNode = tree.Nodes[0];
-            tree.Nodes[0].ContextMenuStrip = null;
-
-            List<string> expandedNodes = collectExpandedNodes(tree.Nodes);
-
-            foreach (TreeNode e in tree.Nodes[0].Nodes)
-            {
-                tree.Nodes[0].Nodes.RemoveAt(0);
+        public Goldi_GRP_Grouper(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow) : base(typeof(Group), "Group", "grp", "Goldi's Grouper", fileToOpen, mainWindow) {
+            InitializeComponent();
+            string name = ExtFile.FileName;
+            if (name == null) {
+                name = "{ Null File Name }";
             }
-
-
-            //Only if file is open.
-            if (fileOpen)
-            {
-
-
-
-            }
-
-            //Restore the nodes if they exist.
-            if (expandedNodes.Count > 0)
-            {
-                TreeNode IamExpandedNode;
-                for (int i = 0; i < expandedNodes.Count; i++)
-                {
-                    IamExpandedNode = FindNodeByName(tree.Nodes, expandedNodes[i]);
-                    expandNodePath(IamExpandedNode);
-                }
-
-            }
-
-            tree.EndUpdate();
+            Text = EditorName + " - " + name + "." + ExtFile.FileExtension;
+            Icon = Properties.Resources.Goldi;
 
         }
-        #endregion
 
+        //Info and updates.
+        #region InfoAndUpdates
+        
+        /// <summary>
+        /// Do info stuff.
+        /// </summary>
+        public override void DoInfoStuff() {
 
+            //Do pre-info stuff.
+            base.DoInfoStuff();
 
-        //Node shit.
-        #region nodeShit
-
-        //Expand node and parents.
-        void expandNodePath(TreeNode node)
-        {
-            if (node == null)
+            //Safety check.
+            if (!FileOpen || File == null) {
                 return;
-            if (node.Level != 0) //check if it is not root
-            {
-                node.Expand();
-                expandNodePath(node.Parent);
-            }
-            else
-            {
-                node.Expand(); // this is root 
             }
 
+            //Entry is selected.
+            if (tree.SelectedNode.Parent != null) {
 
+                //TEMP.
+                noInfoPanel.BringToFront();
+                noInfoPanel.Show();
+
+            }
+
+            //File info.
+            else if (tree.SelectedNode == tree.Nodes["fileInfo"]) {
+
+                //TEMP.
+                noInfoPanel.BringToFront();
+                noInfoPanel.Show();
+
+                //Group file info panel.
+                //grpFileInfoPanel.BringToFront();
+                //grpFileInfoPanel.Show();
+
+            }
+
+            //Dependencies folder.
+            else if (tree.SelectedNode == tree.Nodes["dependencies"]) {
+
+                //TEMP.
+                noInfoPanel.BringToFront();
+                noInfoPanel.Show();
+
+            }
+
+            //Files.
+            else {
+
+                //TEMP.
+                noInfoPanel.BringToFront();
+                noInfoPanel.Show();
+
+            }
 
         }
-
-        //Make right click actually select, and show infoViewer.
-        void tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                // Select the clicked node
-                tree.SelectedNode = tree.GetNodeAt(e.X, e.Y);
-            }
-            else if (e.Button == MouseButtons.Left)
-            {
-                // Select the clicked node
-                tree.SelectedNode = tree.GetNodeAt(e.X, e.Y);
-            }
-
-            doInfoStuff();
-
-        }
-
-        void tree_NodeKey(object sender, KeyEventArgs e)
-        {
-
-            doInfoStuff();
-
-        }
-
-        //Get expanded nodes.
-        List<string> collectExpandedNodes(TreeNodeCollection Nodes)
-        {
-            List<string> _lst = new List<string>();
-            foreach (TreeNode checknode in Nodes)
-            {
-                if (checknode.IsExpanded)
-                    _lst.Add(checknode.Name);
-                if (checknode.Nodes.Count > 0)
-                    _lst.AddRange(collectExpandedNodes(checknode.Nodes));
-            }
-            return _lst;
-        }
-
 
         /// <summary>
-        /// Find nodes by name.
+        /// Update nodes.
         /// </summary>
-        /// <param name="NodesCollection"></param>
-        /// <param name="Name"></param>
-        /// <returns></returns>
-        TreeNode FindNodeByName(TreeNodeCollection NodesCollection, string Name)
-        {
-            TreeNode returnNode = null; // Default value to return
-            foreach (TreeNode checkNode in NodesCollection)
-            {
-                if (checkNode.Name == Name)  //checks if this node name is correct
-                    returnNode = checkNode;
-                else if (checkNode.Nodes.Count > 0) //node has child
-                {
-                    returnNode = FindNodeByName(checkNode.Nodes, Name);
+        public override void UpdateNodes() {
+
+            //Begin update.
+            BeginUpdateNodes();
+
+            //Add dependencies if doesn't exist.
+            if (tree.Nodes.Count < 2) {
+                tree.Nodes.Add("dependencies", "Dependencies", 7, 7);
+            }
+
+            //Add files if doesn't exist.
+            if (tree.Nodes.Count < 3) {
+                tree.Nodes.Add("files", "Files", 11, 11);
+            }
+
+            //File is open and not null.
+            if (FileOpen && File != null) {
+
+                //Force versions here?
+
+                //Context menu.
+                //tree.Nodes["dependencies"].ContextMenuStrip = rootMenu;
+                //tree.Nodes["files"].ContextMenuStrip = rootMenu;
+
+                //Add each dependency.
+                Group g = (File as Group);
+                for (int i = 0; i < g.ExtraInfo.Count; i++) {
+
+                    //Null entry.
+                    if (g.ExtraInfo[i] == null) {
+
+                        //Add null entry.
+                        tree.Nodes["dependencies"].Nodes.Add("dependency" + i, "[" + i + "] { Null Dependency }", 0, 0);
+
+                    } else {
+
+                        //Get icon.
+                        int icon = 0;
+                        switch (g.ExtraInfo[i].ItemType) {
+
+                            //Bank.
+                            case InfoExEntry.EItemType.Bank:
+                                icon = 5;
+                                break;
+
+                            //Sequence.
+                            case InfoExEntry.EItemType.Sequence:
+                                icon = 3;
+                                break;
+
+                            //Sequence set or wave data.
+                            case InfoExEntry.EItemType.SequenceSetOrWaveData:
+                                icon = 4;
+                                break;
+
+                            //Wave archive.
+                            case InfoExEntry.EItemType.WaveArchive:
+                                icon = 6;
+                                break;
+
+                        }
+
+                        //Try to get dependency name.
+                        string depName = "{ Unknown Dependency Name }";
+                        if (MainWindow != null) {
+
+                            //File is valid.
+                            if (MainWindow.file != null && ExtFile != null) {
+
+                                //Safety.
+                                try {
+
+                                    //Item type.
+                                    switch (g.ExtraInfo[i].ItemType) {
+
+                                        //Sequence.
+                                        case InfoExEntry.EItemType.Sequence:
+                                            depName = MainWindow.file.Sequences[g.ExtraInfo[i].ItemIndex].Name;
+                                            break;
+
+                                        //Bank.
+                                        case InfoExEntry.EItemType.Bank:
+                                            depName = MainWindow.file.Banks[g.ExtraInfo[i].ItemIndex].Name;
+                                            break;
+
+                                        //Wave archive.
+                                        case InfoExEntry.EItemType.WaveArchive:
+                                            depName = MainWindow.file.WaveArchives[g.ExtraInfo[i].ItemIndex].Name;
+                                            break;
+
+                                        //Sequence set or wave data.
+                                        case InfoExEntry.EItemType.SequenceSetOrWaveData:
+                                            depName = MainWindow.file.SoundSets[g.ExtraInfo[i].ItemIndex].Name;
+                                            break;
+
+                                    }
+
+                                } catch { }
+
+                                if (depName == null) { depName = "{ Null Name }"; }
+
+                            }
+
+                        }
+
+                        //Add entry.
+                        tree.Nodes["dependencies"].Nodes.Add("dependency" + i, "[" + i + "] " + depName, icon, icon);
+
+                    }
+
+                    //Add context menu.
+                    //tree.Nodes["dependencies"].Nodes["dependency" + i].ContextMenuStrip = nodeMenu;
+
                 }
 
-                if (returnNode != null) //check if founded do not continue and break
-                {
-                    return returnNode;
+                //Load files.
+                int fCount = 0;
+                foreach (var f in g.SoundFiles) {
+
+                    //Null.
+                    if (f == null) {
+                        tree.Nodes["files"].Nodes.Add("file" + fCount, "[" + fCount + "] " + "{ Null File }", 0, 0);
+                    }
+
+                    //Valid.
+                    else {
+
+                        string name = f.FileName;
+                        if (name == null) {
+                            name = "{ Null File Name }";
+                        }
+                        name += "." + f.FileExtension;
+
+                        //Get the icon.
+                        int icon = 0;
+                        if (f.FileExtension.Length > 3) {
+                            switch (f.FileExtension.Substring(2, 3)) {
+
+                                case "seq":
+                                    icon = 3;
+                                    break;
+
+                                case "stm":
+                                    icon = 1;
+                                    break;
+
+                                case "wsd":
+                                    icon = 2;
+                                    break;
+
+                                case "bnk":
+                                    icon = 5;
+                                    break;
+
+                                case "war":
+                                    icon = 6;
+                                    break;
+
+                                case "stp":
+                                    icon = 1;
+                                    break;
+
+                                case "grp":
+                                    icon = 7;
+                                    break;
+
+                            }
+                        }
+
+                        //Get content type.
+                        string type = "(Embedded)";
+                        if (!f.Embed) {
+                            type = "(Linked)";
+                        }
+
+                        tree.Nodes["files"].Nodes.Add("file" + fCount, "[" + fCount + "] " + name + " " + type, icon, icon);
+                    }
+
+                    //Increment count.
+                    fCount++;
+
+                }
+
+            } else {
+
+                //Remove context menus.
+                tree.Nodes["dependencies"].ContextMenuStrip = null;
+                tree.Nodes["files"].ContextMenuStrip = null;
+
+            }
+
+            //End update.
+            EndUpdateNodes();
+
+        }
+
+        /// <summary>
+        /// Node is double clicked.
+        /// </summary>
+        public override void NodeMouseDoubleClick() {
+
+            //Safety check.
+            if (!FileOpen || File == null) {
+                return;
+            }
+
+            //Make sure node is valid.
+            if (tree.SelectedNode.Parent != null) {
+
+                //Editor to open.
+                EditorBase b = null;
+
+                //If the parent is a file.
+                Group g = File as Group;
+                if (tree.SelectedNode.Parent == tree.Nodes["files"]) {
+
+                    //Embedded.
+                    if (g.SoundFiles[tree.SelectedNode.Index].Embed || (ExtFile != null && g.SoundFiles[tree.SelectedNode.Index].File != null)) {
+
+                        //Get the extension.
+                        switch (g.SoundFiles[tree.SelectedNode.Index].FileExtension.Substring(g.SoundFiles[tree.SelectedNode.Index].FileExtension.Length - 3, 3).ToLower()) {
+
+                            //Wave archive.
+                            case "war":
+                                b = new Brewster_WAR_Brewer(g.SoundFiles[tree.SelectedNode.Index], null, this);
+                                break;
+
+                        }
+
+                    }
+
+                    //Linked.
+                    else {
+                        MessageBox.Show("A linked file has no file data that can be read editing a group in independent mode!", "Notice:");
+                    }
+
+                }
+
+                //Open the editor.
+                if (b != null) {
+                    b.Show();
                 }
 
             }
-            //not found
-            return returnNode;
-        }
-
-        #endregion
-
-
-
-        //File nodes.
-        #region fileNodes
-
-        //New
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //Open
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            file = new b_grpO();
-            
-        }
-
-        //Close
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //Quit
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        #endregion
-
-
-
-        //Edit menu.
-        #region editMenu
-
-        //Import.
-        private void importFromFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //Export.
-        private void exportToFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        #endregion
-
-
-
-        //Save stuff.
-        #region saveStuff
-
-        //Save.
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //Save As.
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //Save
-        public void save() {
-
-
-
-        }
-
-        //Save As
-        public void saveAs() {
-
-
 
         }
 
         #endregion
-
 
     }
 }

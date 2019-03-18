@@ -61,7 +61,12 @@ namespace Citric_Composer {
         public MainWindow MainWindow;
 
         /// <summary>
-        /// External file in the 
+        /// Other editor.
+        /// </summary>
+        public EditorBase OtherEditor;
+
+        /// <summary>
+        /// External file in the B_SAR.
         /// </summary>
         public SoundFile<CitraFileLoader.ISoundFile> ExtFile;
 
@@ -275,11 +280,47 @@ namespace Citric_Composer {
         private ToolStripMenuItem batchExtractWiiUWavesToolStripMenuItem;
         private ToolStripMenuItem batchExtractSwitchWavesToolStripMenuItem;
         private ToolStripMenuItem batchImportToolStripMenuItem;
+        public Panel grpFileInfoPanel;
+        public Button button3;
+        private TableLayoutPanel tableLayoutPanel6;
+        public NumericUpDown numericUpDown10;
+        public NumericUpDown numericUpDown11;
+        public NumericUpDown numericUpDown12;
+        private Label label10;
+        public Button button2;
+        private TableLayoutPanel tableLayoutPanel5;
+        public NumericUpDown numericUpDown7;
+        public NumericUpDown numericUpDown8;
+        public NumericUpDown numericUpDown9;
+        private Label label9;
+        public Button button1;
+        private TableLayoutPanel tableLayoutPanel3;
+        public NumericUpDown numericUpDown1;
+        public NumericUpDown numericUpDown2;
+        public NumericUpDown numericUpDown3;
+        private Label label7;
+        private TableLayoutPanel tableLayoutPanel4;
+        public NumericUpDown numericUpDown4;
+        public NumericUpDown numericUpDown5;
+        public NumericUpDown numericUpDown6;
+        private Label label8;
+        public Button button4;
+        private TableLayoutPanel tableLayoutPanel7;
+        public NumericUpDown numericUpDown13;
+        public NumericUpDown numericUpDown14;
+        public NumericUpDown numericUpDown15;
+        private Label label11;
+        public Button button5;
+        private TableLayoutPanel tableLayoutPanel8;
+        public NumericUpDown numericUpDown16;
+        public NumericUpDown numericUpDown17;
+        public NumericUpDown numericUpDown18;
+        private Label label12;
 
         public void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorBase));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("File Information", 10, 10);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("File Information", 10, 10);
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -352,6 +393,42 @@ namespace Citric_Composer {
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.nullifyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.grpFileInfoPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDown13 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
+            this.button5 = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -380,6 +457,31 @@ namespace Citric_Composer {
             this.statusStrip.SuspendLayout();
             this.rootMenu.SuspendLayout();
             this.nodeMenu.SuspendLayout();
+            this.grpFileInfoPanel.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
+            this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
+            this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
+            this.tableLayoutPanel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -390,7 +492,7 @@ namespace Citric_Composer {
             this.toolsWarToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(744, 24);
+            this.menuStrip.Size = new System.Drawing.Size(917, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -560,6 +662,7 @@ namespace Citric_Composer {
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.grpFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.warFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.genericFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.nullDataPanel);
@@ -570,8 +673,8 @@ namespace Citric_Composer {
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tree);
-            this.splitContainer1.Size = new System.Drawing.Size(744, 356);
-            this.splitContainer1.SplitterDistance = 248;
+            this.splitContainer1.Size = new System.Drawing.Size(917, 474);
+            this.splitContainer1.SplitterDistance = 305;
             this.splitContainer1.TabIndex = 1;
             // 
             // warFileInfoPanel
@@ -584,7 +687,7 @@ namespace Citric_Composer {
             this.warFileInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.warFileInfoPanel.Location = new System.Drawing.Point(0, 0);
             this.warFileInfoPanel.Name = "warFileInfoPanel";
-            this.warFileInfoPanel.Size = new System.Drawing.Size(246, 354);
+            this.warFileInfoPanel.Size = new System.Drawing.Size(303, 472);
             this.warFileInfoPanel.TabIndex = 6;
             // 
             // forceWaveVersionButton
@@ -593,7 +696,7 @@ namespace Citric_Composer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.forceWaveVersionButton.Location = new System.Drawing.Point(3, 110);
             this.forceWaveVersionButton.Name = "forceWaveVersionButton";
-            this.forceWaveVersionButton.Size = new System.Drawing.Size(240, 23);
+            this.forceWaveVersionButton.Size = new System.Drawing.Size(296, 23);
             this.forceWaveVersionButton.TabIndex = 4;
             this.forceWaveVersionButton.Text = "Force Internal Wave Version";
             this.forceWaveVersionButton.UseVisualStyleBackColor = true;
@@ -614,20 +717,20 @@ namespace Citric_Composer {
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(247, 26);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(303, 26);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // vWavRevBox
             // 
             this.vWavRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vWavRevBox.Location = new System.Drawing.Point(167, 3);
+            this.vWavRevBox.Location = new System.Drawing.Point(205, 3);
             this.vWavRevBox.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.vWavRevBox.Name = "vWavRevBox";
-            this.vWavRevBox.Size = new System.Drawing.Size(77, 20);
+            this.vWavRevBox.Size = new System.Drawing.Size(95, 20);
             this.vWavRevBox.TabIndex = 2;
             this.toolTip.SetToolTip(this.vWavRevBox, "Revision version of the file.");
             this.vWavRevBox.ValueChanged += new System.EventHandler(this.vWavRevBox_ValueChanged);
@@ -635,14 +738,14 @@ namespace Citric_Composer {
             // vWavMinBox
             // 
             this.vWavMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vWavMinBox.Location = new System.Drawing.Point(85, 3);
+            this.vWavMinBox.Location = new System.Drawing.Point(104, 3);
             this.vWavMinBox.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.vWavMinBox.Name = "vWavMinBox";
-            this.vWavMinBox.Size = new System.Drawing.Size(76, 20);
+            this.vWavMinBox.Size = new System.Drawing.Size(95, 20);
             this.vWavMinBox.TabIndex = 1;
             this.toolTip.SetToolTip(this.vWavMinBox, "Minor version of the file.");
             this.vWavMinBox.ValueChanged += new System.EventHandler(this.vWavMinBox_ValueChanged);
@@ -657,7 +760,7 @@ namespace Citric_Composer {
             0,
             0});
             this.vWavMajBox.Name = "vWavMajBox";
-            this.vWavMajBox.Size = new System.Drawing.Size(76, 20);
+            this.vWavMajBox.Size = new System.Drawing.Size(95, 20);
             this.vWavMajBox.TabIndex = 0;
             this.toolTip.SetToolTip(this.vWavMajBox, "Major version of the file.");
             this.vWavMajBox.ValueChanged += new System.EventHandler(this.vWavMajBox_ValueChanged);
@@ -668,7 +771,7 @@ namespace Citric_Composer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.Location = new System.Drawing.Point(3, 52);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(243, 23);
+            this.label6.Size = new System.Drawing.Size(299, 23);
             this.label6.TabIndex = 2;
             this.label6.Text = "Internal Wave Version:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -689,20 +792,20 @@ namespace Citric_Composer {
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(247, 26);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(303, 26);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // vRevBoxWar
             // 
             this.vRevBoxWar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vRevBoxWar.Location = new System.Drawing.Point(167, 3);
+            this.vRevBoxWar.Location = new System.Drawing.Point(205, 3);
             this.vRevBoxWar.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.vRevBoxWar.Name = "vRevBoxWar";
-            this.vRevBoxWar.Size = new System.Drawing.Size(77, 20);
+            this.vRevBoxWar.Size = new System.Drawing.Size(95, 20);
             this.vRevBoxWar.TabIndex = 2;
             this.toolTip.SetToolTip(this.vRevBoxWar, "Revision version of the file.");
             this.vRevBoxWar.ValueChanged += new System.EventHandler(this.vRevBoxWar_ValueChanged);
@@ -710,14 +813,14 @@ namespace Citric_Composer {
             // vMinBoxWar
             // 
             this.vMinBoxWar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vMinBoxWar.Location = new System.Drawing.Point(85, 3);
+            this.vMinBoxWar.Location = new System.Drawing.Point(104, 3);
             this.vMinBoxWar.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.vMinBoxWar.Name = "vMinBoxWar";
-            this.vMinBoxWar.Size = new System.Drawing.Size(76, 20);
+            this.vMinBoxWar.Size = new System.Drawing.Size(95, 20);
             this.vMinBoxWar.TabIndex = 1;
             this.toolTip.SetToolTip(this.vMinBoxWar, "Minor version of the file.");
             this.vMinBoxWar.ValueChanged += new System.EventHandler(this.vMinBoxWar_ValueChanged);
@@ -732,7 +835,7 @@ namespace Citric_Composer {
             0,
             0});
             this.vMajBoxWar.Name = "vMajBoxWar";
-            this.vMajBoxWar.Size = new System.Drawing.Size(76, 20);
+            this.vMajBoxWar.Size = new System.Drawing.Size(95, 20);
             this.vMajBoxWar.TabIndex = 0;
             this.toolTip.SetToolTip(this.vMajBoxWar, "Major version of the file.");
             this.vMajBoxWar.ValueChanged += new System.EventHandler(this.vMajBoxWar_ValueChanged);
@@ -743,7 +846,7 @@ namespace Citric_Composer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(243, 23);
+            this.label5.Size = new System.Drawing.Size(299, 23);
             this.label5.TabIndex = 0;
             this.label5.Text = "Version:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -756,7 +859,7 @@ namespace Citric_Composer {
             this.genericFileInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.genericFileInfoPanel.Location = new System.Drawing.Point(0, 0);
             this.genericFileInfoPanel.Name = "genericFileInfoPanel";
-            this.genericFileInfoPanel.Size = new System.Drawing.Size(246, 354);
+            this.genericFileInfoPanel.Size = new System.Drawing.Size(303, 472);
             this.genericFileInfoPanel.TabIndex = 3;
             // 
             // versionGrid
@@ -774,34 +877,34 @@ namespace Citric_Composer {
             this.versionGrid.Name = "versionGrid";
             this.versionGrid.RowCount = 1;
             this.versionGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.versionGrid.Size = new System.Drawing.Size(247, 26);
+            this.versionGrid.Size = new System.Drawing.Size(303, 26);
             this.versionGrid.TabIndex = 1;
             // 
             // vRevBox
             // 
             this.vRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vRevBox.Location = new System.Drawing.Point(167, 3);
+            this.vRevBox.Location = new System.Drawing.Point(205, 3);
             this.vRevBox.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.vRevBox.Name = "vRevBox";
-            this.vRevBox.Size = new System.Drawing.Size(77, 20);
+            this.vRevBox.Size = new System.Drawing.Size(95, 20);
             this.vRevBox.TabIndex = 2;
             this.toolTip.SetToolTip(this.vRevBox, "Revision version of the file.");
             // 
             // vMinBox
             // 
             this.vMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vMinBox.Location = new System.Drawing.Point(85, 3);
+            this.vMinBox.Location = new System.Drawing.Point(104, 3);
             this.vMinBox.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.vMinBox.Name = "vMinBox";
-            this.vMinBox.Size = new System.Drawing.Size(76, 20);
+            this.vMinBox.Size = new System.Drawing.Size(95, 20);
             this.vMinBox.TabIndex = 1;
             this.toolTip.SetToolTip(this.vMinBox, "Minor version of the file.");
             // 
@@ -815,7 +918,7 @@ namespace Citric_Composer {
             0,
             0});
             this.vMajBox.Name = "vMajBox";
-            this.vMajBox.Size = new System.Drawing.Size(76, 20);
+            this.vMajBox.Size = new System.Drawing.Size(95, 20);
             this.vMajBox.TabIndex = 0;
             this.toolTip.SetToolTip(this.vMajBox, "Major version of the file.");
             // 
@@ -825,7 +928,7 @@ namespace Citric_Composer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(243, 23);
+            this.label3.Size = new System.Drawing.Size(299, 23);
             this.label3.TabIndex = 0;
             this.label3.Text = "Version:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -837,7 +940,7 @@ namespace Citric_Composer {
             this.nullDataPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nullDataPanel.Location = new System.Drawing.Point(0, 0);
             this.nullDataPanel.Name = "nullDataPanel";
-            this.nullDataPanel.Size = new System.Drawing.Size(246, 354);
+            this.nullDataPanel.Size = new System.Drawing.Size(303, 472);
             this.nullDataPanel.TabIndex = 5;
             // 
             // label4
@@ -845,7 +948,7 @@ namespace Citric_Composer {
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(246, 354);
+            this.label4.Size = new System.Drawing.Size(303, 472);
             this.label4.TabIndex = 0;
             this.label4.Text = "This data is currently null. Blank this data from the right click menu in order t" +
     "o create the data.";
@@ -858,7 +961,7 @@ namespace Citric_Composer {
             this.soundPlayerDeluxePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.soundPlayerDeluxePanel.Location = new System.Drawing.Point(0, 0);
             this.soundPlayerDeluxePanel.Name = "soundPlayerDeluxePanel";
-            this.soundPlayerDeluxePanel.Size = new System.Drawing.Size(246, 354);
+            this.soundPlayerDeluxePanel.Size = new System.Drawing.Size(303, 472);
             this.soundPlayerDeluxePanel.TabIndex = 4;
             this.soundPlayerDeluxePanel.Visible = false;
             // 
@@ -874,7 +977,7 @@ namespace Citric_Composer {
             this.soundDeluxeTrack2.Name = "soundDeluxeTrack2";
             this.soundDeluxeTrack2.RowCount = 1;
             this.soundDeluxeTrack2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack2.Size = new System.Drawing.Size(246, 30);
+            this.soundDeluxeTrack2.Size = new System.Drawing.Size(303, 30);
             this.soundDeluxeTrack2.TabIndex = 9;
             // 
             // pauseSoundTrack
@@ -882,7 +985,7 @@ namespace Citric_Composer {
             this.pauseSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pauseSoundTrack.Location = new System.Drawing.Point(3, 3);
             this.pauseSoundTrack.Name = "pauseSoundTrack";
-            this.pauseSoundTrack.Size = new System.Drawing.Size(117, 24);
+            this.pauseSoundTrack.Size = new System.Drawing.Size(145, 24);
             this.pauseSoundTrack.TabIndex = 0;
             this.pauseSoundTrack.Text = "Pause";
             this.pauseSoundTrack.UseVisualStyleBackColor = true;
@@ -891,9 +994,9 @@ namespace Citric_Composer {
             // stopSoundTrack
             // 
             this.stopSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stopSoundTrack.Location = new System.Drawing.Point(126, 3);
+            this.stopSoundTrack.Location = new System.Drawing.Point(154, 3);
             this.stopSoundTrack.Name = "stopSoundTrack";
-            this.stopSoundTrack.Size = new System.Drawing.Size(117, 24);
+            this.stopSoundTrack.Size = new System.Drawing.Size(146, 24);
             this.stopSoundTrack.TabIndex = 1;
             this.stopSoundTrack.Text = "Stop";
             this.stopSoundTrack.UseVisualStyleBackColor = true;
@@ -911,7 +1014,7 @@ namespace Citric_Composer {
             this.soundDeluxeTrack1.RowCount = 2;
             this.soundDeluxeTrack1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.soundDeluxeTrack1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack1.Size = new System.Drawing.Size(246, 59);
+            this.soundDeluxeTrack1.Size = new System.Drawing.Size(303, 59);
             this.soundDeluxeTrack1.TabIndex = 11;
             // 
             // playSoundTrack
@@ -919,7 +1022,7 @@ namespace Citric_Composer {
             this.playSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playSoundTrack.Location = new System.Drawing.Point(3, 32);
             this.playSoundTrack.Name = "playSoundTrack";
-            this.playSoundTrack.Size = new System.Drawing.Size(240, 24);
+            this.playSoundTrack.Size = new System.Drawing.Size(297, 24);
             this.playSoundTrack.TabIndex = 10;
             this.playSoundTrack.Text = "Play";
             this.playSoundTrack.UseVisualStyleBackColor = true;
@@ -930,7 +1033,7 @@ namespace Citric_Composer {
             this.soundPlayerDeluxeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.soundPlayerDeluxeLabel.Location = new System.Drawing.Point(3, 0);
             this.soundPlayerDeluxeLabel.Name = "soundPlayerDeluxeLabel";
-            this.soundPlayerDeluxeLabel.Size = new System.Drawing.Size(240, 29);
+            this.soundPlayerDeluxeLabel.Size = new System.Drawing.Size(297, 29);
             this.soundPlayerDeluxeLabel.TabIndex = 11;
             this.soundPlayerDeluxeLabel.Text = "Sound Player Deluxe™";
             this.soundPlayerDeluxeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -941,7 +1044,7 @@ namespace Citric_Composer {
             this.nullFilePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nullFilePanel.Location = new System.Drawing.Point(0, 0);
             this.nullFilePanel.Name = "nullFilePanel";
-            this.nullFilePanel.Size = new System.Drawing.Size(246, 354);
+            this.nullFilePanel.Size = new System.Drawing.Size(303, 472);
             this.nullFilePanel.TabIndex = 2;
             // 
             // label2
@@ -949,7 +1052,7 @@ namespace Citric_Composer {
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(246, 354);
+            this.label2.Size = new System.Drawing.Size(303, 472);
             this.label2.TabIndex = 0;
             this.label2.Text = "This file is currently null. Blank this file from the edit menu in order to creat" +
     "e a file.";
@@ -961,7 +1064,7 @@ namespace Citric_Composer {
             this.noInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.noInfoPanel.Location = new System.Drawing.Point(0, 0);
             this.noInfoPanel.Name = "noInfoPanel";
-            this.noInfoPanel.Size = new System.Drawing.Size(246, 354);
+            this.noInfoPanel.Size = new System.Drawing.Size(303, 472);
             this.noInfoPanel.TabIndex = 0;
             // 
             // label1
@@ -969,7 +1072,7 @@ namespace Citric_Composer {
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(246, 354);
+            this.label1.Size = new System.Drawing.Size(303, 472);
             this.label1.TabIndex = 0;
             this.label1.Text = "No Valid Info Selected!";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -982,15 +1085,15 @@ namespace Citric_Composer {
             this.tree.Indent = 12;
             this.tree.Location = new System.Drawing.Point(0, 0);
             this.tree.Name = "tree";
-            treeNode2.ImageIndex = 10;
-            treeNode2.Name = "fileInfo";
-            treeNode2.SelectedImageIndex = 10;
-            treeNode2.Text = "File Information";
+            treeNode1.ImageIndex = 10;
+            treeNode1.Name = "fileInfo";
+            treeNode1.SelectedImageIndex = 10;
+            treeNode1.Text = "File Information";
             this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.tree.SelectedImageIndex = 0;
             this.tree.ShowLines = false;
-            this.tree.Size = new System.Drawing.Size(490, 354);
+            this.tree.Size = new System.Drawing.Size(606, 472);
             this.tree.TabIndex = 0;
             this.tree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_NodeMouseClick);
             this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_NodeMouseDoubleClick);
@@ -1021,9 +1124,9 @@ namespace Citric_Composer {
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.status});
-            this.statusStrip.Location = new System.Drawing.Point(0, 380);
+            this.statusStrip.Location = new System.Drawing.Point(0, 498);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(744, 22);
+            this.statusStrip.Size = new System.Drawing.Size(917, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -1154,9 +1257,523 @@ namespace Citric_Composer {
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
+            // grpFileInfoPanel
+            // 
+            this.grpFileInfoPanel.Controls.Add(this.button5);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel8);
+            this.grpFileInfoPanel.Controls.Add(this.label12);
+            this.grpFileInfoPanel.Controls.Add(this.button4);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel7);
+            this.grpFileInfoPanel.Controls.Add(this.label11);
+            this.grpFileInfoPanel.Controls.Add(this.button3);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel6);
+            this.grpFileInfoPanel.Controls.Add(this.label10);
+            this.grpFileInfoPanel.Controls.Add(this.button2);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel5);
+            this.grpFileInfoPanel.Controls.Add(this.label9);
+            this.grpFileInfoPanel.Controls.Add(this.button1);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel3);
+            this.grpFileInfoPanel.Controls.Add(this.label7);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel4);
+            this.grpFileInfoPanel.Controls.Add(this.label8);
+            this.grpFileInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFileInfoPanel.Location = new System.Drawing.Point(0, 0);
+            this.grpFileInfoPanel.Name = "grpFileInfoPanel";
+            this.grpFileInfoPanel.Size = new System.Drawing.Size(303, 472);
+            this.grpFileInfoPanel.TabIndex = 7;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(3, 110);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(296, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Force Internal Sequence Version";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.Controls.Add(this.numericUpDown1, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.numericUpDown2, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.numericUpDown3, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 78);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel3.TabIndex = 3;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown1.Location = new System.Drawing.Point(205, 3);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown1.TabIndex = 2;
+            this.toolTip.SetToolTip(this.numericUpDown1, "Revision version of the file.");
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown2.Location = new System.Drawing.Point(104, 3);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown2.TabIndex = 1;
+            this.toolTip.SetToolTip(this.numericUpDown2, "Minor version of the file.");
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown3.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown3.TabIndex = 0;
+            this.toolTip.SetToolTip(this.numericUpDown3, "Major version of the file.");
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Location = new System.Drawing.Point(3, 52);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(299, 23);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Internal Sequence Version:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label7, "File version to save as.");
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.Controls.Add(this.numericUpDown4, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.numericUpDown5, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.numericUpDown6, 0, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(-1, 26);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel4.TabIndex = 1;
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown4.Location = new System.Drawing.Point(205, 3);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown4.TabIndex = 2;
+            this.toolTip.SetToolTip(this.numericUpDown4, "Revision version of the file.");
+            // 
+            // numericUpDown5
+            // 
+            this.numericUpDown5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown5.Location = new System.Drawing.Point(104, 3);
+            this.numericUpDown5.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown5.Name = "numericUpDown5";
+            this.numericUpDown5.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown5.TabIndex = 1;
+            this.toolTip.SetToolTip(this.numericUpDown5, "Minor version of the file.");
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown6.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown6.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown6.TabIndex = 0;
+            this.toolTip.SetToolTip(this.numericUpDown6, "Major version of the file.");
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(299, 23);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Version:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label8, "File version to save as.");
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.Location = new System.Drawing.Point(0, 136);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(299, 23);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Internal Bank Version:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label9, "File version to save as.");
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.ColumnCount = 3;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.Controls.Add(this.numericUpDown7, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.numericUpDown8, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.numericUpDown9, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 162);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel5.TabIndex = 6;
+            // 
+            // numericUpDown7
+            // 
+            this.numericUpDown7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown7.Location = new System.Drawing.Point(205, 3);
+            this.numericUpDown7.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown7.Name = "numericUpDown7";
+            this.numericUpDown7.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown7.TabIndex = 2;
+            this.toolTip.SetToolTip(this.numericUpDown7, "Revision version of the file.");
+            // 
+            // numericUpDown8
+            // 
+            this.numericUpDown8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown8.Location = new System.Drawing.Point(104, 3);
+            this.numericUpDown8.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown8.Name = "numericUpDown8";
+            this.numericUpDown8.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown8.TabIndex = 1;
+            this.toolTip.SetToolTip(this.numericUpDown8, "Minor version of the file.");
+            // 
+            // numericUpDown9
+            // 
+            this.numericUpDown9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown9.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown9.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown9.Name = "numericUpDown9";
+            this.numericUpDown9.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown9.TabIndex = 0;
+            this.toolTip.SetToolTip(this.numericUpDown9, "Major version of the file.");
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(3, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(296, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Force Internal Bank Version";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.Location = new System.Drawing.Point(0, 220);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(299, 23);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Internal Wave Archive Version:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label10, "File version to save as.");
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.Controls.Add(this.numericUpDown10, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.numericUpDown11, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.numericUpDown12, 0, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 246);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel6.TabIndex = 9;
+            // 
+            // numericUpDown10
+            // 
+            this.numericUpDown10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown10.Location = new System.Drawing.Point(205, 3);
+            this.numericUpDown10.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown10.Name = "numericUpDown10";
+            this.numericUpDown10.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown10.TabIndex = 2;
+            this.toolTip.SetToolTip(this.numericUpDown10, "Revision version of the file.");
+            // 
+            // numericUpDown11
+            // 
+            this.numericUpDown11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown11.Location = new System.Drawing.Point(104, 3);
+            this.numericUpDown11.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown11.Name = "numericUpDown11";
+            this.numericUpDown11.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown11.TabIndex = 1;
+            this.toolTip.SetToolTip(this.numericUpDown11, "Minor version of the file.");
+            // 
+            // numericUpDown12
+            // 
+            this.numericUpDown12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown12.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown12.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown12.Name = "numericUpDown12";
+            this.numericUpDown12.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown12.TabIndex = 0;
+            this.toolTip.SetToolTip(this.numericUpDown12, "Major version of the file.");
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(3, 275);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(296, 23);
+            this.button3.TabIndex = 10;
+            this.button3.Text = "Force Internal Wave Archive Version";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.Location = new System.Drawing.Point(1, 301);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(299, 23);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "Internal Wave Sound Data Version:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label11, "File version to save as.");
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 3;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.Controls.Add(this.numericUpDown13, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.numericUpDown14, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.numericUpDown15, 0, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 327);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel7.TabIndex = 12;
+            // 
+            // numericUpDown13
+            // 
+            this.numericUpDown13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown13.Location = new System.Drawing.Point(205, 3);
+            this.numericUpDown13.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown13.Name = "numericUpDown13";
+            this.numericUpDown13.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown13.TabIndex = 2;
+            this.toolTip.SetToolTip(this.numericUpDown13, "Revision version of the file.");
+            // 
+            // numericUpDown14
+            // 
+            this.numericUpDown14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown14.Location = new System.Drawing.Point(104, 3);
+            this.numericUpDown14.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown14.Name = "numericUpDown14";
+            this.numericUpDown14.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown14.TabIndex = 1;
+            this.toolTip.SetToolTip(this.numericUpDown14, "Minor version of the file.");
+            // 
+            // numericUpDown15
+            // 
+            this.numericUpDown15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown15.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown15.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown15.Name = "numericUpDown15";
+            this.numericUpDown15.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown15.TabIndex = 0;
+            this.toolTip.SetToolTip(this.numericUpDown15, "Major version of the file.");
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(3, 359);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(296, 23);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "Force Internal Wave Sound Data Version";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.Location = new System.Drawing.Point(1, 382);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(299, 23);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Internal Prefetch Version:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label12, "File version to save as.");
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel8.ColumnCount = 3;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.Controls.Add(this.numericUpDown16, 2, 0);
+            this.tableLayoutPanel8.Controls.Add(this.numericUpDown17, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.numericUpDown18, 0, 0);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 408);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel8.TabIndex = 15;
+            // 
+            // numericUpDown16
+            // 
+            this.numericUpDown16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown16.Location = new System.Drawing.Point(205, 3);
+            this.numericUpDown16.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown16.Name = "numericUpDown16";
+            this.numericUpDown16.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown16.TabIndex = 2;
+            this.toolTip.SetToolTip(this.numericUpDown16, "Revision version of the file.");
+            // 
+            // numericUpDown17
+            // 
+            this.numericUpDown17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown17.Location = new System.Drawing.Point(104, 3);
+            this.numericUpDown17.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown17.Name = "numericUpDown17";
+            this.numericUpDown17.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown17.TabIndex = 1;
+            this.toolTip.SetToolTip(this.numericUpDown17, "Minor version of the file.");
+            // 
+            // numericUpDown18
+            // 
+            this.numericUpDown18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown18.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown18.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown18.Name = "numericUpDown18";
+            this.numericUpDown18.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown18.TabIndex = 0;
+            this.toolTip.SetToolTip(this.numericUpDown18, "Major version of the file.");
+            // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(3, 437);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(296, 23);
+            this.button5.TabIndex = 16;
+            this.button5.Text = "Force Internal Prefetch Version";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
             // EditorBase
             // 
-            this.ClientSize = new System.Drawing.Size(744, 402);
+            this.ClientSize = new System.Drawing.Size(917, 520);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.statusStrip);
@@ -1193,6 +1810,31 @@ namespace Citric_Composer {
             this.statusStrip.PerformLayout();
             this.rootMenu.ResumeLayout(false);
             this.nodeMenu.ResumeLayout(false);
+            this.grpFileInfoPanel.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
+            this.tableLayoutPanel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1229,6 +1871,9 @@ namespace Citric_Composer {
             saveFileDialog.FileName = "";
             saveFileDialog.Filter = description + " (3ds or Wii U)|" + "*.bf" + extension.ToLower() + ";*.bc" + extension.ToLower() + "|" + description + " (Switch)|*.bf" + extension.ToLower();
             saveFileDialog.ShowDialog();
+            if (Path.GetExtension(saveFileDialog.FileName) == "") {
+                saveFileDialog.FileName += ".bf" + extension.ToLower();
+            }
 
             //Set write mode.
             if (saveFileDialog.FileName != "") {
@@ -1495,8 +2140,14 @@ namespace Citric_Composer {
                 ExtFile.File = File;
 
                 //Update the main window.
-                MainWindow.UpdateNodes();
-                MainWindow.doInfoPanelStuff();
+                if (MainWindow != null) {
+                    MainWindow.UpdateNodes();
+                    MainWindow.doInfoPanelStuff();
+                }
+                if (OtherEditor != null) {
+                    OtherEditor.UpdateNodes();
+                    OtherEditor.DoInfoStuff();
+                }
 
             }
 
@@ -1644,8 +2295,15 @@ namespace Citric_Composer {
             //If the path is valid.
             if (path != "") {
 
+                //Write the file.
+                MemoryStream o = new MemoryStream();
+                BinaryDataWriter bw = new BinaryDataWriter(o);
+
+                //Write the file.
+                File.Write(WriteMode, bw);
+
                 //Save the file.
-                saveToolStripMenuItem_Click(sender, e);
+                System.IO.File.WriteAllBytes(path, o.ToArray());
 
             }
 
