@@ -1,4 +1,4 @@
-# Sequences
+# Sequences (.bfseq, .bcseq)
 Sequences play notes from a particular bank. This can be used for sound effects, level music, or anything else.
 
 ## The Main File
@@ -11,7 +11,7 @@ The main file consists of a standard File Header, a Data Block, and a Label bloc
 |Block|Label Block (Reference Type: 0x5001)|
 
 ## Data Block Body (Magic: DATA)
-Contains only raw sequence data. See the [Sequence Data Specification](specs/seqData.md) for details. Padded to 0x20 bytes.
+Contains only raw sequence data. See the [Sequence Data Specification](specs/seqData.md) for details. Padded to 0x20 bytes. It's important to note that the sequence data is always big endian for the Wii U and 3ds, but little endian for the Switch.
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
