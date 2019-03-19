@@ -17,7 +17,7 @@ Every structure is made of the following primitive types. You will come across t
 |char[Array Size]|Char Array. This is like a string, except that it does not have a null terminator, and always has a fixed size|
 
 ## References
-In order to point to another structure stored in some location, NintendoWare uses references in order to jump to them. All references have offsets, which are relative to the start of the structure. Any type of reference itself does not count as a structure in this sense. For example, if a structure begins at 0x20, and there is a reference within the structure at 0x30, and the offset to another structure is 0x70, then the absolute address of the other structure is 0xA0. The reference takes the position of the structure it is in, and adds its offset to it in order to reach the destination. If a reference has an offset of -1, then it is null, and does not point to any data (the data is null).
+In order to point to another structure stored in some location, NintendoWare uses references in order to jump to them. All references have offsets, which are relative to the start of the structure. Any type of reference itself does not count as a structure in this sense. For example, if a structure begins at 0x20, and there is a reference within the structure at 0x30, and the offset to another structure is 0x70, then the absolute address of the other structure is 0x90. The reference takes the position of the structure it is in, and adds its offset to it in order to reach the destination. If a reference has an offset of -1, then it is null, and does not point to any data (the data is null).
 
 ### Reference
 A basic reference to data.
@@ -57,7 +57,7 @@ This is essential for the game to know how to read the data in the file. It is a
 |----|---|Padding for alignment|
 
 ### Version
-Weirdly, this is read as a u32, meaning how its read varies on the endianess of the file. What is also weird is that this is different for 'F' and 'C' type files. For 'F' type files, the form is 0x00MMIIRR, but for 'C' type files, it is 0xMMIIRR00. This is after reading in the proper endian. M is the major version of the file, I is the minor version of the file, and R is the revision version of the file. These values determine how the file is to be read, if the file's format varies due to its version.
+Weirdly, this is read as a u32, meaning how it's read varies on the endianess of the file. What is also weird is that this is different for 'F' and 'C' type files. For 'F' type files, the form is 0x00MMIIRR, but for 'C' type files, it is 0xMMIIRR00. This is after reading in the proper endian. M is the major version of the file, I is the minor version of the file, and R is the revision version of the file. These values determine how the file is to be read, if the file's format varies due to its version.
 
 ### Block
 A block contains data for a certain purpose of its file. Every structure except the file header has to be within a block.
@@ -92,7 +92,7 @@ A sound type, and its value.
 |5|Wave Archive|
 |6|Group|
 
-### Table<Type T>
+### Table`<Type T`>
 This contains a collection of whatever the Type T is. For example, a table could contain u8s, References, or anything else. Tables are always padded to 0x4 bytes.
 
 | **Offset** | **Type** | **Description** |
