@@ -2,7 +2,7 @@
 WARs, or Wave Archives, are nothing more than a "folder" of bfwav or bcwav files. They are used to house multiple waveforms, be them for SFX, instrument samples, or even music in rare cases. Since these things tend to have a great amount of embedded files, these files are not referenced in the file table for the main Sound Archive. These files are relatively simple, as they don't contain any information other than for storing waveforms.
 
 ## The Main File
-The main file consists of a standard File Header, an Info block, and a File block. Each block is padded to be 0x20 bytes. The file data is the same for each version, with the standard being 1.0.0.
+The main file consists of a standard File Header, an Info Block, and a File Block. Each block is padded to be 0x20 bytes. The file data is the same for each version, with the standard being 1.0.0.
 
 | **Type** | **Description** |
 |----------|-----------------|

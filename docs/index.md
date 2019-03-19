@@ -17,6 +17,8 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 # File Specifications
 [Common Structures](specs/common.md) - Common structures found throughout the sounc archive and its sub-files.
 
+[Sequences (SEQ):(bfseq, bcseq)](specs/seq.md) - Sequences used to play SFX or music.
+
 [Wave Archives (WAR):(bfwar, bcwar)](specs/war.md) - Wave archives used to store wave files.
 
 [Groups (GRP):(bfgrp, bcgrp)](specs/grp.md) - Groups used to store a variety of files.
