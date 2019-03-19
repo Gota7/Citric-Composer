@@ -14,6 +14,10 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 [Koopa Harmony (Bahp)](https://github.com/Gota7/Citric-Composer/blob/master/Koopa%20Harmony/Koopa%20Harmony/bin/Debug/Koopa%20Harmony.zip?raw=true) - For editing koopa dance moves in NSMB2, and maybe other games that use bbid.
 
+# File Specifications
+[Common Structures](specs/common.md)
+[Wave Archives (WAR):(bfwar, bcwar)](specs/war.md)
+
 # Credits
 Aqua-San, Tools, Structure Docs
 Nintendo, Structure Docs
