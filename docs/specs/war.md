@@ -15,7 +15,7 @@ This is perhaps the simplest info block you will ever come across. Padded to 0x2
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table<SizedReference>|References to each Wave File in the File Block (Reference Type: 0x1F00)|
+|0x00|Table`<SizedReference`>|References to each Wave File in the File Block (Reference Type: 0x1F00)|
 |----|---|Padding for alignment|
 
 ## File Block Body (Magic: FILE)

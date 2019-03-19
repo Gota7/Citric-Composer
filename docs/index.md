@@ -16,6 +16,7 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 # File Specifications
 [Common Structures](specs/common.md)
+
 [Wave Archives (WAR):(bfwar, bcwar)](specs/war.md)
 
 # Credits

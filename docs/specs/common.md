@@ -71,7 +71,7 @@ A block contains data for a certain purpose of its file. Every structure except 
 ### Id
 When referencing an entry in the main Sound Archive, an Id is used to provide both the type of entry, and the index of that entry. An Id is a 32-bit value in the form 0xTTIIIIII, where T is the Sound Type, and I is the index.
 
-## Wave Id
+### Wave Id
 When referencing a wave within a Wave Archive, a special type of id is used.
 
 | **Offset** | **Type** | **Description** |
