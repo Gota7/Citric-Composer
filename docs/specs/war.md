@@ -19,7 +19,7 @@ This is perhaps the simplest info block you will ever come across. Padded to 0x2
 |----|---|Padding for alignment|
 
 ## File Block Body (Magic: FILE)
-All the files referenced from the INFO block are in here. Each offset is relative to the beggining of this block body. If the reference is null, then it's a null file and no file exists for it. Each file and this block itself are padded to 0x20 bytes, but the padding is not included in the size of the size reference. Since there are no symbols attached to the waves embedded, since they are not referenced as files in the main sound archive, b_wavs do not have a filename. 
+All the files referenced from the Info Block are in here. Each offset is relative to the beggining of this block body. If the reference is null, then it's a null file and no file exists for it. Each file and this block itself are padded to 0x20 bytes, but the padding is not included in the size of the size reference. Since there are no symbols attached to the waves embedded, since they are not referenced as files in the main Sound Archive, b_wavs do not have a filename. 
 
 ## Summary
 A tree to sum up the structure of the file:
