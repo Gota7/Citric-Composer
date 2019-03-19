@@ -35,6 +35,7 @@ Contains the label name and offset to data in the sequence data. Think of a labe
 |0x00|Reference|Reference to start in raw sequence data (Reference Type: 0x1F00)|
 |0x08|u32|Size of the label name|
 |0x0C|char[Size of label name]|The name of the label. There is no null terminator, since it's a char array|
+|----|---|Padding for alignment|
 
 ## Summary
 A tree to sum up the structure of the file:
