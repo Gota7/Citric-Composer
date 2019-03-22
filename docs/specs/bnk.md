@@ -22,7 +22,7 @@ As the name implies, it is a table of references to each instrument. Notice, tha
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table`<Reference`>|Table of References to each Instrument (Reference Type: 0x5900)|
+|0x00|Table`<Reference>`|Table of References to each Instrument (Reference Type: 0x5900)|
 
 #### Instrument
 Contains a reference to the detailed instrument type. It could be a direct, index, or range instrument depending on the reference type.
@@ -31,22 +31,22 @@ Contains a reference to the detailed instrument type. It could be a direct, inde
 |------------|----------|-----------------|
 |0x00|Reference|Reference to the detailed data. The reference type is 0x6000 for Direct, 0x6001 for Range, and 0x6002 for Index|
 
-##### Direct Instrument
+#### Direct Instrument
 Contains a reference to the key region.
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
 |0x00|Reference|Reference to the key region (Reference Type: 0x5901)|
 
-##### Range Instrument
+#### Range Instrument
 Contains a range of key regions for an instrument.
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table`<u8`>|Indices of the ranges|
+|0x00|Table`<u8>`|Indices of the ranges|
 |----|Reference[Table Count]|References to the key regions (Reference Type: 0x5901)|
 
-##### Index Instrument
+#### Index Instrument
 Contains an index of key regions for an instrument.
 
 | **Offset** | **Type** | **Description** |
@@ -56,29 +56,29 @@ Contains an index of key regions for an instrument.
 |0x02|u16|Padding|
 |0x04|Reference[End note - Start note + 1]|References to the key regions (Reference Type: 0x5901)|
 
-###### Key Region
+#### Key Region
 Contains a reference to the detailed key region type. It could be a direct, index, or range key region depending on the reference type.
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
 |0x00|Reference|Reference to the detailed data. The reference type is 0x6000 for Direct, 0x6001 for Range, and 0x6002 for Index|
 
-####### Direct Key Region
+#### Direct Key Region
 Contains a reference to the velocity region.
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
 |0x00|Reference|Reference to the velocity region (Reference Type: 0x5902)|
 
-####### Range Key Region
+#### Range Key Region
 Contains a range of velocity regions for a key region.
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table`<u8`>|Indices of the ranges|
+|0x00|Table`<u8>`|Indices of the ranges|
 |----|Reference[Table Count]|References to the velocity regions (Reference Type: 0x5902)|
 
-####### Index Key Region
+#### Index Key Region
 Contains an index of velocity regions for a key region.
 
 | **Offset** | **Type** | **Description** |
@@ -88,7 +88,7 @@ Contains an index of velocity regions for a key region.
 |0x02|u16|Padding|
 |0x04|Reference[End note - Start note + 1]|References to the velocity regions (Reference Type: 0x5902)|
 
-######## Velocity Region
+#### Velocity Region
 This contains how to play a part of the given key region.
 
 | **Offset** | **Type** | **Description** |
@@ -96,7 +96,7 @@ This contains how to play a part of the given key region.
 |0x00|u32|Index of the wave from the wave id table to use|
 |0x04|BitFlag|Flags for the velocity region|
 
-######### Velocity Region Bit Flags
+#### Velocity Region Bit Flags
 Conains information on how to play the velocity region. The flags are hardcoded to be constant in the NintendoWare Library.
 
 | **Flag Bit** | **Used Frequency**| **Value Range** | **Description** |
@@ -111,14 +111,14 @@ Conains information on how to play the velocity region. The flags are hardcoded 
 |10|Never|0-0xFFFFFFFF|Randomizer|
 |11|Never|0-0xFFFFFFFF|LPF Info|
 
-########## Interpolation Type (Enumeration)
+#### Interpolation Type (Enumeration)
 
 | **Value** | **Description**|
 |-----------|----------------|
 |0|Polyphase|
 |1|Linear|
 
-########## ADSHR Curve Reference
+#### ADSHR Curve Reference
 Literally just a reference to the ADSHR curve data.
 
 | **Offset** | **Type** | **Description** |
@@ -130,7 +130,7 @@ As the name implies, it's just a simple table of wave ids. These are to be used 
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table`<WaveId`>|Table of wave ids to use with the instruments|
+|0x00|Table`<WaveId>`|Table of wave ids to use with the instruments|
 
 ## Summary
 A tree to sum up the structure of the file:

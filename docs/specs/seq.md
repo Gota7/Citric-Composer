@@ -23,7 +23,7 @@ Contains labels to jump to in the sequence data.
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table`<Reference`>|References to each Label (Reference Type: 0x5100)|
+|0x00|Table`<Reference>`|References to each Label (Reference Type: 0x5100)|
 |0x04 + 8 * Table Count|Label[Table Count]|Labels referenced earlier|
 |----|---|Padding for alignment|
 

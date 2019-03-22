@@ -16,7 +16,7 @@ This is perhaps the simplest info block you will ever come across. Padded to 0x2
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table`<Reference`>|References to each File Entry (Reference Type: 0x7900)|
+|0x00|Table`<Reference>`|References to each File Entry (Reference Type: 0x7900)|
 |0x04 + 8 * Table Count|FileEntry[Table Count]|File Entries referenced earlier|
 |----|---|Padding for alignment|
 
@@ -36,7 +36,7 @@ This contains the dependencies that the files belong to. It tells the game to lo
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
-|0x00|Table`<Reference`>|References to each Dependency (Reference Type: 0x7901)|
+|0x00|Table`<Reference>`|References to each Dependency (Reference Type: 0x7901)|
 |0x04 + 8 * Table Count|Dependency[Table Count]|Dependencies referenced earlier|
 |----|---|Padding for alignment|
 
