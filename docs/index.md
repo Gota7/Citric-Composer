@@ -19,9 +19,12 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 [Sequences (SEQ):(bfseq, bcseq)](specs/seq.md) - Sequences used to play SFX or music.
 
+[Banks (BNK):(bfbnk, bcbnk)](specs/bnk.md) - Banks that contain instruments to use with sequences.
+
 [Wave Archives (WAR):(bfwar, bcwar)](specs/war.md) - Wave archives used to store wave files.
 
 [Groups (GRP):(bfgrp, bcgrp)](specs/grp.md) - Groups used to store a variety of files.
+
 
 # Credits
 Aqua-San, Tools, Structure Docs
@@ -36,5 +39,5 @@ Hiccup, Structure Docs
 Xcution, Structure Docs
 Abood, Structure Docs
 
-©2018 Gota7, Aqua-San, Thealexbarney, Soneek
+©2019 Gota7, Aqua-San, Thealexbarney, Soneek
 (Everything But Some Images)

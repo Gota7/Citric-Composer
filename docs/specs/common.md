@@ -104,4 +104,16 @@ This contains a collection of whatever the Type T is. For example, a table could
 ### Bit Flags
 These present an efficient way to add optional data to a parameter but only increasing the size when needed. The Bit Flag is a u32 in which every bit specifies a bit that is set. Each set bit represents an additional u32 to read for that corresponding flag. For example, for a Bit Flag value of 0x00000301, that u32 is followed by 3 more u32s. The first one for flag 0, the next for flag 8, and the last one for flag 9. The bit number corresponds with the flag number, and the values appear in that order.
 
+### ADSHR Curve
+Represent how to play a particular sound. Padded to 0x8 bytes. If the reference containing this ADSHR data is null, then the values are all 127 by default.
+
+| **Offset** | **Type** | **Description** |
+|------------|----------|-----------------|
+|0x00|s8|Attack value, always positive|
+|0x01|s8|Decay value, always positive|
+|0x02|s8|Sustain value, always positive|
+|0x03|s8|Hold value, always positive|
+|0x04|s8|Release value, always positive|
+|----|--|Padding for alignment|
+
 More will be added when needed.
