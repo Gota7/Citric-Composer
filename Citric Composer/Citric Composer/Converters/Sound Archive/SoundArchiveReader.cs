@@ -151,6 +151,7 @@ namespace CitraFileLoader {
             BinaryDataReader br = new BinaryDataReader(src);
 
             //Open the file.
+            FileReader FileReader = new FileReader();
             FileReader.OpenFile(br, out a.WriteMode, out a.Version);
 
             //Strings.
@@ -275,6 +276,9 @@ namespace CitraFileLoader {
 
                         //New file data.
                         SoundFile<ISoundFile> s = new SoundFile<ISoundFile>();
+
+                        //Set id.
+                        s.FileId = i;
 
                         //File data consists of a reference and flags, but the flags do nothing, so ignore them.
                         FileReader.OpenReference(br, "FileRef");
@@ -668,6 +672,76 @@ namespace CitraFileLoader {
 
                                     //Set info.
                                     m.LoadSoundInfo(s);
+
+                                    //Allocate track flags.
+                                    m.SetFlags(br.ReadUInt16());
+
+                                    //Allocate channel tracks.
+                                    m.AllocateChannelCount = br.ReadUInt16();
+
+                                    //Reference to track info channel.
+                                    FileReader.OpenReference(br, "TrackInfoTableRef");
+
+                                    //Pitch.
+                                    m.Pitch = br.ReadSingle();
+
+                                    //Reference to send value.
+                                    FileReader.OpenReference(br, "SendValueRef");
+
+                                    //Normal mode for 'C' type >= 2.3.1 or the sound archive is 'F' type.
+                                    if (SoundArchiveVersions.SupportsExtraStreamInfo(a) || FileWriter.GetWriteModeChar(a.WriteMode) == 'F') {
+
+                                        //Reference to stream sound extension.
+                                        FileReader.OpenReference(br, "SoundExtRef");
+
+                                        //Get prefetch file.
+                                        int prefetchId = br.ReadInt32();
+                                        if (prefetchId != -1) {
+
+                                            //Prefetch is valid.
+                                            m.GeneratePrefetchFile = true;
+
+                                            //Link file.
+                                            m.PrefetchFile = new SoundFile<ISoundFile>() { Reference = a.Files[prefetchId] };
+                                            m.PrefetchFile.BackupExtension = ("b" + FileWriter.GetWriteModeChar(a.WriteMode) + "stp").ToLower();
+                                            if (m.PrefetchFile.FileName == null) {
+                                                m.PrefetchFile.FileName = m.Name;
+                                            }
+                                            a.Files[prefetchId].ReferencedBy.Add(m.PrefetchFile);
+
+                                        }
+
+                                        //READ EXT SOUND.
+
+                                        //Close reference to stream sound extension.
+                                        FileReader.CloseReference("SoundExtRef");
+
+                                    }
+
+                                    //Legacy stream mode for 'C' type < 2.3.1.
+                                    else {
+
+                                        //Option parameters. F0 = Type, F1 = Loop start frame, F2 = Loop end frame.
+                                        FlagParameters option = new FlagParameters(ref br);
+
+                                        //Get the stream file type.
+                                        m.StreamFileType = (StreamEntry.EStreamFileType)GetFlagValue(option, 0, 1);
+
+                                        //Loop start frame.
+                                        m.LoopStartFrame = GetFlagValue(option, 1);
+
+                                        //Loop end frame.
+                                        m.LoopEndFrame = GetFlagValue(option, 2);
+
+                                    }
+
+                                    //READ TRACK INFO AND SEND STUFF!
+
+                                    //Close reference to send value.
+                                    FileReader.CloseReference("SendValueRef");
+
+                                    //Close reference to track info channel.
+                                    FileReader.CloseReference("TrackInfoTableRef");
 
                                     //Add stream.
                                     a.Streams.Add(m);

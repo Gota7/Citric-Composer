@@ -64,7 +64,7 @@ namespace CitraFileLoader {
         /// <summary>
         /// Hold.
         /// </summary>
-        public byte Hold;
+        public byte Hold = 127;
 
         /// <summary>
         /// Release.

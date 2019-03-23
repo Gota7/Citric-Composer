@@ -46,9 +46,6 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportWavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.simpleGameFileToWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gameFileToGameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,6 +150,10 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveGameFile = new System.Windows.Forms.SaveFileDialog();
             this.saveGameStreamBox = new System.Windows.Forms.SaveFileDialog();
+            this.simpleGameFileToWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameFileToGameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.streamToPrefetchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeBar)).BeginInit();
@@ -315,31 +316,6 @@
             this.exportWavToolStripMenuItem.Text = "Export Wav";
             this.exportWavToolStripMenuItem.Click += new System.EventHandler(this.exportWavToolStripMenuItem_Click);
             // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.simpleGameFileToWaveToolStripMenuItem,
-            this.gameFileToGameFileToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // simpleGameFileToWaveToolStripMenuItem
-            // 
-            this.simpleGameFileToWaveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("simpleGameFileToWaveToolStripMenuItem.Image")));
-            this.simpleGameFileToWaveToolStripMenuItem.Name = "simpleGameFileToWaveToolStripMenuItem";
-            this.simpleGameFileToWaveToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.simpleGameFileToWaveToolStripMenuItem.Text = "Game File to Wave";
-            this.simpleGameFileToWaveToolStripMenuItem.Click += new System.EventHandler(this.simpleGameFileToWaveToolStripMenuItem_Click);
-            // 
-            // gameFileToGameFileToolStripMenuItem
-            // 
-            this.gameFileToGameFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("gameFileToGameFileToolStripMenuItem.Image")));
-            this.gameFileToGameFileToolStripMenuItem.Name = "gameFileToGameFileToolStripMenuItem";
-            this.gameFileToGameFileToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.gameFileToGameFileToolStripMenuItem.Text = "Game File to Game File";
-            this.gameFileToGameFileToolStripMenuItem.Click += new System.EventHandler(this.gameFileToGameFileToolStripMenuItem_Click);
-            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -352,7 +328,7 @@
             // 
             this.getHelpToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("getHelpToolStripMenuItem.Image")));
             this.getHelpToolStripMenuItem.Name = "getHelpToolStripMenuItem";
-            this.getHelpToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.getHelpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.getHelpToolStripMenuItem.Text = "View Help";
             this.getHelpToolStripMenuItem.Click += new System.EventHandler(this.getHelpToolStripMenuItem_Click);
             // 
@@ -1224,7 +1200,7 @@
             this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playLikeGameBox.Checked = true;
             this.playLikeGameBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.playLikeGameBox.Location = new System.Drawing.Point(535, 80);
+            this.playLikeGameBox.Location = new System.Drawing.Point(541, 80);
             this.playLikeGameBox.Name = "playLikeGameBox";
             this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
             this.playLikeGameBox.TabIndex = 17;
@@ -1235,7 +1211,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(534, 64);
+            this.label4.Location = new System.Drawing.Point(540, 64);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 16;
@@ -1246,7 +1222,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(550, 12);
+            this.label3.Location = new System.Drawing.Point(556, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -1257,7 +1233,7 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(524, 31);
+            this.volume.Location = new System.Drawing.Point(530, 31);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);
@@ -1567,6 +1543,40 @@
     "tm";
             this.saveGameStreamBox.RestoreDirectory = true;
             // 
+            // simpleGameFileToWaveToolStripMenuItem
+            // 
+            this.simpleGameFileToWaveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("simpleGameFileToWaveToolStripMenuItem.Image")));
+            this.simpleGameFileToWaveToolStripMenuItem.Name = "simpleGameFileToWaveToolStripMenuItem";
+            this.simpleGameFileToWaveToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.simpleGameFileToWaveToolStripMenuItem.Text = "Game File to Wave";
+            this.simpleGameFileToWaveToolStripMenuItem.Click += new System.EventHandler(this.simpleGameFileToWaveToolStripMenuItem_Click);
+            // 
+            // gameFileToGameFileToolStripMenuItem
+            // 
+            this.gameFileToGameFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("gameFileToGameFileToolStripMenuItem.Image")));
+            this.gameFileToGameFileToolStripMenuItem.Name = "gameFileToGameFileToolStripMenuItem";
+            this.gameFileToGameFileToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.gameFileToGameFileToolStripMenuItem.Text = "Game File to Game File";
+            this.gameFileToGameFileToolStripMenuItem.Click += new System.EventHandler(this.gameFileToGameFileToolStripMenuItem_Click);
+            // 
+            // streamToPrefetchToolStripMenuItem
+            // 
+            this.streamToPrefetchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("streamToPrefetchToolStripMenuItem.Image")));
+            this.streamToPrefetchToolStripMenuItem.Name = "streamToPrefetchToolStripMenuItem";
+            this.streamToPrefetchToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.streamToPrefetchToolStripMenuItem.Text = "Stream To Prefetch";
+            this.streamToPrefetchToolStripMenuItem.Click += new System.EventHandler(this.streamToPrefetchToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.simpleGameFileToWaveToolStripMenuItem,
+            this.gameFileToGameFileToolStripMenuItem,
+            this.streamToPrefetchToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
             // IsabelleSoundEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1742,12 +1752,13 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown surroundModeBox;
         private System.Windows.Forms.ToolStripMenuItem exportWAVToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem simpleGameFileToWaveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gameFileToGameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getHelpToolStripMenuItem;
         private System.Windows.Forms.Splitter regnEnd;
         private System.Windows.Forms.Splitter regnStart;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem simpleGameFileToWaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gameFileToGameFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem streamToPrefetchToolStripMenuItem;
     }
 }

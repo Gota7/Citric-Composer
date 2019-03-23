@@ -2140,7 +2140,6 @@ namespace Citric_Composer
 
                         }
 
-
                         saveGameFile.FileName = "";
 
                     }
@@ -2304,6 +2303,15 @@ namespace Citric_Composer
                                 forceSwitch = true;
                             }
 
+                            VersionSelector v = new VersionSelector();
+                            v.GetValues(b.fileHeader.vMajor, b.fileHeader.vMinor, b.fileHeader.vRevision);
+                            byte maj = (byte)v.maj.Value;
+                            byte min = (byte)v.min.Value;
+                            byte rev = (byte)v.rev.Value;
+                            b.fileHeader.vMajor = maj;
+                            b.fileHeader.vMinor = min;
+                            b.fileHeader.vRevision = rev;
+
                             //Save game file.
                             switch (saveGameFile.FileName.Substring(saveGameFile.FileName.Length - 4).ToLower()) {
 
@@ -2451,6 +2459,16 @@ namespace Citric_Composer
                         //Do actual conversions.
                         b_wav b = new b_wav();
                         b.Load(File.ReadAllBytes(gameFileSelectorBox.FileName));
+
+                        VersionSelector v = new VersionSelector();
+                        v.GetValues(b.fileHeader.vMajor, b.fileHeader.vMinor, b.fileHeader.vRevision);
+                        byte maj = (byte)v.maj.Value;
+                        byte min = (byte)v.min.Value;
+                        byte rev = (byte)v.rev.Value;
+                        b.fileHeader.vMajor = maj;
+                        b.fileHeader.vMinor = min;
+                        b.fileHeader.vRevision = rev;
+
                         File.WriteAllBytes(saveWaveBox.FileName, RiffWaveFactory.CreateRiffWave(b).ToBytes());
 
                     }
@@ -2469,6 +2487,16 @@ namespace Citric_Composer
                         //Do actual conversions.
                         b_stm b = new b_stm();
                         b.Load(File.ReadAllBytes(gameFileSelectorBox.FileName));
+
+                        VersionSelector v = new VersionSelector();
+                        v.GetValues(b.fileHeader.vMajor, b.fileHeader.vMinor, b.fileHeader.vRevision);
+                        byte maj = (byte)v.maj.Value;
+                        byte min = (byte)v.min.Value;
+                        byte rev = (byte)v.rev.Value;
+                        b.fileHeader.vMajor = maj;
+                        b.fileHeader.vMinor = min;
+                        b.fileHeader.vRevision = rev;
+
                         File.WriteAllBytes(saveWaveBox.FileName, RiffWaveFactory.CreateRiffWave(b).ToBytes());
 
                     }
@@ -2725,8 +2753,62 @@ namespace Citric_Composer
             else return Closer(a, b);
         }
 
+
         #endregion
 
+        /// <summary>
+        /// Stream to prefetch.
+        /// </summary>
+        private void streamToPrefetchToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            OpenFileDialog o = new OpenFileDialog();
+            o.RestoreDirectory = true;
+            o.Filter = "Stream|*.bfstm;*.bcstm";
+            o.ShowDialog();
+
+            if (o.FileName != "") {
+
+                //Load stream.
+                b_stm s = new b_stm();
+                s.Load(File.ReadAllBytes(o.FileName));
+
+                //Show version thing.
+                VersionSelector v = new VersionSelector();
+                v.GetValues(s.fileHeader.vMajor, s.fileHeader.vMinor, s.fileHeader.vRevision);
+
+                //Output prefetch.
+                SaveFileDialog d = new SaveFileDialog();
+                d.RestoreDirectory = true;
+                d.Filter = "3ds or Wii U Prefetch|*.bfstp;*.bcstp|Switch Prefetch|*.bfstp";
+                d.ShowDialog();
+
+                if (d.FileName != "") {
+
+                    PrefetchFile p = new PrefetchFile() { Stream = new CitraFileLoader.Stream() { Stm = s }, Version = new FileWriter.Version((byte)v.maj.Value, (byte)v.min.Value, (byte)v.rev.Value) };
+                    MemoryStream o2 = new MemoryStream();
+                    BinaryDataWriter bw = new BinaryDataWriter(o2);
+
+                    if (Path.GetExtension(d.FileName) == "") {
+                        d.FileName += ".bfstp";
+                    }
+
+                    if (d.FileName.ToLower().EndsWith(".bfstp")) {
+                        if (d.FilterIndex == 1) {
+                            p.Write(WriteMode.Cafe, bw);
+                        } else {
+                            p.Write(WriteMode.NX, bw);
+                        }
+                    } else {
+                        p.Write(WriteMode.CTR, bw);
+                    }
+
+                    File.WriteAllBytes(d.FileName, o2.ToArray());
+
+                }
+
+            }
+
+        }
 
     }
 

@@ -120,6 +120,9 @@ namespace Citric_Composer {
                 vWavMinBox.Value = forceWavMin;
                 vWavRevBox.Value = forceWavRev;
 
+                //Status.
+                status.Text = "File Information.";
+
             }
 
         }

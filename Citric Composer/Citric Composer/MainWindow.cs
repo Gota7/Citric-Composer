@@ -802,6 +802,11 @@ namespace Citric_Composer
 
                     }
 
+                    //Name is external if external.
+                    if (f.FileType == EFileType.External) {
+                        name = f.ExternalFileName;
+                    }
+
                     tree.Nodes["files"].Nodes.Add("file" + fCount, "[" + fCount + "] " + name + " " + type, icon, icon);
                 }
 

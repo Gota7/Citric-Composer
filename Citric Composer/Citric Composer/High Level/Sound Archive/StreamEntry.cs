@@ -39,9 +39,56 @@ namespace CitraFileLoader {
         public List<StreamTrackInfo> Tracks;
 
         /// <summary>
-        /// Track flags to allocate.
+        /// If a track flag is enabled.
         /// </summary>
-        public bool[] TrackFlags;
+        /// <param name="index">Flag index.</param>
+        /// <returns>If the flag is enabled.</returns>
+        public bool TrackFlagEnabled(int index) {
+            return (m_trackFlags & (0b1 << index)) > 0;
+        }
+
+        /// <summary>
+        /// Set the status of a track flag.
+        /// </summary>
+        /// <param name="index">Flag to change the status of.</param>
+        /// <param name="set">Whether to set it or not.</param>
+        public void SetChannelFlag(int index, bool set) {
+            if (!set) {
+                if (TrackFlagEnabled(index)) {
+                    m_trackFlags -= (ushort)(0b1 << index);
+                }
+            } else {
+                if (!TrackFlagEnabled(index)) {
+                    m_trackFlags += (ushort)(0b1 << index);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set the track flags.
+        /// </summary>
+        /// <param name="flags">Flags to set.</param>
+        public void SetFlags(ushort flags) {
+            m_trackFlags = flags;
+        }
+
+        /// <summary>
+        /// Get the flags.
+        /// </summary>
+        /// <returns>The flags.</returns>
+        public ushort GetFlags() {
+            return m_trackFlags;
+        }
+
+        /// <summary>
+        /// Private flag values.
+        /// </summary>
+        private ushort m_trackFlags;
+
+        /// <summary>
+        /// Number of channels to allocate.
+        /// </summary>
+        public UInt16 AllocateChannelCount;
 
         /// <summary>
         /// Pitch.
@@ -57,6 +104,21 @@ namespace CitraFileLoader {
         /// Generate prefetch file.
         /// </summary>
         public bool GeneratePrefetchFile;
+
+        /// <summary>
+        /// Prefetch file.
+        /// </summary>
+        public SoundFile<ISoundFile> PrefetchFile;
+
+        /// <summary>
+        /// Loop start frame.
+        /// </summary>
+        public UInt32 LoopStartFrame;
+
+        /// <summary>
+        /// Loop end frame.
+        /// </summary>
+        public UInt32 LoopEndFrame;
 
         /// <summary>
         /// Stream file type.

@@ -56,6 +56,7 @@ namespace CitraFileLoader {
         public void Read(BinaryDataReader br) {
 
             //Open the bank file.
+            FileReader FileReader = new FileReader();
             FileReader.OpenFile(br, out writeMode, out Version);
 
             //Open info block.
@@ -148,7 +149,7 @@ namespace CitraFileLoader {
                                     if (!FileReader.ReferenceIsNull("KeyRegionRef")) {
 
                                         //Read key region.
-                                        d.KeyRegion = ReadKeyRegion(br);
+                                        d.KeyRegion = ReadKeyRegion(br, FileReader);
 
                                     } else {
 
@@ -195,7 +196,7 @@ namespace CitraFileLoader {
                                             FileReader.JumpToReference(br, "Ran" + j);
 
                                             //Read the key region.
-                                            ran.Add(ReadKeyRegion(br));
+                                            ran.Add(ReadKeyRegion(br, FileReader));
 
                                         }
 
@@ -246,7 +247,7 @@ namespace CitraFileLoader {
                                             FileReader.JumpToReference(br, "Ind" + j);
 
                                             //Read the key region.
-                                            ind.Add((sbyte)indices[j], ReadKeyRegion(br));
+                                            ind.Add((sbyte)indices[j], ReadKeyRegion(br, FileReader));
 
                                         }
 
@@ -307,7 +308,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <returns>A key region.</returns>
-        public IKeyRegion ReadKeyRegion(BinaryDataReader br) {
+        public IKeyRegion ReadKeyRegion(BinaryDataReader br, FileReader FileReader) {
 
             //Key region is a structure.
             FileReader.StartStructure(br);
@@ -346,7 +347,7 @@ namespace CitraFileLoader {
                             FileReader.JumpToReference(br, "VelRegion");
 
                             //Open the velocity region.
-                            dir.VelocityRegion = ReadVelocityInfo(br);
+                            dir.VelocityRegion = ReadVelocityInfo(br, FileReader);
 
                         }
 
@@ -388,7 +389,7 @@ namespace CitraFileLoader {
                                 FileReader.JumpToReference(br, "RanKey" + j);
 
                                 //Read the velocity region.
-                                ran.Add(ReadVelocityInfo(br));
+                                ran.Add(ReadVelocityInfo(br, FileReader));
 
                             }
 
@@ -439,7 +440,7 @@ namespace CitraFileLoader {
                                 FileReader.JumpToReference(br, "IndKey" + j);
 
                                 //Read the velocity region.
-                                ind.Add((sbyte)indices[j], ReadVelocityInfo(br));
+                                ind.Add((sbyte)indices[j], ReadVelocityInfo(br, FileReader));
 
                             }
 
@@ -477,7 +478,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <returns>The velocity region.</returns>
-        public VelocityRegion ReadVelocityInfo(BinaryDataReader br) {
+        public VelocityRegion ReadVelocityInfo(BinaryDataReader br, FileReader FileReader) {
 
             //Start structure.
             FileReader.StartStructure(br);
@@ -569,6 +570,7 @@ namespace CitraFileLoader {
             this.writeMode = writeMode;
 
             //Init the bank file.
+            FileWriter FileWriter = new FileWriter();
             FileWriter.InitFile(bw, writeMode, "BNK", 1, Version);
 
             //Init info block.
@@ -662,7 +664,7 @@ namespace CitraFileLoader {
                                     FileWriter.CloseReference(bw, ReferenceTypes.BNK_Info_KeyRegion, "KeyRegion");
 
                                     //Write key region.
-                                    WriteKeyRegion(bw, d.KeyRegion);
+                                    WriteKeyRegion(bw, d.KeyRegion, FileWriter);
 
                                 }
                                 break;
@@ -698,7 +700,7 @@ namespace CitraFileLoader {
                                         FileWriter.CloseReference(bw, ReferenceTypes.BNK_Info_KeyRegion, "Ran" + j);
 
                                         //Write the key region.
-                                        WriteKeyRegion(bw, ran[j]);
+                                        WriteKeyRegion(bw, ran[j], FileWriter);
 
                                     }
 
@@ -740,7 +742,7 @@ namespace CitraFileLoader {
                                         FileWriter.CloseReference(bw, ReferenceTypes.BNK_Info_KeyRegion, "Ind" + j);
 
                                         //Write the key region.
-                                        WriteKeyRegion(bw, ind.Values.ElementAt(j));
+                                        WriteKeyRegion(bw, ind.Values.ElementAt(j), FileWriter);
 
                                     }
 
@@ -814,7 +816,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="key">Key region.</param>
-        public void WriteKeyRegion(BinaryDataWriter bw, IKeyRegion key) {
+        public void WriteKeyRegion(BinaryDataWriter bw, IKeyRegion key, FileWriter FileWriter) {
 
             //Instrument is a new structure.
             FileWriter.StartStructure(bw);

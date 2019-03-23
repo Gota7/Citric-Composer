@@ -59,6 +59,7 @@ namespace CitraFileLoader {
         public void Read(BinaryDataReader br, List<SoundFile<ISoundFile>> files) {
 
             //Open file.
+            FileReader FileReader = new FileReader();
             FileReader.OpenFile(br, out writeMode, out Version);
 
             //Open info block.
@@ -271,6 +272,7 @@ namespace CitraFileLoader {
             this.writeMode = writeMode;
 
             //Init file.
+            FileWriter FileWriter = new FileWriter();
             FileWriter.InitFile(bw, writeMode, "GRP", 3, Version);
 
             //Info block.
@@ -334,7 +336,7 @@ namespace CitraFileLoader {
                         long pos = bw.Position;
 
                         //Write file.
-                        FileWriter.WriteFile(bw, SoundFiles[i].File, 0x20);
+                        FileWriter.WriteFile(bw, SoundFiles[i].File, 0x20, writeMode);
 
                         //Close reference.
                         FileWriter.CloseSizedReference(bw, ReferenceTypes.General, (uint)(bw.Position - pos), "FileRef" + i);

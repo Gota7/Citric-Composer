@@ -29,6 +29,11 @@ namespace CitraFileLoader {
         private WriteMode writeMode;
 
         /// <summary>
+        /// Backup prefetch data.
+        /// </summary>
+        private byte[] BackupSTP;
+
+        /// <summary>
         /// Get the file extension.
         /// </summary>
         /// <returns>The file extension.</returns>
@@ -42,9 +47,27 @@ namespace CitraFileLoader {
         /// <param name="br">The reader.</param>
         public void Read(BinaryDataReader br) {
 
-            //Open and close file.
+            //Version stuff.
+            FileReader FileReader = new FileReader();
             FileReader.OpenFile(br, out writeMode, out Version);
+
+            //Close file.
             FileReader.CloseFile(br);
+
+            //Get byte order.
+            br.Position = 4;
+            br.ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
+            if (br.ReadUInt16() == ByteOrder.LittleEndian) {
+
+                //Little endian.
+                br.ByteOrder = Syroot.BinaryData.ByteOrder.LittleEndian;
+
+            }
+
+            br.Position += 6;
+            UInt32 length = br.ReadUInt32();
+            br.Position -= 0x10;
+            BackupSTP = br.ReadBytes((int)length);
 
         }
 
@@ -55,10 +78,17 @@ namespace CitraFileLoader {
         /// <param name="bw">The writer.</param>
         public void Write(WriteMode writeMode, BinaryDataWriter bw) {
 
+            //In case STM is null.
+            if (Stream == null) {
+                bw.Write(BackupSTP);
+                return;
+            }
+
             //Set write mode.
             this.writeMode = writeMode;
 
             //Write the prefetch file.
+            FileWriter FileWriter = new FileWriter();
             FileWriter.InitFile(bw, writeMode, "STP", 2, Version);
 
             //Open the info block.

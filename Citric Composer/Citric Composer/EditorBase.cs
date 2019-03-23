@@ -66,6 +66,11 @@ namespace Citric_Composer {
         public EditorBase OtherEditor;
 
         /// <summary>
+        /// Writing info.
+        /// </summary>
+        public bool WritingInfo;
+
+        /// <summary>
         /// External file in the B_SAR.
         /// </summary>
         public SoundFile<CitraFileLoader.ISoundFile> ExtFile;
@@ -224,7 +229,7 @@ namespace Citric_Composer {
         private SaveFileDialog saveFileDialog;
         private StatusStrip statusStrip;
         public ToolStripStatusLabel status;
-        private ImageList treeIcons;
+        public ImageList treeIcons;
         private System.ComponentModel.IContainer components;
         public ContextMenuStrip rootMenu;
         private ToolStripMenuItem addToolStripMenuItem;
@@ -281,41 +286,55 @@ namespace Citric_Composer {
         private ToolStripMenuItem batchExtractSwitchWavesToolStripMenuItem;
         private ToolStripMenuItem batchImportToolStripMenuItem;
         public Panel grpFileInfoPanel;
-        public Button button3;
+        public Button grpWarForceButton;
         private TableLayoutPanel tableLayoutPanel6;
-        public NumericUpDown numericUpDown10;
-        public NumericUpDown numericUpDown11;
-        public NumericUpDown numericUpDown12;
+        public NumericUpDown grpWarRevBox;
+        public NumericUpDown grpWarMinBox;
+        public NumericUpDown grpWarMajBox;
         private Label label10;
-        public Button button2;
+        public Button grpBnkForceButton;
         private TableLayoutPanel tableLayoutPanel5;
-        public NumericUpDown numericUpDown7;
-        public NumericUpDown numericUpDown8;
-        public NumericUpDown numericUpDown9;
+        public NumericUpDown grpBnkRevBox;
+        public NumericUpDown grpBnkMinBox;
+        public NumericUpDown grpBnkMajBox;
         private Label label9;
-        public Button button1;
+        public Button grpSeqForceButton;
         private TableLayoutPanel tableLayoutPanel3;
-        public NumericUpDown numericUpDown1;
-        public NumericUpDown numericUpDown2;
-        public NumericUpDown numericUpDown3;
+        public NumericUpDown grpSeqRevBox;
+        public NumericUpDown grpSeqMinBox;
+        public NumericUpDown grpSeqMajBox;
         private Label label7;
         private TableLayoutPanel tableLayoutPanel4;
-        public NumericUpDown numericUpDown4;
-        public NumericUpDown numericUpDown5;
-        public NumericUpDown numericUpDown6;
+        public NumericUpDown grpRevBox;
+        public NumericUpDown grpMinBox;
+        public NumericUpDown grpMajBox;
         private Label label8;
-        public Button button4;
+        public Button grpWsdForceButton;
         private TableLayoutPanel tableLayoutPanel7;
-        public NumericUpDown numericUpDown13;
-        public NumericUpDown numericUpDown14;
-        public NumericUpDown numericUpDown15;
+        public NumericUpDown grpWsdRevBox;
+        public NumericUpDown grpWsdMinBox;
+        public NumericUpDown grpWsdMajBox;
         private Label label11;
-        public Button button5;
+        public Button grpStpForceButton;
         private TableLayoutPanel tableLayoutPanel8;
-        public NumericUpDown numericUpDown16;
-        public NumericUpDown numericUpDown17;
-        public NumericUpDown numericUpDown18;
+        public NumericUpDown grpStpRevBox;
+        public NumericUpDown grpStpMinBox;
+        public NumericUpDown grpStpMajBox;
         private Label label12;
+        public Panel grpFilePanel;
+        private Label label13;
+        public ComboBox grpFileIdComboBox;
+        public NumericUpDown grpFileIdBox;
+        private Label label14;
+        public ComboBox grpEmbedModeBox;
+        public Panel grpDependencyPanel;
+        private Label label15;
+        public ComboBox grpDepEntryTypeBox;
+        public ComboBox grpDepEntryNumComboBox;
+        private Label label16;
+        public NumericUpDown grpDepEntryNumBox;
+        private Label label17;
+        public ComboBox grpDepLoadFlagsBox;
 
         public void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
@@ -341,6 +360,56 @@ namespace Citric_Composer {
             this.batchExtractSwitchWavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.grpDependencyPanel = new System.Windows.Forms.Panel();
+            this.grpDepLoadFlagsBox = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.grpDepEntryNumBox = new System.Windows.Forms.NumericUpDown();
+            this.grpDepEntryNumComboBox = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.grpDepEntryTypeBox = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.grpFilePanel = new System.Windows.Forms.Panel();
+            this.grpEmbedModeBox = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.grpFileIdBox = new System.Windows.Forms.NumericUpDown();
+            this.grpFileIdComboBox = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.grpFileInfoPanel = new System.Windows.Forms.Panel();
+            this.grpStpForceButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpStpRevBox = new System.Windows.Forms.NumericUpDown();
+            this.grpStpMinBox = new System.Windows.Forms.NumericUpDown();
+            this.grpStpMajBox = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.grpWsdForceButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpWsdRevBox = new System.Windows.Forms.NumericUpDown();
+            this.grpWsdMinBox = new System.Windows.Forms.NumericUpDown();
+            this.grpWsdMajBox = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.grpWarForceButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpWarRevBox = new System.Windows.Forms.NumericUpDown();
+            this.grpWarMinBox = new System.Windows.Forms.NumericUpDown();
+            this.grpWarMajBox = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.grpBnkForceButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpBnkRevBox = new System.Windows.Forms.NumericUpDown();
+            this.grpBnkMinBox = new System.Windows.Forms.NumericUpDown();
+            this.grpBnkMajBox = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.grpSeqForceButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpSeqRevBox = new System.Windows.Forms.NumericUpDown();
+            this.grpSeqMinBox = new System.Windows.Forms.NumericUpDown();
+            this.grpSeqMajBox = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpRevBox = new System.Windows.Forms.NumericUpDown();
+            this.grpMinBox = new System.Windows.Forms.NumericUpDown();
+            this.grpMajBox = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             this.warFileInfoPanel = new System.Windows.Forms.Panel();
             this.forceWaveVersionButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -393,47 +462,40 @@ namespace Citric_Composer {
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.nullifyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.grpFileInfoPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown13 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
-            this.button5 = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.grpDependencyPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpDepEntryNumBox)).BeginInit();
+            this.grpFilePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpFileIdBox)).BeginInit();
+            this.grpFileInfoPanel.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpStpRevBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpStpMinBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpStpMajBox)).BeginInit();
+            this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWsdRevBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWsdMinBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWsdMajBox)).BeginInit();
+            this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWarRevBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWarMinBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWarMajBox)).BeginInit();
+            this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpBnkRevBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpBnkMinBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpBnkMajBox)).BeginInit();
+            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSeqRevBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSeqMinBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSeqMajBox)).BeginInit();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpRevBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpMinBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpMajBox)).BeginInit();
             this.warFileInfoPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vWavRevBox)).BeginInit();
@@ -457,31 +519,6 @@ namespace Citric_Composer {
             this.statusStrip.SuspendLayout();
             this.rootMenu.SuspendLayout();
             this.nodeMenu.SuspendLayout();
-            this.grpFileInfoPanel.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
-            this.tableLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
-            this.tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
-            this.tableLayoutPanel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -662,6 +699,8 @@ namespace Citric_Composer {
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.grpDependencyPanel);
+            this.splitContainer1.Panel1.Controls.Add(this.grpFilePanel);
             this.splitContainer1.Panel1.Controls.Add(this.grpFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.warFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.genericFileInfoPanel);
@@ -676,6 +715,724 @@ namespace Citric_Composer {
             this.splitContainer1.Size = new System.Drawing.Size(917, 474);
             this.splitContainer1.SplitterDistance = 305;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // grpDependencyPanel
+            // 
+            this.grpDependencyPanel.Controls.Add(this.grpDepLoadFlagsBox);
+            this.grpDependencyPanel.Controls.Add(this.label17);
+            this.grpDependencyPanel.Controls.Add(this.grpDepEntryNumBox);
+            this.grpDependencyPanel.Controls.Add(this.grpDepEntryNumComboBox);
+            this.grpDependencyPanel.Controls.Add(this.label16);
+            this.grpDependencyPanel.Controls.Add(this.grpDepEntryTypeBox);
+            this.grpDependencyPanel.Controls.Add(this.label15);
+            this.grpDependencyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpDependencyPanel.Location = new System.Drawing.Point(0, 0);
+            this.grpDependencyPanel.Name = "grpDependencyPanel";
+            this.grpDependencyPanel.Size = new System.Drawing.Size(303, 472);
+            this.grpDependencyPanel.TabIndex = 19;
+            // 
+            // grpDepLoadFlagsBox
+            // 
+            this.grpDepLoadFlagsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDepLoadFlagsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.grpDepLoadFlagsBox.FormattingEnabled = true;
+            this.grpDepLoadFlagsBox.Location = new System.Drawing.Point(6, 150);
+            this.grpDepLoadFlagsBox.Name = "grpDepLoadFlagsBox";
+            this.grpDepLoadFlagsBox.Size = new System.Drawing.Size(293, 21);
+            this.grpDepLoadFlagsBox.TabIndex = 6;
+            this.grpDepLoadFlagsBox.SelectedIndexChanged += new System.EventHandler(this.grpDepLoadFlagsBox_SelectedIndexChanged);
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.Location = new System.Drawing.Point(2, 124);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(297, 23);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Load Flags:";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // grpDepEntryNumBox
+            // 
+            this.grpDepEntryNumBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDepEntryNumBox.Location = new System.Drawing.Point(6, 101);
+            this.grpDepEntryNumBox.Maximum = new decimal(new int[] {
+            16777215,
+            0,
+            0,
+            0});
+            this.grpDepEntryNumBox.Name = "grpDepEntryNumBox";
+            this.grpDepEntryNumBox.Size = new System.Drawing.Size(293, 20);
+            this.grpDepEntryNumBox.TabIndex = 4;
+            this.grpDepEntryNumBox.ValueChanged += new System.EventHandler(this.grpDepEntryNumBox_ValueChanged);
+            // 
+            // grpDepEntryNumComboBox
+            // 
+            this.grpDepEntryNumComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDepEntryNumComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.grpDepEntryNumComboBox.FormattingEnabled = true;
+            this.grpDepEntryNumComboBox.Location = new System.Drawing.Point(6, 74);
+            this.grpDepEntryNumComboBox.Name = "grpDepEntryNumComboBox";
+            this.grpDepEntryNumComboBox.Size = new System.Drawing.Size(293, 21);
+            this.grpDepEntryNumComboBox.TabIndex = 3;
+            this.grpDepEntryNumComboBox.SelectedIndexChanged += new System.EventHandler(this.grpDepEntryNumComboBox_SelectedIndexChanged);
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.Location = new System.Drawing.Point(3, 52);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(297, 23);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Entry Number:";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // grpDepEntryTypeBox
+            // 
+            this.grpDepEntryTypeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDepEntryTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.grpDepEntryTypeBox.FormattingEnabled = true;
+            this.grpDepEntryTypeBox.Items.AddRange(new object[] {
+            "Sound",
+            "Sound Sequence",
+            "Bank",
+            "Wave Archive"});
+            this.grpDepEntryTypeBox.Location = new System.Drawing.Point(6, 26);
+            this.grpDepEntryTypeBox.Name = "grpDepEntryTypeBox";
+            this.grpDepEntryTypeBox.Size = new System.Drawing.Size(293, 21);
+            this.grpDepEntryTypeBox.TabIndex = 1;
+            this.grpDepEntryTypeBox.SelectedIndexChanged += new System.EventHandler(this.grpDepEntryTypeBox_SelectedIndexChanged);
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.Location = new System.Drawing.Point(3, 4);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(297, 23);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Entry Type:";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // grpFilePanel
+            // 
+            this.grpFilePanel.Controls.Add(this.grpEmbedModeBox);
+            this.grpFilePanel.Controls.Add(this.label14);
+            this.grpFilePanel.Controls.Add(this.grpFileIdBox);
+            this.grpFilePanel.Controls.Add(this.grpFileIdComboBox);
+            this.grpFilePanel.Controls.Add(this.label13);
+            this.grpFilePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFilePanel.Location = new System.Drawing.Point(0, 0);
+            this.grpFilePanel.Name = "grpFilePanel";
+            this.grpFilePanel.Size = new System.Drawing.Size(303, 472);
+            this.grpFilePanel.TabIndex = 18;
+            // 
+            // grpEmbedModeBox
+            // 
+            this.grpEmbedModeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpEmbedModeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.grpEmbedModeBox.FormattingEnabled = true;
+            this.grpEmbedModeBox.Items.AddRange(new object[] {
+            "Linked",
+            "Embedded"});
+            this.grpEmbedModeBox.Location = new System.Drawing.Point(6, 95);
+            this.grpEmbedModeBox.Name = "grpEmbedModeBox";
+            this.grpEmbedModeBox.Size = new System.Drawing.Size(293, 21);
+            this.grpEmbedModeBox.TabIndex = 4;
+            this.grpEmbedModeBox.SelectedIndexChanged += new System.EventHandler(this.grpEmbedModeBox_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.Location = new System.Drawing.Point(3, 75);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(296, 21);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "Embed Mode:";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // grpFileIdBox
+            // 
+            this.grpFileIdBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpFileIdBox.Location = new System.Drawing.Point(6, 52);
+            this.grpFileIdBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.grpFileIdBox.Name = "grpFileIdBox";
+            this.grpFileIdBox.Size = new System.Drawing.Size(293, 20);
+            this.grpFileIdBox.TabIndex = 2;
+            this.grpFileIdBox.ValueChanged += new System.EventHandler(this.grpFileIdBox_ValueChanged);
+            // 
+            // grpFileIdComboBox
+            // 
+            this.grpFileIdComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpFileIdComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.grpFileIdComboBox.FormattingEnabled = true;
+            this.grpFileIdComboBox.Location = new System.Drawing.Point(6, 26);
+            this.grpFileIdComboBox.Name = "grpFileIdComboBox";
+            this.grpFileIdComboBox.Size = new System.Drawing.Size(293, 21);
+            this.grpFileIdComboBox.TabIndex = 1;
+            this.grpFileIdComboBox.SelectedIndexChanged += new System.EventHandler(this.grpFileIdComboBox_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.Location = new System.Drawing.Point(3, 5);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(296, 21);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "File Id:";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // grpFileInfoPanel
+            // 
+            this.grpFileInfoPanel.Controls.Add(this.grpStpForceButton);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel8);
+            this.grpFileInfoPanel.Controls.Add(this.label12);
+            this.grpFileInfoPanel.Controls.Add(this.grpWsdForceButton);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel7);
+            this.grpFileInfoPanel.Controls.Add(this.label11);
+            this.grpFileInfoPanel.Controls.Add(this.grpWarForceButton);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel6);
+            this.grpFileInfoPanel.Controls.Add(this.label10);
+            this.grpFileInfoPanel.Controls.Add(this.grpBnkForceButton);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel5);
+            this.grpFileInfoPanel.Controls.Add(this.label9);
+            this.grpFileInfoPanel.Controls.Add(this.grpSeqForceButton);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel3);
+            this.grpFileInfoPanel.Controls.Add(this.label7);
+            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel4);
+            this.grpFileInfoPanel.Controls.Add(this.label8);
+            this.grpFileInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFileInfoPanel.Location = new System.Drawing.Point(0, 0);
+            this.grpFileInfoPanel.Name = "grpFileInfoPanel";
+            this.grpFileInfoPanel.Size = new System.Drawing.Size(303, 472);
+            this.grpFileInfoPanel.TabIndex = 7;
+            // 
+            // grpStpForceButton
+            // 
+            this.grpStpForceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpStpForceButton.Location = new System.Drawing.Point(3, 437);
+            this.grpStpForceButton.Name = "grpStpForceButton";
+            this.grpStpForceButton.Size = new System.Drawing.Size(296, 23);
+            this.grpStpForceButton.TabIndex = 16;
+            this.grpStpForceButton.Text = "Force Internal Prefetch Version";
+            this.grpStpForceButton.UseVisualStyleBackColor = true;
+            this.grpStpForceButton.Click += new System.EventHandler(this.grpStpForceButton_Click);
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel8.ColumnCount = 3;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.Controls.Add(this.grpStpRevBox, 2, 0);
+            this.tableLayoutPanel8.Controls.Add(this.grpStpMinBox, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.grpStpMajBox, 0, 0);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 408);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel8.TabIndex = 15;
+            // 
+            // grpStpRevBox
+            // 
+            this.grpStpRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpStpRevBox.Location = new System.Drawing.Point(205, 3);
+            this.grpStpRevBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpStpRevBox.Name = "grpStpRevBox";
+            this.grpStpRevBox.Size = new System.Drawing.Size(95, 20);
+            this.grpStpRevBox.TabIndex = 2;
+            this.toolTip.SetToolTip(this.grpStpRevBox, "Revision version of the file.");
+            this.grpStpRevBox.ValueChanged += new System.EventHandler(this.grpStpRevBox_ValueChanged);
+            // 
+            // grpStpMinBox
+            // 
+            this.grpStpMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpStpMinBox.Location = new System.Drawing.Point(104, 3);
+            this.grpStpMinBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpStpMinBox.Name = "grpStpMinBox";
+            this.grpStpMinBox.Size = new System.Drawing.Size(95, 20);
+            this.grpStpMinBox.TabIndex = 1;
+            this.toolTip.SetToolTip(this.grpStpMinBox, "Minor version of the file.");
+            this.grpStpMinBox.ValueChanged += new System.EventHandler(this.grpStpMinBox_ValueChanged);
+            // 
+            // grpStpMajBox
+            // 
+            this.grpStpMajBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpStpMajBox.Location = new System.Drawing.Point(3, 3);
+            this.grpStpMajBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpStpMajBox.Name = "grpStpMajBox";
+            this.grpStpMajBox.Size = new System.Drawing.Size(95, 20);
+            this.grpStpMajBox.TabIndex = 0;
+            this.toolTip.SetToolTip(this.grpStpMajBox, "Major version of the file.");
+            this.grpStpMajBox.ValueChanged += new System.EventHandler(this.grpStpMajBox_ValueChanged);
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.Location = new System.Drawing.Point(1, 382);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(299, 23);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Internal Prefetch Version:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label12, "File version to save as.");
+            // 
+            // grpWsdForceButton
+            // 
+            this.grpWsdForceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpWsdForceButton.Location = new System.Drawing.Point(3, 359);
+            this.grpWsdForceButton.Name = "grpWsdForceButton";
+            this.grpWsdForceButton.Size = new System.Drawing.Size(296, 23);
+            this.grpWsdForceButton.TabIndex = 13;
+            this.grpWsdForceButton.Text = "Force Internal Wave Sound Data Version";
+            this.grpWsdForceButton.UseVisualStyleBackColor = true;
+            this.grpWsdForceButton.Click += new System.EventHandler(this.grpWsdForceButton_Click);
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 3;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.Controls.Add(this.grpWsdRevBox, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.grpWsdMinBox, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.grpWsdMajBox, 0, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 327);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel7.TabIndex = 12;
+            // 
+            // grpWsdRevBox
+            // 
+            this.grpWsdRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpWsdRevBox.Location = new System.Drawing.Point(205, 3);
+            this.grpWsdRevBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpWsdRevBox.Name = "grpWsdRevBox";
+            this.grpWsdRevBox.Size = new System.Drawing.Size(95, 20);
+            this.grpWsdRevBox.TabIndex = 2;
+            this.toolTip.SetToolTip(this.grpWsdRevBox, "Revision version of the file.");
+            this.grpWsdRevBox.ValueChanged += new System.EventHandler(this.grpWsdRevBox_ValueChanged);
+            // 
+            // grpWsdMinBox
+            // 
+            this.grpWsdMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpWsdMinBox.Location = new System.Drawing.Point(104, 3);
+            this.grpWsdMinBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpWsdMinBox.Name = "grpWsdMinBox";
+            this.grpWsdMinBox.Size = new System.Drawing.Size(95, 20);
+            this.grpWsdMinBox.TabIndex = 1;
+            this.toolTip.SetToolTip(this.grpWsdMinBox, "Minor version of the file.");
+            this.grpWsdMinBox.ValueChanged += new System.EventHandler(this.grpWsdMinBox_ValueChanged);
+            // 
+            // grpWsdMajBox
+            // 
+            this.grpWsdMajBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpWsdMajBox.Location = new System.Drawing.Point(3, 3);
+            this.grpWsdMajBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpWsdMajBox.Name = "grpWsdMajBox";
+            this.grpWsdMajBox.Size = new System.Drawing.Size(95, 20);
+            this.grpWsdMajBox.TabIndex = 0;
+            this.toolTip.SetToolTip(this.grpWsdMajBox, "Major version of the file.");
+            this.grpWsdMajBox.ValueChanged += new System.EventHandler(this.grpWsdMajBox_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.Location = new System.Drawing.Point(1, 301);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(299, 23);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "Internal Wave Sound Data Version:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label11, "File version to save as.");
+            // 
+            // grpWarForceButton
+            // 
+            this.grpWarForceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpWarForceButton.Location = new System.Drawing.Point(3, 275);
+            this.grpWarForceButton.Name = "grpWarForceButton";
+            this.grpWarForceButton.Size = new System.Drawing.Size(296, 23);
+            this.grpWarForceButton.TabIndex = 10;
+            this.grpWarForceButton.Text = "Force Internal Wave Archive Version";
+            this.grpWarForceButton.UseVisualStyleBackColor = true;
+            this.grpWarForceButton.Click += new System.EventHandler(this.grpWarForceButton_Click);
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.Controls.Add(this.grpWarRevBox, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.grpWarMinBox, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.grpWarMajBox, 0, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 246);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel6.TabIndex = 9;
+            // 
+            // grpWarRevBox
+            // 
+            this.grpWarRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpWarRevBox.Location = new System.Drawing.Point(205, 3);
+            this.grpWarRevBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpWarRevBox.Name = "grpWarRevBox";
+            this.grpWarRevBox.Size = new System.Drawing.Size(95, 20);
+            this.grpWarRevBox.TabIndex = 2;
+            this.toolTip.SetToolTip(this.grpWarRevBox, "Revision version of the file.");
+            this.grpWarRevBox.ValueChanged += new System.EventHandler(this.grpWarRevBox_ValueChanged);
+            // 
+            // grpWarMinBox
+            // 
+            this.grpWarMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpWarMinBox.Location = new System.Drawing.Point(104, 3);
+            this.grpWarMinBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpWarMinBox.Name = "grpWarMinBox";
+            this.grpWarMinBox.Size = new System.Drawing.Size(95, 20);
+            this.grpWarMinBox.TabIndex = 1;
+            this.toolTip.SetToolTip(this.grpWarMinBox, "Minor version of the file.");
+            this.grpWarMinBox.ValueChanged += new System.EventHandler(this.grpWarMinBox_ValueChanged);
+            // 
+            // grpWarMajBox
+            // 
+            this.grpWarMajBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpWarMajBox.Location = new System.Drawing.Point(3, 3);
+            this.grpWarMajBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpWarMajBox.Name = "grpWarMajBox";
+            this.grpWarMajBox.Size = new System.Drawing.Size(95, 20);
+            this.grpWarMajBox.TabIndex = 0;
+            this.toolTip.SetToolTip(this.grpWarMajBox, "Major version of the file.");
+            this.grpWarMajBox.ValueChanged += new System.EventHandler(this.grpWarMajBox_ValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.Location = new System.Drawing.Point(0, 220);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(299, 23);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Internal Wave Archive Version:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label10, "File version to save as.");
+            // 
+            // grpBnkForceButton
+            // 
+            this.grpBnkForceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBnkForceButton.Location = new System.Drawing.Point(3, 194);
+            this.grpBnkForceButton.Name = "grpBnkForceButton";
+            this.grpBnkForceButton.Size = new System.Drawing.Size(296, 23);
+            this.grpBnkForceButton.TabIndex = 7;
+            this.grpBnkForceButton.Text = "Force Internal Bank Version";
+            this.grpBnkForceButton.UseVisualStyleBackColor = true;
+            this.grpBnkForceButton.Click += new System.EventHandler(this.grpBnkForceButton_Click);
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.ColumnCount = 3;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.Controls.Add(this.grpBnkRevBox, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.grpBnkMinBox, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.grpBnkMajBox, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 162);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel5.TabIndex = 6;
+            // 
+            // grpBnkRevBox
+            // 
+            this.grpBnkRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBnkRevBox.Location = new System.Drawing.Point(205, 3);
+            this.grpBnkRevBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpBnkRevBox.Name = "grpBnkRevBox";
+            this.grpBnkRevBox.Size = new System.Drawing.Size(95, 20);
+            this.grpBnkRevBox.TabIndex = 2;
+            this.toolTip.SetToolTip(this.grpBnkRevBox, "Revision version of the file.");
+            this.grpBnkRevBox.ValueChanged += new System.EventHandler(this.grpBnkRevBox_ValueChanged);
+            // 
+            // grpBnkMinBox
+            // 
+            this.grpBnkMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBnkMinBox.Location = new System.Drawing.Point(104, 3);
+            this.grpBnkMinBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpBnkMinBox.Name = "grpBnkMinBox";
+            this.grpBnkMinBox.Size = new System.Drawing.Size(95, 20);
+            this.grpBnkMinBox.TabIndex = 1;
+            this.toolTip.SetToolTip(this.grpBnkMinBox, "Minor version of the file.");
+            this.grpBnkMinBox.ValueChanged += new System.EventHandler(this.grpBnkMinBox_ValueChanged);
+            // 
+            // grpBnkMajBox
+            // 
+            this.grpBnkMajBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBnkMajBox.Location = new System.Drawing.Point(3, 3);
+            this.grpBnkMajBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpBnkMajBox.Name = "grpBnkMajBox";
+            this.grpBnkMajBox.Size = new System.Drawing.Size(95, 20);
+            this.grpBnkMajBox.TabIndex = 0;
+            this.toolTip.SetToolTip(this.grpBnkMajBox, "Major version of the file.");
+            this.grpBnkMajBox.ValueChanged += new System.EventHandler(this.grpBnkMajBox_ValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.Location = new System.Drawing.Point(0, 136);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(299, 23);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Internal Bank Version:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label9, "File version to save as.");
+            // 
+            // grpSeqForceButton
+            // 
+            this.grpSeqForceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpSeqForceButton.Location = new System.Drawing.Point(3, 110);
+            this.grpSeqForceButton.Name = "grpSeqForceButton";
+            this.grpSeqForceButton.Size = new System.Drawing.Size(296, 23);
+            this.grpSeqForceButton.TabIndex = 4;
+            this.grpSeqForceButton.Text = "Force Internal Sequence Version";
+            this.grpSeqForceButton.UseVisualStyleBackColor = true;
+            this.grpSeqForceButton.Click += new System.EventHandler(this.grpSeqForceButton_Click);
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.Controls.Add(this.grpSeqRevBox, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.grpSeqMinBox, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.grpSeqMajBox, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 78);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel3.TabIndex = 3;
+            // 
+            // grpSeqRevBox
+            // 
+            this.grpSeqRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpSeqRevBox.Location = new System.Drawing.Point(205, 3);
+            this.grpSeqRevBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpSeqRevBox.Name = "grpSeqRevBox";
+            this.grpSeqRevBox.Size = new System.Drawing.Size(95, 20);
+            this.grpSeqRevBox.TabIndex = 2;
+            this.toolTip.SetToolTip(this.grpSeqRevBox, "Revision version of the file.");
+            this.grpSeqRevBox.ValueChanged += new System.EventHandler(this.grpSeqRevBox_ValueChanged);
+            // 
+            // grpSeqMinBox
+            // 
+            this.grpSeqMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpSeqMinBox.Location = new System.Drawing.Point(104, 3);
+            this.grpSeqMinBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpSeqMinBox.Name = "grpSeqMinBox";
+            this.grpSeqMinBox.Size = new System.Drawing.Size(95, 20);
+            this.grpSeqMinBox.TabIndex = 1;
+            this.toolTip.SetToolTip(this.grpSeqMinBox, "Minor version of the file.");
+            this.grpSeqMinBox.ValueChanged += new System.EventHandler(this.grpSeqMinBox_ValueChanged);
+            // 
+            // grpSeqMajBox
+            // 
+            this.grpSeqMajBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpSeqMajBox.Location = new System.Drawing.Point(3, 3);
+            this.grpSeqMajBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpSeqMajBox.Name = "grpSeqMajBox";
+            this.grpSeqMajBox.Size = new System.Drawing.Size(95, 20);
+            this.grpSeqMajBox.TabIndex = 0;
+            this.toolTip.SetToolTip(this.grpSeqMajBox, "Major version of the file.");
+            this.grpSeqMajBox.ValueChanged += new System.EventHandler(this.grpSeqMajBox_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Location = new System.Drawing.Point(3, 52);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(299, 23);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Internal Sequence Version:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label7, "File version to save as.");
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.Controls.Add(this.grpRevBox, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.grpMinBox, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.grpMajBox, 0, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(-1, 26);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(303, 26);
+            this.tableLayoutPanel4.TabIndex = 1;
+            // 
+            // grpRevBox
+            // 
+            this.grpRevBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpRevBox.Location = new System.Drawing.Point(205, 3);
+            this.grpRevBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpRevBox.Name = "grpRevBox";
+            this.grpRevBox.Size = new System.Drawing.Size(95, 20);
+            this.grpRevBox.TabIndex = 2;
+            this.toolTip.SetToolTip(this.grpRevBox, "Revision version of the file.");
+            this.grpRevBox.ValueChanged += new System.EventHandler(this.grpRevBox_ValueChanged);
+            // 
+            // grpMinBox
+            // 
+            this.grpMinBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpMinBox.Location = new System.Drawing.Point(104, 3);
+            this.grpMinBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpMinBox.Name = "grpMinBox";
+            this.grpMinBox.Size = new System.Drawing.Size(95, 20);
+            this.grpMinBox.TabIndex = 1;
+            this.toolTip.SetToolTip(this.grpMinBox, "Minor version of the file.");
+            this.grpMinBox.ValueChanged += new System.EventHandler(this.grpMinBox_ValueChanged);
+            // 
+            // grpMajBox
+            // 
+            this.grpMajBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpMajBox.Location = new System.Drawing.Point(3, 3);
+            this.grpMajBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.grpMajBox.Name = "grpMajBox";
+            this.grpMajBox.Size = new System.Drawing.Size(95, 20);
+            this.grpMajBox.TabIndex = 0;
+            this.toolTip.SetToolTip(this.grpMajBox, "Major version of the file.");
+            this.grpMajBox.ValueChanged += new System.EventHandler(this.grpMajBox_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(299, 23);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Version:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip.SetToolTip(this.label8, "File version to save as.");
             // 
             // warFileInfoPanel
             // 
@@ -1257,520 +2014,6 @@ namespace Citric_Composer {
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
-            // grpFileInfoPanel
-            // 
-            this.grpFileInfoPanel.Controls.Add(this.button5);
-            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel8);
-            this.grpFileInfoPanel.Controls.Add(this.label12);
-            this.grpFileInfoPanel.Controls.Add(this.button4);
-            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel7);
-            this.grpFileInfoPanel.Controls.Add(this.label11);
-            this.grpFileInfoPanel.Controls.Add(this.button3);
-            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel6);
-            this.grpFileInfoPanel.Controls.Add(this.label10);
-            this.grpFileInfoPanel.Controls.Add(this.button2);
-            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel5);
-            this.grpFileInfoPanel.Controls.Add(this.label9);
-            this.grpFileInfoPanel.Controls.Add(this.button1);
-            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel3);
-            this.grpFileInfoPanel.Controls.Add(this.label7);
-            this.grpFileInfoPanel.Controls.Add(this.tableLayoutPanel4);
-            this.grpFileInfoPanel.Controls.Add(this.label8);
-            this.grpFileInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpFileInfoPanel.Location = new System.Drawing.Point(0, 0);
-            this.grpFileInfoPanel.Name = "grpFileInfoPanel";
-            this.grpFileInfoPanel.Size = new System.Drawing.Size(303, 472);
-            this.grpFileInfoPanel.TabIndex = 7;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(3, 110);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(296, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Force Internal Sequence Version";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.Controls.Add(this.numericUpDown1, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.numericUpDown2, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.numericUpDown3, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 78);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(303, 26);
-            this.tableLayoutPanel3.TabIndex = 3;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown1.Location = new System.Drawing.Point(205, 3);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown1.TabIndex = 2;
-            this.toolTip.SetToolTip(this.numericUpDown1, "Revision version of the file.");
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown2.Location = new System.Drawing.Point(104, 3);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown2.TabIndex = 1;
-            this.toolTip.SetToolTip(this.numericUpDown2, "Minor version of the file.");
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown3.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown3.TabIndex = 0;
-            this.toolTip.SetToolTip(this.numericUpDown3, "Major version of the file.");
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.Location = new System.Drawing.Point(3, 52);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(299, 23);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Internal Sequence Version:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.label7, "File version to save as.");
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.Controls.Add(this.numericUpDown4, 2, 0);
-            this.tableLayoutPanel4.Controls.Add(this.numericUpDown5, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.numericUpDown6, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(-1, 26);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(303, 26);
-            this.tableLayoutPanel4.TabIndex = 1;
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown4.Location = new System.Drawing.Point(205, 3);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown4.TabIndex = 2;
-            this.toolTip.SetToolTip(this.numericUpDown4, "Revision version of the file.");
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown5.Location = new System.Drawing.Point(104, 3);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown5.TabIndex = 1;
-            this.toolTip.SetToolTip(this.numericUpDown5, "Minor version of the file.");
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown6.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown6.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown6.TabIndex = 0;
-            this.toolTip.SetToolTip(this.numericUpDown6, "Major version of the file.");
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.Location = new System.Drawing.Point(0, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(299, 23);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Version:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.label8, "File version to save as.");
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.Location = new System.Drawing.Point(0, 136);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(299, 23);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Internal Bank Version:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.label9, "File version to save as.");
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel5.ColumnCount = 3;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.Controls.Add(this.numericUpDown7, 2, 0);
-            this.tableLayoutPanel5.Controls.Add(this.numericUpDown8, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.numericUpDown9, 0, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 162);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(303, 26);
-            this.tableLayoutPanel5.TabIndex = 6;
-            // 
-            // numericUpDown7
-            // 
-            this.numericUpDown7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown7.Location = new System.Drawing.Point(205, 3);
-            this.numericUpDown7.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown7.TabIndex = 2;
-            this.toolTip.SetToolTip(this.numericUpDown7, "Revision version of the file.");
-            // 
-            // numericUpDown8
-            // 
-            this.numericUpDown8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown8.Location = new System.Drawing.Point(104, 3);
-            this.numericUpDown8.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown8.TabIndex = 1;
-            this.toolTip.SetToolTip(this.numericUpDown8, "Minor version of the file.");
-            // 
-            // numericUpDown9
-            // 
-            this.numericUpDown9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown9.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown9.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown9.Name = "numericUpDown9";
-            this.numericUpDown9.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown9.TabIndex = 0;
-            this.toolTip.SetToolTip(this.numericUpDown9, "Major version of the file.");
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(3, 194);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(296, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Force Internal Bank Version";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.Location = new System.Drawing.Point(0, 220);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(299, 23);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Internal Wave Archive Version:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.label10, "File version to save as.");
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel6.ColumnCount = 3;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.Controls.Add(this.numericUpDown10, 2, 0);
-            this.tableLayoutPanel6.Controls.Add(this.numericUpDown11, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.numericUpDown12, 0, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 246);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(303, 26);
-            this.tableLayoutPanel6.TabIndex = 9;
-            // 
-            // numericUpDown10
-            // 
-            this.numericUpDown10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown10.Location = new System.Drawing.Point(205, 3);
-            this.numericUpDown10.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown10.Name = "numericUpDown10";
-            this.numericUpDown10.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown10.TabIndex = 2;
-            this.toolTip.SetToolTip(this.numericUpDown10, "Revision version of the file.");
-            // 
-            // numericUpDown11
-            // 
-            this.numericUpDown11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown11.Location = new System.Drawing.Point(104, 3);
-            this.numericUpDown11.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown11.Name = "numericUpDown11";
-            this.numericUpDown11.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown11.TabIndex = 1;
-            this.toolTip.SetToolTip(this.numericUpDown11, "Minor version of the file.");
-            // 
-            // numericUpDown12
-            // 
-            this.numericUpDown12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown12.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown12.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown12.Name = "numericUpDown12";
-            this.numericUpDown12.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown12.TabIndex = 0;
-            this.toolTip.SetToolTip(this.numericUpDown12, "Major version of the file.");
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(3, 275);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(296, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Force Internal Wave Archive Version";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.Location = new System.Drawing.Point(1, 301);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(299, 23);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "Internal Wave Sound Data Version:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.label11, "File version to save as.");
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel7.ColumnCount = 3;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel7.Controls.Add(this.numericUpDown13, 2, 0);
-            this.tableLayoutPanel7.Controls.Add(this.numericUpDown14, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.numericUpDown15, 0, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 327);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(303, 26);
-            this.tableLayoutPanel7.TabIndex = 12;
-            // 
-            // numericUpDown13
-            // 
-            this.numericUpDown13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown13.Location = new System.Drawing.Point(205, 3);
-            this.numericUpDown13.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown13.Name = "numericUpDown13";
-            this.numericUpDown13.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown13.TabIndex = 2;
-            this.toolTip.SetToolTip(this.numericUpDown13, "Revision version of the file.");
-            // 
-            // numericUpDown14
-            // 
-            this.numericUpDown14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown14.Location = new System.Drawing.Point(104, 3);
-            this.numericUpDown14.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown14.Name = "numericUpDown14";
-            this.numericUpDown14.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown14.TabIndex = 1;
-            this.toolTip.SetToolTip(this.numericUpDown14, "Minor version of the file.");
-            // 
-            // numericUpDown15
-            // 
-            this.numericUpDown15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown15.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown15.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown15.Name = "numericUpDown15";
-            this.numericUpDown15.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown15.TabIndex = 0;
-            this.toolTip.SetToolTip(this.numericUpDown15, "Major version of the file.");
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(3, 359);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(296, 23);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "Force Internal Wave Sound Data Version";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.Location = new System.Drawing.Point(1, 382);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(299, 23);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Internal Prefetch Version:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.label12, "File version to save as.");
-            // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel8.ColumnCount = 3;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel8.Controls.Add(this.numericUpDown16, 2, 0);
-            this.tableLayoutPanel8.Controls.Add(this.numericUpDown17, 1, 0);
-            this.tableLayoutPanel8.Controls.Add(this.numericUpDown18, 0, 0);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 408);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 1;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(303, 26);
-            this.tableLayoutPanel8.TabIndex = 15;
-            // 
-            // numericUpDown16
-            // 
-            this.numericUpDown16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown16.Location = new System.Drawing.Point(205, 3);
-            this.numericUpDown16.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown16.Name = "numericUpDown16";
-            this.numericUpDown16.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown16.TabIndex = 2;
-            this.toolTip.SetToolTip(this.numericUpDown16, "Revision version of the file.");
-            // 
-            // numericUpDown17
-            // 
-            this.numericUpDown17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown17.Location = new System.Drawing.Point(104, 3);
-            this.numericUpDown17.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown17.Name = "numericUpDown17";
-            this.numericUpDown17.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown17.TabIndex = 1;
-            this.toolTip.SetToolTip(this.numericUpDown17, "Minor version of the file.");
-            // 
-            // numericUpDown18
-            // 
-            this.numericUpDown18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown18.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown18.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown18.Name = "numericUpDown18";
-            this.numericUpDown18.Size = new System.Drawing.Size(95, 20);
-            this.numericUpDown18.TabIndex = 0;
-            this.toolTip.SetToolTip(this.numericUpDown18, "Major version of the file.");
-            // 
-            // button5
-            // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(3, 437);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(296, 23);
-            this.button5.TabIndex = 16;
-            this.button5.Text = "Force Internal Prefetch Version";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
             // EditorBase
             // 
             this.ClientSize = new System.Drawing.Size(917, 520);
@@ -1786,6 +2029,35 @@ namespace Citric_Composer {
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.grpDependencyPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpDepEntryNumBox)).EndInit();
+            this.grpFilePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpFileIdBox)).EndInit();
+            this.grpFileInfoPanel.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpStpRevBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpStpMinBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpStpMajBox)).EndInit();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpWsdRevBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWsdMinBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWsdMajBox)).EndInit();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpWarRevBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWarMinBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpWarMajBox)).EndInit();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpBnkRevBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpBnkMinBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpBnkMajBox)).EndInit();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpSeqRevBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSeqMinBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSeqMajBox)).EndInit();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpRevBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpMinBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpMajBox)).EndInit();
             this.warFileInfoPanel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vWavRevBox)).EndInit();
@@ -1810,31 +2082,6 @@ namespace Citric_Composer {
             this.statusStrip.PerformLayout();
             this.rootMenu.ResumeLayout(false);
             this.nodeMenu.ResumeLayout(false);
-            this.grpFileInfoPanel.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
-            this.tableLayoutPanel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
-            this.tableLayoutPanel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1865,30 +2112,32 @@ namespace Citric_Composer {
         /// <param name="description">File description.</param>
         /// <param name="extension">File extension.</param>
         /// <returns>Path of the file to save.</returns>
-        public string GetFileSaverPath(string description, string extension) {
+        public string GetFileSaverPath(string description, string extension, ref WriteMode writeMode) {
 
             //Set filer.
             saveFileDialog.FileName = "";
             saveFileDialog.Filter = description + " (3ds or Wii U)|" + "*.bf" + extension.ToLower() + ";*.bc" + extension.ToLower() + "|" + description + " (Switch)|*.bf" + extension.ToLower();
-            saveFileDialog.ShowDialog();
-            if (Path.GetExtension(saveFileDialog.FileName) == "") {
-                saveFileDialog.FileName += ".bf" + extension.ToLower();
-            }
+            saveFileDialog.ShowDialog();            
 
             //Set write mode.
             if (saveFileDialog.FileName != "") {
 
+                //Fix extension.
+                if (Path.GetExtension(saveFileDialog.FileName) == "") {
+                    saveFileDialog.FileName += ".bf" + extension.ToLower();
+                }
+
                 //3ds or WiiU.
-                if (saveFileDialog.FilterIndex == 0) {
+                if (saveFileDialog.FilterIndex == 1) {
 
                     //3ds.
-                    if (Path.GetExtension(saveFileDialog.FileName).StartsWith("bc")) {
-                        WriteMode = WriteMode.CTR;
+                    if (Path.GetExtension(saveFileDialog.FileName).StartsWith(".bc")) {
+                        writeMode = WriteMode.CTR;
                     }
 
                     //WiiU.
-                    else if (Path.GetExtension(saveFileDialog.FileName).StartsWith("bf")) {
-                        WriteMode = WriteMode.Cafe;
+                    else if (Path.GetExtension(saveFileDialog.FileName).StartsWith(".bf")) {
+                        writeMode = WriteMode.Cafe;
                     }
 
                 }
@@ -1897,8 +2146,8 @@ namespace Citric_Composer {
                 else {
 
                     //Switch.
-                    if (Path.GetExtension(saveFileDialog.FileName).StartsWith("bf")) {
-                        WriteMode = WriteMode.NX;
+                    if (Path.GetExtension(saveFileDialog.FileName).StartsWith(".bf")) {
+                        writeMode = WriteMode.NX;
                     }
 
                 }
@@ -1910,7 +2159,9 @@ namespace Citric_Composer {
 
         }
 
-
+        /// <summary>
+        /// On closing hook.
+        /// </summary>
         private void form_Close(object sender, FormClosingEventArgs e) {
             OnClosing();
         }
@@ -1919,6 +2170,21 @@ namespace Citric_Composer {
         /// On closing.
         /// </summary>
         public virtual void OnClosing() {}
+
+        public ContextMenuStrip CreateMenuStrip(ContextMenuStrip orig, int[] indices, EventHandler[] eventHandlers) {
+
+            ContextMenuStrip c = new ContextMenuStrip();
+
+            foreach (int ind in indices) {
+
+                var i = orig.Items[ind];
+                c.Items.Add(i.Text, i.Image, eventHandlers[ind]);
+
+            }
+
+            return c;
+
+        }
 
         //Updating.
         #region Updating
@@ -2177,7 +2443,7 @@ namespace Citric_Composer {
             }
 
             //Get the save file name.
-            string path = GetFileSaverPath(ExtensionDescription, Extension);
+            string path = GetFileSaverPath(ExtensionDescription, Extension, ref WriteMode);
 
             //If the path is valid.
             if (path != "") {
@@ -2290,7 +2556,8 @@ namespace Citric_Composer {
             }
 
             //Get the save file name.
-            string path = GetFileSaverPath(ExtensionDescription, Extension);
+            WriteMode wM = WriteMode;
+            string path = GetFileSaverPath(ExtensionDescription, Extension, ref wM);
 
             //If the path is valid.
             if (path != "") {
@@ -2300,7 +2567,7 @@ namespace Citric_Composer {
                 BinaryDataWriter bw = new BinaryDataWriter(o);
 
                 //Write the file.
-                File.Write(WriteMode, bw);
+                File.Write(wM, bw);
 
                 //Save the file.
                 System.IO.File.WriteAllBytes(path, o.ToArray());
@@ -2549,39 +2816,39 @@ namespace Citric_Composer {
         //Node menu.
         #region nodeMenu
 
-        private void addAboveToolStripMenuItem1_Click(object sender, EventArgs e) {
+        public void addAboveToolStripMenuItem1_Click(object sender, EventArgs e) {
             NodeAddAbove();
         }
 
-        private void addBelowToolStripMenuItem1_Click(object sender, EventArgs e) {
+        public void addBelowToolStripMenuItem1_Click(object sender, EventArgs e) {
             NodeAddBelow();
         }
 
-        private void moveUpToolStripMenuItem1_Click(object sender, EventArgs e) {
+        public void moveUpToolStripMenuItem1_Click(object sender, EventArgs e) {
             NodeMoveUp();
         }
 
-        private void moveDownToolStripMenuItem1_Click(object sender, EventArgs e) {
+        public void moveDownToolStripMenuItem1_Click(object sender, EventArgs e) {
             NodeMoveDown();
         }
 
-        private void blankToolStripMenuItem_Click(object sender, EventArgs e) {
+        public void blankToolStripMenuItem_Click(object sender, EventArgs e) {
             NodeBlank();
         }
 
-        private void replaceFileToolStripMenuItem_Click(object sender, EventArgs e) {
+        public void replaceFileToolStripMenuItem_Click(object sender, EventArgs e) {
             NodeReplace();
         }
 
-        private void exportToolStripMenuItem1_Click(object sender, EventArgs e) {
+        public void exportToolStripMenuItem1_Click(object sender, EventArgs e) {
             NodeExport();
         }
 
-        private void nullifyToolStripMenuItem1_Click(object sender, EventArgs e) {
+        public void nullifyToolStripMenuItem1_Click(object sender, EventArgs e) {
             NodeNullify();
         }
 
-        private void deleteToolStripMenuItem1_Click(object sender, EventArgs e) {
+        public void deleteToolStripMenuItem1_Click(object sender, EventArgs e) {
             NodeDelete();
         }
 
@@ -2684,6 +2951,220 @@ namespace Citric_Composer {
         public virtual void WarExtractWaveWiiU() {}
         public virtual void WarExtractWaveSwitch() {}
         public virtual void WarBatchImport() {}
+
+        #endregion
+
+
+        //Group versions.
+        #region grpVersions
+
+        private void grpSeqForceButton_Click(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupForceSequenceVersion();
+            }
+        }
+
+        private void grpBnkForceButton_Click(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupForceBankVersion();
+            }
+        }
+
+        private void grpWarForceButton_Click(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupForceWaveArchiveVersion();
+            }
+        }
+
+        private void grpWsdForceButton_Click(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupForceWaveSoundDataVersion();
+            }
+        }
+
+        private void grpStpForceButton_Click(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupForcePrefetchVersion();
+            }
+        }
+
+        private void grpMajBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpMinBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpRevBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpSeqMajBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpSeqMinBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpSeqRevBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpBnkMajBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpBnkMinBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpBnkRevBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpWarMajBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpWarMinBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpWarRevBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpWsdMajBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpWsdMinBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpWsdRevBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpStpMajBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpStpMinBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        private void grpStpRevBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupVersionChanged();
+            }
+        }
+
+        public virtual void GroupForceSequenceVersion() {}
+        public virtual void GroupForceBankVersion() {}
+        public virtual void GroupForceWaveArchiveVersion() {}
+        public virtual void GroupForceWaveSoundDataVersion() {}
+        public virtual void GroupForcePrefetchVersion() {}
+        public virtual void GroupVersionChanged() {}
+
+        #endregion
+
+
+        //Group file data.
+        #region grpFile
+
+        private void grpFileIdComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupFileIdComboChanged();
+            }
+        }
+
+        private void grpFileIdBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupFileIdNumBoxChanged();
+            }
+        }
+
+        private void grpEmbedModeBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupFileIdEmbedModeChanged();
+            }
+        }
+
+        public virtual void GroupFileIdComboChanged() {}
+        public virtual void GroupFileIdNumBoxChanged() {}
+        public virtual void GroupFileIdEmbedModeChanged() {}
+
+        #endregion
+
+
+        //Group dependency.
+        #region grpDependency
+
+        private void grpDepEntryTypeBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupDependencyTypeChanged();
+            }
+        }
+
+        private void grpDepEntryNumComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupDependencyEntryComboChanged();
+            }
+        }
+
+        private void grpDepEntryNumBox_ValueChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupDependencyEntryNumBoxChanged();
+            }
+        }
+
+        private void grpDepLoadFlagsBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!WritingInfo) {
+                GroupDependencyFlagsChanged();
+            }
+        }
+
+        public virtual void GroupDependencyTypeChanged() {}
+        public virtual void GroupDependencyEntryComboChanged() {}
+        public virtual void GroupDependencyEntryNumBoxChanged() {}
+        public virtual void GroupDependencyFlagsChanged() {}
 
         #endregion
 

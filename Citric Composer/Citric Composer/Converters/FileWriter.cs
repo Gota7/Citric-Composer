@@ -11,85 +11,72 @@ namespace CitraFileLoader {
     /// <summary>
     /// File writer.
     /// </summary>
-    public static class FileWriter {
+    public class FileWriter {
 
         /// <summary>
         /// Header position.
         /// </summary>
-        private static long headerPos;
+        private long headerPos;
 
         /// <summary>
         /// Max number of blocks.
         /// </summary>
-        private static int maxBlocks;
+        private int maxBlocks;
 
         /// <summary>
         /// Block types.
         /// </summary>
-        private static List<UInt16> blockTypes = new List<ushort>();
+        private List<UInt16> blockTypes = new List<ushort>();
 
         /// <summary>
         /// Block lengths.
         /// </summary>
-        private static List<UInt32> blockLengths = new List<uint>();
+        private List<UInt32> blockLengths = new List<uint>();
 
         /// <summary>
         /// Header size.
         /// </summary>
-        private static UInt16 headerSize;
+        private UInt16 headerSize;
 
         /// <summary>
         /// Block position.
         /// </summary>
-        private static long blockPos;
+        private long blockPos;
 
         /// <summary>
         /// Location of the last structure.
         /// </summary>
-        private static long structurePos;
+        private long structurePos;
 
         /// <summary>
         /// Structure positions.
         /// </summary>
-        private static Stack<long> structurePositions = new Stack<long>();
+        private Stack<long> structurePositions = new Stack<long>();
 
         /// <summary>
         /// Sized reference table info.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.SizedReferenceTableInfo> sizedReferenceTables = new Dictionary<string, ReferenceStructures.SizedReferenceTableInfo>();
+        private Dictionary<string, ReferenceStructures.SizedReferenceTableInfo> sizedReferenceTables = new Dictionary<string, ReferenceStructures.SizedReferenceTableInfo>();
 
         /// <summary>
         /// Reference table info.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.ReferenceTableInfo> referenceTables = new Dictionary<string, ReferenceStructures.ReferenceTableInfo>();
+        private Dictionary<string, ReferenceStructures.ReferenceTableInfo> referenceTables = new Dictionary<string, ReferenceStructures.ReferenceTableInfo>();
 
         /// <summary>
         /// References.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.ReferenceInfo> references = new Dictionary<string, ReferenceStructures.ReferenceInfo>();
+        private Dictionary<string, ReferenceStructures.ReferenceInfo> references = new Dictionary<string, ReferenceStructures.ReferenceInfo>();
 
         /// <summary>
         /// Sized references.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.SizedReferenceInfo> sizedReferences = new Dictionary<string, ReferenceStructures.SizedReferenceInfo>();
-
-        //Backups.
-        private static long bakBlockPos;
-        private static long bakStructurePos;
-        private static long[] bakStructurePositions;
-        private static KeyValuePair<string, ReferenceStructures.SizedReferenceTableInfo>[] bakSizedReferenceTables;
-        private static KeyValuePair<string, ReferenceStructures.ReferenceTableInfo>[] bakReferenceTables;
-        private static KeyValuePair<string, ReferenceStructures.ReferenceInfo>[] bakReferences;
-        private static KeyValuePair<string, ReferenceStructures.SizedReferenceInfo>[] bakSizedReferences;
-        private static UInt16[] bakBlockTypes;
-        private static UInt32[] bakBlockLengths;
-        private static long bakPos;
-        private static int bakMaxBlocks;
+        private Dictionary<string, ReferenceStructures.SizedReferenceInfo> sizedReferences = new Dictionary<string, ReferenceStructures.SizedReferenceInfo>();
 
         /// <summary>
         /// Version.
         /// </summary>
-        public class Version {
+        public class Version : IComparable<Version> {
 
             public byte Major;
             public byte Minor;
@@ -140,6 +127,84 @@ namespace CitraFileLoader {
 
             }
 
+            /// <summary>
+            /// Compare to another version.
+            /// </summary>
+            /// <param name="other">Other version to compare to.</param>
+            /// <returns>The version.</returns>
+            public int CompareTo(Version other) {
+
+                //Majors match.
+                if (Major == other.Major) {
+
+                    //Minors match.
+                    if (Minor == other.Minor) {
+
+                        //Revisions match.
+                        if (Revision == other.Revision) {
+                            return 0;
+                        }
+
+                        //Greater revision.
+                        else if (Revision > other.Revision) {
+                            return 1;
+                        }
+
+                        //Lesser revision.
+                        else {
+                            return -1;
+                        }
+
+                    }
+
+                    //Greater minor.
+                    else if (Minor > other.Minor) {
+                        return 2;
+                    }
+
+                    //Lesser minor.
+                    else {
+                        return -2;
+                    }
+
+                }
+
+                //Greater major.
+                else if (Major > other.Major) {
+                    return 3;
+                }
+
+                //Lesser major.
+                else {
+                    return -3;
+                }
+
+            }
+
+            public static bool operator <(Version v1, Version v2) {
+                return v1.CompareTo(v2) < 0;
+            }
+
+            public static bool operator >(Version v1, Version v2) {
+                return v1.CompareTo(v2) > 0;
+            }
+
+            public static bool operator <=(Version v1, Version v2) {
+                return v1.CompareTo(v2) <= 0;
+            }
+
+            public static bool operator >=(Version v1, Version v2) {
+                return v1.CompareTo(v2) >= 0;
+            }
+
+            public static bool operator ==(Version v1, Version v2) {
+                return v1.CompareTo(v2) == 0;
+            }
+
+            public static bool operator !=(Version v1, Version v2) {
+                return v1.CompareTo(v2) != 0;
+            }
+
         }
 
 
@@ -151,20 +216,7 @@ namespace CitraFileLoader {
         /// <param name="extension">Extension of the file.</param>
         /// <param name="numBlocks">Number of blocks.</param>
         /// <param name="version">File version.</param>
-        public static void InitFile(BinaryDataWriter bw, WriteMode writeMode, string extension, int numBlocks, Version version) {
-
-            //Make backups of everything.
-            bakBlockPos = blockPos;
-            bakStructurePos = structurePos;
-            bakStructurePositions = structurePositions.ToArray();
-            bakSizedReferenceTables = sizedReferenceTables.ToArray();
-            bakReferenceTables = referenceTables.ToArray();
-            bakSizedReferences = sizedReferences.ToArray();
-            bakReferences = references.ToArray();
-            bakBlockLengths = blockLengths.ToArray();
-            bakBlockTypes = blockTypes.ToArray();
-            bakPos = bw.Position;
-            bakMaxBlocks = maxBlocks;
+        public void InitFile(BinaryDataWriter bw, WriteMode writeMode, string extension, int numBlocks, Version version) {
 
             //Reset the values.
             headerPos = bw.Position;
@@ -217,7 +269,7 @@ namespace CitraFileLoader {
         /// Close a file.
         /// </summary>
         /// <param name="bw">The writer.</param>
-        public static void CloseFile(BinaryDataWriter bw) {
+        public void CloseFile(BinaryDataWriter bw) {
 
             //Get the total length.
             UInt32 totalSize = headerSize + (uint)blockLengths.Sum(x => x);
@@ -240,30 +292,6 @@ namespace CitraFileLoader {
             //Restore writer to the end.
             bw.Position = headerPos + totalSize;
 
-            //Restore backup.
-            blockPos = bakBlockPos;
-            structurePos = bakStructurePos;
-            structurePositions = new Stack<long>(bakStructurePositions);
-            sizedReferenceTables = new Dictionary<string, ReferenceStructures.SizedReferenceTableInfo>();
-            foreach (var h0 in bakSizedReferenceTables) {
-                sizedReferenceTables.Add(h0.Key, h0.Value);
-            }
-            referenceTables = new Dictionary<string, ReferenceStructures.ReferenceTableInfo>();
-            foreach (var h0 in bakReferenceTables) {
-                referenceTables.Add(h0.Key, h0.Value);
-            }
-            sizedReferences = new Dictionary<string, ReferenceStructures.SizedReferenceInfo>();
-            foreach (var h0 in bakSizedReferences) {
-                sizedReferences.Add(h0.Key, h0.Value);
-            }
-            references = new Dictionary<string, ReferenceStructures.ReferenceInfo>();
-            foreach (var h0 in bakReferences) {
-                references.Add(h0.Key, h0.Value);
-            }
-            blockLengths = bakBlockLengths.ToList();
-            blockTypes = bakBlockTypes.ToList();
-            maxBlocks = bakMaxBlocks;
-
         }
 
         /// <summary>
@@ -272,7 +300,7 @@ namespace CitraFileLoader {
         /// <param name="bw">The writer.</param>
         /// <param name="referenceType">Reference type to the block.</param>
         /// <param name="magic">4-letter magic identifier.</param>
-        public static void InitBlock(BinaryDataWriter bw, UInt16 referenceType, string magic) {
+        public void InitBlock(BinaryDataWriter bw, UInt16 referenceType, string magic) {
 
             //If max not reached.
             if (blockTypes.Count() < maxBlocks) {
@@ -300,7 +328,7 @@ namespace CitraFileLoader {
         /// Close the block.
         /// </summary>
         /// <param name="bw">The writer.</param>
-        public static void CloseBlock(BinaryDataWriter bw) {
+        public void CloseBlock(BinaryDataWriter bw) {
 
             //Get size.
             UInt32 blockSize = (UInt32)(bw.Position - blockPos);
@@ -320,7 +348,7 @@ namespace CitraFileLoader {
         /// <summary>
         /// Write a null block.
         /// </summary>
-        public static void WriteNullBlock() {
+        public void WriteNullBlock() {
 
             //Simply just add to the block list.
             if (blockTypes.Count < maxBlocks) {
@@ -335,7 +363,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="alignBy">Number to align the block to.</param>
-        public static void Align(BinaryDataWriter bw, int alignBy) {
+        public void Align(BinaryDataWriter bw, int alignBy) {
 
             //Align.
             while ((bw.Position - blockPos) % alignBy != 0) {
@@ -351,14 +379,18 @@ namespace CitraFileLoader {
         /// <param name="file">File to write.</param>
         /// <param name="alignBy">After writing the file, align a block to be divisible by a certain number.</param>
         /// <returns>Size of the file.</returns>
-        public static UInt32 WriteFile(BinaryDataWriter bw, ISoundFile file, int alignBy = 1) {
+        public UInt32 WriteFile(BinaryDataWriter bw, ISoundFile file, int alignBy = 1, WriteMode? writeMode = null) {
 
             //Old pos.
             long oldPos = bw.Position;
 
             MemoryStream o = new MemoryStream();
             BinaryDataWriter bw2 = new BinaryDataWriter(o);
-            file.Write(bw2);
+            if (writeMode == null) {
+                file.Write(bw2);
+            } else {
+                file.Write(writeMode.GetValueOrDefault(), bw2);
+            }
             bw.Write(o.ToArray());
 
             //New pos.
@@ -379,7 +411,7 @@ namespace CitraFileLoader {
         /// <param name="bw">The writer.</param>
         /// <param name="count">Number of references to add.</param>
         /// <param name="name">Name of the reference table.</param>
-        public static void InitSizedReferenceTable(BinaryDataWriter bw, int count, string name) {
+        public void InitSizedReferenceTable(BinaryDataWriter bw, int count, string name) {
 
             //Init a sized reference table.
             long tablePos = bw.Position;
@@ -397,7 +429,7 @@ namespace CitraFileLoader {
         /// <param name="referenceType">Type of reference to add.</param>
         /// <param name="size">Size of the object that is referenced.</param>
         /// <param name="name">Name of the reference table.</param>
-        public static void AddSizedReferenceTableReference(BinaryDataWriter bw, UInt16 referenceType, UInt32 size, string name) {
+        public void AddSizedReferenceTableReference(BinaryDataWriter bw, UInt16 referenceType, UInt32 size, string name) {
 
             //Add reference to the sized reference table.
             sizedReferenceTables[name].Add(referenceType, (int)(bw.Position - sizedReferenceTables[name].structurePos - blockPos), size);
@@ -408,7 +440,7 @@ namespace CitraFileLoader {
         /// Add a null reference to the sized reference table.
         /// </summary>
         /// <param name="name">Name of the reference table.</param>
-        public static void AddSizedReferenceTableNullReference(string name) {
+        public void AddSizedReferenceTableNullReference(string name) {
 
             //Add the null reference.
             sizedReferenceTables[name].Add(0, -1, 0);
@@ -420,7 +452,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="newSize">New size.</param>
         /// <param name="name">Name of the reference to add.</param>
-        public static void AdjustSizedReferenceTableSize(UInt32 newSize, string name) {
+        public void AdjustSizedReferenceTableSize(UInt32 newSize, string name) {
 
             //Adjust the new size.
             sizedReferenceTables[name].AdjustSize(newSize);
@@ -432,7 +464,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="name">The name of the reference table.</param>
-        public static void CloseSizedReferenceTable(BinaryDataWriter bw, string name) {
+        public void CloseSizedReferenceTable(BinaryDataWriter bw, string name) {
 
             //Close the sized reference table.
             var s = sizedReferenceTables[name];
@@ -449,7 +481,7 @@ namespace CitraFileLoader {
         /// <param name="bw">The writer.</param>
         /// <param name="count">Number of references to add.</param>
         /// <param name="name">Name of the reference table.</param>
-        public static void InitReferenceTable(BinaryDataWriter bw, int count, string name) {
+        public void InitReferenceTable(BinaryDataWriter bw, int count, string name) {
 
             //Init a reference table.
             long tablePos = bw.Position;
@@ -467,7 +499,7 @@ namespace CitraFileLoader {
         /// <param name="referenceType">Type of reference to add.</param>
         /// <param name="size">Size of the object that is referenced.</param>
         /// <param name="name">Name of the reference table.</param>
-        public static void AddReferenceTableReference(BinaryDataWriter bw, UInt16 referenceType, string name) {
+        public void AddReferenceTableReference(BinaryDataWriter bw, UInt16 referenceType, string name) {
 
             //Add reference to the reference table.
             referenceTables[name].Add(referenceType, (int)(bw.Position - referenceTables[name].structurePos - blockPos));
@@ -478,7 +510,7 @@ namespace CitraFileLoader {
         /// Add a null reference to the reference table.
         /// </summary>
         /// <param name="name">Name of the reference table.</param>
-        public static void AddReferenceTableNullReference(string name) {
+        public void AddReferenceTableNullReference(string name) {
 
             //Add the null reference.
             referenceTables[name].Add(0, -1);
@@ -490,7 +522,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="referenceType">Type of reference to add.</param>
         /// <param name="name">Name of the reference table.</param>
-        public static void AddReferenceTableNullReferenceWithType(UInt16 referenceType, string name) {
+        public void AddReferenceTableNullReferenceWithType(UInt16 referenceType, string name) {
 
             //Add the null reference.
             referenceTables[name].Add(referenceType, -1);
@@ -502,7 +534,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="name">The name of the reference table.</param>
-        public static void CloseReferenceTable(BinaryDataWriter bw, string name) {
+        public void CloseReferenceTable(BinaryDataWriter bw, string name) {
 
             //Close the sized reference table.
             var s = referenceTables[name];
@@ -518,7 +550,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="name">The name of the reference.</param>
-        public static void InitReference(BinaryDataWriter bw, string name) {
+        public void InitReference(BinaryDataWriter bw, string name) {
 
             //Init a reference.
             long pos = bw.Position;
@@ -535,7 +567,7 @@ namespace CitraFileLoader {
         /// <param name="bw">The writer.</param>
         /// <param name="name">Name of reference.</param>
         /// <param name="type">Type.</param>
-        public static void CloseReference(BinaryDataWriter bw, UInt16 type, string name) {
+        public void CloseReference(BinaryDataWriter bw, UInt16 type, string name) {
 
             //Close reference.
             ReferenceStructures.Reference.Close(bw, type, (int)(bw.Position - references[name].structurePos - blockPos), references[name].pos);
@@ -551,7 +583,7 @@ namespace CitraFileLoader {
         /// <param name="bw">The writer.</param>
         /// <param name="name">Name of reference.</param>
         /// <param name="type">Type.</param>
-        public static void CloseNullReferenceWithType(BinaryDataWriter bw, UInt16 type, string name) {
+        public void CloseNullReferenceWithType(BinaryDataWriter bw, UInt16 type, string name) {
 
             //Close reference.
             ReferenceStructures.Reference.Close(bw, type, -1, references[name].pos);
@@ -566,7 +598,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="name">Name of reference.</param>
-        public static void CloseNullReference(BinaryDataWriter bw, string name) {
+        public void CloseNullReference(BinaryDataWriter bw, string name) {
 
             //Close reference.
             ReferenceStructures.Reference.Close(bw, 0, -1, references[name].pos);
@@ -581,7 +613,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="name">The name of the reference.</param>
-        public static void InitSizedReference(BinaryDataWriter bw, string name) {
+        public void InitSizedReference(BinaryDataWriter bw, string name) {
 
             //Init a reference.
             long pos = bw.Position;
@@ -599,7 +631,7 @@ namespace CitraFileLoader {
         /// <param name="name">Name of reference.</param>
         /// <param name="type">Type.</param>
         /// <param name="offset">Offset.</param>
-        public static void CloseSizedReference(BinaryDataWriter bw, UInt16 type, UInt32 size, string name) {
+        public void CloseSizedReference(BinaryDataWriter bw, UInt16 type, UInt32 size, string name) {
 
             //Close reference.
             ReferenceStructures.SizedReference.Close(bw, type, (int)(bw.Position - sizedReferences[name].structurePos - blockPos - size), size, sizedReferences[name].pos);
@@ -614,7 +646,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="name">Name of reference.</param>
-        public static void CloseSizedNullReference(BinaryDataWriter bw, string name) {
+        public void CloseSizedNullReference(BinaryDataWriter bw, string name) {
 
             //Close reference.
             ReferenceStructures.SizedReference.Close(bw, 0, -1, 0xFFFFFFFF, sizedReferences[name].pos);
@@ -629,7 +661,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <returns>Offset.</returns>
-        public static Int32 GetOffsetManually(BinaryDataWriter bw) {
+        public Int32 GetOffsetManually(BinaryDataWriter bw) {
 
             //Return the position.
             return (int)(bw.Position - structurePos);
@@ -640,7 +672,7 @@ namespace CitraFileLoader {
         /// Start a new structure.
         /// </summary>
         /// <param name="bw">The writer.</param>
-        public static void StartStructure(BinaryDataWriter bw) {
+        public void StartStructure(BinaryDataWriter bw) {
 
             //Store the old structure position.
             structurePositions.Push(structurePos);
@@ -653,7 +685,7 @@ namespace CitraFileLoader {
         /// <summary>
         /// End a structure.
         /// </summary>
-        public static void EndStructure() {
+        public void EndStructure() {
 
             //Restore the latest structure position.
             structurePos = structurePositions.Pop();
@@ -683,7 +715,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="w">The write mode.</param>
         /// <returns>The byte order.</returns>
-        public static Syroot.BinaryData.ByteOrder GetByteOrder(WriteMode w) {
+        public Syroot.BinaryData.ByteOrder GetByteOrder(WriteMode w) {
 
             switch (w) {
 

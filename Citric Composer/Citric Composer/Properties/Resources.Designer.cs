@@ -69,5 +69,15 @@ namespace Citric_Composer.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Goldi {
+            get {
+                object obj = ResourceManager.GetObject("Goldi", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

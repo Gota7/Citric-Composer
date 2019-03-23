@@ -46,7 +46,7 @@ namespace CitraFileLoader {
 
             }
 
-            br.Position += 0xC;
+            br.Position += 0x6;
             UInt32 length = br.ReadUInt32();
             br.Position -= 0x10;
             Stm.Load(br.ReadBytes((int)length));

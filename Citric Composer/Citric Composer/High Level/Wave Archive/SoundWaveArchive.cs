@@ -80,6 +80,7 @@ namespace CitraFileLoader {
             this.writeMode = writeMode;
 
             //Initialize file.
+            FileWriter FileWriter = new FileWriter();
             FileWriter.InitFile(bw, writeMode, "WAR", 2, Version);
 
             //Info block.
@@ -125,7 +126,7 @@ namespace CitraFileLoader {
                     if (wCount == waves.Count - 1) {
 
                         //Get the proper file size.
-                        fileSize = FileWriter.WriteFile(bw, w);
+                        fileSize = FileWriter.WriteFile(bw, w, 1, writeMode);
 
                     }
                     
@@ -133,7 +134,7 @@ namespace CitraFileLoader {
                     else {
 
                         //Get the proper file size.
-                        fileSize = FileWriter.WriteFile(bw, w, 0x20);
+                        fileSize = FileWriter.WriteFile(bw, w, 0x20, writeMode);
 
                     }
 
@@ -173,6 +174,7 @@ namespace CitraFileLoader {
         public void Read(BinaryDataReader br) {
 
             //Open the file.
+            FileReader FileReader = new FileReader();
             FileReader.OpenFile(br, out writeMode, out Version);
 
             //Open the info block.

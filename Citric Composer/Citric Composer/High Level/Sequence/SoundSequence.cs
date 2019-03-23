@@ -47,6 +47,7 @@ namespace CitraFileLoader {
         public void Read(BinaryDataReader br) {
 
             //Open file.
+            FileReader FileReader = new FileReader();
             FileReader.OpenFile(br, out writeMode, out Version);
 
             //Data block.
@@ -149,6 +150,7 @@ namespace CitraFileLoader {
             this.writeMode = writeMode;
 
             //Init file.
+            FileWriter FileWriter = new FileWriter();
             FileWriter.InitFile(bw, writeMode, "SEQ", 2, Version);
 
             //Data block.

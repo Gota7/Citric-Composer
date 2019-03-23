@@ -1,5 +1,5 @@
 # Banks (.bfbnk, .bcbnk)
-BNKs, or banks, contain a list of instruments that can be used with a sequence in order to play level music, sound effects, etc. Each instrument has info about how referenced waves from wave archives are to be played, and where to use them in the note range of the instrument.
+BNKs, or Banks, contain a list of instruments that can be used with a sequence in order to play level music, sound effects, etc. Each instrument has info about how referenced waves from wave archives are to be played, and where to use them in the note range of the instrument.
 
 ## The Main File
 The main file contains of a File Header and an Info Block. The Info Block is not padded. The structure of the file is the same for every version, with the standard being 1.0.0.

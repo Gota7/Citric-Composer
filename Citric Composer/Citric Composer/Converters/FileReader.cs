@@ -10,76 +10,62 @@ namespace CitraFileLoader {
     /// <summary>
     /// File reader.
     /// </summary>
-    public static class FileReader {
+    public class FileReader {
 
         /// <summary>
         /// Block offsets.
         /// </summary>
-        private static List<Int32> blockOffsets = new List<int>();
+        private List<Int32> blockOffsets = new List<int>();
 
         /// <summary>
         /// Start position.
         /// </summary>
-        private static long fileStartPos;
+        private long fileStartPos;
 
         /// <summary>
         /// File size.
         /// </summary>
-        private static uint fileSize;
+        private uint fileSize;
 
         /// <summary>
         /// Block position.
         /// </summary>
-        private static long blockPos;
+        private long blockPos;
 
         /// <summary>
         /// Block size.
         /// </summary>
-        private static uint blockSize;
+        private uint blockSize;
 
         /// <summary>
         /// Structure position.
         /// </summary>
-        private static long structurePos;
+        private long structurePos;
 
         /// <summary>
         /// Structure positions.
         /// </summary>
-        private static Stack<long> structurePositions = new Stack<long>();
+        private Stack<long> structurePositions = new Stack<long>();
 
         /// <summary>
         /// Sized reference tables.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.SizedReferenceTableInfo> sizedReferenceTables = new Dictionary<string, ReferenceStructures.SizedReferenceTableInfo>();
+        private Dictionary<string, ReferenceStructures.SizedReferenceTableInfo> sizedReferenceTables = new Dictionary<string, ReferenceStructures.SizedReferenceTableInfo>();
 
         /// <summary>
         /// References.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.ReferenceInfo> references = new Dictionary<string, ReferenceStructures.ReferenceInfo>();
+        private Dictionary<string, ReferenceStructures.ReferenceInfo> references = new Dictionary<string, ReferenceStructures.ReferenceInfo>();
 
         /// <summary>
         /// Reference tables.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.ReferenceTableInfo> referenceTables = new Dictionary<string, ReferenceStructures.ReferenceTableInfo>();
+        private Dictionary<string, ReferenceStructures.ReferenceTableInfo> referenceTables = new Dictionary<string, ReferenceStructures.ReferenceTableInfo>();
 
         /// <summary>
         /// Sized references.
         /// </summary>
-        private static Dictionary<string, ReferenceStructures.SizedReferenceInfo> sizedReferences = new Dictionary<string, ReferenceStructures.SizedReferenceInfo>();
-
-        //Backups.
-        private static Stack<int[]> bakBlockOffsets = new Stack<int[]>();
-        private static Stack<long> bakFileStart = new Stack<long>();
-        private static Stack<uint> bakFileSize = new Stack<uint>();
-        private static Stack<long> bakBlockPos = new Stack<long>();
-        private static Stack<uint> bakBlockSize = new Stack<uint>();
-        private static Stack<long> bakStructurePos = new Stack<long>();
-        private static Stack<Stack<long>> bakStructurePositions = new Stack<Stack<long>>();
-        private static Stack<KeyValuePair<string, ReferenceStructures.SizedReferenceTableInfo>[]> bakSizedReferenceTables = new Stack<KeyValuePair<string, ReferenceStructures.SizedReferenceTableInfo>[]>();
-        private static Stack<KeyValuePair<string, ReferenceStructures.ReferenceTableInfo>[]> bakReferenceTables = new Stack<KeyValuePair<string, ReferenceStructures.ReferenceTableInfo>[]>();
-        private static Stack<KeyValuePair<string, ReferenceStructures.ReferenceInfo>[]> bakReferences = new Stack<KeyValuePair<string, ReferenceStructures.ReferenceInfo>[]>();
-        private static Stack<KeyValuePair<string, ReferenceStructures.SizedReferenceInfo>[]> bakSizedReferences = new Stack<KeyValuePair<string, ReferenceStructures.SizedReferenceInfo>[]>();
-        private static Stack<long> bakPos = new Stack<long>();
+        private Dictionary<string, ReferenceStructures.SizedReferenceInfo> sizedReferences = new Dictionary<string, ReferenceStructures.SizedReferenceInfo>();
 
         /// <summary>
         /// Open file.
@@ -87,21 +73,7 @@ namespace CitraFileLoader {
         /// <param name="br">The reader.</param>
         /// <param name="writeMode">Write mode.</param>
         /// <param name="version">Version.</param>
-        public static void OpenFile(BinaryDataReader br, out WriteMode writeMode, out FileWriter.Version version) {
-
-            //Make backups of everything.
-            bakBlockOffsets.Push(blockOffsets.ToArray());
-            bakFileStart.Push(fileStartPos);
-            bakFileSize.Push(fileSize);
-            bakBlockPos.Push(blockPos);
-            bakBlockSize.Push(blockSize);
-            bakStructurePos.Push(structurePos);
-            bakStructurePositions.Push(structurePositions);
-            bakSizedReferenceTables.Push(sizedReferenceTables.ToArray());
-            bakReferenceTables.Push(referenceTables.ToArray());
-            bakSizedReferences.Push(sizedReferences.ToArray());
-            bakReferences.Push(references.ToArray());
-            bakPos.Push(br.Position);
+        public void OpenFile(BinaryDataReader br, out WriteMode writeMode, out FileWriter.Version version) {
 
             //Set up variables.
             blockOffsets = new List<int>();
@@ -173,35 +145,10 @@ namespace CitraFileLoader {
         /// Close the file.
         /// </summary>
         /// <param name="br">The reader.</param>
-        public static void CloseFile(BinaryDataReader br) {
+        public void CloseFile(BinaryDataReader br) {
 
             //Set position to the end.
             br.Position = fileStartPos + fileSize;
-
-            //Restore backup.
-            blockOffsets = bakBlockOffsets.Pop().ToList();
-            fileStartPos = bakFileStart.Pop();
-            fileSize = bakFileSize.Pop();
-            blockPos = bakBlockPos.Pop();
-            blockSize = bakBlockSize.Pop();
-            structurePos = bakStructurePos.Pop();
-            structurePositions = bakStructurePositions.Pop();
-            sizedReferenceTables = new Dictionary<string, ReferenceStructures.SizedReferenceTableInfo>();
-            foreach (var h0 in bakSizedReferenceTables.Pop()) {
-                sizedReferenceTables.Add(h0.Key, h0.Value);
-            }
-            referenceTables = new Dictionary<string, ReferenceStructures.ReferenceTableInfo>();
-            foreach (var h0 in bakReferenceTables.Pop()) {
-                referenceTables.Add(h0.Key, h0.Value);
-            }
-            sizedReferences = new Dictionary<string, ReferenceStructures.SizedReferenceInfo>();
-            foreach (var h0 in bakSizedReferences.Pop()) {
-                sizedReferences.Add(h0.Key, h0.Value);
-            }
-            references = new Dictionary<string, ReferenceStructures.ReferenceInfo>();
-            foreach (var h0 in bakReferences.Pop()) {
-                references.Add(h0.Key, h0.Value);
-            }
 
         }
 
@@ -210,7 +157,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="blockNum">The block number.</param>
-        public static void OpenBlock(BinaryDataReader br, int blockNum) {
+        public void OpenBlock(BinaryDataReader br, int blockNum) {
 
             //Set position.
             br.Position = fileStartPos + blockOffsets[blockNum];
@@ -234,7 +181,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="blockNum">Block number.</param>
         /// <returns>If the block is null.</returns>
-        public static bool IsBlockNull(int blockNum) {
+        public bool IsBlockNull(int blockNum) {
 
             //Block offset is null.
             return blockOffsets[blockNum] == -1;
@@ -245,7 +192,7 @@ namespace CitraFileLoader {
         /// Close the block.
         /// </summary>
         /// <param name="br">The reader.</param>
-        public static void CloseBlock(BinaryDataReader br) {
+        public void CloseBlock(BinaryDataReader br) {
 
             //Set position to the end.
             br.Position = blockPos + blockSize;
@@ -257,7 +204,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="alignBy">Factor to align by.</param>
-        public static void SeekAlign(BinaryDataReader br, int alignBy) {
+        public void SeekAlign(BinaryDataReader br, int alignBy) {
 
             //Increment position until it can be aligned.
             while ((br.Position - fileStartPos) % alignBy != 0) {
@@ -273,7 +220,7 @@ namespace CitraFileLoader {
         /// <param name="type">Type of sound file to read.</param>
         /// <param name="alignBy">Amount to align by after reading the file.</param>
         /// <returns>The read file.</returns>
-        public static ISoundFile ReadFile(BinaryDataReader br, Type type, int alignBy = 1) {
+        public ISoundFile ReadFile(BinaryDataReader br, Type type, int alignBy = 1) {
 
             //Read the file.
             ISoundFile f = (ISoundFile)Activator.CreateInstance(type);
@@ -292,7 +239,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="name">Name of the table to add.</param>
-        public static void OpenSizedReferenceTable(BinaryDataReader br, string name) {
+        public void OpenSizedReferenceTable(BinaryDataReader br, string name) {
 
             //Add the reference table.
             sizedReferenceTables.Add(name, ReferenceStructures.SizedReferenceTable.Read(br));
@@ -305,7 +252,7 @@ namespace CitraFileLoader {
         /// <param name="index">Reference number to check.</param>
         /// <param name="name">Name of the table.</param>
         /// <returns>If the reference is null.</returns>
-        public static bool SizedReferenceTableReferenceIsNull(int index, string name) {
+        public bool SizedReferenceTableReferenceIsNull(int index, string name) {
 
             //Return if it is a null reference.
             return sizedReferenceTables[name].IsNullReference(index);
@@ -318,7 +265,7 @@ namespace CitraFileLoader {
         /// <param name="br">The reader.</param>
         /// <param name="index">Index of the reference.</param>
         /// <param name="name">Name of the sized table.</param>
-        public static void SizedReferenceTableJumpToReference(BinaryDataReader br, int index, string name) {
+        public void SizedReferenceTableJumpToReference(BinaryDataReader br, int index, string name) {
 
             //Jump to the offset.
             br.Position = structurePos + sizedReferenceTables[name].offsets[index];
@@ -331,7 +278,7 @@ namespace CitraFileLoader {
         /// <param name="index">Index of the reference.</param>
         /// <param name="name">Name of the sized table.</param>
         /// <returns>The size.</returns>
-        public static uint SizedReferenceTableGetSize(int index, string name) {
+        public uint SizedReferenceTableGetSize(int index, string name) {
 
             //Get the size.
             return sizedReferenceTables[name].sizes[index];
@@ -343,7 +290,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">The sized table name.</param>
         /// <returns>The number of references.</returns>
-        public static int SizedReferenceTableCount(string name) {
+        public int SizedReferenceTableCount(string name) {
 
             //Return the number of references.
             return sizedReferenceTables[name].max;
@@ -354,7 +301,7 @@ namespace CitraFileLoader {
         /// Close a sized reference table.
         /// </summary>
         /// <param name="name">Name of the sized table.</param>
-        public static void CloseSizedReferenceTable(string name) {
+        public void CloseSizedReferenceTable(string name) {
 
             //Remove the table.
             sizedReferenceTables.Remove(name);
@@ -366,7 +313,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="name">Name of the table to add.</param>
-        public static void OpenReferenceTable(BinaryDataReader br, string name) {
+        public void OpenReferenceTable(BinaryDataReader br, string name) {
 
             //Add the reference table.
             referenceTables.Add(name, ReferenceStructures.ReferenceTable.Read(br));
@@ -379,7 +326,7 @@ namespace CitraFileLoader {
         /// <param name="index">Reference number to check.</param>
         /// <param name="name">Name of the table.</param>
         /// <returns>If the reference is null.</returns>
-        public static bool ReferenceTableReferenceIsNull(int index, string name) {
+        public bool ReferenceTableReferenceIsNull(int index, string name) {
 
             //Return if it is a null reference.
             return referenceTables[name].IsNullReference(index);
@@ -392,7 +339,7 @@ namespace CitraFileLoader {
         /// <param name="br">The reader.</param>
         /// <param name="index">Index of the reference.</param>
         /// <param name="name">Name of the table.</param>
-        public static void ReferenceTableJumpToReference(BinaryDataReader br, int index, string name) {
+        public void ReferenceTableJumpToReference(BinaryDataReader br, int index, string name) {
 
             //Jump to the offset.
             br.Position = structurePos + referenceTables[name].offsets[index];
@@ -404,7 +351,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">The sized table name.</param>
         /// <returns>The number of references.</returns>
-        public static int ReferenceTableCount(string name) {
+        public int ReferenceTableCount(string name) {
 
             //Return the number of references.
             return referenceTables[name].max;
@@ -415,7 +362,7 @@ namespace CitraFileLoader {
         /// Close a reference table.
         /// </summary>
         /// <param name="name">Name of the sized table.</param>
-        public static void CloseReferenceTable(string name) {
+        public void CloseReferenceTable(string name) {
 
             //Remove the table.
             referenceTables.Remove(name);
@@ -427,7 +374,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="name">Name of the reference.</param>
-        public static void OpenReference(BinaryDataReader br, string name) {
+        public void OpenReference(BinaryDataReader br, string name) {
 
             //Add a reference.
             references.Add(name, ReferenceStructures.Reference.Read(br));
@@ -439,7 +386,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">Name of the reference.</param>
         /// <returns>If the reference is null.</returns>
-        public static bool ReferenceIsNull(string name) {
+        public bool ReferenceIsNull(string name) {
 
             //If a refrence is null.
             return references[name].IsNullOffset();
@@ -451,7 +398,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="name">Name of the reference to jump to.</param>
-        public static void JumpToReference(BinaryDataReader br, string name) {
+        public void JumpToReference(BinaryDataReader br, string name) {
 
             //Jump to the offset.
             br.Position = structurePos + references[name].Offset;
@@ -463,7 +410,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">Name of the reference.</param>
         /// <returns>The reference type.</returns>
-        public static UInt16 ReferenceGetType(string name) {
+        public UInt16 ReferenceGetType(string name) {
 
             //Get the type.
             return references[name].ReferenceType;
@@ -475,7 +422,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">Name of the reference.</param>
         /// <returns>The reference offset.</returns>
-        public static Int32 ReferenceGetOffset(string name) {
+        public Int32 ReferenceGetOffset(string name) {
 
             //Get the type.
             return references[name].Offset;
@@ -486,7 +433,7 @@ namespace CitraFileLoader {
         /// Close a reference.
         /// </summary>
         /// <param name="name">Name of the reference.</param>
-        public static void CloseReference(string name) {
+        public void CloseReference(string name) {
 
             //Remove the reference.
             references.Remove(name);
@@ -498,7 +445,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="name">Name of the sized reference.</param>
-        public static void OpenSizedReference(BinaryDataReader br, string name) {
+        public void OpenSizedReference(BinaryDataReader br, string name) {
 
             //Add a reference.
             sizedReferences.Add(name, ReferenceStructures.SizedReference.Read(br));
@@ -510,7 +457,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">Name of the sized reference.</param>
         /// <returns>If the sized reference is null.</returns>
-        public static bool SizedReferenceIsNull(string name) {
+        public bool SizedReferenceIsNull(string name) {
 
             //If a refrence is null.
             return sizedReferences[name].IsNullOffset();
@@ -522,7 +469,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="name">Name of the sized reference to jump to.</param>
-        public static void JumpToSizedReference(BinaryDataReader br, string name) {
+        public void JumpToSizedReference(BinaryDataReader br, string name) {
 
             //Jump to the offset.
             br.Position = structurePos + sizedReferences[name].Offset;
@@ -534,7 +481,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">Name of the sized reference.</param>
         /// <returns>The sized reference type.</returns>
-        public static UInt16 SizedReferenceGetType(string name) {
+        public UInt16 SizedReferenceGetType(string name) {
 
             //Get the type.
             return sizedReferences[name].ReferenceType;
@@ -546,7 +493,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="name">Name of the sized reference.</param>
         /// <returns>The sized reference offset.</returns>
-        public static Int32 SizedReferenceGetOffset(string name) {
+        public Int32 SizedReferenceGetOffset(string name) {
 
             //Get the type.
             return sizedReferences[name].Offset;
@@ -557,7 +504,7 @@ namespace CitraFileLoader {
         /// Close a sized reference.
         /// </summary>
         /// <param name="name">Name of sized the reference.</param>
-        public static void CloseSizedReference(string name) {
+        public void CloseSizedReference(string name) {
 
             //Remove the reference.
             sizedReferences.Remove(name);
@@ -569,7 +516,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="br">The reader.</param>
         /// <param name="offset">Offset to jump to.</param>
-        public static void JumpToOffsetManually(BinaryDataReader br, int offset) {
+        public void JumpToOffsetManually(BinaryDataReader br, int offset) {
 
             //Jump to offset.
             br.Position = structurePos + offset;
@@ -580,7 +527,7 @@ namespace CitraFileLoader {
         /// Start a new structure.
         /// </summary>
         /// <param name="br">The reader.</param>
-        public static void StartStructure(BinaryDataReader br) {
+        public void StartStructure(BinaryDataReader br) {
 
             //Store the old structure position.
             structurePositions.Push(structurePos);
@@ -593,7 +540,7 @@ namespace CitraFileLoader {
         /// <summary>
         /// End a structure.
         /// </summary>
-        public static void EndStructure() {
+        public void EndStructure() {
 
             //Restore the latest structure position.
             structurePos = structurePositions.Pop();

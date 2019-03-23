@@ -137,6 +137,7 @@
     <Compile Include="High Level\Sound Archive\SequenceEntry.cs" />
     <Compile Include="High Level\Sound Archive\Sound3dInfo.cs" />
     <Compile Include="High Level\Sound Archive\SoundArchive.cs" />
+    <Compile Include="High Level\Sound Archive\SoundArchiveVersions.cs" />
     <Compile Include="High Level\Sound Archive\SoundInfo.cs" />
     <Compile Include="High Level\Sound Archive\SoundSetEntry.cs" />
     <Compile Include="High Level\Sound Archive\StreamEntry.cs" />
@@ -233,6 +234,12 @@
     <Compile Include="Low Level\Stream Audio\SoundStream.cs" />
     <Compile Include="Low Level\Stream Audio\SoundWave.cs" />
     <Compile Include="Low Level\Stream Audio\StreamPrefetchFile.cs" />
+    <Compile Include="VersionSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionSelector.Designer.cs">
+      <DependentUpon>VersionSelector.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutWindow.resx">
       <DependentUpon>AboutWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,6 +286,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="VersionSelector.resx">
+      <DependentUpon>VersionSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

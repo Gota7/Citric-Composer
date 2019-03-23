@@ -56,6 +56,7 @@ namespace CitraFileLoader {
         public void Read(BinaryDataReader br) {
 
             //Open the file.
+            FileReader FileReader = new FileReader();
             FileReader.OpenFile(br, out writeMode, out Version);
 
             //Open the info block.
@@ -454,6 +455,7 @@ namespace CitraFileLoader {
         public NoteInfo ReadNoteInfo(BinaryDataReader br) {
 
             //Start structure.
+            FileReader FileReader = new FileReader();
             FileReader.StartStructure(br);
 
             //New note info.
@@ -488,6 +490,7 @@ namespace CitraFileLoader {
             this.writeMode = writeMode;
 
             //Init file.
+            FileWriter FileWriter = new FileWriter();
             FileWriter.InitFile(bw, writeMode, "WSD", 1, Version);
 
             //Init info block.
