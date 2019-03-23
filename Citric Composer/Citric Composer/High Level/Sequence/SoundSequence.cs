@@ -192,6 +192,9 @@ namespace CitraFileLoader {
                     bw.Write((UInt32)l.Label.Length);
                     bw.Write(l.Label.ToCharArray());
 
+                    //Add null terminator.
+                    bw.Write('\0');
+
                     //Align to 4 bytes.
                     FileWriter.Align(bw, 4);
 

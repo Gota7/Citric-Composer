@@ -49,6 +49,11 @@ namespace Citric_Composer
                             e = new Brewster_WAR_Brewer(args[0], null);
                             break;
 
+                        //Group editor.
+                        case "grp":
+                            e = new Goldi_GRP_Grouper(args[0], null);
+                            break;
+
                         //Isabelle.
                         case "stm":
                         case "wav":
