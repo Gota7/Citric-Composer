@@ -54,23 +54,25 @@ namespace Citric_Composer {
         public void LoadDependencies() {
 
             //Check.
-            if (!depsSet && ExtFile == null && MainWindow.file != null) {
+            if (MainWindow != null) {
+                if (!depsSet && ExtFile == null && MainWindow.file != null) {
 
-                for (int i = 0; i < (File as Group).SoundFiles.Count; i++) {
+                    for (int i = 0; i < (File as Group).SoundFiles.Count; i++) {
 
-                    if ((File as Group).SoundFiles[i].FileId < MainWindow.file.Files.Count()) {
-                        if (MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].File == null) {
-                            MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].File = (File as Group).SoundFiles[i].File;
+                        if ((File as Group).SoundFiles[i].FileId < MainWindow.file.Files.Count()) {
+                            if (MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].File == null) {
+                                MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].File = (File as Group).SoundFiles[i].File;
+                            }
+                            if (MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].Reference == null) {
+                                (File as Group).SoundFiles[i].Reference = MainWindow.file.Files[(File as Group).SoundFiles[i].FileId];
+                                MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].ReferencedBy.Add((File as Group).SoundFiles[i]);
+                            }
                         }
-                        if (MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].Reference == null) {
-                            (File as Group).SoundFiles[i].Reference = MainWindow.file.Files[(File as Group).SoundFiles[i].FileId];
-                            MainWindow.file.Files[(File as Group).SoundFiles[i].FileId].ReferencedBy.Add((File as Group).SoundFiles[i]);
-                        }
+
                     }
+                    depsSet = true;
 
                 }
-                depsSet = true;
-
             }
 
         }
@@ -182,47 +184,49 @@ namespace Citric_Composer {
                                 }
 
                                 //Get entry.
-                                if (MainWindow.file != null || ExtFile != null) {
+                                if (MainWindow != null) {
+                                    if (MainWindow.file != null || ExtFile != null) {
 
-                                    for (int i = 0; i < MainWindow.file.Streams.Count; i++) {
-                                        if (MainWindow.file.Streams[i] == null) {
-                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
-                                            continue;
+                                        for (int i = 0; i < MainWindow.file.Streams.Count; i++) {
+                                            if (MainWindow.file.Streams[i] == null) {
+                                                grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
+                                                continue;
+                                            }
+                                            string name = MainWindow.file.Streams[i].Name;
+                                            if (name == null) {
+                                                name = "{ Null Name }";
+                                            }
+                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
                                         }
-                                        string name = MainWindow.file.Streams[i].Name;
-                                        if (name == null) {
-                                            name = "{ Null Name }";
+                                        for (int i = 0; i < MainWindow.file.WaveSoundDatas.Count; i++) {
+                                            if (MainWindow.file.WaveSoundDatas[i] == null) {
+                                                grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.Streams.Count) + "] { Null Entry }");
+                                                continue;
+                                            }
+                                            string name = MainWindow.file.WaveSoundDatas[i].Name;
+                                            if (name == null) {
+                                                name = "{ Null Name }";
+                                            }
+                                            grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.Streams.Count) + "] " + name);
                                         }
-                                        grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
-                                    }
-                                    for (int i = 0; i < MainWindow.file.WaveSoundDatas.Count; i++) {
-                                        if (MainWindow.file.WaveSoundDatas[i] == null) {
-                                            grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.Streams.Count) + "] { Null Entry }");
-                                            continue;
+                                        for (int i = 0; i < MainWindow.file.Sequences.Count; i++) {
+                                            if (MainWindow.file.Sequences[i] == null) {
+                                                grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.WaveSoundDatas.Count + MainWindow.file.Streams.Count) + "] { Null Entry }");
+                                                continue;
+                                            }
+                                            string name = MainWindow.file.Sequences[i].Name;
+                                            if (name == null) {
+                                                name = "{ Null Name }";
+                                            }
+                                            grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.WaveSoundDatas.Count + MainWindow.file.Streams.Count) + "] " + name);
                                         }
-                                        string name = MainWindow.file.WaveSoundDatas[i].Name;
-                                        if (name == null) {
-                                            name = "{ Null Name }";
-                                        }
-                                        grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.Streams.Count) + "] " + name);
-                                    }
-                                    for (int i = 0; i < MainWindow.file.Sequences.Count; i++) {
-                                        if (MainWindow.file.Sequences[i] == null) {
-                                            grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.WaveSoundDatas.Count + MainWindow.file.Streams.Count) + "] { Null Entry }");
-                                            continue;
-                                        }
-                                        string name = MainWindow.file.Sequences[i].Name;
-                                        if (name == null) {
-                                            name = "{ Null Name }";
-                                        }
-                                        grpDepEntryNumComboBox.Items.Add("[" + (i + MainWindow.file.WaveSoundDatas.Count + MainWindow.file.Streams.Count) + "] " + name);
-                                    }
 
-                                    //Select value.
-                                    try {
-                                        grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
-                                    } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
+                                        //Select value.
+                                        try {
+                                            grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
+                                        } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
 
+                                    }
                                 }
 
                                 break;
@@ -233,25 +237,27 @@ namespace Citric_Composer {
                                 grpDepEntryTypeBox.SelectedIndex = 1;
 
                                 //Get entry.
-                                if (MainWindow.file != null || ExtFile != null) {
+                                if (MainWindow != null) {
+                                    if (MainWindow.file != null || ExtFile != null) {
 
-                                    for (int i = 0; i < MainWindow.file.SoundSets.Count; i++) {
-                                        if (MainWindow.file.SoundSets[i] == null) {
-                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
-                                            continue;
+                                        for (int i = 0; i < MainWindow.file.SoundSets.Count; i++) {
+                                            if (MainWindow.file.SoundSets[i] == null) {
+                                                grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
+                                                continue;
+                                            }
+                                            string name = MainWindow.file.SoundSets[i].Name;
+                                            if (name == null) {
+                                                name = "{ Null Name }";
+                                            }
+                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
                                         }
-                                        string name = MainWindow.file.SoundSets[i].Name;
-                                        if (name == null) {
-                                            name = "{ Null Name }";
-                                        }
-                                        grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
+
+                                        //Select value.
+                                        try {
+                                            grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
+                                        } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
+
                                     }
-
-                                    //Select value.
-                                    try {
-                                        grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
-                                    } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
-
                                 }
 
                                 //Get flags.
@@ -327,25 +333,27 @@ namespace Citric_Composer {
                                 }
 
                                 //Get entry.
-                                if (MainWindow.file != null || ExtFile != null) {
+                                if (MainWindow != null) {
+                                    if (MainWindow.file != null || ExtFile != null) {
 
-                                    for (int i = 0; i < MainWindow.file.Banks.Count; i++) {
-                                        if (MainWindow.file.Banks[i] == null) {
-                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
-                                            continue;
+                                        for (int i = 0; i < MainWindow.file.Banks.Count; i++) {
+                                            if (MainWindow.file.Banks[i] == null) {
+                                                grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
+                                                continue;
+                                            }
+                                            string name = MainWindow.file.Banks[i].Name;
+                                            if (name == null) {
+                                                name = "{ Null Name }";
+                                            }
+                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
                                         }
-                                        string name = MainWindow.file.Banks[i].Name;
-                                        if (name == null) {
-                                            name = "{ Null Name }";
-                                        }
-                                        grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
+
+                                        //Select value.
+                                        try {
+                                            grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
+                                        } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
+
                                     }
-
-                                    //Select value.
-                                    try {
-                                        grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
-                                    } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
-
                                 }
 
                                 break;
@@ -360,25 +368,27 @@ namespace Citric_Composer {
                                 grpDepLoadFlagsBox.SelectedIndex = 0;
 
                                 //Get entry.
-                                if (MainWindow.file != null || ExtFile != null) {
+                                if (MainWindow != null) {
+                                    if (MainWindow.file != null || ExtFile != null) {
 
-                                    for (int i = 0; i < MainWindow.file.WaveArchives.Count; i++) {
-                                        if (MainWindow.file.WaveArchives[i] == null) {
-                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
-                                            continue;
-                                        } 
-                                        string name = MainWindow.file.WaveArchives[i].Name;
-                                        if (name == null) {
-                                            name = "{ Null Name }";
+                                        for (int i = 0; i < MainWindow.file.WaveArchives.Count; i++) {
+                                            if (MainWindow.file.WaveArchives[i] == null) {
+                                                grpDepEntryNumComboBox.Items.Add("[" + i + "] { Null Entry }");
+                                                continue;
+                                            }
+                                            string name = MainWindow.file.WaveArchives[i].Name;
+                                            if (name == null) {
+                                                name = "{ Null Name }";
+                                            }
+                                            grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
                                         }
-                                        grpDepEntryNumComboBox.Items.Add("[" + i + "] " + name);
+
+                                        //Select value.
+                                        try {
+                                            grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
+                                        } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
+
                                     }
-
-                                    //Select value.
-                                    try {
-                                        grpDepEntryNumComboBox.SelectedIndex = d.ItemIndex + 1;
-                                    } catch { grpDepEntryNumComboBox.SelectedIndex = 0; }
-
                                 }
 
                                 break;
@@ -428,28 +438,32 @@ namespace Citric_Composer {
                         grpFileIdComboBox.Items.Add("Unknown File Entry");
 
                         //File is open.
-                        if (MainWindow.file != null || ExtFile != null) {
+                        if (MainWindow != null) {
+                            if (MainWindow.file != null || ExtFile != null) {
 
-                            //Add entries.
-                            int index = 0;
-                            foreach (var f in MainWindow.file.Files) {
+                                //Add entries.
+                                int index = 0;
+                                foreach (var f in MainWindow.file.Files) {
 
-                                if (f == null) {
-                                    grpFileIdComboBox.Items.Add("{ NULL }");
-                                } else {
-                                    string name = f.FileName;
-                                    if (name == null) { name = "{ Null File Name }"; }
-                                    grpFileIdComboBox.Items.Add("[" + index + "] " + name + "." + f.FileExtension);
+                                    if (f == null) {
+                                        grpFileIdComboBox.Items.Add("{ NULL }");
+                                    } else {
+                                        string name = f.FileName;
+                                        if (name == null) { name = "{ Null File Name }"; }
+                                        grpFileIdComboBox.Items.Add("[" + index + "] " + name + "." + f.FileExtension);
+                                    }
+
+                                    index++;
+
                                 }
 
-                                index++;
+                                try {
+                                    grpFileIdComboBox.SelectedIndex = fileId + 1;
+                                } catch { }
 
+                            } else {
+                                grpFileIdComboBox.SelectedIndex = 0;
                             }
-
-                            try {
-                                grpFileIdComboBox.SelectedIndex = fileId + 1;
-                            } catch { }
-
                         }
 
                         //No file open.
@@ -729,18 +743,20 @@ namespace Citric_Composer {
                             name = "{ Null File Name }";
 
                             //Try and get name.
-                            if (MainWindow.file != null || ExtFile != null) {
+                            if (MainWindow != null) {
+                                if (MainWindow.file != null || ExtFile != null) {
 
-                                //Try.
-                                try {
+                                    //Try.
+                                    try {
 
-                                    //Set name.
-                                    if (MainWindow.file.Files[f.FileId].FileName != null) {
-                                        name = MainWindow.file.Files[f.FileId].FileName;
-                                    }
+                                        //Set name.
+                                        if (MainWindow.file.Files[f.FileId].FileName != null) {
+                                            name = MainWindow.file.Files[f.FileId].FileName;
+                                        }
 
-                                } catch { }
+                                    } catch { }
 
+                                }
                             }
 
                         }
@@ -795,11 +811,13 @@ namespace Citric_Composer {
                     tree.Nodes["files"].Nodes["file" + fCount].ContextMenuStrip = CreateMenuStrip(nodeMenu, new int[] { 0, 1, 2, 3, 5, 6, 8 }, new EventHandler[] { new EventHandler(this.addAboveToolStripMenuItem1_Click), new EventHandler(this.addBelowToolStripMenuItem1_Click), new EventHandler(this.moveUpToolStripMenuItem1_Click), new EventHandler(this.moveDownToolStripMenuItem1_Click), new EventHandler(blankToolStripMenuItem_Click), new EventHandler(replaceFileToolStripMenuItem_Click), new EventHandler(exportToolStripMenuItem1_Click), new EventHandler(nullifyToolStripMenuItem1_Click), new EventHandler(deleteToolStripMenuItem1_Click) });
 
                     //Type is STP context menu.
-                    if (MainWindow.file != null && f.FileExtension.EndsWith("stp")) {
+                    if (MainWindow != null) {
+                        if (MainWindow.file != null && f.FileExtension.EndsWith("stp")) {
 
-                        //Add extra entry.
-                        tree.Nodes["files"].Nodes["file" + fCount].ContextMenuStrip.Items.Insert(4, new ToolStripMenuItem("Generate From Stream", treeIcons.Images[1], new EventHandler(this.GenerateFromStreamClick)));
+                            //Add extra entry.
+                            tree.Nodes["files"].Nodes["file" + fCount].ContextMenuStrip.Items.Insert(4, new ToolStripMenuItem("Generate From Stream", treeIcons.Images[1], new EventHandler(this.GenerateFromStreamClick)));
 
+                        }
                     }
 
                     //Increment count.
@@ -1066,19 +1084,27 @@ namespace Citric_Composer {
                 if ((File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
 
                     //Linked mode.
-                    if ((MainWindow.file != null || ExtFile != null) && (File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
+                    if (MainWindow != null) {
+                        if ((MainWindow.file != null || ExtFile != null) && (File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
 
-                        //Dereference files.
-                        (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Remove((File as Group).SoundFiles[tree.SelectedNode.Index]);
+                            //Dereference files.
+                            (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Remove((File as Group).SoundFiles[tree.SelectedNode.Index]);
 
-                        //Set new reference.
-                        (File as Group).SoundFiles[tree.SelectedNode.Index].Reference = MainWindow.file.Files[grpFileIdComboBox.SelectedIndex - 1];
-                        (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Add((File as Group).SoundFiles[tree.SelectedNode.Index]);
-                        DoInfoStuff();
-                        UpdateNodes();
+                            //Set new reference.
+                            (File as Group).SoundFiles[tree.SelectedNode.Index].Reference = MainWindow.file.Files[grpFileIdComboBox.SelectedIndex - 1];
+                            (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Add((File as Group).SoundFiles[tree.SelectedNode.Index]);
+                            DoInfoStuff();
+                            UpdateNodes();
 
+                        } else if ((File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
+
+                            //Just set file id.
+                            (File as Group).SoundFiles[tree.SelectedNode.Index].FileId = grpFileIdComboBox.SelectedIndex - 1;
+                            DoInfoStuff();
+                            UpdateNodes();
+
+                        }
                     }
-
                     //Independent mode.
                     else if ((File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
 
@@ -1100,17 +1126,29 @@ namespace Citric_Composer {
             if ((File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
 
                 //Linked mode.
-                if ((MainWindow.file != null || ExtFile != null) && (File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
+                if (MainWindow != null) {
+                    if ((MainWindow.file != null || ExtFile != null) && (File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
 
-                    //Dereference files.
-                    (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Remove((File as Group).SoundFiles[tree.SelectedNode.Index]);
+                        //Dereference files.
+                        (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Remove((File as Group).SoundFiles[tree.SelectedNode.Index]);
 
-                    //Set new reference.
-                    (File as Group).SoundFiles[tree.SelectedNode.Index].Reference = MainWindow.file.Files[(int)grpFileIdBox.Value];
-                    (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Add((File as Group).SoundFiles[tree.SelectedNode.Index]);
-                    DoInfoStuff();
-                    UpdateNodes();
+                        //Set new reference.
+                        (File as Group).SoundFiles[tree.SelectedNode.Index].Reference = MainWindow.file.Files[(int)grpFileIdBox.Value];
+                        (File as Group).SoundFiles[tree.SelectedNode.Index].Reference.ReferencedBy.Add((File as Group).SoundFiles[tree.SelectedNode.Index]);
+                        DoInfoStuff();
+                        UpdateNodes();
 
+                    }
+
+                    //Independent mode.
+                    else if ((File as Group).SoundFiles[tree.SelectedNode.Index] != null) {
+
+                        //Just set file id.
+                        (File as Group).SoundFiles[tree.SelectedNode.Index].FileId = (int)grpFileIdBox.Value;
+                        DoInfoStuff();
+                        UpdateNodes();
+
+                    }
                 }
 
                 //Independent mode.
@@ -1310,8 +1348,10 @@ namespace Citric_Composer {
                 s.Embed = false;
 
                 //Reference.
-                if (MainWindow.file != null || ExtFile != null) {
-                    s.Reference = MainWindow.file.Files[0];
+                if (MainWindow != null) {
+                    if (MainWindow.file != null || ExtFile != null) {
+                        s.Reference = MainWindow.file.Files[0];
+                    }
                 }
 
                 //Add file.
@@ -1347,8 +1387,10 @@ namespace Citric_Composer {
                 s.Embed = false;
 
                 //Reference.
-                if (MainWindow.file != null || ExtFile != null) {
-                    s.Reference = MainWindow.file.Files[0];
+                if (MainWindow != null) {
+                    if (MainWindow.file != null || ExtFile != null) {
+                        s.Reference = MainWindow.file.Files[0];
+                    }
                 }
 
                 //Add file.
@@ -1385,8 +1427,10 @@ namespace Citric_Composer {
                 s.Embed = false;
 
                 //Reference.
-                if (MainWindow.file != null || ExtFile != null) {
-                    s.Reference = MainWindow.file.Files[0];
+                if (MainWindow != null) {
+                    if (MainWindow.file != null || ExtFile != null) {
+                        s.Reference = MainWindow.file.Files[0];
+                    }
                 }
 
                 //Add file.

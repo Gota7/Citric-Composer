@@ -2,7 +2,7 @@
 GRPs, or Groups, are perhaps the most confusing part of the Sound Archive. As mentioned in the Sound Archive specification, a file in there can be any one of these types: Undefined, Internal, External, in Group Only, or Informal External. The In Group Only type is an Internal file that has a null sized reference because the file data for that file id is only inside a Group file. Note that this is impossible to distinguish between Informal External files, which also have null sized references because they are not only not found in the Sound Archive's files, but not present in any group either, since the file is actually outside the Sound Archive altogether. This is most present in Super Mario Odyssey, where several Groups are stored outside the Sound Archive. Because of this system, it is important to make a system for your editor that can read these files within these Groups to fill in the gaps. I recommend a reference system, where you have a file class that can reference a parent file, all the way back to the main Sound Archive. This will make reading and writing these files easier. In a Group file though, a file can only be one of two type: Linked or Embedded. If a file has a null sized reference, then it is a linked file to load the file, wherever it may be outside of the group file. If it is an embedded file, then the file can load the file directly from the Group itself, since the file block contains it. Note that this can lead to a "double reference", where a file can be both Internal and inside a Group at the same time. This means that the Internal file offsets to the file contained inside a Group, and the Group offsets to this same file! It's important to keep this in mind when writing proper Sound Archives. A Group also contains a list of dependencies, for the files it is loading the dependencies for. Each dependency is an entry from the main Sound Archive.
 
 ## The Main File
-The main file contains of a File Header, Info Block, a File Block, and an Extra Info Block. Each block is padded to 0x20 bytes. The structure of the file is the same for every version, with the standard being 1.0.0.
+The main file contains of a File Header, Info Block, a File Block, and an Extra Info Block. Each block is padded to 0x20 bytes, except for the Extra Info Block. The structure of the file is the same for every version, with the standard being 1.0.0.
 
 | **Type** | **Description** |
 |----------|-----------------|
@@ -38,7 +38,6 @@ This contains the dependencies that the files belong to. It tells the game to lo
 |------------|----------|-----------------|
 |0x00|Table`<Reference>`|References to each Dependency (Reference Type: 0x7901)|
 |0x04 + 8 * Table Count|Dependency[Table Count]|Dependencies referenced earlier|
-|----|---|Padding for alignment|
 
 ### Dependency
 An entry to a file in the file block must also indicated a file id, unlike in Wave Archives. So a file entry structure must then exist. Each entry is always 0x8 bytes long.
