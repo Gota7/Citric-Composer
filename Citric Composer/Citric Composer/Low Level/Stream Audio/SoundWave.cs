@@ -618,6 +618,9 @@ namespace CitraFileLoader
                 b = WaveFactory.CreateWave(f.stream.sampleRate, f.stream.loopEnd, channels, f.stream.encoding, vMajor, vMinor, vRevision);
             }
 
+            //Info.
+            b.info.originalLoopStart = f.stream.originalLoopStart;
+
             return b;
 
         }

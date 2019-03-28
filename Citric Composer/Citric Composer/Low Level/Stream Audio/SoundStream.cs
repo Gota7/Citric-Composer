@@ -574,6 +574,7 @@ namespace CitraFileLoader
             }
             else {
                 info.trackInfoTableRef = new Reference(0, Reference.NULL_PTR);
+                info.trackInfoRefTable = null;
             }
 
             //Channel info.
@@ -1022,6 +1023,11 @@ namespace CitraFileLoader
 
             }
 
+            //Nullify.
+            if (f.tracks.Count() >= 0) {
+                s.info.tracks = null;
+            }
+
             //Make regions. EXPERIMENTAL! Yell at me if this doesn't work.
             s.region = null;
             if (f.regions.Count > 0) {
@@ -1065,6 +1071,11 @@ namespace CitraFileLoader
                 }
 
             }
+
+            //Set info.
+            s.info.streamSoundInfo.originalLoopStart = f.stream.originalLoopStart;
+            s.info.streamSoundInfo.originalLoopEnd = f.stream.originalLoopEnd;
+            s.info.streamSoundInfo.secretInfo = f.stream.secretInfo;
 
             return s;
 

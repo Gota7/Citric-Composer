@@ -450,9 +450,6 @@ namespace CitraFileLoader {
             //Close Ex table.
             FileWriter.CloseReferenceTable(bw, "Ex");
 
-            //Align.
-            FileWriter.Align(bw, 0x20);
-
             //Close extra info block.
             FileWriter.CloseBlock(bw);
 

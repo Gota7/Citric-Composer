@@ -4,9 +4,7 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 
 # Downloads
-[Citric Composer (WIP)](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/Citric%20Composer/bin/Release/Citric%20Composer.zip?raw=true) - GUI editor for B_SARs. Currently WIP.
-
-[Citric Composer Installer](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/Citric%20Installer.msi?raw=true) - An installer for the current version of Citric Composer.
+[Citric Composer Installer](https://github.com/Gota7/Citric-Composer/blob/master/Citric%20Composer/Citric%20Installer.msi?raw=true) - An installer for the current version of Citric Composer, a WIP editor for B_SARs.
 
 [Retsuko Sound Tool (Extractor/Injector)](https://github.com/Gota7/Citric-Composer/blob/master/Retsuko%20Sound%20Tool/Retsuko%20Sound%20Tool/bin/Debug/Retsuko%20Sound%20Tool.zip?raw=true) - For extracting and re-injecting files in a bfsar, bcsar, whatever. Just make sure the new files you want to add are less than or equal to the original files' file size.
 
