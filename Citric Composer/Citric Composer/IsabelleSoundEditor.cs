@@ -149,6 +149,13 @@ namespace Citric_Composer
                     file = new FISP(b);
                     break;
 
+                //Binary wave.
+                case "bwav":
+                    BinaryWave a = new BinaryWave();
+                    a.Load(File.ReadAllBytes(fileToOpen));
+                    file = new FISP(a);
+                    break;
+
                 //Game stream.
                 case "fstm":
                 case "cstm":
