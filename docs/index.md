@@ -23,6 +23,8 @@ Here you can find some useful tools for editing WiiU and 3ds sound.
 
 [Waves (WAV):(bfwav, bcwav)](specs/wav.md) - Waves that are used to play music and SFX.
 
+[Binary Waves (BWAV):(bwav)](specs/binaryWav.md) - Waves that are used instead of streams in newer editions of the AAL library.
+
 # Credits
 Aqua-San, Tools, Structure Docs
 Nintendo, Structure Docs
