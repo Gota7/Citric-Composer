@@ -832,6 +832,34 @@ namespace CitraFileLoader
 
         }
 
+        /// <summary>
+        /// Create a RIFF wave from a binary wave.
+        /// </summary>
+        /// <param name="b">Binary wave.</param>
+        /// <returns>The binary wave.</returns>
+        public static RiffWave CreateRiffWave(BinaryWave b) {
+
+            RiffWave r = new RiffWave();
+            UInt16 bytesPerSample = 2;
+
+            //Non-looping.
+            if (!b.Loops) {
+
+                r = CreateRiffWave(b.SampleRate, bytesPerSample, b.Data.GetDataWAV(b.DspAdpcmInfo, b.LoopEndSample));
+
+            }
+
+            //Looping.
+            else {
+
+                r = CreateRiffWave(b.SampleRate, bytesPerSample, b.Data.GetDataWAV(b.DspAdpcmInfo, b.LoopEndSample), b.LoopStartSample, b.LoopEndSample);
+
+            }
+
+            return r;
+
+        }
+
 
         /// <summary>
         /// Make a RIFF Wave from a b_stm.
@@ -884,6 +912,30 @@ namespace CitraFileLoader
             //Looped.
             else {
                 r = RiffWaveFactory.CreateRiffWave(f.stream.sampleRate, 2, f.data.data.ToArray(), f.stream.loopStart, f.stream.loopEnd);
+            }
+
+            return r;
+
+        }
+
+        /// <summary>
+        /// Create a RIFF wave from a vibration.
+        /// </summary>
+        /// <param name="v">Vibration file.</param>
+        /// <returns>The RIFF wave as a vibration.</returns>
+        public static RiffWave CreateRiffWave(Vibration v) {
+
+            //New wave.
+            RiffWave r = new RiffWave();
+
+            //Not looped.
+            if (!v.Loops) {
+                r = RiffWaveFactory.CreateRiffWave(200, 1, EncoderFactory.SignedPcm8ToPcm8(new sbyte[][] { v.pcm8 }));
+            }
+
+            //Looped.
+            else {
+                r = RiffWaveFactory.CreateRiffWave(200, 1, EncoderFactory.SignedPcm8ToPcm8(new sbyte[][] { v.pcm8 }), v.LoopStart, v.LoopEnd);
             }
 
             return r;

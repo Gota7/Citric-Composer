@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -18,33 +19,44 @@ namespace Citric_Composer
         /// <summary>
         /// File open.
         /// </summary>
-        public bool fileOpen = false;
-
+        public bool FileOpen = false;
 
         /// <summary>
         /// File name.
         /// </summary>
-        public string fileName = "";
-
+        public string FilePath = "";
 
         /// <summary>
         /// The main file.
         /// </summary>
-        public SoundArchive file;
+        public SoundArchive File;
 
+        /// <summary>
+        /// When info is when.
+        /// </summary>
+        public bool InfoEditing;
+
+        /// <summary>
+        /// Citric path.
+        /// </summary>
+        public string CitricPath = Application.StartupPath;
 
         public MainWindow() {
             InitializeComponent();
+            noInfoPanel.Show();
+            noInfoPanel.BringToFront();
         }
 
         public MainWindow(string fileToOpen) {
             InitializeComponent();
 
             //Make a new file, and load it.
-            file = SoundArchiveReader.ReadSoundArchive(File.ReadAllBytes(fileToOpen));
-            fileOpen = true;
-            fileName = Path.GetFileName(fileToOpen);
-            Text = "Citric Composer - " + fileName;
+            File = SoundArchiveReader.ReadSoundArchive(fileToOpen);
+            FileOpen = true;
+            FilePath = fileToOpen;
+            Text = "Citric Composer - " + Path.GetFileName(fileToOpen);
+            noInfoPanel.Show();
+            noInfoPanel.BringToFront();
 
             //Fix things.
             UpdateNodes();
@@ -66,10 +78,10 @@ namespace Citric_Composer
             if (openB_sarBox.FileName != "") {
 
                 //Make a new file, and load it.
-                file = SoundArchiveReader.ReadSoundArchive(File.ReadAllBytes(openB_sarBox.FileName));
-                fileOpen = true;
-                fileName = Path.GetFileName(openB_sarBox.FileName);
-                Text = "Citric Composer - " + fileName;
+                File = SoundArchiveReader.ReadSoundArchive(openB_sarBox.FileName);
+                FileOpen = true;
+                FilePath = openB_sarBox.FileName;
+                Text = "Citric Composer - " + Path.GetFileName(openB_sarBox.FileName);
 
                 //Fix things.
                 openB_sarBox.FileName = "";
@@ -95,6 +107,13 @@ namespace Citric_Composer
             a.Show();
         }
 
+        private void solarAudioSlayerToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //Start audio slayer.
+            Process.Start("Solar Audio Slayer.exe");
+
+        }
+
         private void isabelleSoundEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Isabelle window.
@@ -117,34 +136,46 @@ namespace Citric_Composer
             a.Show();
         }
 
-        private void rolfsRescourceResearcherBARSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Rolf window.
-            Rolf_Rescource_Researcher r = new Rolf_Rescource_Researcher();
-            r.Show();
+        private void wolfangsWriterWSDToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //Wolfgang window.
+            Wolfgang_WSD_Writer w = new Wolfgang_WSD_Writer(this);
+            w.Show();
+
+        }
+
+        private void sSSSequencerSEQToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //Sequencer.
+            SSS_Sequencer s = new SSS_Sequencer(this);
+            s.Show();
+
         }
 
         #endregion
 
 
         //Info panel stuff.
-        #region infoPanelStuff
+        #region InfoPanelStuff
 
         /// <summary>
         /// Do the mario!
         /// </summary>
-        public void doInfoPanelStuff() {
+        public void DoInfoStuff() {
+
+            //Editing.
+            InfoEditing = true;
+
+            //Index.
+            int ind = tree.SelectedNode.Index;
 
             //Protect.
             if (tree.SelectedNode == null) {
                 tree.SelectedNode = tree.Nodes[0];
             }
 
-            //Hide all things.
-            hideAllThings();
-
             //If not null.
-            if (tree.SelectedNode != null && fileOpen) {
+            if (tree.SelectedNode != null && FileOpen) {
 
                 //Project info.
                 if (tree.Nodes["projectInfo"] == tree.SelectedNode) {
@@ -154,26 +185,427 @@ namespace Citric_Composer
                     projectInfoPanel.Show();
 
                     //Update boxes.
-                    maxSeqNumBox.Value = file.MaxSequences;
-                    maxSeqTrackNumBox.Value = file.MaxSequenceTracks;
-                    maxStreamNumBox.Value = file.MaxStreamSounds;
-                    maxStreamNumTracksBox.Value = file.MaxStreamTracks;
-                    maxStreamNumChannelsBox.Value = file.MaxStreamChannels;
-                    maxWaveNumBox.Value = file.MaxWaveSounds;
-                    maxWaveNumTracksBox.Value = file.MaxWaveTracks;
-                    streamBufferTimesBox.Value = file.StreamBufferTimes;
-                    optionsPIBox.Value = file.Options;
+                    maxSeqNumBox.Value = File.MaxSequences;
+                    maxSeqTrackNumBox.Value = File.MaxSequenceTracks;
+                    maxStreamNumBox.Value = File.MaxStreamSounds;
+                    maxStreamNumTracksBox.Value = File.MaxStreamTracks;
+                    maxStreamNumChannelsBox.Value = File.MaxStreamChannels;
+                    maxWaveNumBox.Value = File.MaxWaveSounds;
+                    maxWaveNumTracksBox.Value = File.MaxWaveTracks;
+                    streamBufferTimesBox.Value = File.StreamBufferTimes;
+                    optionsPIBox.Value = File.Options;
 
                 }
 
                 //Not null parents.
                 if (tree.SelectedNode.Parent != null) {
 
+                    //Parent of parent is not null.
+                    if (tree.SelectedNode.Parent.Parent != null) {
+
+                    }
+
                     //Sequences.
                     if (tree.Nodes["sequences"] == tree.SelectedNode.Parent) {
 
-                        fileIdPanel.BringToFront();
-                        fileIdPanel.Show();
+                        //Valid.
+                        if (File.Sequences[ind] != null) {
+
+                            //Show panel.
+                            ShowPanelWithFileInfo(seqPanel, File.Sequences[ind].File);
+
+                            //3d info enabled.
+                            if (File.Sequences[ind] != null) {
+                                seqSound3dInfoExists.Checked = seqEditSound3dInfoButton.Enabled = File.Sequences[ind].Sound3dInfo != null;
+                            }
+
+                            //Add bank items.
+                            seqBank0Box.Items.Clear();
+                            seqBank1Box.Items.Clear();
+                            seqBank2Box.Items.Clear();
+                            seqBank3Box.Items.Clear();
+                            seqBank0Box.Items.Add("{ Null Bank }");
+                            seqBank1Box.Items.Add("{ Null Bank }");
+                            seqBank2Box.Items.Add("{ Null Bank }");
+                            seqBank3Box.Items.Add("{ Null Bank }");
+                            int bnkCount = 0;
+                            foreach (BankEntry b in File.Banks) {
+
+                                //Add the bank.
+                                string bnkName = "{ Null Bank }";
+                                if (b != null) {
+
+                                    //Set name.
+                                    bnkName = "{ Unknown Bank Name }";
+
+                                    //Get name.
+                                    if (b.Name != null) {
+                                        bnkName = b.Name;
+                                    }
+
+                                }
+
+                                //Add banks.
+                                seqBank0Box.Items.Add("[" + bnkCount + "] " + bnkName);
+                                seqBank1Box.Items.Add("[" + bnkCount + "] " + bnkName);
+                                seqBank2Box.Items.Add("[" + bnkCount + "] " + bnkName);
+                                seqBank3Box.Items.Add("[" + bnkCount + "] " + bnkName);
+
+                                //Increment count.
+                                bnkCount++;
+
+                            }
+
+                            //Get banks.
+                            for (int i = 0; i < 4; i++) {
+
+                                //Bank index.
+                                int num = 0;
+                                if (File.Sequences[ind].Banks[i] != null) {
+                                    num = File.Banks.IndexOf(File.Sequences[ind].Banks[i]) + 1;
+                                }
+
+                                //Set.
+                                switch (i) {
+                                    case 0:
+                                        seqBank0Box.SelectedIndex = num;
+                                        break;
+                                    case 1:
+                                        seqBank1Box.SelectedIndex = num;
+                                        break;
+                                    case 2:
+                                        seqBank2Box.SelectedIndex = num;
+                                        break;
+                                    case 3:
+                                        seqBank3Box.SelectedIndex = num;
+                                        break;
+                                }
+
+                            }
+
+                            //Get start offset.
+                            seqOffsetFromLabelBox.Items.Clear();
+                            bool labelMatch = false;
+
+                            //File is real.
+                            if (File.Sequences[ind].File != null) {
+                                if (File.Sequences[ind].File.File != null) {
+
+                                    //Fill box.
+                                    int cnt = 0;
+                                    foreach (var e in (File.Sequences[ind].File.File as SoundSequence).Labels.Where(x => x != null)) {
+                                        seqOffsetFromLabelBox.Items.Add(e.Label);
+
+                                        //If offset matches.
+                                        if (File.Sequences[ind].StartOffset == e.Offset && !labelMatch) {
+                                            labelMatch = true;
+                                            seqOffsetFromLabelBox.SelectedIndex = cnt;
+                                        }
+
+                                        //Add count.
+                                        cnt++;
+
+                                    }
+
+                                }
+                            }
+
+                            //Set value.
+                            if (labelMatch) {
+                                seqOffsetManualBox.Enabled = false;
+                                seqOffsetManualBox.Value = 0;
+                                seqOffsetFromLabelBox.Enabled = seqOffsetFromLabelButton.Checked = true;
+                            } else {
+                                seqOffsetManualButton.Checked = seqOffsetManualBox.Enabled = true;
+                                seqOffsetFromLabelBox.Enabled = false;
+                                seqOffsetManualBox.Value = File.Sequences[ind].StartOffset;
+                            }
+
+                            //Channels.
+                            seqC0.Checked = File.Sequences[ind].ChannelFlagEnabled(0);
+                            seqC1.Checked = File.Sequences[ind].ChannelFlagEnabled(1);
+                            seqC2.Checked = File.Sequences[ind].ChannelFlagEnabled(2);
+                            seqC3.Checked = File.Sequences[ind].ChannelFlagEnabled(3);
+                            seqC4.Checked = File.Sequences[ind].ChannelFlagEnabled(4);
+                            seqC5.Checked = File.Sequences[ind].ChannelFlagEnabled(5);
+                            seqC6.Checked = File.Sequences[ind].ChannelFlagEnabled(6);
+                            seqC7.Checked = File.Sequences[ind].ChannelFlagEnabled(7);
+                            seqC8.Checked = File.Sequences[ind].ChannelFlagEnabled(8);
+                            seqC9.Checked = File.Sequences[ind].ChannelFlagEnabled(9);
+                            seqC10.Checked = File.Sequences[ind].ChannelFlagEnabled(10);
+                            seqC11.Checked = File.Sequences[ind].ChannelFlagEnabled(11);
+                            seqC12.Checked = File.Sequences[ind].ChannelFlagEnabled(12);
+                            seqC13.Checked = File.Sequences[ind].ChannelFlagEnabled(13);
+                            seqC14.Checked = File.Sequences[ind].ChannelFlagEnabled(14);
+                            seqC15.Checked = File.Sequences[ind].ChannelFlagEnabled(15);
+
+                            //Channel priority.
+                            seqChannelPriorityBox.Value = File.Sequences[ind].ChannelPriority;
+
+                            //Is priority release.
+                            seqIsReleasePriorityBox.Checked = File.Sequences[ind].IsReleasePriority;
+
+                        } else {
+                            nullinfoPanel.Show();
+                            nullinfoPanel.BringToFront();
+                        }
+
+                    }
+
+                    //Banks.
+                    else if (tree.Nodes["banks"] == tree.SelectedNode.Parent) {
+
+                        //Valid.
+                        if (File.Banks[ind] != null) {
+
+                            //Show panel.
+                            ShowPanelWithFileInfo(bankPanel, File.Banks[ind].File);
+
+                            //Show wave archives.
+                            bankWarDataGrid.Rows.Clear();
+                            ((DataGridViewComboBoxColumn)bankWarDataGrid.Columns[0]).Items.Clear();
+                            ((DataGridViewComboBoxColumn)bankWarDataGrid.Columns[0]).Items.Add("{ Null Wave Archive }");
+                            for (int i = 0; i < File.WaveArchives.Count; i++) {
+
+                                //Name of wave archive.
+                                string name = "{ Null Archive or Unknown Name }";
+                                try { name = File.WaveArchives[i].Name; } catch { }
+                                if (name == null) { name = "{ Null Archive or Unknown Name }"; }
+                                if (name.Equals("{ Null Archive or Unknown Name }")) { name = "{ Null Archive or Unknown Name }"; }
+
+                                //Add to list.
+                                ((DataGridViewComboBoxColumn)bankWarDataGrid.Columns[0]).Items.Add(i + " - " + name);
+
+                            }
+
+                            //Add selected wave archives.
+                            foreach (var e in File.Banks[ind].WaveArchives) {
+                                bankWarDataGrid.Rows.Add(new DataGridViewRow());
+                                int valNum = 0;
+                                if (e != null) {
+                                    valNum = File.WaveArchives.IndexOf(e) + 1;
+                                }
+                                var h = ((DataGridViewComboBoxCell)bankWarDataGrid.Rows[bankWarDataGrid.Rows.Count - 2].Cells[0]);
+                                h.Value = h.Items[valNum];
+                            }
+
+                        } else {
+                            nullinfoPanel.Show();
+                            nullinfoPanel.BringToFront();
+                        }
+
+                    }
+
+                    //Wave archives.
+                    else if (tree.Nodes["waveArchives"] == tree.SelectedNode.Parent) {
+
+                        //Valid.
+                        if (File.WaveArchives[ind] != null) {
+
+                            //Show panel.
+                            ShowPanelWithFileInfo(warInfoPanel, File.WaveArchives[ind].File);
+
+                            //Checkboxes.
+                            warLoadIndividuallyBox.Checked = File.WaveArchives[ind].LoadIndividually;
+                            warIncludeWaveCountBox.Checked = File.WaveArchives[ind].IncludeWaveCount;
+
+                        } else {
+                            nullinfoPanel.Show();
+                            nullinfoPanel.BringToFront();
+                        }
+
+                    }
+
+                    //Groups.
+                    else if (tree.Nodes["groups"] == tree.SelectedNode.Parent) {
+
+                        //Valid.
+                        if (File.Groups[ind] != null) {
+
+                            //Show panel.
+                            ShowPanelWithFileInfo(grpPanel, File.Groups[ind].File);
+
+                        } else {
+                            nullinfoPanel.Show();
+                            nullinfoPanel.BringToFront();
+                        }
+
+                    }
+
+                    //Players.
+                    else if (tree.Nodes["players"] == tree.SelectedNode.Parent) {
+
+                        //Valid.
+                        if (File.Players[ind] != null) {
+
+                            //Show panel.
+                            playerInfoPanel.Show();
+                            playerInfoPanel.BringToFront();
+
+                            //Checkboxes.
+                            playerSoundLimitBox.Value = File.Players[ind].SoundLimit;
+                            playerEnableSoundLimitBox.Checked = File.Players[ind].IncludeHeapSize;
+                            if (playerEnableSoundLimitBox.Checked) {
+                                playerHeapSizeBox.Value = File.Players[ind].PlayerHeapSize;
+                                playerHeapSizeBox.Enabled = true;
+                            } else {
+                                playerHeapSizeBox.Value = 0;
+                                playerHeapSizeBox.Enabled = false;
+                            }
+
+                        } else {
+                            nullinfoPanel.Show();
+                            nullinfoPanel.BringToFront();
+                        }
+
+                    }
+
+                    //Files.
+                    else if (tree.Nodes["files"] == tree.SelectedNode.Parent) {
+
+                        //Valid.
+                        if (File.Files[ind] != null) {
+
+                            //Show panel.
+                            fileInfoPanel.Show();
+                            fileInfoPanel.BringToFront();
+
+                            //Type.
+                            fileTypeBox.SelectedIndex = (int)File.Files[ind].FileType;
+
+                        } else {
+                            nullinfoPanel.Show();
+                            nullinfoPanel.BringToFront();
+                        }
+
+                    }
+
+                    //Other.
+                    else {
+
+                        //Show no info panel.
+                        noInfoPanel.Show();
+                        noInfoPanel.BringToFront();
+
+                    }
+
+                }
+
+                //Other.
+                else if (tree.Nodes["projectInfo"] != tree.SelectedNode) {
+
+                    //Show no info panel.
+                    noInfoPanel.Show();
+                    noInfoPanel.BringToFront();
+
+                }
+
+            }
+
+            //Other.
+            else {
+
+                //Show no info panel.
+                noInfoPanel.Show();
+                noInfoPanel.BringToFront();
+
+            }
+
+            //End editing.
+            InfoEditing = false;
+
+        }
+
+        /// <summary>
+        /// Show panel with file info.
+        /// </summary>
+        /// <param name="p">The panel.</param>
+        /// <param name="file">File to use.</param>
+        public void ShowPanelWithFileInfo(Panel p, SoundFile<ISoundFile> file) {
+
+            //Do stuff.
+            p.Show();
+            fileIdPanel.Show();
+            mainPanel.Controls.Clear();
+            mainPanel.Controls.Add(fileIdPanel);
+            mainPanel.Controls[0].Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            p.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            mainPanel.Controls.Add(p);
+            var h = mainPanel.Controls[1].Location;
+            h.Y = mainPanel.Controls[0].Location.Y + mainPanel.Controls[0].Height;
+            mainPanel.Controls[1].Location = h;
+            mainPanel.Show();
+            mainPanel.BringToFront();
+
+            //Add files.
+            fileIdBox.Items.Clear();
+            fileIdBox.Items.Add("{ Null File }");
+            for (int i = 0; i < File.Files.Count; i++) {
+                string name = "{ Null File or Unknown Name }";
+                try {
+                    name = File.Files[i].FileName + "." + File.Files[i].FileExtension;
+                } catch { }
+                fileIdBox.Items.Add(i + " - " + name);
+            }
+            if (file == null) {
+                fileIdBox.SelectedIndex = 0;
+            } else {
+                fileIdBox.SelectedIndex = File.Files.IndexOf(file.Reference) + 1;
+            }
+
+        }
+
+        /// <summary>
+        /// File id changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void fileIdBox_SelectedIndexChanged(object sender, EventArgs e) {
+
+            //Make sure possible.
+            if (FileOpen && tree.SelectedNode != null && !InfoEditing) {
+
+                //Parent is not null.
+                if (tree.SelectedNode.Parent != null) {
+
+                    //Parent of parent is null.
+                    if (tree.SelectedNode.Parent.Parent == null) {
+
+                        //New file.
+                        SoundFile<ISoundFile> refFile = null;
+                        int ind = fileIdBox.SelectedIndex;
+                        if (ind != 0) {
+                            refFile = new SoundFile<ISoundFile>() { Reference = File.Files[ind - 1] };
+                        }
+
+                        //Set ref file.
+                        switch (tree.SelectedNode.Parent.Name) {
+
+                            case "streams":
+                                File.Streams[tree.SelectedNode.Index].File = refFile;
+                                break;
+
+                            case "waveSoundSets":
+                                File.WaveSoundDatas[tree.SelectedNode.Index].File = refFile;
+                                break;
+
+                            case "sequences":
+                                File.Sequences[tree.SelectedNode.Index].File = refFile;
+                                break;
+
+                            case "banks":
+                                File.Banks[tree.SelectedNode.Index].File = refFile;
+                                break;
+
+                            case "waveArchives":
+                                File.WaveArchives[tree.SelectedNode.Index].File = refFile;
+                                break;
+
+                            case "groups":
+                                File.Groups[tree.SelectedNode.Index].File = refFile;
+                                break;
+
+                        }
 
                     }
 
@@ -184,17 +616,109 @@ namespace Citric_Composer
         }
 
         /// <summary>
-        /// Hide all panels when needed.
+        /// Bank grid cell changed.
         /// </summary>
-        public void hideAllThings() {
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BankWarGridCellChanged(object sender, EventArgs e) {
 
-            //Hide panels.
-            projectInfoPanel.Hide();
-            fileIdPanel.Hide();
+            if (!InfoEditing && FileOpen) {
 
-            //Show no info.
-            noInfoPanel.BringToFront();
-            noInfoPanel.Show();
+                File.Banks[tree.SelectedNode.Index].WaveArchives = new List<WaveArchiveEntry>();
+                for (int i = 1; i < bankWarDataGrid.Rows.Count; i++) {
+                    int ind = ((DataGridViewComboBoxCell)bankWarDataGrid.Rows[i - 1].Cells[0]).Items.IndexOf(((DataGridViewComboBoxCell)bankWarDataGrid.Rows[i - 1].Cells[0]).Value);
+                    if (ind == 0) {
+                        File.Banks[tree.SelectedNode.Index].WaveArchives.Add(null);
+                    } else {
+                        File.Banks[tree.SelectedNode.Index].WaveArchives.Add(File.WaveArchives[ind-1]);
+                    }
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// War flag changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void warLoadIndividuallyBox_CheckedChanged(object sender, EventArgs e) {
+
+            if (!InfoEditing && FileOpen) {
+                File.WaveArchives[tree.SelectedNode.Index].LoadIndividually = warLoadIndividuallyBox.Checked;
+            }
+
+        }
+
+        /// <summary>
+        /// War flag changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void warIncludeWaveCountBox_CheckedChanged(object sender, EventArgs e) {
+
+            if (!InfoEditing && FileOpen) {
+                File.WaveArchives[tree.SelectedNode.Index].IncludeWaveCount = warIncludeWaveCountBox.Checked;
+            }
+
+        }
+
+        /// <summary>
+        /// Player sound limit changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void playerSoundLimitBox_ValueChanged(object sender, EventArgs e) {
+
+            if (!InfoEditing && FileOpen) {
+                File.Players[tree.SelectedNode.Index].SoundLimit = (int)playerSoundLimitBox.Value;
+            }
+
+        }
+
+        /// <summary>
+        /// Player enable sound heap.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void playerEnableSoundLimitBox_CheckedChanged(object sender, EventArgs e) {
+
+            if (!InfoEditing && FileOpen) {
+                File.Players[tree.SelectedNode.Index].IncludeHeapSize = playerHeapSizeBox.Enabled = playerEnableSoundLimitBox.Checked;
+                if (!playerHeapSizeBox.Enabled) {
+                    playerHeapSizeBox.Value = 0;
+                } else {
+                    playerHeapSizeBox.Value = File.Players[tree.SelectedNode.Index].PlayerHeapSize;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Player heap size box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void playerHeapSizeBox_ValueChanged(object sender, EventArgs e) {
+
+            if (!InfoEditing && FileOpen && playerHeapSizeBox.Enabled) {
+                File.Players[tree.SelectedNode.Index].PlayerHeapSize = (int)playerHeapSizeBox.Value;
+            }
+
+        }
+
+        /// <summary>
+        /// Change file type.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void fileTypeBox_SelectedIndexChanged(object sender, EventArgs e) {
+
+            if (!InfoEditing && FileOpen) {
+                File.Files[tree.SelectedNode.Index].FileType = (EFileType)fileTypeBox.SelectedIndex;
+                UpdateNodes();
+            }
 
         }
 
@@ -219,8 +743,6 @@ namespace Citric_Composer
                 node.Expand(); // this is root 
             }
 
-
-
         }
 
         //Make right click actually select, and show infoViewer.
@@ -237,7 +759,7 @@ namespace Citric_Composer
                 tree.SelectedNode = tree.GetNodeAt(e.X, e.Y);
             }
 
-            doInfoPanelStuff();
+            DoInfoStuff();
 
         }
 
@@ -253,7 +775,7 @@ namespace Citric_Composer
             }
 
             //Do info stuff.
-            doInfoPanelStuff();
+            DoInfoStuff();
 
             //Open the item if possible.
             if (tree.SelectedNode.Parent != null) {
@@ -265,10 +787,10 @@ namespace Citric_Composer
                 if (tree.SelectedNode.Parent == tree.Nodes["waveArchives"]) {
 
                     //Open the wave archive file.
-                    if (file.WaveArchives[tree.SelectedNode.Index].File != null) {
+                    if (File.WaveArchives[tree.SelectedNode.Index].File != null) {
 
                         //Open the wave archive.
-                        b = new Brewster_WAR_Brewer(file.WaveArchives[tree.SelectedNode.Index].File, this);
+                        b = new Brewster_WAR_Brewer(File.WaveArchives[tree.SelectedNode.Index].File, this);
 
                     } else {
 
@@ -283,10 +805,10 @@ namespace Citric_Composer
                 else if (tree.SelectedNode.Parent == tree.Nodes["streams"]) {
 
                     //Open the file.
-                    if (file.Streams[tree.SelectedNode.Index].File != null) {
+                    if (File.Streams[tree.SelectedNode.Index].File != null) {
 
                         //Internal.
-                        if (file.Streams[tree.SelectedNode.Index].File.FileType != EFileType.External) {
+                        if (File.Streams[tree.SelectedNode.Index].File.FileType != EFileType.External) {
 
                             //Wut.
                             MessageBox.Show("Do to the nature of Isabelle, you have to open internal streams through the files folder.", "Notice:");
@@ -294,7 +816,7 @@ namespace Citric_Composer
                         } else {
 
                             //Open isabelle.
-                            IsabelleSoundEditor i = new IsabelleSoundEditor(file.Streams[tree.SelectedNode.Index].File.ExternalFileName);
+                            IsabelleSoundEditor i = new IsabelleSoundEditor(Path.GetDirectoryName(FilePath) + "/" + File.Streams[tree.SelectedNode.Index].File.ExternalFileName);
                             i.Show();
 
                         }
@@ -312,10 +834,46 @@ namespace Citric_Composer
                 else if (tree.SelectedNode.Parent == tree.Nodes["groups"]) {
 
                     //Open the file.
-                    if (file.Groups[tree.SelectedNode.Index].File != null) {
+                    if (File.Groups[tree.SelectedNode.Index].File != null) {
 
                         //Open it.
-                        b = new Goldi_GRP_Grouper(file.Groups[tree.SelectedNode.Index].File, this);
+                        b = new Goldi_GRP_Grouper(File.Groups[tree.SelectedNode.Index].File, this);
+
+                    } else {
+
+                        //No file able to open.
+                        MessageBox.Show("You can't open a file for an entry that does not have a file attached!", "Notice:");
+
+                    }
+
+                }
+
+                //Parent is the wave sound data.
+                else if (tree.SelectedNode.Parent == tree.Nodes["waveSoundSets"]) {
+
+                    //Open the file.
+                    if (File.WaveSoundDatas[tree.SelectedNode.Index].File != null) {
+
+                        //Open it.
+                        b = new Wolfgang_WSD_Writer(File.WaveSoundDatas[tree.SelectedNode.Index].File, this);
+
+                    } else {
+
+                        //No file able to open.
+                        MessageBox.Show("You can't open a file for an entry that does not have a file attached!", "Notice:");
+
+                    }
+
+                }
+
+                //Parent is the sequence.
+                else if (tree.SelectedNode.Parent == tree.Nodes["sequences"]) {
+
+                    //Open the file.
+                    if (File.Sequences[tree.SelectedNode.Index].File != null) {
+
+                        //Open it.
+                        b = new SSS_Sequencer(File.Sequences[tree.SelectedNode.Index].File, this);
 
                     } else {
 
@@ -330,36 +888,46 @@ namespace Citric_Composer
                 else if (tree.SelectedNode.Parent == tree.Nodes["files"]) {
 
                     //Make sure file is not null.
-                    if (file.Files[tree.SelectedNode.Index] != null) {
+                    if (File.Files[tree.SelectedNode.Index] != null) {
 
                         //Get the extension.
-                        switch (file.Files[tree.SelectedNode.Index].FileExtension.Substring(file.Files[tree.SelectedNode.Index].FileExtension.Length - 3, 3).ToLower()) {
+                        switch (File.Files[tree.SelectedNode.Index].FileExtension.Substring(File.Files[tree.SelectedNode.Index].FileExtension.Length - 3, 3).ToLower()) {
 
                             //Wave archive.
                             case "war":
-                                b = new Brewster_WAR_Brewer(file.Files[tree.SelectedNode.Index], this);
+                                b = new Brewster_WAR_Brewer(File.Files[tree.SelectedNode.Index], this);
+                                break;
+
+                            //Sequence.
+                            case "seq":
+                                b = new SSS_Sequencer(File.Files[tree.SelectedNode.Index], this);
                                 break;
 
                             //Group.
                             case "grp":
-                                b = new Goldi_GRP_Grouper(file.Files[tree.SelectedNode.Index], this);
+                                b = new Goldi_GRP_Grouper(File.Files[tree.SelectedNode.Index], this);
+                                break;
+
+                            //Wave sound data.
+                            case "wsd":
+                                b = new Wolfgang_WSD_Writer(File.Files[tree.SelectedNode.Index], this);
                                 break;
 
                             //Steam.
                             case "stm":
 
                                 //Internal.
-                                if (file.Files[tree.SelectedNode.Index].FileType != EFileType.External) {
+                                if (File.Files[tree.SelectedNode.Index].FileType != EFileType.External) {
 
                                     //Valid.
-                                    if (file.Files[tree.SelectedNode.Index].File != null) {
+                                    if (File.Files[tree.SelectedNode.Index].File != null) {
 
                                         //Open STM.
-                                        string name = file.Files[tree.SelectedNode.Index].FileName;
+                                        string name = File.Files[tree.SelectedNode.Index].FileName;
                                         if (name == null) {
                                             name = "{ Null File Name }";
                                         }
-                                        IsabelleSoundEditor i = new IsabelleSoundEditor(this, tree.SelectedNode.Index, name + file.Files[tree.SelectedNode.Index].FileExtension, false);
+                                        IsabelleSoundEditor i = new IsabelleSoundEditor(this, tree.SelectedNode.Index, name + File.Files[tree.SelectedNode.Index].FileExtension, false);
                                         i.Show();
 
                                     }
@@ -367,7 +935,7 @@ namespace Citric_Composer
                                 } else {
 
                                     //Open isabelle.
-                                    IsabelleSoundEditor i = new IsabelleSoundEditor(file.Files[tree.SelectedNode.Index].ExternalFileName);
+                                    IsabelleSoundEditor i = new IsabelleSoundEditor(Path.GetDirectoryName(FilePath) + "/" + File.Files[tree.SelectedNode.Index].ExternalFileName);
                                     i.Show();
                                     break;
 
@@ -397,7 +965,7 @@ namespace Citric_Composer
         void treeArrowKey(object sender, KeyEventArgs e)
         {
 
-            doInfoPanelStuff();
+            DoInfoStuff();
 
         }
 
@@ -480,7 +1048,7 @@ namespace Citric_Composer
 
             //Load streams.
             int stmCount = 0;
-            foreach (var s in file.Streams) {
+            foreach (var s in File.Streams) {
 
                 //Null.
                 if (s == null) {
@@ -503,7 +1071,7 @@ namespace Citric_Composer
 
             //Load wave sound infos.
             int wsdCount = stmCount;
-            foreach (var w in file.WaveSoundDatas) {
+            foreach (var w in File.WaveSoundDatas) {
 
                 //Null.
                 if (w == null) {
@@ -526,7 +1094,7 @@ namespace Citric_Composer
 
             //Load sequences.
             int seqCount = wsdCount;
-            foreach (var s in file.Sequences) {
+            foreach (var s in File.Sequences) {
 
                 //Null.
                 if (s == null) {
@@ -549,7 +1117,7 @@ namespace Citric_Composer
 
             //Load banks.
             int bCount = 0;
-            foreach (var b in file.Banks) {
+            foreach (var b in File.Banks) {
 
                 //Null.
                 if (b == null) {
@@ -572,7 +1140,7 @@ namespace Citric_Composer
 
             //Load players.
             int pCount = 0;
-            foreach (var p in file.Players) {
+            foreach (var p in File.Players) {
 
                 //Null.
                 if (p == null) {
@@ -595,7 +1163,7 @@ namespace Citric_Composer
 
             //Load groups.
             int gCount = 0;
-            foreach (var g in file.Groups) {
+            foreach (var g in File.Groups) {
 
                 //Null.
                 if (g == null) {
@@ -618,7 +1186,7 @@ namespace Citric_Composer
 
             //Load wave archives.
             int wCount = 0;
-            foreach (var w in file.WaveArchives) {
+            foreach (var w in File.WaveArchives) {
 
                 //Null.
                 if (w == null) {
@@ -641,7 +1209,7 @@ namespace Citric_Composer
 
             //Load sound groups.
             int sCount = 0;
-            foreach (var s in file.SoundSets) {
+            foreach (var s in File.SoundSets) {
 
                 //Null.
                 if (s == null) {
@@ -683,10 +1251,10 @@ namespace Citric_Composer
 
                             case SoundType.Sound:
                                 key = "stream";
-                                if (i >= file.Streams.Count) {
+                                if (i >= File.Streams.Count) {
                                     key = "waveSoundSets";
                                 }
-                                if (i >= file.Streams.Count + file.WaveSoundDatas.Count) {
+                                if (i >= File.Streams.Count + File.WaveSoundDatas.Count) {
                                     key = "sequences";
                                 }
                                 break;
@@ -710,12 +1278,12 @@ namespace Citric_Composer
                         } else if (key.Equals("waveSoundSets")) {
 
                             //Add wave sound set.
-                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, tree.Nodes[key].Nodes[i - file.Streams.Count].Text, tree.Nodes[key].ImageIndex, tree.Nodes[key].SelectedImageIndex);
+                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, tree.Nodes[key].Nodes[i - File.Streams.Count].Text, tree.Nodes[key].ImageIndex, tree.Nodes[key].SelectedImageIndex);
 
                         } else if (key.Equals("sequences")) {
 
                             //Add sequence file.
-                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, tree.Nodes[key].Nodes[i - file.Streams.Count - file.WaveSoundDatas.Count].Text, tree.Nodes[key].ImageIndex, tree.Nodes[key].SelectedImageIndex);
+                            tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].Nodes.Add("entry" + i, tree.Nodes[key].Nodes[i - File.Streams.Count - File.WaveSoundDatas.Count].Text, tree.Nodes[key].ImageIndex, tree.Nodes[key].SelectedImageIndex);
 
                         } else {
 
@@ -735,7 +1303,7 @@ namespace Citric_Composer
 
             //Load files.
             int fCount = 0;
-            foreach (var f in file.Files)
+            foreach (var f in File.Files)
             {
 
                 //Null.
@@ -778,7 +1346,7 @@ namespace Citric_Composer
                                 break;
 
                             case "stp":
-                                icon = 1;
+                                icon = 9;
                                 break;
 
                             case "grp":
@@ -798,6 +1366,10 @@ namespace Citric_Composer
 
                         case EFileType.NullReference:
                             type = "(Null Reference)";
+                            break;
+
+                        case EFileType.Aras:
+                            type = "(Inside Aras File)";
                             break;
 
                     }
@@ -832,23 +1404,240 @@ namespace Citric_Composer
 
         }
 
+        //Tools and menus.
+        #region ToolsAndMenus
 
         /// <summary>
-        /// Extract to a folder. MAKE THIS WORK IN THE FUTURE!
+        /// Extract to a folder.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void exportToFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            //File open test.
+            if (!FileTest(sender, e, false, true)) {
+                return;
+            }
+
             folderSelector.SelectedPath = "";
             folderSelector.ShowDialog();
 
             if (folderSelector.SelectedPath != null) {
-                //file.Extract(folderSelector.SelectedPath, file.fileHeader.byteOrder);
+                SoundArchiveWriter.WriteSoundArchiveToFolder(File, Path.GetDirectoryName(FilePath), folderSelector.SelectedPath);
             }
 
         }
+
+        /// <summary>
+        /// Import from a folder.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void importFromFolderToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //File open test.
+            if (!FileTest(sender, e, false, true)) {
+                return;
+            }
+
+            folderSelector.SelectedPath = "";
+            folderSelector.ShowDialog();
+
+            if (folderSelector.SelectedPath != null) {
+                SoundArchiveReader.ImportSoundArchiveFromFolder(File, Path.GetDirectoryName(FilePath), folderSelector.SelectedPath);
+            }
+
+        }
+
+        /// <summary>
+        /// Export the symbol map.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exportSymbolMapToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //File open test.
+            if (!FileTest(sender, e, false, true)) {
+                return;
+            }
+
+            SaveFileDialog o = new SaveFileDialog();
+            o.Filter = "Symbol Map|*.txt";
+            o.RestoreDirectory = true;
+            o.ShowDialog();
+
+            if (o.FileName != "") {
+                SoundArchiveWriter.ExportSymbols(File, o.FileName);
+            }
+
+        }
+
+        /// <summary>
+        /// Import a symbol map.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void importSymbolMapToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //File open test.
+            if (!FileTest(sender, e, false, true)) {
+                return;
+            }
+
+            OpenFileDialog o = new OpenFileDialog();
+            o.Filter = "Symbol Map|*.txt";
+            o.RestoreDirectory = true;
+            o.ShowDialog();
+
+            if (o.FileName != "") {
+                SoundArchiveReader.ImportSymbols(File, o.FileName);
+            }
+
+            //Update.
+            UpdateNodes();
+
+        }
+
+        /// <summary>
+        /// Save the file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //File open test.
+            if (!FileTest(sender, e, false, true)) {
+                return;
+            }
+
+            //No where to save.
+            if (FilePath == "") {
+
+                //Save as.
+                saveAsToolStripMenuItem_Click(sender, e);
+
+                //Return.
+                return;
+
+            }
+
+            //Save the file.
+            //SoundArchiveWriter.WriteSoundArchive(File, Path.GetDirectoryName(FilePath), FilePath);
+            MessageBox.Show("Saving has been disabled due to instability to protect your files. Please click the help button to join Gota's Sound Tools server to get a dev build that may support saving for your game.");
+
+        }
+
+        /// <summary>
+        /// Save the file as something.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            //File open test.
+            if (!FileTest(sender, e, false, true)) {
+                return;
+            }
+
+            //Get the save file name.
+            string path = GetFileSaverPath("Sound Archive", "sar");
+
+            //If the path is valid.
+            if (path != "") {
+
+                //Set values.
+                FilePath = path;
+                Text = "Citric Composer - " + Path.GetFileName(path);
+
+                //Save the file.
+                saveToolStripMenuItem_Click(sender, e);
+
+            }
+
+        }
+
+        /// <summary>
+        /// Get the path for saving a file.
+        /// </summary>
+        /// <param name="description">File description.</param>
+        /// <param name="extension">File extension.</param>
+        /// <returns>Path of the file to save.</returns>
+        public string GetFileSaverPath(string description, string extension) {
+
+            //Set filer.
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "";
+            if (extension.ToLower().Equals("sar")) {
+                saveFileDialog.Filter = "Sound Archive|*.bfsar;*.bcsar";
+            } else {
+                saveFileDialog.Filter = description + "|*.bf" + extension.ToLower();
+            }
+            saveFileDialog.ShowDialog();
+
+            //Set write mode.
+            if (saveFileDialog.FileName != "") {
+
+                //Fix extension.
+                if (Path.GetExtension(saveFileDialog.FileName) == "") {
+                    saveFileDialog.FileName += ".bf" + extension.ToLower();
+                }
+
+            }
+
+            //Return the file name.
+            return saveFileDialog.FileName;
+
+        }
+
+        /// <summary>
+        /// Returns true if the user wants to continue.
+        /// </summary>
+        public bool FileTest(object sender, EventArgs e, bool save, bool forceOpen = false) {
+
+            //File is open.
+            if (FileOpen) {
+
+                //Ask user if they want to save.
+                if (save) {
+
+                    SaveCloseDialog c = new SaveCloseDialog();
+                    switch (c.getValue()) {
+
+                        //Save.
+                        case 0:
+                            saveToolStripMenuItem_Click(sender, e);
+                            return true;
+
+                        //No button.
+                        case 1:
+                            return true;
+
+                        //Cancel.
+                        default:
+                            return false;
+
+                    }
+
+                }
+
+                //Passed test.
+                return true;
+
+            } else {
+
+                if (forceOpen) {
+                    MessageBox.Show("There must be a file open to do this!", "Notice:");
+                    return false;
+                } else {
+                    return true;
+                }
+
+            }
+
+        }
+
+        #endregion
 
     }
 }

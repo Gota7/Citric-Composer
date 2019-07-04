@@ -30,6 +30,7 @@ namespace CitraFileLoader {
             PlayerPriority = s.PlayerPriority;
             IsFrontBypass = s.IsFrontBypass;
             UserParameter = s.UserParameter;
+            UserParamsEnabled = s.UserParamsEnabled;
 
         }
 

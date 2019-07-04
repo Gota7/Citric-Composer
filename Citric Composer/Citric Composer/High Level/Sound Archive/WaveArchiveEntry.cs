@@ -22,6 +22,11 @@ namespace CitraFileLoader {
         public bool LoadIndividually;
 
         /// <summary>
+        /// Include the wave count.
+        /// </summary>
+        public bool IncludeWaveCount;
+
+        /// <summary>
         /// Sound wave archive file.
         /// </summary>
         public SoundFile<ISoundFile> File;

@@ -111,6 +111,11 @@ namespace CitraFileLoader {
         /// </summary>
         public FileWriter.Version Version;
 
+        /// <summary>
+        /// Whether or not to include the names.
+        /// </summary>
+        public bool CreateStrings;
+
     }
 
 }

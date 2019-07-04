@@ -224,6 +224,31 @@ namespace CitraFileLoader
 
         }
 
+        /// <summary>
+        /// New data block.
+        /// </summary>
+        /// <param name="br">The reader.</param>
+        /// <param name="channelStartOffsets">Start offsets.</param>
+        public SoundNStreamDataBlock(BinaryDataReader br, uint[] channelStartOffsets) {
+
+            //Make new data array.
+            dspAdpcm = new byte[channelStartOffsets.Length][];
+
+            //Get length.
+            int length = (int)(br.BaseStream.Length - channelStartOffsets[dspAdpcm.Count() - 1]);
+
+            //Read channels.
+            for (int i = 0; i < dspAdpcm.Count(); i++) {
+
+                //Set postion.
+                br.Position = channelStartOffsets[i];
+
+                //Read data.
+                dspAdpcm[i] = br.ReadBytes(length);
+
+            }
+
+        }
 
         /// <summary>
         /// Read a soundN'Stream block from a b_wav.
@@ -379,6 +404,18 @@ namespace CitraFileLoader
 
         }
 
+        /// <summary>
+        /// Get data from a binary wave.
+        /// </summary>
+        /// <param name="info">Dsp-ADPCM info.</param>
+        /// <returns></returns>
+        public object GetDataWAV(DspAdpcmInfo[] info, uint loopEnd) {
+
+            //Get the data.
+            return EncoderFactory.DspApcmToPcm16(dspAdpcm, loopEnd, info);
+
+        }
+
 
         /// <summary>
         /// Get data from a b_stm.
@@ -419,10 +456,10 @@ namespace CitraFileLoader
         /// Get the size of the data block.
         /// </summary>
         /// <returns></returns>
-        public UInt32 GetSize(byte encoding, ref b_wav.InfoBlock wavInfo)
+        public UInt32 GetSize(byte encoding, ref b_wav.InfoBlock wavInfo, Int32 paddingAmount = 0x20)
         {
 
-            UInt32 size = 0x20;
+            UInt32 size = (uint)paddingAmount;
 
             switch (encoding)
             {
@@ -430,7 +467,7 @@ namespace CitraFileLoader
                 case EncodingTypes.PCM8:
                     size += (UInt32)(pcm8.Length * pcm8[0].Length);
                     int padd0 = pcm8[0].Length;
-                    while ((padd0) % 0x20 != 0)
+                    while ((padd0) % paddingAmount != 0)
                     {
                         padd0 += 1;
                     }
@@ -441,7 +478,7 @@ namespace CitraFileLoader
                 case EncodingTypes.PCM16:
                     size += (UInt32)(pcm16.Length * pcm16[0].Length * 2);
                     int padd1 = pcm16[0].Length * 2;
-                    while ((padd1) % 0x20 != 0)
+                    while ((padd1) % paddingAmount != 0)
                     {
                         padd1 += 1;
                     }
@@ -452,7 +489,7 @@ namespace CitraFileLoader
                 case EncodingTypes.DSP_ADPCM:
                     size += (UInt32)(dspAdpcm.Length * dspAdpcm[0].Length);
                     int padd2 = dspAdpcm[0].Length;
-                    while ((padd2) % 0x20 != 0)
+                    while ((padd2) % paddingAmount != 0)
                     {
                         padd2 += 1;
                     }
@@ -467,9 +504,9 @@ namespace CitraFileLoader
             if (wavInfo != null)
             {
 
-                Int32 wavOffset = 0x18;
                 wavInfo.channelInfoRefTable = new ReferenceTable(new List<Reference>());
                 wavInfo.channelInfoRefTable.count = (UInt32)wavInfo.channelInfo.Count();
+                int wavOffset = paddingAmount - 8;
                 switch (encoding)
                 {
 
@@ -482,7 +519,7 @@ namespace CitraFileLoader
                             //New reference.
                             wavInfo.channelInfo[i].samplesRef = new Reference(ReferenceTypes.General, wavOffset);
                             wavOffset += pcm8[i].Length;
-                            while ((wavOffset + 8) % 0x20 != 0)
+                            while (wavOffset % paddingAmount != 0)
                             {
                                 wavOffset += 1;
                             }
@@ -500,7 +537,7 @@ namespace CitraFileLoader
                             //New reference.
                             wavInfo.channelInfo[i].samplesRef = new Reference(ReferenceTypes.General, wavOffset);
                             wavOffset += pcm16[i].Length * 2;
-                            while ((wavOffset + 8) % 0x20 != 0)
+                            while ((wavOffset + 8) % paddingAmount != 0)
                             {
                                 wavOffset += 1;
                             }
@@ -518,7 +555,7 @@ namespace CitraFileLoader
                             //New reference.
                             wavInfo.channelInfo[i].samplesRef = new Reference(ReferenceTypes.General, wavOffset);
                             wavOffset += dspAdpcm[i].Length;
-                            while ((wavOffset + 8) % 0x20 != 0)
+                            while ((wavOffset + 8) % paddingAmount != 0)
                             {
                                 wavOffset += 1;
                             }
@@ -594,12 +631,12 @@ namespace CitraFileLoader
         /// </summary>
         /// <param name="bw">The writer.</param>
         /// <param name="wavInfo"></param>
-        public void WriteWAV(ref BinaryDataWriter bw, b_wav.InfoBlock wavInfo)
+        public void WriteWAV(ref BinaryDataWriter bw, b_wav.InfoBlock wavInfo, Int32 paddingAmount = 0x20)
         {
 
             bw.Write("DATA".ToCharArray());
-            bw.Write(GetSize(wavInfo.encoding, ref wavInfo));
-            bw.Write(new byte[0x18]);
+            bw.Write(GetSize(wavInfo.encoding, ref wavInfo, paddingAmount));
+            bw.Write(new byte[paddingAmount - 8]);
 
             //Write data.
             for (int i = 0; i < wavInfo.channelInfo.Count(); i++)
@@ -631,7 +668,7 @@ namespace CitraFileLoader
                 //Padding.
                 if (i != wavInfo.channelInfo.Count() - 1)
                 {
-                    while ((bw.Position % 0x20) != 0)
+                    while ((bw.Position % paddingAmount) != 0)
                     {
                         bw.Write((byte)0);
                     }

@@ -13,6 +13,11 @@ namespace CitraFileLoader {
     public class Wave : ISoundFile {
 
         /// <summary>
+        /// Name of the wave file.
+        /// </summary>
+        public string Name;
+
+        /// <summary>
         /// Actual wave.
         /// </summary>
         public b_wav Wav;

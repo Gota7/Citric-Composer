@@ -30,6 +30,7 @@ namespace CitraFileLoader {
             PlayerPriority = s.PlayerPriority;
             IsFrontBypass = s.IsFrontBypass;
             UserParameter = s.UserParameter;
+            UserParamsEnabled = s.UserParamsEnabled;
 
         }
 
@@ -83,7 +84,7 @@ namespace CitraFileLoader {
         /// <summary>
         /// Banks to use. 4 available.
         /// </summary>
-        public int[] Banks;
+        public BankEntry[] Banks;
 
         /// <summary>
         /// Start offset.

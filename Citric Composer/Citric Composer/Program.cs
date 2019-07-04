@@ -18,6 +18,17 @@ namespace Citric_Composer
         static void Main(string[] args)
         {
 
+            //SoundArchive a = SoundArchiveReader.ReadSoundArchive("BigRedSound.bcsar");
+            //SoundArchiveWriter.WriteSoundArchive(a, "", "BigRedSoundOUT.bcsar");
+
+            //SoundSequence s = new SoundSequence();
+            //s = (SoundSequence)SoundArchiveReader.ReadFile(File.ReadAllBytes("credit.bfseq"));
+            //File.WriteAllBytes("creditBAD.bfseq", SoundArchiveWriter.WriteFile(s));
+
+            //Vibration v = new Vibration();
+            //v.Load(File.ReadAllBytes("bonus.bnvib"));
+            //File.WriteAllBytes("OUT.wav", RiffWaveFactory.CreateRiffWave(v).ToBytes());
+
             //Application set up.
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -49,9 +60,19 @@ namespace Citric_Composer
                             e = new Brewster_WAR_Brewer(args[0], null);
                             break;
 
+                        //Sequence editor.
+                        case "seq":
+                            e = new SSS_Sequencer(args[0], null);
+                            break;
+
                         //Group editor.
                         case "grp":
                             e = new Goldi_GRP_Grouper(args[0], null);
+                            break;
+
+                        //Wave sound data editor.
+                        case "wsd":
+                            e = new Wolfgang_WSD_Writer(args[0], null);
                             break;
 
                         //Isabelle.

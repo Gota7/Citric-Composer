@@ -26,7 +26,7 @@ namespace CitraFileLoader {
         /// <summary>
         /// Wave archives.
         /// </summary>
-        public List<int> WaveArchives;
+        public List<WaveArchiveEntry> WaveArchives;
 
         /// <summary>
         /// Bank file.

@@ -962,6 +962,18 @@ namespace CitraFileLoader
 
         }
 
+        /// <summary>
+        /// Create a stream from a binary wave.
+        /// </summary>
+        /// <param name="b">The binary wave.</param>
+        /// <param name="version">Version of the output stream.</param>
+        /// <returns></returns>
+        public static b_stm CreateStream(BinaryWave b, byte vMajor, byte vMinor, byte vRevision) {
+
+            //Simple hack, but doesn't hurt optimization since SEEK must be recreated anyway.
+            return CreateStream(RiffWaveFactory.CreateRiffWave(b), true, vMajor, vMinor, vRevision);
+
+        }
 
         /// <summary>
         /// Create a wave from a FISP.
@@ -1024,7 +1036,7 @@ namespace CitraFileLoader
             }
 
             //Nullify.
-            if (f.tracks.Count() >= 0) {
+            if (f.tracks.Count() <= 0) {
                 s.info.tracks = null;
             }
 

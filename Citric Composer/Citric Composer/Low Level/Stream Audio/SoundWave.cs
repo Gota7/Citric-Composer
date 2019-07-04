@@ -231,13 +231,13 @@ namespace CitraFileLoader
         /// <summary>
         /// Update the file.
         /// </summary>
-        public void Update(UInt16 byteOrder)
+        public void Update(UInt16 byteOrder, Int32 wavOffset = 0x18)
         {
 
             //Find the size.
             UInt32 fileSize = 0;
             UInt32 infoSize = 32;
-            UInt32 dataSize = data.GetSize(info.encoding, ref info);
+            UInt32 dataSize = data.GetSize(info.encoding, ref info, wavOffset);
             fileSize += dataSize;
 
             //Get size of info.
@@ -309,11 +309,11 @@ namespace CitraFileLoader
         /// Convert the file to bytes.
         /// </summary>
         /// <returns></returns>
-        public byte[] ToBytes(UInt16 byteOrder, bool forceFwav = false)
+        public byte[] ToBytes(UInt16 byteOrder, bool forceFwav = false, Int32 paddingAmount = 0x20)
         {
 
             //Update file.
-            Update(byteOrder);
+            Update(byteOrder, paddingAmount);
             if (forceFwav) { fileHeader.magic = "FWAV".ToCharArray(); }
 
             //New stream.
@@ -381,7 +381,7 @@ namespace CitraFileLoader
             }
 
             //Write data block.
-            data.WriteWAV(ref bw, info);
+            data.WriteWAV(ref bw, info, paddingAmount);
 
             //Return file.
             return o.ToArray();
@@ -535,6 +535,42 @@ namespace CitraFileLoader
                     b = CreateWave(r.fmt.sampleRate, (UInt32)r.data.channels[0].pcm16.Count(), pcm16.ToArray(), encoding, vMajor, vMinor, vRevision, r.smpl.loops[0].startSample);
                 }
             }
+
+            return b;
+
+        }
+
+
+        /// <summary>
+        /// Create a wave from a binary wave.
+        /// </summary>
+        /// <param name="w">The binary wave.</param>
+        /// <param name="version">Version of the file.</param>
+        /// <returns></returns>
+        public static b_wav CreateWave(BinaryWave w, byte vMajor, byte vMinor, byte vRevision) {
+
+            b_wav b = new b_wav();
+            b.fileHeader = new FileHeader("FWAV", ByteOrder.BigEndian, vMajor, vMinor, vRevision, 0, new List<SizedReference>());
+            b.data = w.Data;
+
+            b.info = new b_wav.InfoBlock();
+            b.info.sampleRate = w.SampleRate;
+            b.info.originalLoopStart = w.LoopStartSample;
+            b.info.loopStart = w.LoopStartSample;
+            b.info.loopEnd = w.LoopEndSample;
+            b.info.isLoop = w.Loops;
+            b.info.encoding = 2;
+
+            b.info.channelInfo = new List<b_wav.InfoBlock.ChannelInfo>();
+            foreach (DspAdpcmInfo d in w.DspAdpcmInfo) {
+
+                b_wav.InfoBlock.ChannelInfo i = new b_wav.InfoBlock.ChannelInfo();
+                i.dspAdpcmInfo = d;
+                b.info.channelInfo.Add(i);
+
+            }
+
+            b.Update(ByteOrder.BigEndian);
 
             return b;
 

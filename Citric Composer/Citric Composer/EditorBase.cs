@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ScintillaNET;
 
 namespace Citric_Composer {
 
@@ -77,7 +78,7 @@ namespace Citric_Composer {
 
 
         /// <summary>
-        /// Constructur.
+        /// Constructor.
         /// </summary>
         /// <param name="fileType">Type of file.</param>
         /// <param name="extensionDescription">Description of the extension.</param>
@@ -117,7 +118,7 @@ namespace Citric_Composer {
         }
 
         /// <summary>
-        /// Constructur.
+        /// Constructor.
         /// </summary>
         /// <param name="fileType">Type of file.</param>
         /// <param name="extensionDescription">Description of the extension.</param>
@@ -167,7 +168,7 @@ namespace Citric_Composer {
         }
 
         /// <summary>
-        /// Constructur.
+        /// Constructor.
         /// </summary>
         /// <param name="fileType">Type of file.</param>
         /// <param name="extensionDescription">Description of the extension.</param>
@@ -335,6 +336,13 @@ namespace Citric_Composer {
         public NumericUpDown grpDepEntryNumBox;
         private Label label17;
         public ComboBox grpDepLoadFlagsBox;
+        public RadioButton soundPlayerDeluxePlayNextBox;
+        public RadioButton soundPlayerDeluxePlayLoopBox;
+        public RadioButton soundPlayerDeluxePlayOnceBox;
+        private TableLayoutPanel soundDeluxeTrack3;
+        public Panel sequenceEditorPanel;
+        public Scintilla sequenceEditor;
+        private BindingSource bindingSource1;
 
         public void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
@@ -360,6 +368,17 @@ namespace Citric_Composer {
             this.batchExtractSwitchWavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.soundPlayerDeluxePanel = new System.Windows.Forms.Panel();
+            this.soundDeluxeTrack3 = new System.Windows.Forms.TableLayoutPanel();
+            this.soundPlayerDeluxePlayNextBox = new System.Windows.Forms.RadioButton();
+            this.soundPlayerDeluxePlayLoopBox = new System.Windows.Forms.RadioButton();
+            this.soundPlayerDeluxePlayOnceBox = new System.Windows.Forms.RadioButton();
+            this.soundDeluxeTrack2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pauseSoundTrack = new System.Windows.Forms.Button();
+            this.stopSoundTrack = new System.Windows.Forms.Button();
+            this.soundDeluxeTrack1 = new System.Windows.Forms.TableLayoutPanel();
+            this.playSoundTrack = new System.Windows.Forms.Button();
+            this.soundPlayerDeluxeLabel = new System.Windows.Forms.Label();
             this.grpDependencyPanel = new System.Windows.Forms.Panel();
             this.grpDepLoadFlagsBox = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -430,13 +449,6 @@ namespace Citric_Composer {
             this.label3 = new System.Windows.Forms.Label();
             this.nullDataPanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.soundPlayerDeluxePanel = new System.Windows.Forms.Panel();
-            this.soundDeluxeTrack2 = new System.Windows.Forms.TableLayoutPanel();
-            this.pauseSoundTrack = new System.Windows.Forms.Button();
-            this.stopSoundTrack = new System.Windows.Forms.Button();
-            this.soundDeluxeTrack1 = new System.Windows.Forms.TableLayoutPanel();
-            this.playSoundTrack = new System.Windows.Forms.Button();
-            this.soundPlayerDeluxeLabel = new System.Windows.Forms.Label();
             this.nullFilePanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.noInfoPanel = new System.Windows.Forms.Panel();
@@ -462,11 +474,18 @@ namespace Citric_Composer {
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.nullifyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.sequenceEditorPanel = new System.Windows.Forms.Panel();
+            this.sequenceEditor = new ScintillaNET.Scintilla();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.soundPlayerDeluxePanel.SuspendLayout();
+            this.soundDeluxeTrack3.SuspendLayout();
+            this.soundDeluxeTrack2.SuspendLayout();
+            this.soundDeluxeTrack1.SuspendLayout();
             this.grpDependencyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpDepEntryNumBox)).BeginInit();
             this.grpFilePanel.SuspendLayout();
@@ -511,14 +530,13 @@ namespace Citric_Composer {
             ((System.ComponentModel.ISupportInitialize)(this.vMinBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vMajBox)).BeginInit();
             this.nullDataPanel.SuspendLayout();
-            this.soundPlayerDeluxePanel.SuspendLayout();
-            this.soundDeluxeTrack2.SuspendLayout();
-            this.soundDeluxeTrack1.SuspendLayout();
             this.nullFilePanel.SuspendLayout();
             this.noInfoPanel.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.rootMenu.SuspendLayout();
             this.nodeMenu.SuspendLayout();
+            this.sequenceEditorPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -699,22 +717,160 @@ namespace Citric_Composer {
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.soundPlayerDeluxePanel);
             this.splitContainer1.Panel1.Controls.Add(this.grpDependencyPanel);
             this.splitContainer1.Panel1.Controls.Add(this.grpFilePanel);
             this.splitContainer1.Panel1.Controls.Add(this.grpFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.warFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.genericFileInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.nullDataPanel);
-            this.splitContainer1.Panel1.Controls.Add(this.soundPlayerDeluxePanel);
             this.splitContainer1.Panel1.Controls.Add(this.nullFilePanel);
             this.splitContainer1.Panel1.Controls.Add(this.noInfoPanel);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.sequenceEditorPanel);
             this.splitContainer1.Panel2.Controls.Add(this.tree);
             this.splitContainer1.Size = new System.Drawing.Size(917, 474);
             this.splitContainer1.SplitterDistance = 305;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // soundPlayerDeluxePanel
+            // 
+            this.soundPlayerDeluxePanel.Controls.Add(this.soundDeluxeTrack3);
+            this.soundPlayerDeluxePanel.Controls.Add(this.soundDeluxeTrack2);
+            this.soundPlayerDeluxePanel.Controls.Add(this.soundDeluxeTrack1);
+            this.soundPlayerDeluxePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.soundPlayerDeluxePanel.Location = new System.Drawing.Point(0, 0);
+            this.soundPlayerDeluxePanel.Name = "soundPlayerDeluxePanel";
+            this.soundPlayerDeluxePanel.Size = new System.Drawing.Size(303, 472);
+            this.soundPlayerDeluxePanel.TabIndex = 4;
+            this.soundPlayerDeluxePanel.Visible = false;
+            // 
+            // soundDeluxeTrack3
+            // 
+            this.soundDeluxeTrack3.ColumnCount = 3;
+            this.soundDeluxeTrack3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.soundDeluxeTrack3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.soundDeluxeTrack3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.soundDeluxeTrack3.Controls.Add(this.soundPlayerDeluxePlayNextBox, 2, 0);
+            this.soundDeluxeTrack3.Controls.Add(this.soundPlayerDeluxePlayLoopBox, 1, 0);
+            this.soundDeluxeTrack3.Controls.Add(this.soundPlayerDeluxePlayOnceBox, 0, 0);
+            this.soundDeluxeTrack3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.soundDeluxeTrack3.Location = new System.Drawing.Point(0, 89);
+            this.soundDeluxeTrack3.Name = "soundDeluxeTrack3";
+            this.soundDeluxeTrack3.RowCount = 1;
+            this.soundDeluxeTrack3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.soundDeluxeTrack3.Size = new System.Drawing.Size(303, 30);
+            this.soundDeluxeTrack3.TabIndex = 12;
+            // 
+            // soundPlayerDeluxePlayNextBox
+            // 
+            this.soundPlayerDeluxePlayNextBox.AutoSize = true;
+            this.soundPlayerDeluxePlayNextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.soundPlayerDeluxePlayNextBox.Location = new System.Drawing.Point(205, 3);
+            this.soundPlayerDeluxePlayNextBox.Name = "soundPlayerDeluxePlayNextBox";
+            this.soundPlayerDeluxePlayNextBox.Size = new System.Drawing.Size(95, 24);
+            this.soundPlayerDeluxePlayNextBox.TabIndex = 2;
+            this.soundPlayerDeluxePlayNextBox.Text = "Play Next";
+            this.soundPlayerDeluxePlayNextBox.UseVisualStyleBackColor = true;
+            // 
+            // soundPlayerDeluxePlayLoopBox
+            // 
+            this.soundPlayerDeluxePlayLoopBox.AutoSize = true;
+            this.soundPlayerDeluxePlayLoopBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.soundPlayerDeluxePlayLoopBox.Location = new System.Drawing.Point(104, 3);
+            this.soundPlayerDeluxePlayLoopBox.Name = "soundPlayerDeluxePlayLoopBox";
+            this.soundPlayerDeluxePlayLoopBox.Size = new System.Drawing.Size(95, 24);
+            this.soundPlayerDeluxePlayLoopBox.TabIndex = 1;
+            this.soundPlayerDeluxePlayLoopBox.Text = "Play Loop";
+            this.soundPlayerDeluxePlayLoopBox.UseVisualStyleBackColor = true;
+            // 
+            // soundPlayerDeluxePlayOnceBox
+            // 
+            this.soundPlayerDeluxePlayOnceBox.AutoSize = true;
+            this.soundPlayerDeluxePlayOnceBox.Checked = true;
+            this.soundPlayerDeluxePlayOnceBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.soundPlayerDeluxePlayOnceBox.Location = new System.Drawing.Point(3, 3);
+            this.soundPlayerDeluxePlayOnceBox.Name = "soundPlayerDeluxePlayOnceBox";
+            this.soundPlayerDeluxePlayOnceBox.Size = new System.Drawing.Size(95, 24);
+            this.soundPlayerDeluxePlayOnceBox.TabIndex = 0;
+            this.soundPlayerDeluxePlayOnceBox.TabStop = true;
+            this.soundPlayerDeluxePlayOnceBox.Text = "Play Once";
+            this.soundPlayerDeluxePlayOnceBox.UseVisualStyleBackColor = true;
+            // 
+            // soundDeluxeTrack2
+            // 
+            this.soundDeluxeTrack2.ColumnCount = 2;
+            this.soundDeluxeTrack2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.soundDeluxeTrack2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.soundDeluxeTrack2.Controls.Add(this.pauseSoundTrack, 0, 0);
+            this.soundDeluxeTrack2.Controls.Add(this.stopSoundTrack, 1, 0);
+            this.soundDeluxeTrack2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.soundDeluxeTrack2.Location = new System.Drawing.Point(0, 59);
+            this.soundDeluxeTrack2.Name = "soundDeluxeTrack2";
+            this.soundDeluxeTrack2.RowCount = 1;
+            this.soundDeluxeTrack2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.soundDeluxeTrack2.Size = new System.Drawing.Size(303, 30);
+            this.soundDeluxeTrack2.TabIndex = 9;
+            // 
+            // pauseSoundTrack
+            // 
+            this.pauseSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pauseSoundTrack.Location = new System.Drawing.Point(3, 3);
+            this.pauseSoundTrack.Name = "pauseSoundTrack";
+            this.pauseSoundTrack.Size = new System.Drawing.Size(145, 24);
+            this.pauseSoundTrack.TabIndex = 0;
+            this.pauseSoundTrack.Text = "Pause";
+            this.pauseSoundTrack.UseVisualStyleBackColor = true;
+            this.pauseSoundTrack.Click += new System.EventHandler(this.pauseSoundTrack_Click);
+            // 
+            // stopSoundTrack
+            // 
+            this.stopSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stopSoundTrack.Location = new System.Drawing.Point(154, 3);
+            this.stopSoundTrack.Name = "stopSoundTrack";
+            this.stopSoundTrack.Size = new System.Drawing.Size(146, 24);
+            this.stopSoundTrack.TabIndex = 1;
+            this.stopSoundTrack.Text = "Stop";
+            this.stopSoundTrack.UseVisualStyleBackColor = true;
+            this.stopSoundTrack.Click += new System.EventHandler(this.stopSoundTrack_Click);
+            // 
+            // soundDeluxeTrack1
+            // 
+            this.soundDeluxeTrack1.ColumnCount = 1;
+            this.soundDeluxeTrack1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.soundDeluxeTrack1.Controls.Add(this.playSoundTrack, 0, 1);
+            this.soundDeluxeTrack1.Controls.Add(this.soundPlayerDeluxeLabel, 0, 0);
+            this.soundDeluxeTrack1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.soundDeluxeTrack1.Location = new System.Drawing.Point(0, 0);
+            this.soundDeluxeTrack1.Name = "soundDeluxeTrack1";
+            this.soundDeluxeTrack1.RowCount = 2;
+            this.soundDeluxeTrack1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.soundDeluxeTrack1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.soundDeluxeTrack1.Size = new System.Drawing.Size(303, 59);
+            this.soundDeluxeTrack1.TabIndex = 11;
+            // 
+            // playSoundTrack
+            // 
+            this.playSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playSoundTrack.Location = new System.Drawing.Point(3, 32);
+            this.playSoundTrack.Name = "playSoundTrack";
+            this.playSoundTrack.Size = new System.Drawing.Size(297, 24);
+            this.playSoundTrack.TabIndex = 10;
+            this.playSoundTrack.Text = "Play";
+            this.playSoundTrack.UseVisualStyleBackColor = true;
+            this.playSoundTrack.Click += new System.EventHandler(this.playSoundTrack_Click);
+            // 
+            // soundPlayerDeluxeLabel
+            // 
+            this.soundPlayerDeluxeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.soundPlayerDeluxeLabel.Location = new System.Drawing.Point(3, 0);
+            this.soundPlayerDeluxeLabel.Name = "soundPlayerDeluxeLabel";
+            this.soundPlayerDeluxeLabel.Size = new System.Drawing.Size(297, 29);
+            this.soundPlayerDeluxeLabel.TabIndex = 11;
+            this.soundPlayerDeluxeLabel.Text = "Sound Player Deluxe™";
+            this.soundPlayerDeluxeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // grpDependencyPanel
             // 
@@ -1711,90 +1867,6 @@ namespace Citric_Composer {
     "o create the data.";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // soundPlayerDeluxePanel
-            // 
-            this.soundPlayerDeluxePanel.Controls.Add(this.soundDeluxeTrack2);
-            this.soundPlayerDeluxePanel.Controls.Add(this.soundDeluxeTrack1);
-            this.soundPlayerDeluxePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.soundPlayerDeluxePanel.Location = new System.Drawing.Point(0, 0);
-            this.soundPlayerDeluxePanel.Name = "soundPlayerDeluxePanel";
-            this.soundPlayerDeluxePanel.Size = new System.Drawing.Size(303, 472);
-            this.soundPlayerDeluxePanel.TabIndex = 4;
-            this.soundPlayerDeluxePanel.Visible = false;
-            // 
-            // soundDeluxeTrack2
-            // 
-            this.soundDeluxeTrack2.ColumnCount = 2;
-            this.soundDeluxeTrack2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack2.Controls.Add(this.pauseSoundTrack, 0, 0);
-            this.soundDeluxeTrack2.Controls.Add(this.stopSoundTrack, 1, 0);
-            this.soundDeluxeTrack2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.soundDeluxeTrack2.Location = new System.Drawing.Point(0, 59);
-            this.soundDeluxeTrack2.Name = "soundDeluxeTrack2";
-            this.soundDeluxeTrack2.RowCount = 1;
-            this.soundDeluxeTrack2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack2.Size = new System.Drawing.Size(303, 30);
-            this.soundDeluxeTrack2.TabIndex = 9;
-            // 
-            // pauseSoundTrack
-            // 
-            this.pauseSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pauseSoundTrack.Location = new System.Drawing.Point(3, 3);
-            this.pauseSoundTrack.Name = "pauseSoundTrack";
-            this.pauseSoundTrack.Size = new System.Drawing.Size(145, 24);
-            this.pauseSoundTrack.TabIndex = 0;
-            this.pauseSoundTrack.Text = "Pause";
-            this.pauseSoundTrack.UseVisualStyleBackColor = true;
-            this.pauseSoundTrack.Click += new System.EventHandler(this.pauseSoundTrack_Click);
-            // 
-            // stopSoundTrack
-            // 
-            this.stopSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.stopSoundTrack.Location = new System.Drawing.Point(154, 3);
-            this.stopSoundTrack.Name = "stopSoundTrack";
-            this.stopSoundTrack.Size = new System.Drawing.Size(146, 24);
-            this.stopSoundTrack.TabIndex = 1;
-            this.stopSoundTrack.Text = "Stop";
-            this.stopSoundTrack.UseVisualStyleBackColor = true;
-            this.stopSoundTrack.Click += new System.EventHandler(this.stopSoundTrack_Click);
-            // 
-            // soundDeluxeTrack1
-            // 
-            this.soundDeluxeTrack1.ColumnCount = 1;
-            this.soundDeluxeTrack1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack1.Controls.Add(this.playSoundTrack, 0, 1);
-            this.soundDeluxeTrack1.Controls.Add(this.soundPlayerDeluxeLabel, 0, 0);
-            this.soundDeluxeTrack1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.soundDeluxeTrack1.Location = new System.Drawing.Point(0, 0);
-            this.soundDeluxeTrack1.Name = "soundDeluxeTrack1";
-            this.soundDeluxeTrack1.RowCount = 2;
-            this.soundDeluxeTrack1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.soundDeluxeTrack1.Size = new System.Drawing.Size(303, 59);
-            this.soundDeluxeTrack1.TabIndex = 11;
-            // 
-            // playSoundTrack
-            // 
-            this.playSoundTrack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.playSoundTrack.Location = new System.Drawing.Point(3, 32);
-            this.playSoundTrack.Name = "playSoundTrack";
-            this.playSoundTrack.Size = new System.Drawing.Size(297, 24);
-            this.playSoundTrack.TabIndex = 10;
-            this.playSoundTrack.Text = "Play";
-            this.playSoundTrack.UseVisualStyleBackColor = true;
-            this.playSoundTrack.Click += new System.EventHandler(this.playSoundTrack_Click);
-            // 
-            // soundPlayerDeluxeLabel
-            // 
-            this.soundPlayerDeluxeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.soundPlayerDeluxeLabel.Location = new System.Drawing.Point(3, 0);
-            this.soundPlayerDeluxeLabel.Name = "soundPlayerDeluxeLabel";
-            this.soundPlayerDeluxeLabel.Size = new System.Drawing.Size(297, 29);
-            this.soundPlayerDeluxeLabel.TabIndex = 11;
-            this.soundPlayerDeluxeLabel.Text = "Sound Player Deluxe™";
-            this.soundPlayerDeluxeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // nullFilePanel
             // 
             this.nullFilePanel.Controls.Add(this.label2);
@@ -2014,6 +2086,24 @@ namespace Citric_Composer {
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
+            // sequenceEditorPanel
+            // 
+            this.sequenceEditorPanel.Controls.Add(this.sequenceEditor);
+            this.sequenceEditorPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sequenceEditorPanel.Location = new System.Drawing.Point(0, 0);
+            this.sequenceEditorPanel.Name = "sequenceEditorPanel";
+            this.sequenceEditorPanel.Size = new System.Drawing.Size(606, 472);
+            this.sequenceEditorPanel.TabIndex = 3;
+            this.sequenceEditorPanel.Visible = false;
+            // 
+            // sequenceEditor
+            // 
+            this.sequenceEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sequenceEditor.Location = new System.Drawing.Point(0, 0);
+            this.sequenceEditor.Name = "sequenceEditor";
+            this.sequenceEditor.Size = new System.Drawing.Size(606, 472);
+            this.sequenceEditor.TabIndex = 0;
+            // 
             // EditorBase
             // 
             this.ClientSize = new System.Drawing.Size(917, 520);
@@ -2029,6 +2119,11 @@ namespace Citric_Composer {
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.soundPlayerDeluxePanel.ResumeLayout(false);
+            this.soundDeluxeTrack3.ResumeLayout(false);
+            this.soundDeluxeTrack3.PerformLayout();
+            this.soundDeluxeTrack2.ResumeLayout(false);
+            this.soundDeluxeTrack1.ResumeLayout(false);
             this.grpDependencyPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpDepEntryNumBox)).EndInit();
             this.grpFilePanel.ResumeLayout(false);
@@ -2073,15 +2168,14 @@ namespace Citric_Composer {
             ((System.ComponentModel.ISupportInitialize)(this.vMinBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vMajBox)).EndInit();
             this.nullDataPanel.ResumeLayout(false);
-            this.soundPlayerDeluxePanel.ResumeLayout(false);
-            this.soundDeluxeTrack2.ResumeLayout(false);
-            this.soundDeluxeTrack1.ResumeLayout(false);
             this.nullFilePanel.ResumeLayout(false);
             this.noInfoPanel.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.rootMenu.ResumeLayout(false);
             this.nodeMenu.ResumeLayout(false);
+            this.sequenceEditorPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2408,7 +2502,7 @@ namespace Citric_Composer {
                 //Update the main window.
                 if (MainWindow != null) {
                     MainWindow.UpdateNodes();
-                    MainWindow.doInfoPanelStuff();
+                    MainWindow.DoInfoStuff();
                 }
                 if (OtherEditor != null) {
                     OtherEditor.UpdateNodes();

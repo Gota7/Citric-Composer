@@ -203,6 +203,27 @@ namespace CitraFileLoader {
         }
         private EFileType m_fileType;
 
+        /// <summary>
+        /// Aras file.
+        /// </summary>
+        public SeadArchive Aras {
+            get {
+                if (Reference == null) {
+                    return m_aras;
+                } else {
+                    return Reference.Aras;
+                }
+            }
+            set {
+                if (Reference != null) {
+                    Reference.Aras = value;
+                } else {
+                    m_aras = value;
+                }
+            }
+        }
+        private SeadArchive m_aras;
+
     }
 
     /// <summary>
@@ -223,7 +244,10 @@ namespace CitraFileLoader {
         InGroupOnly,
 
         //When a group defines a file entry that is null in the b_sar.
-        NullReference
+        NullReference,
+
+        //When the file is to be written as an ARAS file.
+        Aras
 
     }
 

@@ -52,6 +52,11 @@ namespace CitraFileLoader {
         public byte DopplerFactor;
 
         /// <summary>
+        /// Unknown flag.
+        /// </summary>
+        public bool UnknownFlag;
+
+        /// <summary>
         /// Attenuation curve.
         /// </summary>
         public enum EAttenuationCurve {

@@ -167,94 +167,101 @@ namespace CitraFileLoader {
             //Close file block.
             FileReader.CloseBlock(br);
 
-            //Open extended info block.
-            FileReader.OpenBlock(br, 2);
-
-            //Open the table.
-            FileReader.OpenReferenceTable(br, "Ex");
-
-            //Reach each extra info entry.
+            //New extra info.
             ExtraInfo = new List<InfoExEntry>();
-            for (int i = 0; i < FileReader.ReferenceTableCount("Ex"); i++) {
 
-                //Entry is null.
-                if (FileReader.ReferenceTableReferenceIsNull(i, "Ex")) {
-                    ExtraInfo.Add(null);
-                }
+            //Only open EX block if version is bigger than one.
+            if (Version > new FileWriter.Version(1, 0, 0)) {
 
-                //Entry exist.
-                else {
+                //Open extended info block.
+                FileReader.OpenBlock(br, 2);
 
-                    //Read data.
-                    Id id = new Id(ref br);
-                    UInt32 flags = br.ReadUInt32();
+                //Open the table.
+                FileReader.OpenReferenceTable(br, "Ex");
 
-                    //New entry.
-                    InfoExEntry e = new InfoExEntry();
-                    e.ItemIndex = (int)id.index;
+                //Reach each extra info entry.
+                for (int i = 0; i < FileReader.ReferenceTableCount("Ex"); i++) {
 
-                    //Type.
-                    switch (id.type) {
+                    //Entry is null.
+                    if (FileReader.ReferenceTableReferenceIsNull(i, "Ex")) {
+                        ExtraInfo.Add(null);
+                    }
 
-                        //Sound.
-                        case SoundTypes.Sound:
-                            e.ItemType = InfoExEntry.EItemType.Sequence;
-                            break;
+                    //Entry exist.
+                    else {
 
-                        //Seq sound set or wave data.
-                        case SoundTypes.SoundGroup:
-                            e.ItemType = InfoExEntry.EItemType.SequenceSetOrWaveData;
-                            break;
+                        //Read data.
+                        Id id = new Id(ref br);
+                        UInt32 flags = br.ReadUInt32();
 
-                        //Bank.
-                        case SoundTypes.Bank:
-                            e.ItemType = InfoExEntry.EItemType.Bank;
-                            break;
+                        //New entry.
+                        InfoExEntry e = new InfoExEntry();
+                        e.ItemIndex = (int)id.index;
 
-                        //Wave archive.
-                        case SoundTypes.WaveArchive:
-                            e.ItemType = InfoExEntry.EItemType.WaveArchive;
-                            break;
+                        //Type.
+                        switch (id.type) {
+
+                            //Sound.
+                            case SoundTypes.Sound:
+                                e.ItemType = InfoExEntry.EItemType.Sequence;
+                                break;
+
+                            //Seq sound set or wave data.
+                            case SoundTypes.SoundGroup:
+                                e.ItemType = InfoExEntry.EItemType.SequenceSetOrWaveData;
+                                break;
+
+                            //Bank.
+                            case SoundTypes.Bank:
+                                e.ItemType = InfoExEntry.EItemType.Bank;
+                                break;
+
+                            //Wave archive.
+                            case SoundTypes.WaveArchive:
+                                e.ItemType = InfoExEntry.EItemType.WaveArchive;
+                                break;
+
+                        }
+
+                        //Find flags.
+                        bool seq = (flags & 0b1) > 0;
+                        bool wsd = (flags & 0b10) > 0;
+                        bool bnk = (flags & 0b100) > 0;
+                        bool war = (flags & 0b1000) > 0;
+
+                        //Test for flags.
+                        if (flags == 0xFFFFFFFF) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.All;
+                        } else if (seq && bnk) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.SeqAndBank;
+                        } else if (seq && war) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.SeqAndWarc;
+                        } else if (bnk && war) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.BankAndWarc;
+                        } else if (seq) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.Seq;
+                        } else if (bnk) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.Bank;
+                        } else if (wsd) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.Wsd;
+                        } else if (war) {
+                            e.LoadFlags = InfoExEntry.ELoadFlags.Warc;
+                        }
+
+                        //Add entry.
+                        ExtraInfo.Add(e);
 
                     }
 
-                    //Find flags.
-                    bool seq = (flags & 0b1) > 0;
-                    bool wsd = (flags & 0b10) > 0;
-                    bool bnk = (flags & 0b100) > 0;
-                    bool war = (flags & 0b1000) > 0;
-
-                    //Test for flags.
-                    if (flags == 0xFFFFFFFF) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.All;
-                    } else if (seq && bnk) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.SeqAndBank;
-                    } else if (seq && war) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.SeqAndWarc;
-                    } else if (bnk && war) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.BankAndWarc;
-                    } else if (seq) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.Seq;
-                    } else if (bnk) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.Bank;
-                    } else if (wsd) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.Wsd;
-                    } else if (war) {
-                        e.LoadFlags = InfoExEntry.ELoadFlags.Warc;
-                    }
-
-                    //Add entry.
-                    ExtraInfo.Add(e);
-
                 }
+
+                //Close the table.
+                FileReader.CloseReferenceTable("Ex");
+
+                //Close extended info block.
+                FileReader.CloseBlock(br);
 
             }
-
-            //Close the table.
-            FileReader.CloseReferenceTable("Ex");
-
-            //Close extended info block.
-            FileReader.CloseBlock(br);
 
             //Close file.
             FileReader.CloseFile(br);
@@ -273,7 +280,7 @@ namespace CitraFileLoader {
 
             //Init file.
             FileWriter FileWriter = new FileWriter();
-            FileWriter.InitFile(bw, writeMode, "GRP", 3, Version);
+            FileWriter.InitFile(bw, writeMode, "GRP", Version > new FileWriter.Version(1, 0, 0) ? 3 : 2, Version);
 
             //Info block.
             FileWriter.InitBlock(bw, ReferenceTypes.GRP_Block_Info, "INFO");
@@ -355,103 +362,108 @@ namespace CitraFileLoader {
             //Close file block.
             FileWriter.CloseBlock(bw);
 
-            //Extra info block.
-            FileWriter.InitBlock(bw, ReferenceTypes.GRP_Block_Infx, "INFX");
+            //Extra info exists if the version is greater than one.
+            if (Version > new FileWriter.Version(1, 0, 0)) {
 
-            //Ex table.
-            FileWriter.InitReferenceTable(bw, ExtraInfo.Count, "Ex");
+                //Extra info block.
+                FileWriter.InitBlock(bw, ReferenceTypes.GRP_Block_Infx, "INFX");
 
-            //Write each info entry.
-            for (int i = 0; i < ExtraInfo.Count; i++) {
+                //Ex table.
+                FileWriter.InitReferenceTable(bw, ExtraInfo.Count, "Ex");
 
-                //Null.
-                if (ExtraInfo[i] == null) {
-                    FileWriter.AddReferenceTableNullReference("Ex");
-                }
+                //Write each info entry.
+                for (int i = 0; i < ExtraInfo.Count; i++) {
 
-                //Not null.
-                else {
+                    //Null.
+                    if (ExtraInfo[i] == null) {
+                        FileWriter.AddReferenceTableNullReference("Ex");
+                    }
 
-                    //Add reference.
-                    FileWriter.AddReferenceTableReference(bw, ReferenceTypes.GRP_Infx_Item, "Ex");
+                    //Not null.
+                    else {
 
-                    //Write the data.
-                    InfoExEntry e = ExtraInfo[i];
-                    UInt32 flags = 0;
-                    switch (e.LoadFlags) {
+                        //Add reference.
+                        FileWriter.AddReferenceTableReference(bw, ReferenceTypes.GRP_Infx_Item, "Ex");
 
-                        case InfoExEntry.ELoadFlags.All:
-                            flags = 0xFFFFFFFF;
-                            break;
+                        //Write the data.
+                        InfoExEntry e = ExtraInfo[i];
+                        UInt32 flags = 0;
+                        switch (e.LoadFlags) {
 
-                        case InfoExEntry.ELoadFlags.Bank:
-                            flags = 0b100;
-                            break;
+                            case InfoExEntry.ELoadFlags.All:
+                                flags = 0xFFFFFFFF;
+                                break;
 
-                        case InfoExEntry.ELoadFlags.BankAndWarc:
-                            flags = 0b1100;
-                            break;
+                            case InfoExEntry.ELoadFlags.Bank:
+                                flags = 0b100;
+                                break;
 
-                        case InfoExEntry.ELoadFlags.Seq:
-                            flags = 0b1;
-                            break;
+                            case InfoExEntry.ELoadFlags.BankAndWarc:
+                                flags = 0b1100;
+                                break;
 
-                        case InfoExEntry.ELoadFlags.SeqAndBank:
-                            flags = 0b101;
-                            break;
+                            case InfoExEntry.ELoadFlags.Seq:
+                                flags = 0b1;
+                                break;
 
-                        case InfoExEntry.ELoadFlags.SeqAndWarc:
-                            flags = 0b1100;
-                            break;
+                            case InfoExEntry.ELoadFlags.SeqAndBank:
+                                flags = 0b101;
+                                break;
 
-                        case InfoExEntry.ELoadFlags.Warc:
-                            flags = 0b1000;
-                            break;
+                            case InfoExEntry.ELoadFlags.SeqAndWarc:
+                                flags = 0b1100;
+                                break;
 
-                        case InfoExEntry.ELoadFlags.Wsd:
-                            flags = 0b10;
-                            break;
+                            case InfoExEntry.ELoadFlags.Warc:
+                                flags = 0b1000;
+                                break;
+
+                            case InfoExEntry.ELoadFlags.Wsd:
+                                flags = 0b10;
+                                break;
+
+                        }
+
+                        //Get type.
+                        byte type = 0;
+                        switch (e.ItemType) {
+
+                            case InfoExEntry.EItemType.Bank:
+                                type = SoundTypes.Bank;
+                                break;
+
+                            case InfoExEntry.EItemType.Sequence:
+                                type = SoundTypes.Sound;
+                                break;
+
+                            case InfoExEntry.EItemType.SequenceSetOrWaveData:
+                                type = SoundTypes.SoundGroup;
+                                break;
+
+                            case InfoExEntry.EItemType.WaveArchive:
+                                type = SoundTypes.WaveArchive;
+                                break;
+
+                        }
+
+                        //Item id.
+                        Id id = new Id(type, (uint)e.ItemIndex);
+                        id.Write(ref bw);
+
+                        //Write flags.
+                        bw.Write(flags);
 
                     }
 
-                    //Get type.
-                    byte type = 0;
-                    switch (e.ItemType) {
-
-                        case InfoExEntry.EItemType.Bank:
-                            type = SoundTypes.Bank;
-                            break;
-
-                        case InfoExEntry.EItemType.Sequence:
-                            type = SoundTypes.Sound;
-                            break;
-
-                        case InfoExEntry.EItemType.SequenceSetOrWaveData:
-                            type = SoundTypes.SoundGroup;
-                            break;
-
-                        case InfoExEntry.EItemType.WaveArchive:
-                            type = SoundTypes.WaveArchive;
-                            break;
-
-                    }
-
-                    //Item id.
-                    Id id = new Id(type, (uint)e.ItemIndex);
-                    id.Write(ref bw);
-
-                    //Write flags.
-                    bw.Write(flags);
-
                 }
+
+                //Close Ex table.
+                FileWriter.CloseReferenceTable(bw, "Ex");
+
+                //Close extra info block.
+                FileWriter.CloseBlock(bw);
 
             }
-
-            //Close Ex table.
-            FileWriter.CloseReferenceTable(bw, "Ex");
-
-            //Close extra info block.
-            FileWriter.CloseBlock(bw);
 
             //Close file.
             FileWriter.CloseFile(bw);

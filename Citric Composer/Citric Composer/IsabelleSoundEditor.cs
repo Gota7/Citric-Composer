@@ -11,6 +11,7 @@ using System.Threading;
 using Syroot.BinaryData;
 using System.Reflection;
 using System.Diagnostics;
+using Citric_Composer.Properties;
 
 namespace Citric_Composer
 {
@@ -103,9 +104,9 @@ namespace Citric_Composer
 
             //Make new FISP.
             if (wave) {
-                file = new FISP(((Wave)mainWindow.file.Files[index].File).Wav);
+                file = new FISP(((Wave)mainWindow.File.Files[index].File).Wav);
             } else {
-                file = new FISP(((CitraFileLoader.Stream)mainWindow.file.Files[index].File).Stm);
+                file = new FISP(((CitraFileLoader.Stream)mainWindow.File.Files[index].File).Stm);
             }
             fileOpen = true;
             updateNodes();
@@ -113,6 +114,7 @@ namespace Citric_Composer
             doInfoStuff();
             playLikeGameBox.Checked = false;
             playPauseButton_Click(null, null);
+
         }
 
         /// <summary>
@@ -173,6 +175,9 @@ namespace Citric_Composer
 
             loadChannelFiles();
             updateNodes();
+
+            //Play song.
+            playPauseButton_Click(null, null);
 
         }
 
@@ -306,7 +311,7 @@ namespace Citric_Composer
 
 
                 try {
-                    playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    playPauseButton.Image = Resources.Play;
                 } catch { }
                 playing = false;
 
@@ -1178,7 +1183,7 @@ namespace Citric_Composer
             }
 
             try {
-                playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                playPauseButton.Image = Resources.Play;
             } catch { }
             playing = false;
 
@@ -1373,12 +1378,12 @@ namespace Citric_Composer
 
                     //Save and refresh.
                     if (outModeWave) {
-                        (mainWindow.file.Files[fileIndex].File as Wave).Wav = WaveFactory.CreateWave(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision);
+                        (mainWindow.File.Files[fileIndex].File as Wave).Wav = WaveFactory.CreateWave(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision);
                     } else {
-                        (mainWindow.file.Files[fileIndex].File as CitraFileLoader.Stream).Stm = StreamFactory.CreateStream(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision);
+                        (mainWindow.File.Files[fileIndex].File as CitraFileLoader.Stream).Stm = StreamFactory.CreateStream(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision);
                     }
                     mainWindow.UpdateNodes();
-                    mainWindow.doInfoPanelStuff();
+                    mainWindow.DoInfoStuff();
 
                 }
 
@@ -1450,7 +1455,7 @@ namespace Citric_Composer
                     }
 
                     try {
-                        playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                        playPauseButton.Image = Resources.Play;
                     } catch { }
                     playing = false;
 
@@ -1698,7 +1703,7 @@ namespace Citric_Composer
                 }
 
                 try {
-                    playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                    playPauseButton.Image = Resources.Play;
                 } catch { }
                 playing = false;
 
@@ -1741,7 +1746,7 @@ namespace Citric_Composer
                 }
 
                 try {
-                    playPauseButton.Image = new Bitmap("Data/Image/pause.png");
+                    playPauseButton.Image = Resources.Pause;
                 } catch { }
                 playing = true;
 
@@ -1766,7 +1771,7 @@ namespace Citric_Composer
             }
 
             try {
-                playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                playPauseButton.Image = Resources.Play;
             } catch { }
             playing = false;
 
@@ -1985,7 +1990,7 @@ namespace Citric_Composer
 
 
                     try {
-                        playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                        playPauseButton.Image = Resources.Play;
                     } catch { }
                     playing = false;
 
@@ -2043,6 +2048,13 @@ namespace Citric_Composer
                             b_stm s = new b_stm();
                             s.Load(File.ReadAllBytes(anyFileSelectorSound.FileName));
                             file = new FISP(s);
+                            break;
+
+                        //Binary wave.
+                        case "bwav":
+                            BinaryWave r = new BinaryWave();
+                            r.Load(File.ReadAllBytes(anyFileSelectorSound.FileName));
+                            file = new FISP(r);
                             break;
 
                     }
@@ -2138,6 +2150,11 @@ namespace Citric_Composer
                                 File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(file, file.stream.vMajor, file.stream.vMinor, file.stream.vRevision).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
                                 break;
 
+                            //BWAV.
+                            case "bwav":
+                                File.WriteAllBytes(saveGameFile.FileName, BinaryWave.FromFISP(file).ToBytes());
+                                break;
+
                         }
 
                         saveGameFile.FileName = "";
@@ -2198,7 +2215,7 @@ namespace Citric_Composer
                     }
 
                     try {
-                        playPauseButton.Image = new Bitmap("Data/Image/play4.png");
+                        playPauseButton.Image = Resources.Play;
                     } catch { }
                     playing = false;
 
@@ -2335,6 +2352,11 @@ namespace Citric_Composer
                                     File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(b, b.fileHeader.vMajor, b.fileHeader.vMinor, b.fileHeader.vRevision).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
                                     break;
 
+                                //BWAV.
+                                case "bwav":
+                                    File.WriteAllBytes(saveGameFile.FileName, new BinaryWave(b).ToBytes());
+                                    break;
+
                             }
 
                         }
@@ -2382,6 +2404,62 @@ namespace Citric_Composer
                                 //CSTM.
                                 case "cstm":
                                     File.WriteAllBytes(saveGameFile.FileName, s.ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                    break;
+
+                                //BWAV.
+                                case "bwav":
+                                    File.WriteAllBytes(saveGameFile.FileName, new BinaryWave(s).ToBytes());
+                                    break;
+
+                            }
+
+                        }
+
+                        saveGameFile.FileName = "";
+
+                        break;
+
+                    //Binary wave.
+                    case "bwav":
+
+                        BinaryWave w = new BinaryWave();
+                        w.Load(File.ReadAllBytes(gameFileSelectorBox.FileName));
+
+                        saveGameFile.ShowDialog();
+
+                        if (saveGameFile.FileName != "") {
+
+                            bool forceSwitch = false;
+                            if (saveGameFile.FilterIndex > 5) {
+                                forceSwitch = true;
+                            }
+
+                            //Save game file.
+                            switch (saveGameFile.FileName.Substring(saveGameFile.FileName.Length - 4).ToLower()) {
+
+                                //FWAV.
+                                case "fwav":
+                                    File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(w, 1, 0, 0).ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
+                                    break;
+
+                                //CWAV.
+                                case "cwav":
+                                    File.WriteAllBytes(saveGameFile.FileName, WaveFactory.CreateWave(w, 1, 0, 0).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                    break;
+
+                                //FSTM.
+                                case "fstm":
+                                    File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(w, 4, 0, 0).ToBytes(forceSwitch ? CitraFileLoader.ByteOrder.LittleEndian : CitraFileLoader.ByteOrder.BigEndian, forceSwitch));
+                                    break;
+
+                                //CSTM.
+                                case "cstm":
+                                    File.WriteAllBytes(saveGameFile.FileName, StreamFactory.CreateStream(w, 4, 0, 0).ToBytes(CitraFileLoader.ByteOrder.LittleEndian));
+                                    break;
+
+                                //BWAV.
+                                case "bwav":
+                                    File.WriteAllBytes(saveGameFile.FileName, w.ToBytes());
                                     break;
 
                             }
@@ -2448,13 +2526,11 @@ namespace Citric_Composer
             {
 
                 //Game wave.
-                if (gameFileSelectorBox.FilterIndex == 1)
-                {
+                if (gameFileSelectorBox.FileName.ToLower().EndsWith("cwav") || gameFileSelectorBox.FileName.ToLower().EndsWith("fwav")) {
 
                     //Have user select output.
                     saveWaveBox.ShowDialog();
-                    if (saveWaveBox.FileName != "")
-                    {
+                    if (saveWaveBox.FileName != "") {
 
                         //Do actual conversions.
                         b_wav b = new b_wav();
@@ -2476,13 +2552,11 @@ namespace Citric_Composer
                 }
 
                 //Game stream.
-                else
-                {
+                else if (gameFileSelectorBox.FileName.ToLower().EndsWith("cstm") || gameFileSelectorBox.FileName.ToLower().EndsWith("fstm")) {
 
                     //Have user select output.
                     saveWaveBox.ShowDialog();
-                    if (saveWaveBox.FileName != "")
-                    {
+                    if (saveWaveBox.FileName != "") {
 
                         //Do actual conversions.
                         b_stm b = new b_stm();
@@ -2497,6 +2571,22 @@ namespace Citric_Composer
                         b.fileHeader.vMinor = min;
                         b.fileHeader.vRevision = rev;
 
+                        File.WriteAllBytes(saveWaveBox.FileName, RiffWaveFactory.CreateRiffWave(b).ToBytes());
+
+                    }
+
+                }
+
+                //Binary wave.
+                else {
+
+                    //Have user select output.
+                    saveWaveBox.ShowDialog();
+                    if (saveWaveBox.FileName != "") {
+
+                        //Do actual conversions.
+                        BinaryWave b = new BinaryWave();
+                        b.Load(File.ReadAllBytes(gameFileSelectorBox.FileName));
                         File.WriteAllBytes(saveWaveBox.FileName, RiffWaveFactory.CreateRiffWave(b).ToBytes());
 
                     }

@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Citric_Composer</RootNamespace>
     <AssemblyName>Citric Composer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
@@ -29,6 +29,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,11 +60,17 @@
     <Reference Include="Costura, Version=3.3.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.3.3.2\lib\net40\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="Crc32, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Crc32.1.1.0\lib\net46\Crc32.dll</HintPath>
+    </Reference>
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
     </Reference>
     <Reference Include="Syroot.BinaryData">
       <HintPath>..\..\NitroStudio\NitroStudio\Syroot.BinaryData.dll</HintPath>
@@ -129,6 +136,8 @@
     <Compile Include="High Level\Group\InfoExEntry.cs" />
     <Compile Include="High Level\ISoundFile.cs" />
     <Compile Include="High Level\Bank\SoundBank.cs" />
+    <Compile Include="High Level\Sead\SeadArchive.cs" />
+    <Compile Include="High Level\Sead\SeadFileEntry.cs" />
     <Compile Include="High Level\Sequence\SequenceLabel.cs" />
     <Compile Include="High Level\Sequence\SoundSequence.cs" />
     <Compile Include="High Level\Sound Archive\BankEntry.cs" />
@@ -138,6 +147,7 @@
     <Compile Include="High Level\Sound Archive\Sound3dInfo.cs" />
     <Compile Include="High Level\Sound Archive\SoundArchive.cs" />
     <Compile Include="High Level\Sound Archive\SoundArchiveVersions.cs" />
+    <Compile Include="High Level\Sound Archive\SoundArchiveWriter.cs" />
     <Compile Include="High Level\Sound Archive\SoundInfo.cs" />
     <Compile Include="High Level\Sound Archive\SoundSetEntry.cs" />
     <Compile Include="High Level\Sound Archive\StreamEntry.cs" />
@@ -145,8 +155,10 @@
     <Compile Include="High Level\Sound Archive\WaveArchiveEntry.cs" />
     <Compile Include="High Level\Sound Archive\WaveSoundDataEntry.cs" />
     <Compile Include="High Level\SoundFile.cs" />
+    <Compile Include="High Level\Streaming\BinaryWave.cs" />
     <Compile Include="High Level\Streaming\PrefetchFile.cs" />
     <Compile Include="High Level\Streaming\Stream.cs" />
+    <Compile Include="High Level\Streaming\Vibration.cs" />
     <Compile Include="High Level\UnknownFile.cs" />
     <Compile Include="High Level\Wave Archive\SoundWaveArchive.cs" />
     <Compile Include="High Level\Wave Archive\Wave.cs" />
@@ -157,6 +169,10 @@
     <Compile Include="High Level\WaveArchivePair.cs" />
     <Compile Include="High Level\WriteMode.cs" />
     <Compile Include="SDK Export\Export Project.cs" />
+    <Compile Include="Sequence Emulation\SequenceParser.cs" />
+    <Compile Include="Sequence Emulation\SequencePlayer.cs" />
+    <Compile Include="Sequence Emulation\TickTime.cs" />
+    <Compile Include="Sequence Emulation\Track.cs" />
     <Compile Include="SoundWaveArchive.cs" />
     <Compile Include="Low Level\Stream Audio\DspAdpcmDecode.cs" />
     <Compile Include="Low Level\Stream Audio\DspAdpcmEncode.cs" />
@@ -166,12 +182,6 @@
     </Compile>
     <Compile Include="GoldiAbout.Designer.cs">
       <DependentUpon>GoldiAbout.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Goldi GRP Grouperz.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Goldi GRP Grouperz.Designer.cs">
-      <DependentUpon>Goldi GRP Grouperz.cs</DependentUpon>
     </Compile>
     <Compile Include="CitraStructures.cs" />
     <Compile Include="BrewsterAbout.cs">
@@ -234,11 +244,20 @@
     <Compile Include="Low Level\Stream Audio\SoundStream.cs" />
     <Compile Include="Low Level\Stream Audio\SoundWave.cs" />
     <Compile Include="Low Level\Stream Audio\StreamPrefetchFile.cs" />
+    <Compile Include="SSS Sequencer.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="VersionSelector.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VersionSelector.Designer.cs">
       <DependentUpon>VersionSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wolfgang WSD Writer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wolfgang WSD Writer.Designer.cs">
+      <DependentUpon>Wolfgang WSD Writer.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutWindow.resx">
       <DependentUpon>AboutWindow.cs</DependentUpon>
@@ -248,9 +267,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GoldiAbout.resx">
       <DependentUpon>GoldiAbout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Goldi GRP Grouperz.resx">
-      <DependentUpon>Goldi GRP Grouperz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BrewsterAbout.resx">
       <DependentUpon>BrewsterAbout.cs</DependentUpon>
@@ -299,6 +315,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="version.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -318,13 +337,22 @@
   <ItemGroup>
     <None Include="Data\Image\Brewster2.ico" />
     <None Include="Data\Image\floweyIco.ico" />
+    <None Include="bin\Debug\Data\Image\pause.png" />
+    <None Include="bin\Debug\Data\Image\play4.png" />
     <Content Include="Data\Image\pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Image\play4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Data\Image\wolfgangIco.ico" />
     <Content Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SequenceDataLib\SequenceDataLib\SequenceDataLib.csproj">
+      <Project>{b5beb626-c485-4f1b-bd57-efa7a18d4bb5}</Project>
+      <Name>SequenceDataLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.5\build\Fody.targets')" />

@@ -1,0 +1,17 @@
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Solar Audio Slayer.exe.config
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Solar Audio Slayer.exe
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Solar Audio Slayer.pdb
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\Solar Audio Slayer.csproj.GenerateResource.cache
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\Solar Audio Slayer.csproj.CoreCompileInputs.cache
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\Solar Audio Slayer.csproj.Fody.CopyLocal.cache
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\Solar Audio Slayer.exe
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\Solar Audio Slayer.pdb
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\Solar Audio Slayer.csprojAssemblyReference.cache
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\SolarAudioSlayer.EditorBase.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\SolarAudioSlayer.MainWindow.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\SolarAudioSlayer.Properties.Resources.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\SolarAudioSlayer.SaveQuitDialog.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Data\Image\pause.png
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\Data\Image\play4.png
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\version.bin
+C:\Users\samsp\Documents\C#\Citric Composer\Solar Audio Slayer\obj\Debug\Solar Audio Slayer.csproj.CopyComplete

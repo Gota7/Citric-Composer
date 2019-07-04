@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SequenceDataLib;
 using Syroot.BinaryData;
 
 namespace CitraFileLoader {
@@ -25,12 +26,14 @@ namespace CitraFileLoader {
         /// <summary>
         /// Actual sequence information.
         /// </summary>
-        public byte[] SequenceData;
+        public SequenceData SequenceData;
 
         /// <summary>
         /// Labels.
         /// </summary>
         public List<SequenceLabel> Labels;
+
+        private byte[] goodData;
 
         /// <summary>
         /// Get the file extension.
@@ -75,9 +78,6 @@ namespace CitraFileLoader {
                 }
 
             }
-
-            //Set sequence data.
-            SequenceData = tempSeqData.ToArray();
 
             //Close data block.
             FileReader.CloseBlock(br);
@@ -134,6 +134,24 @@ namespace CitraFileLoader {
             //Close label block.
             FileReader.CloseBlock(br);
 
+            //Convert labels to dictionary.
+            Dictionary<string, int> publicLabels = new Dictionary<string, int>();
+            foreach (var e in Labels) {
+                if (e != null) {
+                    publicLabels.Add(e.Label, e.Offset);
+                }
+            }
+
+            //Set sequence data.
+            SequenceData = new SequenceData();
+            SequenceData.PublicLabelOffsets = publicLabels;
+            Syroot.BinaryData.ByteOrder bo = Syroot.BinaryData.ByteOrder.BigEndian;
+            if (writeMode == WriteMode.NX || writeMode == WriteMode.C_BE) {
+                bo = Syroot.BinaryData.ByteOrder.LittleEndian;
+            }
+            SequenceData.Read(tempSeqData.ToArray(), bo);
+            goodData = tempSeqData.ToArray();
+
             //Close file.
             FileReader.CloseFile(br);
 
@@ -157,7 +175,12 @@ namespace CitraFileLoader {
             FileWriter.InitBlock(bw, ReferenceTypes.SEQ_Block_Data, "DATA");
 
             //Write sequence data.
-            bw.Write(SequenceData);
+            Syroot.BinaryData.ByteOrder bo = Syroot.BinaryData.ByteOrder.BigEndian;
+            if (writeMode == WriteMode.NX || writeMode == WriteMode.C_BE) {
+                bo = Syroot.BinaryData.ByteOrder.LittleEndian;
+            }
+            bw.Write(SequenceData.ToBytes(bo));
+            //bw.Write(goodData);
 
             //Align.
             FileWriter.Align(bw, 0x20);

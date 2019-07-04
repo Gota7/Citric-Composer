@@ -959,7 +959,7 @@ namespace CitraFileLoader
     /// <summary>
     /// Sound type constants.
     /// </summary>
-    public enum SoundType {
+    public enum SoundType : byte {
 
         Null = 0,
         Sound = 1,
@@ -967,7 +967,8 @@ namespace CitraFileLoader
         Bank = 3,
         Player = 4,
         WaveArchive = 5,
-        Group = 6
+        Group = 6,
+        Unknown = 0xFF
 
     }
 

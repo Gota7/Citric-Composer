@@ -573,6 +573,46 @@ namespace IsabelleLib
         }
 
         /// <summary>
+        /// From a binary wave.
+        /// </summary>
+        /// <param name="b"></param>
+        public FISP(BinaryWave b) {
+
+            //New info.
+            regions = new List<RegionInfo>();
+            tracks = new List<TrackInfo>();
+            data = new DataInfo();
+            stream = new StreamInfo();
+
+            //Stream info.
+            stream.sampleRate = b.SampleRate;
+            stream.encoding = 2;
+            stream.isLoop = b.Loops;
+            stream.loopEnd = b.LoopEndSample;
+            stream.loopStart = b.LoopStartSample;
+            stream.originalLoopEnd = b.LoopEndSample;
+            stream.originalLoopStart = b.LoopStartSample;
+            stream.vMajor = 1;
+            stream.vMinor = 1;
+            stream.vRevision = 0;
+
+            //Tracks.
+            for (int i = 0; i < b.ChannelPans.Length; i++) {
+                try {
+                    if (b.ChannelPans[i] == BinaryWave.ChannelPan.Left) {
+                        tracks.Add(new TrackInfo() { channels = new List<byte>() { (byte)i, (byte)(i + 1) }, volume = 100, pan = 64 });
+                    } else if (b.ChannelPans[i] == BinaryWave.ChannelPan.Middle) {
+                        tracks.Add(new TrackInfo() { channels = new List<byte>() { (byte)i }, volume = 100, pan = 64 });
+                    }
+                } catch { }
+            }
+
+            //Data.
+            data.data = (b.Data.GetDataWAV(b.DspAdpcmInfo, b.LoopEndSample) as short[][]).ToList();
+
+        }
+
+        /// <summary>
         /// From a stream.
         /// </summary>
         /// <param name="s"></param>

@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,12 +22,17 @@ namespace Citric_Composer {
         byte forceWavMaj = 1;
         byte forceWavMin = 0;
         byte forceWavRev = 0;
+        bool playNext;
+        bool stopped = true;
+        bool kill;
 
         public Brewster_WAR_Brewer(MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Wave Archive", "war", "Brewster's War Brewer", mainWindow) {
             InitializeComponent();
             Text = "Brewster's War Brewer";
             Icon = Properties.Resources.Brewster;
             toolsWarToolStripMenuItem.Visible = true;
+            waveOut.Stopped += new EventHandler<PlaybackStoppedEventArgs>(this.WaveEnded);
+            new Thread(PlayNext).Start();
         }
 
         public Brewster_WAR_Brewer(string fileToOpen, MainWindow mainWindow) : base(typeof(SoundWaveArchive), "Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
@@ -34,6 +40,8 @@ namespace Citric_Composer {
             Text = "Brewster's War Brewer - " + Path.GetFileName(fileToOpen);
             Icon = Properties.Resources.Brewster;
             toolsWarToolStripMenuItem.Visible = true;
+            waveOut.Stopped += new EventHandler<PlaybackStoppedEventArgs>(this.WaveEnded);
+            new Thread(PlayNext).Start();
         }
 
         public Brewster_WAR_Brewer(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow, EditorBase otherEditor = null) : base(typeof(SoundWaveArchive), "Wave Archive", "war", "Brewster's War Brewer", fileToOpen, mainWindow) {
@@ -46,7 +54,10 @@ namespace Citric_Composer {
             Icon = Properties.Resources.Brewster;
             OtherEditor = otherEditor;
             toolsWarToolStripMenuItem.Visible = true;
+            waveOut.Stopped += new EventHandler<PlaybackStoppedEventArgs>(this.WaveEnded);
+            new Thread(PlayNext).Start();
         }
+
 
         //Info and updates.
         #region InfoAndUpdates
@@ -172,8 +183,53 @@ namespace Citric_Composer {
                     //Valid info.
                     else {
 
+                        //Get name.
+                        string name = "{ Unknown Wave Name }";
+
+                        /* OLD WAVE NAME FINDER.
+                        
+                        //Main window.
+                        if (MainWindow != null) {
+
+                            //File is open.
+                            if (MainWindow.File != null) {
+
+                                List<Tuple<WaveArchivePair, int>> pairs = new List<Tuple<WaveArchivePair, int>>();
+                                int wsdNum = 0;
+                                foreach (var wsd in MainWindow.File.WaveSoundDatas) {
+                                    foreach (var pair in (wsd.File.File as WaveSoundData).Waves) {
+                                        pairs.Add(new Tuple<WaveArchivePair, int>(pair, wsdNum));
+                                    }
+                                    wsdNum++;
+                                }
+                                List<int> possibleWarIndices = new List<int>();
+                                for (int j = 0; j < MainWindow.File.WaveArchives.Count; j++) {
+                                    if (MainWindow.File.WaveArchives[j].File.File == ExtFile.File) {
+                                        possibleWarIndices.Add(j);
+                                    }
+                                }
+                                var matches = pairs.Where(x => x.Item1.WaveIndex == i && possibleWarIndices.Contains(x.Item1.WarIndex)).ToList();
+                                for (int j = 0; j < matches.Count; j++) {
+
+                                    if (MainWindow.File.WaveSoundDatas[matches[j].Item2].WaveIndex == i) {
+                                        name = MainWindow.File.WaveSoundDatas[matches[j].Item2].Name;
+                                    }
+
+                                }                    
+
+                            }
+
+                        }
+
+                        */
+
+                        //Get wave name.
+                        if ((File as SoundWaveArchive)[i].Name != null) {
+                            name = (File as SoundWaveArchive)[i].Name;
+                        }
+
                         //Add each wave.
-                        tree.Nodes["waves"].Nodes.Add("wave" + i, "Wave " + i, 2, 2);
+                        tree.Nodes["waves"].Nodes.Add("wave" + i, "[" + i + "] " + name, 2, 2);
 
                     }
 
@@ -236,6 +292,7 @@ namespace Citric_Composer {
         /// </summary>
         public override void Play() {
 
+            playNext = false;
             if (!paused || prevIndex != tree.SelectedNode.Index) {
                 waveOut.Stop();
                 var n = new WaveFileReader(new MemoryStream((File as SoundWaveArchive)[tree.SelectedNode.Index].Riff.ToBytes()));
@@ -243,8 +300,63 @@ namespace Citric_Composer {
                 prevIndex = tree.SelectedNode.Index;
             }
             waveOut.Play();
+            stopped = false;
+            tree.Select();
             paused = false;
 
+        }
+
+        /// <summary>
+        /// Play the next wave.
+        /// </summary>
+        public void PlayNext() {
+
+            while (!kill) {
+
+                if (soundPlayerDeluxePlayOnceBox.Checked) {
+                    stopped = true;
+                }
+
+                if (!paused && playNext && !stopped) {
+
+                    //Next index.
+                    try {
+                        tree.Select();
+                    } catch { }
+                    if (soundPlayerDeluxePlayNextBox.Checked) {
+                        prevIndex++;
+                        try {
+                            tree.SelectedNode = tree.Nodes[1].Nodes[prevIndex];
+                            tree.SelectedNode.EnsureVisible();
+                        } catch { }
+                        DoInfoStuff();
+                    }
+                    playNext = false;
+
+                    if (prevIndex < (File as SoundWaveArchive).Count) {
+                        if ((File as SoundWaveArchive)[prevIndex] != null) {
+                            var n = new WaveFileReader(new MemoryStream((File as SoundWaveArchive)[prevIndex].Riff.ToBytes()));
+                            waveOut.Stop();
+                            waveOut.Initialize(n);
+                            waveOut.Play();
+                        }
+                    }
+
+                }
+
+                Thread.Sleep(100);
+
+            }
+
+        }
+
+        /// <summary>
+        /// Wave finished playing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void WaveEnded(object sender, PlaybackStoppedEventArgs e) {
+            playNext = true;
         }
 
         /// <summary>
@@ -264,6 +376,8 @@ namespace Citric_Composer {
 
             paused = false;
             waveOut.Stop();
+            playNext = false;
+            stopped = true;
 
         }
 
@@ -538,9 +652,9 @@ namespace Citric_Composer {
             foreach (var w in (File as SoundWaveArchive)) {
 
                 if (w == null) {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).wav", new byte[0]);
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + " (NULL).wav", new byte[0]);
                 } else {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".wav", RiffWaveFactory.CreateRiffWave(w.Wav).ToBytes());
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + ".wav", RiffWaveFactory.CreateRiffWave(w.Wav).ToBytes());
                 }
 
                 count++;
@@ -569,9 +683,9 @@ namespace Citric_Composer {
             foreach (var w in (File as SoundWaveArchive)) {
 
                 if (w == null) {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).bcwav", new byte[0]);
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + " (NULL).bcwav", new byte[0]);
                 } else {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".bcwav", w.Wav.ToBytes(ByteOrder.LittleEndian));
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + ".bcwav", w.Wav.ToBytes(ByteOrder.LittleEndian));
                 }
 
                 count++;
@@ -600,9 +714,9 @@ namespace Citric_Composer {
             foreach (var w in (File as SoundWaveArchive)) {
 
                 if (w == null) {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).bfwav", new byte[0]);
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + " (NULL).bfwav", new byte[0]);
                 } else {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".bfwav", w.Wav.ToBytes(ByteOrder.BigEndian, true));
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + ".bfwav", w.Wav.ToBytes(ByteOrder.BigEndian, true));
                 }
 
                 count++;
@@ -631,9 +745,9 @@ namespace Citric_Composer {
             foreach (var w in (File as SoundWaveArchive)) {
 
                 if (w == null) {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + " (NULL).bfwav", new byte[0]);
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + " (NULL).bfwav", new byte[0]);
                 } else {
-                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D4") + ".bfwav", w.Wav.ToBytes(ByteOrder.LittleEndian, true));
+                    System.IO.File.WriteAllBytes(path + "/" + count.ToString("D5") + " - " + w.Name + ".bfwav", w.Wav.ToBytes(ByteOrder.LittleEndian, true));
                 }
 
                 count++;
@@ -778,6 +892,7 @@ namespace Citric_Composer {
         /// On closing.
         /// </summary>
         public override void OnClosing() {
+            kill = true;
             waveOut.Stop();
             try { waveOut.Dispose(); } catch { }
         }

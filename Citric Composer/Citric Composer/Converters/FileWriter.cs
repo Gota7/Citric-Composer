@@ -284,8 +284,19 @@ namespace CitraFileLoader {
             for (int i = 0; i < blockTypes.Count; i++) {
                 bw.Write(blockTypes[i]);
                 bw.Write((UInt16)0);
-                bw.Write(sizeFromFile);
-                bw.Write(blockLengths[i]);
+
+                //Null block.
+                if (blockLengths[i] == 0) {
+                    bw.Write((Int32)(-1));
+                    bw.Write((Int32)(-1));
+                }
+
+                //Valid block.
+                else {
+                    bw.Write(sizeFromFile);
+                    bw.Write(blockLengths[i]);
+                }
+
                 sizeFromFile += blockLengths[i];
             }
 
@@ -348,11 +359,11 @@ namespace CitraFileLoader {
         /// <summary>
         /// Write a null block.
         /// </summary>
-        public void WriteNullBlock() {
+        public void WriteNullBlock(ushort type = 0) {
 
             //Simply just add to the block list.
             if (blockTypes.Count < maxBlocks) {
-                blockTypes.Add(0);
+                blockTypes.Add(type);             
                 blockLengths.Add(0);
             }
 
@@ -398,6 +409,9 @@ namespace CitraFileLoader {
 
             //Align.
             Align(bw, alignBy);
+
+            //Free memory.
+            bw2.Dispose();
 
             //Return size.
             return (UInt32)(newPos - oldPos);
@@ -635,6 +649,24 @@ namespace CitraFileLoader {
 
             //Close reference.
             ReferenceStructures.SizedReference.Close(bw, type, (int)(bw.Position - sizedReferences[name].structurePos - blockPos - size), size, sizedReferences[name].pos);
+
+            //Remove reference.
+            sizedReferences.Remove(name);
+
+        }
+
+        /// <summary>
+        /// Close sized reference.
+        /// </summary>
+        /// <param name="bw">The writer.</param>
+        /// <param name="name">Name of reference.</param>
+        /// <param name="type">Type.</param>
+        /// <param name="offset">Offset.</param>
+        /// <param name="size">Size.</param>
+        public void CloseSizedReference(BinaryDataWriter bw, UInt16 type, Int32 offset, UInt32 size, string name) {
+
+            //Close reference.
+            ReferenceStructures.SizedReference.Close(bw, type, offset, size, sizedReferences[name].pos);
 
             //Remove reference.
             sizedReferences.Remove(name);

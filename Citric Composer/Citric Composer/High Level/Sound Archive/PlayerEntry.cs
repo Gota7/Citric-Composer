@@ -17,14 +17,19 @@ namespace CitraFileLoader {
         public string Name;
 
         /// <summary>
-        /// Max number of sounds at a time.
+        /// Max number of sounds at a time. Max is 255.
         /// </summary>
         public int SoundLimit;
 
         /// <summary>
-        /// Max size of a sound.
+        /// Max size of a sound. Actually is int.
         /// </summary>
         public int PlayerHeapSize;
+
+        /// <summary>
+        /// Include the heap size.
+        /// </summary>
+        public bool IncludeHeapSize;
 
     }
 

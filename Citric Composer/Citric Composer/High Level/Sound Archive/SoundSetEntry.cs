@@ -32,9 +32,14 @@ namespace CitraFileLoader {
         public int EndIndex;
 
         /// <summary>
+        /// Sound files.
+        /// </summary>
+        public List<SoundFile<ISoundFile>> Files;
+
+        /// <summary>
         /// Wave archive list if the sound type is WSD.
         /// </summary>
-        public List<int> WaveArchives;
+        public List<WaveArchiveEntry> WaveArchives;
 
     }
 

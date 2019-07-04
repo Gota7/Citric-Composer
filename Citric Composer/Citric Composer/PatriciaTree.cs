@@ -25,11 +25,17 @@ namespace CitraFileLoader
         public interface IPatriciaTreeItem
         {
             string Key { get; set; }
+            SoundType SoundType { get; set; }
+            int ItemIndex { get; set; }
+            int StringTableIndex { get; set; }
         }
 
         public class PatriciaTreeItem : IPatriciaTreeItem
         {
             public string Key { get; set; }
+            public SoundType SoundType { get; set; }
+            public int ItemIndex { get; set; }
+            public int StringTableIndex { get; set; }
         }
 
         public PatriciaTree.INodeCollection Nodes
@@ -198,6 +204,15 @@ namespace CitraFileLoader
             string Key { get; }
 
             int Bit { get; }
+
+            SoundType SoundType { get; }
+
+            int ItemIndex { get; }
+
+            int StringTableIndex { get; }
+
+            bool ContainsData { get; }
+
         }
 
         public interface ILeaf : PatriciaTree.INode
@@ -218,6 +233,9 @@ namespace CitraFileLoader
             private PatriciaTree.Node _right;
             private int _bit;
             private IPatriciaTreeItem _item;
+            private SoundType _soundType;
+            private int _itemIndex;
+            private int _stringTableIndex;
 
             protected Node(int index, string key, int bit)
               : this(index, key, bit, (IPatriciaTreeItem)null)
@@ -363,6 +381,33 @@ namespace CitraFileLoader
                     return (PatriciaTree.INode)this.Right;
                 }
             }
+
+            public SoundType SoundType {
+
+                get {
+                    return _item.SoundType;
+                }
+
+            }
+
+            public int ItemIndex {
+
+                get {
+                    return _item.ItemIndex;
+                }
+
+            }
+
+            public int StringTableIndex {
+
+                get {
+                    return _item.StringTableIndex;
+                }
+
+            }
+
+            public bool ContainsData => _item != null;
+
         }
 
         protected class Leaf : PatriciaTree.Node, PatriciaTree.ILeaf, PatriciaTree.INode
