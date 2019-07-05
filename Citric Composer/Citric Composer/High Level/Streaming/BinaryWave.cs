@@ -352,13 +352,15 @@ namespace CitraFileLoader {
                     ChannelPans[i] = ChannelPan.Right;
                 }
             }
-            foreach (var t in s.info.tracks) {
-                if (t.globalChannelIndexTable.count > 0) {
-                    if (t.globalChannelIndexTable.count > 1) {
-                        ChannelPans[t.globalChannelIndexTable.entries[0]] = ChannelPan.Left;
-                        ChannelPans[t.globalChannelIndexTable.entries[1]] = ChannelPan.Right;
-                    } else {
-                        ChannelPans[t.globalChannelIndexTable.entries[0]] = ChannelPan.Middle;
+            if (s.info.tracks != null) {
+                foreach (var t in s.info.tracks) {
+                    if (t.globalChannelIndexTable.count > 0) {
+                        if (t.globalChannelIndexTable.count > 1) {
+                            ChannelPans[t.globalChannelIndexTable.entries[0]] = ChannelPan.Left;
+                            ChannelPans[t.globalChannelIndexTable.entries[1]] = ChannelPan.Right;
+                        } else {
+                            ChannelPans[t.globalChannelIndexTable.entries[0]] = ChannelPan.Middle;
+                        }
                     }
                 }
             }
