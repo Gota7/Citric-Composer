@@ -349,7 +349,8 @@ namespace CitraFileLoader {
                     ChannelPans[i] = ChannelPan.Middle;
                 } else if (i % 2 == 0) {
                     ChannelPans[i] = ChannelPan.Left;
-                    ChannelPans[i] = ChannelPan.Right;
+                    ChannelPans[i+1] = ChannelPan.Right;
+                    i++;
                 }
             }
             if (s.info.tracks != null) {
