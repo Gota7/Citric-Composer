@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IsabelleSoundEditor));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Project Info");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Channels", 1, 1);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Tracks", 3, 3);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Regions", 5, 5);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Project Info");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Channels", 1, 1);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Tracks", 3, 3);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Regions", 5, 5);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,20 +59,34 @@
             this.playPauseButton = new System.Windows.Forms.Button();
             this.timeBar = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.noInfoPanel = new System.Windows.Forms.Panel();
-            this.noInfoLabel = new System.Windows.Forms.Label();
-            this.regionPanel = new System.Windows.Forms.Panel();
-            this.regionSetStartButton = new System.Windows.Forms.Button();
-            this.regionSetEndButton = new System.Windows.Forms.Button();
-            this.regionPreviewBox = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.regionLoopEndBox = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.regionLoopStartBox = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
             this.projectPanel = new System.Windows.Forms.Panel();
-            this.vRevisionBox = new System.Windows.Forms.NumericUpDown();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.label20 = new System.Windows.Forms.Label();
+            this.originalLoopStartMinutes = new System.Windows.Forms.NumericUpDown();
+            this.originalLoopStartMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.originalLoopStartSeconds = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.loopEndMinutes = new System.Windows.Forms.NumericUpDown();
+            this.loopEndMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.loopEndSeconds = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.loopStartMinutes = new System.Windows.Forms.NumericUpDown();
+            this.loopStartMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.loopStartSeconds = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.originalLoopEndMinutes = new System.Windows.Forms.NumericUpDown();
+            this.originalLoopEndMilliseconds = new System.Windows.Forms.NumericUpDown();
+            this.originalLoopEndSeconds = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.vMajorBox = new System.Windows.Forms.NumericUpDown();
+            this.vRevisionBox = new System.Windows.Forms.NumericUpDown();
             this.vMinorBox = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.secretBox = new System.Windows.Forms.NumericUpDown();
@@ -93,6 +107,17 @@
             this.loopLabel = new System.Windows.Forms.Label();
             this.samplingRateBox = new System.Windows.Forms.NumericUpDown();
             this.sampleRate = new System.Windows.Forms.Label();
+            this.noInfoPanel = new System.Windows.Forms.Panel();
+            this.noInfoLabel = new System.Windows.Forms.Label();
+            this.regionPanel = new System.Windows.Forms.Panel();
+            this.regionSetStartButton = new System.Windows.Forms.Button();
+            this.regionSetEndButton = new System.Windows.Forms.Button();
+            this.regionPreviewBox = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.regionLoopEndBox = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.regionLoopStartBox = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
             this.trackPanel = new System.Windows.Forms.Panel();
             this.surroundModeBox = new System.Windows.Forms.NumericUpDown();
             this.spanBox = new System.Windows.Forms.NumericUpDown();
@@ -161,13 +186,26 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.noInfoPanel.SuspendLayout();
-            this.regionPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.regionLoopEndBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regionLoopStartBox)).BeginInit();
             this.projectPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.vRevisionBox)).BeginInit();
+            this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopStartMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopStartMilliseconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopStartSeconds)).BeginInit();
+            this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loopEndMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopEndMilliseconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopEndSeconds)).BeginInit();
+            this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loopStartMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopStartMilliseconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopStartSeconds)).BeginInit();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndMilliseconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndSeconds)).BeginInit();
+            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vMajorBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vRevisionBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vMinorBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.secretBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndBox)).BeginInit();
@@ -175,6 +213,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.loopEndBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loopStartBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.samplingRateBox)).BeginInit();
+            this.noInfoPanel.SuspendLayout();
+            this.regionPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.regionLoopEndBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.regionLoopStartBox)).BeginInit();
             this.trackPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.surroundModeBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spanBox)).BeginInit();
@@ -445,9 +487,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.projectPanel);
             this.splitContainer1.Panel1.Controls.Add(this.noInfoPanel);
             this.splitContainer1.Panel1.Controls.Add(this.regionPanel);
-            this.splitContainer1.Panel1.Controls.Add(this.projectPanel);
             this.splitContainer1.Panel1.Controls.Add(this.trackPanel);
             this.splitContainer1.Panel1.Controls.Add(this.channelPanel);
             // 
@@ -458,10 +500,656 @@
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.volume);
             this.splitContainer1.Panel2.Controls.Add(this.tree);
-            this.splitContainer1.Size = new System.Drawing.Size(944, 512);
+            this.splitContainer1.Size = new System.Drawing.Size(944, 465);
             this.splitContainer1.SplitterDistance = 313;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // projectPanel
+            // 
+            this.projectPanel.Controls.Add(this.tableLayoutPanel7);
+            this.projectPanel.Controls.Add(this.tableLayoutPanel6);
+            this.projectPanel.Controls.Add(this.tableLayoutPanel5);
+            this.projectPanel.Controls.Add(this.tableLayoutPanel4);
+            this.projectPanel.Controls.Add(this.tableLayoutPanel3);
+            this.projectPanel.Controls.Add(this.label8);
+            this.projectPanel.Controls.Add(this.secretBox);
+            this.projectPanel.Controls.Add(this.label9);
+            this.projectPanel.Controls.Add(this.originalLoopEndBox);
+            this.projectPanel.Controls.Add(this.label6);
+            this.projectPanel.Controls.Add(this.originalLoopStartBox);
+            this.projectPanel.Controls.Add(this.label7);
+            this.projectPanel.Controls.Add(this.encodingBox);
+            this.projectPanel.Controls.Add(this.label5);
+            this.projectPanel.Controls.Add(this.loopStartRoundButton);
+            this.projectPanel.Controls.Add(this.updateProjectInfoButton);
+            this.projectPanel.Controls.Add(this.loopBox);
+            this.projectPanel.Controls.Add(this.loopEndBox);
+            this.projectPanel.Controls.Add(this.loopEndLabel);
+            this.projectPanel.Controls.Add(this.loopStartBox);
+            this.projectPanel.Controls.Add(this.loopStartLabel);
+            this.projectPanel.Controls.Add(this.loopLabel);
+            this.projectPanel.Controls.Add(this.samplingRateBox);
+            this.projectPanel.Controls.Add(this.sampleRate);
+            this.projectPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projectPanel.Location = new System.Drawing.Point(0, 0);
+            this.projectPanel.Name = "projectPanel";
+            this.projectPanel.Size = new System.Drawing.Size(311, 463);
+            this.projectPanel.TabIndex = 3;
+            this.projectPanel.Visible = false;
+            this.projectPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.projectPanel_Paint);
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 5;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03513F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03514F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03754F));
+            this.tableLayoutPanel7.Controls.Add(this.label20, 3, 0);
+            this.tableLayoutPanel7.Controls.Add(this.originalLoopStartMinutes, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.originalLoopStartMilliseconds, 5, 0);
+            this.tableLayoutPanel7.Controls.Add(this.originalLoopStartSeconds, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.label21, 1, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(2, 305);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(307, 23);
+            this.tableLayoutPanel7.TabIndex = 30;
+            // 
+            // label20
+            // 
+            this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label20.Location = new System.Drawing.Point(202, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(9, 23);
+            this.label20.TabIndex = 27;
+            this.label20.Text = ".";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // originalLoopStartMinutes
+            // 
+            this.originalLoopStartMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalLoopStartMinutes.Location = new System.Drawing.Point(3, 3);
+            this.originalLoopStartMinutes.Name = "originalLoopStartMinutes";
+            this.originalLoopStartMinutes.Size = new System.Drawing.Size(86, 20);
+            this.originalLoopStartMinutes.TabIndex = 24;
+            this.originalLoopStartMinutes.ValueChanged += new System.EventHandler(this.OriginalLoopStartMinutes_ValueChanged);
+            // 
+            // originalLoopStartMilliseconds
+            // 
+            this.originalLoopStartMilliseconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalLoopStartMilliseconds.Location = new System.Drawing.Point(217, 3);
+            this.originalLoopStartMilliseconds.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.originalLoopStartMilliseconds.Name = "originalLoopStartMilliseconds";
+            this.originalLoopStartMilliseconds.Size = new System.Drawing.Size(87, 20);
+            this.originalLoopStartMilliseconds.TabIndex = 25;
+            this.originalLoopStartMilliseconds.ValueChanged += new System.EventHandler(this.OriginalLoopStartMilliseconds_ValueChanged);
+            // 
+            // originalLoopStartSeconds
+            // 
+            this.originalLoopStartSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalLoopStartSeconds.Location = new System.Drawing.Point(110, 3);
+            this.originalLoopStartSeconds.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.originalLoopStartSeconds.Name = "originalLoopStartSeconds";
+            this.originalLoopStartSeconds.Size = new System.Drawing.Size(86, 20);
+            this.originalLoopStartSeconds.TabIndex = 23;
+            this.originalLoopStartSeconds.ValueChanged += new System.EventHandler(this.OriginalLoopStartSeconds_ValueChanged);
+            // 
+            // label21
+            // 
+            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label21.Location = new System.Drawing.Point(95, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(9, 23);
+            this.label21.TabIndex = 26;
+            this.label21.Text = ":";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel6.ColumnCount = 5;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03513F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03514F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03754F));
+            this.tableLayoutPanel6.Controls.Add(this.label18, 3, 0);
+            this.tableLayoutPanel6.Controls.Add(this.loopEndMinutes, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.loopEndMilliseconds, 5, 0);
+            this.tableLayoutPanel6.Controls.Add(this.loopEndSeconds, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.label19, 1, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(2, 231);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(307, 23);
+            this.tableLayoutPanel6.TabIndex = 29;
+            // 
+            // label18
+            // 
+            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label18.Location = new System.Drawing.Point(202, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(9, 23);
+            this.label18.TabIndex = 27;
+            this.label18.Text = ".";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // loopEndMinutes
+            // 
+            this.loopEndMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loopEndMinutes.Location = new System.Drawing.Point(3, 3);
+            this.loopEndMinutes.Name = "loopEndMinutes";
+            this.loopEndMinutes.Size = new System.Drawing.Size(86, 20);
+            this.loopEndMinutes.TabIndex = 24;
+            this.loopEndMinutes.ValueChanged += new System.EventHandler(this.LoopEndMinutes_ValueChanged);
+            // 
+            // loopEndMilliseconds
+            // 
+            this.loopEndMilliseconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loopEndMilliseconds.Location = new System.Drawing.Point(217, 3);
+            this.loopEndMilliseconds.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.loopEndMilliseconds.Name = "loopEndMilliseconds";
+            this.loopEndMilliseconds.Size = new System.Drawing.Size(87, 20);
+            this.loopEndMilliseconds.TabIndex = 25;
+            this.loopEndMilliseconds.ValueChanged += new System.EventHandler(this.LoopEndMilliseconds_ValueChanged);
+            // 
+            // loopEndSeconds
+            // 
+            this.loopEndSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loopEndSeconds.Location = new System.Drawing.Point(110, 3);
+            this.loopEndSeconds.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.loopEndSeconds.Name = "loopEndSeconds";
+            this.loopEndSeconds.Size = new System.Drawing.Size(86, 20);
+            this.loopEndSeconds.TabIndex = 23;
+            this.loopEndSeconds.ValueChanged += new System.EventHandler(this.LoopEndSeconds_ValueChanged);
+            // 
+            // label19
+            // 
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Location = new System.Drawing.Point(95, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(9, 23);
+            this.label19.TabIndex = 26;
+            this.label19.Text = ":";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.ColumnCount = 5;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03513F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03514F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03754F));
+            this.tableLayoutPanel5.Controls.Add(this.label16, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.loopStartMinutes, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.loopStartMilliseconds, 5, 0);
+            this.tableLayoutPanel5.Controls.Add(this.loopStartSeconds, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label17, 1, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(2, 152);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(306, 27);
+            this.tableLayoutPanel5.TabIndex = 28;
+            // 
+            // label16
+            // 
+            this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label16.Location = new System.Drawing.Point(200, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(9, 27);
+            this.label16.TabIndex = 27;
+            this.label16.Text = ".";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // loopStartMinutes
+            // 
+            this.loopStartMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loopStartMinutes.Location = new System.Drawing.Point(3, 3);
+            this.loopStartMinutes.Name = "loopStartMinutes";
+            this.loopStartMinutes.Size = new System.Drawing.Size(85, 20);
+            this.loopStartMinutes.TabIndex = 24;
+            this.loopStartMinutes.ValueChanged += new System.EventHandler(this.LoopStartMinutes_ValueChanged);
+            // 
+            // loopStartMilliseconds
+            // 
+            this.loopStartMilliseconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loopStartMilliseconds.Location = new System.Drawing.Point(215, 3);
+            this.loopStartMilliseconds.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.loopStartMilliseconds.Name = "loopStartMilliseconds";
+            this.loopStartMilliseconds.Size = new System.Drawing.Size(88, 20);
+            this.loopStartMilliseconds.TabIndex = 25;
+            this.loopStartMilliseconds.ValueChanged += new System.EventHandler(this.LoopStartMilliseconds_ValueChanged);
+            // 
+            // loopStartSeconds
+            // 
+            this.loopStartSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loopStartSeconds.Location = new System.Drawing.Point(109, 3);
+            this.loopStartSeconds.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.loopStartSeconds.Name = "loopStartSeconds";
+            this.loopStartSeconds.Size = new System.Drawing.Size(85, 20);
+            this.loopStartSeconds.TabIndex = 23;
+            this.loopStartSeconds.ValueChanged += new System.EventHandler(this.LoopStartSeconds_ValueChanged);
+            // 
+            // label17
+            // 
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Location = new System.Drawing.Point(94, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(9, 27);
+            this.label17.TabIndex = 26;
+            this.label17.Text = ":";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 5;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03513F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03514F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.946096F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.03754F));
+            this.tableLayoutPanel4.Controls.Add(this.label15, 3, 0);
+            this.tableLayoutPanel4.Controls.Add(this.originalLoopEndMinutes, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.originalLoopEndMilliseconds, 5, 0);
+            this.tableLayoutPanel4.Controls.Add(this.originalLoopEndSeconds, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label14, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 380);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(307, 31);
+            this.tableLayoutPanel4.TabIndex = 27;
+            // 
+            // label15
+            // 
+            this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label15.Location = new System.Drawing.Point(202, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(9, 31);
+            this.label15.TabIndex = 27;
+            this.label15.Text = ".";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // originalLoopEndMinutes
+            // 
+            this.originalLoopEndMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalLoopEndMinutes.Location = new System.Drawing.Point(3, 3);
+            this.originalLoopEndMinutes.Name = "originalLoopEndMinutes";
+            this.originalLoopEndMinutes.Size = new System.Drawing.Size(86, 20);
+            this.originalLoopEndMinutes.TabIndex = 24;
+            this.originalLoopEndMinutes.ValueChanged += new System.EventHandler(this.OriginalLoopEndMinutes_ValueChanged);
+            // 
+            // originalLoopEndMilliseconds
+            // 
+            this.originalLoopEndMilliseconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalLoopEndMilliseconds.Location = new System.Drawing.Point(217, 3);
+            this.originalLoopEndMilliseconds.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.originalLoopEndMilliseconds.Name = "originalLoopEndMilliseconds";
+            this.originalLoopEndMilliseconds.Size = new System.Drawing.Size(87, 20);
+            this.originalLoopEndMilliseconds.TabIndex = 25;
+            this.originalLoopEndMilliseconds.ValueChanged += new System.EventHandler(this.OriginalLoopEndMilliseconds_ValueChanged);
+            // 
+            // originalLoopEndSeconds
+            // 
+            this.originalLoopEndSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.originalLoopEndSeconds.Location = new System.Drawing.Point(110, 3);
+            this.originalLoopEndSeconds.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.originalLoopEndSeconds.Name = "originalLoopEndSeconds";
+            this.originalLoopEndSeconds.Size = new System.Drawing.Size(86, 20);
+            this.originalLoopEndSeconds.TabIndex = 23;
+            this.originalLoopEndSeconds.ValueChanged += new System.EventHandler(this.OriginalLoopEndSeconds_ValueChanged);
+            // 
+            // label14
+            // 
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Location = new System.Drawing.Point(95, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(9, 31);
+            this.label14.TabIndex = 26;
+            this.label14.Text = ":";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.Controls.Add(this.vMajorBox, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.vRevisionBox, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.vMinorBox, 1, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 484);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(309, 31);
+            this.tableLayoutPanel3.TabIndex = 26;
+            // 
+            // vMajorBox
+            // 
+            this.vMajorBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vMajorBox.Location = new System.Drawing.Point(3, 3);
+            this.vMajorBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.vMajorBox.Name = "vMajorBox";
+            this.vMajorBox.Size = new System.Drawing.Size(97, 20);
+            this.vMajorBox.TabIndex = 24;
+            // 
+            // vRevisionBox
+            // 
+            this.vRevisionBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vRevisionBox.Location = new System.Drawing.Point(209, 3);
+            this.vRevisionBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.vRevisionBox.Name = "vRevisionBox";
+            this.vRevisionBox.Size = new System.Drawing.Size(97, 20);
+            this.vRevisionBox.TabIndex = 25;
+            // 
+            // vMinorBox
+            // 
+            this.vMinorBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vMinorBox.Location = new System.Drawing.Point(106, 3);
+            this.vMinorBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.vMinorBox.Name = "vMinorBox";
+            this.vMinorBox.Size = new System.Drawing.Size(97, 20);
+            this.vMinorBox.TabIndex = 23;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Location = new System.Drawing.Point(3, 458);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(306, 23);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Version:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // secretBox
+            // 
+            this.secretBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.secretBox.Location = new System.Drawing.Point(3, 435);
+            this.secretBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.secretBox.Name = "secretBox";
+            this.secretBox.Size = new System.Drawing.Size(306, 20);
+            this.secretBox.TabIndex = 18;
+            this.secretBox.ValueChanged += new System.EventHandler(this.SecretBox_ValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.Location = new System.Drawing.Point(2, 411);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(306, 21);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Unknown Value:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // originalLoopEndBox
+            // 
+            this.originalLoopEndBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.originalLoopEndBox.Location = new System.Drawing.Point(3, 354);
+            this.originalLoopEndBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.originalLoopEndBox.Name = "originalLoopEndBox";
+            this.originalLoopEndBox.Size = new System.Drawing.Size(305, 20);
+            this.originalLoopEndBox.TabIndex = 16;
+            this.originalLoopEndBox.ValueChanged += new System.EventHandler(this.OriginalLoopEndBox_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Location = new System.Drawing.Point(2, 331);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(306, 20);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Original Loop End:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // originalLoopStartBox
+            // 
+            this.originalLoopStartBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.originalLoopStartBox.Location = new System.Drawing.Point(2, 279);
+            this.originalLoopStartBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.originalLoopStartBox.Name = "originalLoopStartBox";
+            this.originalLoopStartBox.Size = new System.Drawing.Size(306, 20);
+            this.originalLoopStartBox.TabIndex = 14;
+            this.originalLoopStartBox.ValueChanged += new System.EventHandler(this.OriginalLoopStartBox_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Location = new System.Drawing.Point(2, 257);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(306, 19);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Original Loop Start:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // encodingBox
+            // 
+            this.encodingBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.encodingBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.encodingBox.FormattingEnabled = true;
+            this.encodingBox.Items.AddRange(new object[] {
+            "0 - PCM8",
+            "1 - PCM16",
+            "2 - DSP-ADPCM"});
+            this.encodingBox.Location = new System.Drawing.Point(3, 544);
+            this.encodingBox.Name = "encodingBox";
+            this.encodingBox.Size = new System.Drawing.Size(305, 21);
+            this.encodingBox.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.Location = new System.Drawing.Point(3, 518);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(306, 23);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Output Encoding Type:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // loopStartRoundButton
+            // 
+            this.loopStartRoundButton.Location = new System.Drawing.Point(3, 571);
+            this.loopStartRoundButton.Name = "loopStartRoundButton";
+            this.loopStartRoundButton.Size = new System.Drawing.Size(147, 23);
+            this.loopStartRoundButton.TabIndex = 10;
+            this.loopStartRoundButton.Text = "Eliminate Loop Static";
+            this.loopStartRoundButton.UseVisualStyleBackColor = true;
+            this.loopStartRoundButton.Click += new System.EventHandler(this.loopStartRoundButton_Click);
+            // 
+            // updateProjectInfoButton
+            // 
+            this.updateProjectInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateProjectInfoButton.Location = new System.Drawing.Point(156, 571);
+            this.updateProjectInfoButton.Name = "updateProjectInfoButton";
+            this.updateProjectInfoButton.Size = new System.Drawing.Size(153, 23);
+            this.updateProjectInfoButton.TabIndex = 9;
+            this.updateProjectInfoButton.Text = "Update Project Info";
+            this.updateProjectInfoButton.UseVisualStyleBackColor = true;
+            this.updateProjectInfoButton.Click += new System.EventHandler(this.updateProjectInfoButton_Click);
+            // 
+            // loopBox
+            // 
+            this.loopBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loopBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.loopBox.Location = new System.Drawing.Point(2, 77);
+            this.loopBox.Name = "loopBox";
+            this.loopBox.Size = new System.Drawing.Size(306, 20);
+            this.loopBox.TabIndex = 8;
+            this.loopBox.UseVisualStyleBackColor = true;
+            // 
+            // loopEndBox
+            // 
+            this.loopEndBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loopEndBox.Location = new System.Drawing.Point(2, 205);
+            this.loopEndBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.loopEndBox.Name = "loopEndBox";
+            this.loopEndBox.Size = new System.Drawing.Size(305, 20);
+            this.loopEndBox.TabIndex = 7;
+            this.loopEndBox.ValueChanged += new System.EventHandler(this.LoopEndBox_ValueChanged);
+            // 
+            // loopEndLabel
+            // 
+            this.loopEndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loopEndLabel.Location = new System.Drawing.Point(1, 179);
+            this.loopEndLabel.Name = "loopEndLabel";
+            this.loopEndLabel.Size = new System.Drawing.Size(306, 23);
+            this.loopEndLabel.TabIndex = 6;
+            this.loopEndLabel.Text = "Loop End:";
+            this.loopEndLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // loopStartBox
+            // 
+            this.loopStartBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loopStartBox.Location = new System.Drawing.Point(3, 126);
+            this.loopStartBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.loopStartBox.Name = "loopStartBox";
+            this.loopStartBox.Size = new System.Drawing.Size(303, 20);
+            this.loopStartBox.TabIndex = 5;
+            this.loopStartBox.ValueChanged += new System.EventHandler(this.LoopStartBox_ValueChanged);
+            // 
+            // loopStartLabel
+            // 
+            this.loopStartLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loopStartLabel.Location = new System.Drawing.Point(0, 100);
+            this.loopStartLabel.Name = "loopStartLabel";
+            this.loopStartLabel.Size = new System.Drawing.Size(306, 24);
+            this.loopStartLabel.TabIndex = 4;
+            this.loopStartLabel.Text = "Loop Start:";
+            this.loopStartLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // loopLabel
+            // 
+            this.loopLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loopLabel.Location = new System.Drawing.Point(3, 51);
+            this.loopLabel.Name = "loopLabel";
+            this.loopLabel.Size = new System.Drawing.Size(306, 23);
+            this.loopLabel.TabIndex = 2;
+            this.loopLabel.Text = "Loop:";
+            this.loopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // samplingRateBox
+            // 
+            this.samplingRateBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.samplingRateBox.Enabled = false;
+            this.samplingRateBox.Location = new System.Drawing.Point(3, 28);
+            this.samplingRateBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.samplingRateBox.Name = "samplingRateBox";
+            this.samplingRateBox.Size = new System.Drawing.Size(305, 20);
+            this.samplingRateBox.TabIndex = 1;
+            // 
+            // sampleRate
+            // 
+            this.sampleRate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sampleRate.Location = new System.Drawing.Point(2, 2);
+            this.sampleRate.Name = "sampleRate";
+            this.sampleRate.Size = new System.Drawing.Size(306, 23);
+            this.sampleRate.TabIndex = 0;
+            this.sampleRate.Text = "Sampling Rate:";
+            this.sampleRate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // noInfoPanel
             // 
@@ -469,7 +1157,7 @@
             this.noInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.noInfoPanel.Location = new System.Drawing.Point(0, 0);
             this.noInfoPanel.Name = "noInfoPanel";
-            this.noInfoPanel.Size = new System.Drawing.Size(311, 510);
+            this.noInfoPanel.Size = new System.Drawing.Size(311, 463);
             this.noInfoPanel.TabIndex = 0;
             // 
             // noInfoLabel
@@ -477,7 +1165,7 @@
             this.noInfoLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.noInfoLabel.Location = new System.Drawing.Point(0, 0);
             this.noInfoLabel.Name = "noInfoLabel";
-            this.noInfoLabel.Size = new System.Drawing.Size(311, 510);
+            this.noInfoLabel.Size = new System.Drawing.Size(311, 463);
             this.noInfoLabel.TabIndex = 0;
             this.noInfoLabel.Text = "No Valid Info Selected!";
             this.noInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -495,7 +1183,7 @@
             this.regionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.regionPanel.Location = new System.Drawing.Point(0, 0);
             this.regionPanel.Name = "regionPanel";
-            this.regionPanel.Size = new System.Drawing.Size(311, 510);
+            this.regionPanel.Size = new System.Drawing.Size(311, 463);
             this.regionPanel.TabIndex = 28;
             // 
             // regionSetStartButton
@@ -599,307 +1287,6 @@
             this.label11.Text = "Loop Start:";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // projectPanel
-            // 
-            this.projectPanel.Controls.Add(this.vRevisionBox);
-            this.projectPanel.Controls.Add(this.vMajorBox);
-            this.projectPanel.Controls.Add(this.vMinorBox);
-            this.projectPanel.Controls.Add(this.label8);
-            this.projectPanel.Controls.Add(this.secretBox);
-            this.projectPanel.Controls.Add(this.label9);
-            this.projectPanel.Controls.Add(this.originalLoopEndBox);
-            this.projectPanel.Controls.Add(this.label6);
-            this.projectPanel.Controls.Add(this.originalLoopStartBox);
-            this.projectPanel.Controls.Add(this.label7);
-            this.projectPanel.Controls.Add(this.encodingBox);
-            this.projectPanel.Controls.Add(this.label5);
-            this.projectPanel.Controls.Add(this.loopStartRoundButton);
-            this.projectPanel.Controls.Add(this.updateProjectInfoButton);
-            this.projectPanel.Controls.Add(this.loopBox);
-            this.projectPanel.Controls.Add(this.loopEndBox);
-            this.projectPanel.Controls.Add(this.loopEndLabel);
-            this.projectPanel.Controls.Add(this.loopStartBox);
-            this.projectPanel.Controls.Add(this.loopStartLabel);
-            this.projectPanel.Controls.Add(this.loopLabel);
-            this.projectPanel.Controls.Add(this.samplingRateBox);
-            this.projectPanel.Controls.Add(this.sampleRate);
-            this.projectPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.projectPanel.Location = new System.Drawing.Point(0, 0);
-            this.projectPanel.Name = "projectPanel";
-            this.projectPanel.Size = new System.Drawing.Size(311, 510);
-            this.projectPanel.TabIndex = 3;
-            this.projectPanel.Visible = false;
-            this.projectPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.projectPanel_Paint);
-            // 
-            // vRevisionBox
-            // 
-            this.vRevisionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.vRevisionBox.Location = new System.Drawing.Point(210, 395);
-            this.vRevisionBox.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.vRevisionBox.Name = "vRevisionBox";
-            this.vRevisionBox.Size = new System.Drawing.Size(90, 20);
-            this.vRevisionBox.TabIndex = 25;
-            // 
-            // vMajorBox
-            // 
-            this.vMajorBox.Location = new System.Drawing.Point(11, 395);
-            this.vMajorBox.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.vMajorBox.Name = "vMajorBox";
-            this.vMajorBox.Size = new System.Drawing.Size(90, 20);
-            this.vMajorBox.TabIndex = 24;
-            // 
-            // vMinorBox
-            // 
-            this.vMinorBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.vMinorBox.Location = new System.Drawing.Point(110, 395);
-            this.vMinorBox.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.vMinorBox.Name = "vMinorBox";
-            this.vMinorBox.Size = new System.Drawing.Size(90, 20);
-            this.vMinorBox.TabIndex = 23;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.Location = new System.Drawing.Point(5, 372);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(306, 23);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "Version:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // secretBox
-            // 
-            this.secretBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.secretBox.Location = new System.Drawing.Point(2, 340);
-            this.secretBox.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.secretBox.Name = "secretBox";
-            this.secretBox.Size = new System.Drawing.Size(308, 20);
-            this.secretBox.TabIndex = 18;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.Location = new System.Drawing.Point(5, 307);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(306, 30);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Unknown Value:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // originalLoopEndBox
-            // 
-            this.originalLoopEndBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.originalLoopEndBox.Location = new System.Drawing.Point(2, 284);
-            this.originalLoopEndBox.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.originalLoopEndBox.Name = "originalLoopEndBox";
-            this.originalLoopEndBox.Size = new System.Drawing.Size(307, 20);
-            this.originalLoopEndBox.TabIndex = 16;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.Location = new System.Drawing.Point(4, 258);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(306, 23);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "Original Loop End:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // originalLoopStartBox
-            // 
-            this.originalLoopStartBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.originalLoopStartBox.Location = new System.Drawing.Point(3, 231);
-            this.originalLoopStartBox.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.originalLoopStartBox.Name = "originalLoopStartBox";
-            this.originalLoopStartBox.Size = new System.Drawing.Size(306, 20);
-            this.originalLoopStartBox.TabIndex = 14;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.Location = new System.Drawing.Point(3, 205);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(306, 23);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Original Loop Start:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // encodingBox
-            // 
-            this.encodingBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.encodingBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.encodingBox.FormattingEnabled = true;
-            this.encodingBox.Items.AddRange(new object[] {
-            "0 - PCM8",
-            "1 - PCM16",
-            "2 - DSP-ADPCM"});
-            this.encodingBox.Location = new System.Drawing.Point(4, 450);
-            this.encodingBox.Name = "encodingBox";
-            this.encodingBox.Size = new System.Drawing.Size(305, 21);
-            this.encodingBox.TabIndex = 12;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Location = new System.Drawing.Point(3, 421);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(306, 23);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Output Encoding Type:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // loopStartRoundButton
-            // 
-            this.loopStartRoundButton.Location = new System.Drawing.Point(5, 477);
-            this.loopStartRoundButton.Name = "loopStartRoundButton";
-            this.loopStartRoundButton.Size = new System.Drawing.Size(147, 23);
-            this.loopStartRoundButton.TabIndex = 10;
-            this.loopStartRoundButton.Text = "Eliminate Loop Static";
-            this.loopStartRoundButton.UseVisualStyleBackColor = true;
-            this.loopStartRoundButton.Click += new System.EventHandler(this.loopStartRoundButton_Click);
-            // 
-            // updateProjectInfoButton
-            // 
-            this.updateProjectInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateProjectInfoButton.Location = new System.Drawing.Point(158, 477);
-            this.updateProjectInfoButton.Name = "updateProjectInfoButton";
-            this.updateProjectInfoButton.Size = new System.Drawing.Size(150, 23);
-            this.updateProjectInfoButton.TabIndex = 9;
-            this.updateProjectInfoButton.Text = "Update Project Info";
-            this.updateProjectInfoButton.UseVisualStyleBackColor = true;
-            this.updateProjectInfoButton.Click += new System.EventHandler(this.updateProjectInfoButton_Click);
-            // 
-            // loopBox
-            // 
-            this.loopBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.loopBox.Location = new System.Drawing.Point(2, 77);
-            this.loopBox.Name = "loopBox";
-            this.loopBox.Size = new System.Drawing.Size(306, 20);
-            this.loopBox.TabIndex = 8;
-            this.loopBox.UseVisualStyleBackColor = true;
-            // 
-            // loopEndBox
-            // 
-            this.loopEndBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopEndBox.Location = new System.Drawing.Point(3, 179);
-            this.loopEndBox.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.loopEndBox.Name = "loopEndBox";
-            this.loopEndBox.Size = new System.Drawing.Size(305, 20);
-            this.loopEndBox.TabIndex = 7;
-            // 
-            // loopEndLabel
-            // 
-            this.loopEndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopEndLabel.Location = new System.Drawing.Point(3, 153);
-            this.loopEndLabel.Name = "loopEndLabel";
-            this.loopEndLabel.Size = new System.Drawing.Size(306, 23);
-            this.loopEndLabel.TabIndex = 6;
-            this.loopEndLabel.Text = "Loop End:";
-            this.loopEndLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // loopStartBox
-            // 
-            this.loopStartBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopStartBox.Location = new System.Drawing.Point(2, 126);
-            this.loopStartBox.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.loopStartBox.Name = "loopStartBox";
-            this.loopStartBox.Size = new System.Drawing.Size(306, 20);
-            this.loopStartBox.TabIndex = 5;
-            // 
-            // loopStartLabel
-            // 
-            this.loopStartLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopStartLabel.Location = new System.Drawing.Point(2, 100);
-            this.loopStartLabel.Name = "loopStartLabel";
-            this.loopStartLabel.Size = new System.Drawing.Size(306, 23);
-            this.loopStartLabel.TabIndex = 4;
-            this.loopStartLabel.Text = "Loop Start:";
-            this.loopStartLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // loopLabel
-            // 
-            this.loopLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.loopLabel.Location = new System.Drawing.Point(3, 51);
-            this.loopLabel.Name = "loopLabel";
-            this.loopLabel.Size = new System.Drawing.Size(306, 23);
-            this.loopLabel.TabIndex = 2;
-            this.loopLabel.Text = "Loop:";
-            this.loopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // samplingRateBox
-            // 
-            this.samplingRateBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.samplingRateBox.Enabled = false;
-            this.samplingRateBox.Location = new System.Drawing.Point(3, 28);
-            this.samplingRateBox.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.samplingRateBox.Name = "samplingRateBox";
-            this.samplingRateBox.Size = new System.Drawing.Size(305, 20);
-            this.samplingRateBox.TabIndex = 1;
-            // 
-            // sampleRate
-            // 
-            this.sampleRate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sampleRate.Location = new System.Drawing.Point(2, 2);
-            this.sampleRate.Name = "sampleRate";
-            this.sampleRate.Size = new System.Drawing.Size(306, 23);
-            this.sampleRate.TabIndex = 0;
-            this.sampleRate.Text = "Sampling Rate:";
-            this.sampleRate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // trackPanel
             // 
             this.trackPanel.Controls.Add(this.surroundModeBox);
@@ -918,7 +1305,7 @@
             this.trackPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trackPanel.Location = new System.Drawing.Point(0, 0);
             this.trackPanel.Name = "trackPanel";
-            this.trackPanel.Size = new System.Drawing.Size(311, 510);
+            this.trackPanel.Size = new System.Drawing.Size(311, 463);
             this.trackPanel.TabIndex = 2;
             this.trackPanel.Visible = false;
             // 
@@ -973,7 +1360,7 @@
             this.soundDeluxeTrack1.Controls.Add(this.playSoundTrack, 0, 1);
             this.soundDeluxeTrack1.Controls.Add(this.soundPlayerDeluxeLabel, 0, 0);
             this.soundDeluxeTrack1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.soundDeluxeTrack1.Location = new System.Drawing.Point(0, 421);
+            this.soundDeluxeTrack1.Location = new System.Drawing.Point(0, 374);
             this.soundDeluxeTrack1.Name = "soundDeluxeTrack1";
             this.soundDeluxeTrack1.RowCount = 2;
             this.soundDeluxeTrack1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1010,7 +1397,7 @@
             this.soundDeluxeTrack2.Controls.Add(this.pauseSoundTrack, 0, 0);
             this.soundDeluxeTrack2.Controls.Add(this.stopSoundTrack, 1, 0);
             this.soundDeluxeTrack2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.soundDeluxeTrack2.Location = new System.Drawing.Point(0, 480);
+            this.soundDeluxeTrack2.Location = new System.Drawing.Point(0, 433);
             this.soundDeluxeTrack2.Name = "soundDeluxeTrack2";
             this.soundDeluxeTrack2.RowCount = 1;
             this.soundDeluxeTrack2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1150,7 +1537,7 @@
             this.channelPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.channelPanel.Location = new System.Drawing.Point(0, 0);
             this.channelPanel.Name = "channelPanel";
-            this.channelPanel.Size = new System.Drawing.Size(311, 510);
+            this.channelPanel.Size = new System.Drawing.Size(311, 463);
             this.channelPanel.TabIndex = 11;
             this.channelPanel.Visible = false;
             // 
@@ -1234,7 +1621,7 @@
             this.playLikeGameBox.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playLikeGameBox.Checked = true;
             this.playLikeGameBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.playLikeGameBox.Location = new System.Drawing.Point(543, 80);
+            this.playLikeGameBox.Location = new System.Drawing.Point(533, 76);
             this.playLikeGameBox.Name = "playLikeGameBox";
             this.playLikeGameBox.Size = new System.Drawing.Size(80, 27);
             this.playLikeGameBox.TabIndex = 17;
@@ -1245,7 +1632,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(542, 64);
+            this.label4.Location = new System.Drawing.Point(532, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 16;
@@ -1256,7 +1643,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(558, 12);
+            this.label3.Location = new System.Drawing.Point(548, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 15;
@@ -1267,7 +1654,7 @@
             this.volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volume.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.volume.LargeChange = 2;
-            this.volume.Location = new System.Drawing.Point(532, 31);
+            this.volume.Location = new System.Drawing.Point(522, 27);
             this.volume.Maximum = 100;
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(100, 45);
@@ -1283,28 +1670,28 @@
             this.tree.Indent = 12;
             this.tree.Location = new System.Drawing.Point(0, 0);
             this.tree.Name = "tree";
-            treeNode1.Name = "soundInfo";
-            treeNode1.Text = "Project Info";
-            treeNode2.ImageIndex = 1;
-            treeNode2.Name = "channels";
-            treeNode2.SelectedImageIndex = 1;
-            treeNode2.Text = "Channels";
-            treeNode3.ImageIndex = 3;
-            treeNode3.Name = "tracks";
-            treeNode3.SelectedImageIndex = 3;
-            treeNode3.Text = "Tracks";
-            treeNode4.ImageIndex = 5;
-            treeNode4.Name = "regions";
-            treeNode4.SelectedImageIndex = 5;
-            treeNode4.Text = "Regions";
+            treeNode5.Name = "soundInfo";
+            treeNode5.Text = "Project Info";
+            treeNode6.ImageIndex = 1;
+            treeNode6.Name = "channels";
+            treeNode6.SelectedImageIndex = 1;
+            treeNode6.Text = "Channels";
+            treeNode7.ImageIndex = 3;
+            treeNode7.Name = "tracks";
+            treeNode7.SelectedImageIndex = 3;
+            treeNode7.Text = "Tracks";
+            treeNode8.ImageIndex = 5;
+            treeNode8.Name = "regions";
+            treeNode8.SelectedImageIndex = 5;
+            treeNode8.Text = "Regions";
             this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4});
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8});
             this.tree.SelectedImageIndex = 0;
             this.tree.ShowLines = false;
-            this.tree.Size = new System.Drawing.Size(627, 510);
+            this.tree.Size = new System.Drawing.Size(627, 463);
             this.tree.TabIndex = 0;
             this.tree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_NodeMouseClick);
             this.tree.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tree_NodeKey);
@@ -1582,7 +1969,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 596);
+            this.ClientSize = new System.Drawing.Size(944, 549);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -1604,13 +1991,26 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.noInfoPanel.ResumeLayout(false);
-            this.regionPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.regionLoopEndBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regionLoopStartBox)).EndInit();
             this.projectPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.vRevisionBox)).EndInit();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopStartMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopStartMilliseconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopStartSeconds)).EndInit();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.loopEndMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopEndMilliseconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopEndSeconds)).EndInit();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.loopStartMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopStartMilliseconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loopStartSeconds)).EndInit();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndMilliseconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndSeconds)).EndInit();
+            this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vMajorBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vRevisionBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vMinorBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.secretBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.originalLoopEndBox)).EndInit();
@@ -1618,6 +2018,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.loopEndBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loopStartBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.samplingRateBox)).EndInit();
+            this.noInfoPanel.ResumeLayout(false);
+            this.regionPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.regionLoopEndBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.regionLoopStartBox)).EndInit();
             this.trackPanel.ResumeLayout(false);
             this.trackPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.surroundModeBox)).EndInit();
@@ -1761,5 +2165,30 @@
         private System.Windows.Forms.ToolStripMenuItem simpleGameFileToWaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gameFileToGameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem streamToPrefetchToolStripMenuItem;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.NumericUpDown originalLoopEndMinutes;
+        private System.Windows.Forms.NumericUpDown originalLoopEndMilliseconds;
+        private System.Windows.Forms.NumericUpDown originalLoopEndSeconds;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.NumericUpDown originalLoopStartMinutes;
+        private System.Windows.Forms.NumericUpDown originalLoopStartMilliseconds;
+        private System.Windows.Forms.NumericUpDown originalLoopStartSeconds;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown loopEndMinutes;
+        private System.Windows.Forms.NumericUpDown loopEndMilliseconds;
+        private System.Windows.Forms.NumericUpDown loopEndSeconds;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown loopStartMinutes;
+        private System.Windows.Forms.NumericUpDown loopStartMilliseconds;
+        private System.Windows.Forms.NumericUpDown loopStartSeconds;
+        private System.Windows.Forms.Label label17;
     }
 }

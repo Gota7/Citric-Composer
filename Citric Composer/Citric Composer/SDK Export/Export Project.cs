@@ -27,9 +27,9 @@ namespace Citric_Composer {
         /// </summary>
         /// <param name="folderPath">Directory to write FSPJ.</param>
         /// <param name="projectName">Name of the project.</param>
-        /// <param name="b">Sound archive.</param>
+        /// <param name="a">Sound archive.</param>
         /// <param name="type">Export type.</param>
-        public static void WriteFSPJ(string folderPath, string projectName, b_sar b, ExportType type) {
+        public static void WriteFSPJ(string folderPath, string projectName, SoundArchive a, ExportType type) {
 
             using (FileStream fileStream = new FileStream(folderPath + "/" + projectName + "." + (type == ExportType.CTR ? "c" : "f") + "spj", FileMode.Create))
             using (StreamWriter sw = new StreamWriter(fileStream))
@@ -105,12 +105,12 @@ namespace Citric_Composer {
                 //Sound archive player.
                 x.WriteStartElement("SoundArchivePlayer");
                 x.WriteStartElement("Parameters");
-                x.WriteElementString("SoundArchivePlayerSequenceSoundCount", "" + b.info.projectInfo.maxSeq);
-                x.WriteElementString("SoundArchivePlayerSequenceTrackCount", "" + b.info.projectInfo.maxSeqTracks);
-                x.WriteElementString("SoundArchivePlayerStreamChannelCount", "" + b.info.projectInfo.maxStreamChannels);
-                x.WriteElementString("SoundArchivePlayerStreamBufferTimes", "" + b.info.projectInfo.streamBufferTimes);
-                x.WriteElementString("SoundArchivePlayerStreamSoundCount", "" + b.info.projectInfo.maxStreamSounds);
-                x.WriteElementString("SoundArchivePlayerWaveSoundCount", "" + b.info.projectInfo.maxWaveSounds);
+                x.WriteElementString("SoundArchivePlayerSequenceSoundCount", "" + a.MaxSequences);
+                x.WriteElementString("SoundArchivePlayerSequenceTrackCount", "" + a.MaxSequenceTracks);
+                x.WriteElementString("SoundArchivePlayerStreamChannelCount", "" + a.MaxStreamChannels);
+                x.WriteElementString("SoundArchivePlayerStreamBufferTimes", "" + a.StreamBufferTimes);
+                x.WriteElementString("SoundArchivePlayerStreamSoundCount", "" + a.MaxStreamSounds);
+                x.WriteElementString("SoundArchivePlayerWaveSoundCount", "" + a.MaxWaveSounds);
                 x.WriteEndElement(); //Parameters.
                 x.WriteEndElement(); //Sound archive player.
 
@@ -342,9 +342,9 @@ namespace Citric_Composer {
         /// </summary>
         /// <param name="folderPath">Directory to write FSST.</param>
         /// <param name="projectName">Name of the project.</param>
-        /// <param name="b">Sound archive.</param>
+        /// <param name="a">Sound archive.</param>
         /// <param name="type">Export type.</param>
-        public static void WriteFSST(string folderPath, string projectName, b_sar b, ExportType type) {
+        public static void WriteFSST(string folderPath, string projectName, SoundArchive a, ExportType type) {
 
             using (FileStream fileStream = new FileStream(folderPath + "/" + projectName + "." + (type == ExportType.CTR ? "c" : "f") + "sst", FileMode.Create))
             using (StreamWriter sw = new StreamWriter(fileStream))
@@ -411,7 +411,7 @@ namespace Citric_Composer {
 
                 //Stream sounds.
                 #region StreamSounds
-
+                /*
                 //Header.
                 x.WriteStartElement("SoundSetItemFolder");
                 x.WriteAttributeString("Name", "@StreamSounds");
@@ -441,12 +441,13 @@ namespace Citric_Composer {
                 x.WriteEndElement(); //Parameters.
                 x.WriteStartElement("Items");
 
-                //New stream
+
+                //New stream.
                 int streamNumber = 0;
-                foreach (var s in b.info.sounds.Where(u => u.streamInfo != null)) {
+                foreach (var s in a.Streams) {
 
                     //Get info.
-                    string sName = b.GetItemName(SDKSoundType.StreamSound, streamNumber);
+                    string sName = (s.Name == null) ?
 
                     //Write player.
                     x.WriteStartElement("StreamSound");
@@ -545,11 +546,10 @@ namespace Citric_Composer {
                 //Footer.
                 x.WriteEndElement(); //Items.
                 x.WriteEndElement(); //Sound set item folder.
-
+                */
                 #endregion
 
-
-                //Wave sound sets.
+                //Wave sound sets. TODO.
                 #region WaveSoundSets
 
                 //Header.
@@ -586,11 +586,10 @@ namespace Citric_Composer {
                 //Footer.
                 x.WriteEndElement(); //Items.
                 x.WriteEndElement(); //Sound set item folder.
-
+                
                 #endregion
 
-
-                //Sequence sounds.
+                //Sequence sounds. TODO.
                 #region SequenceSounds
 
                 //Header.
@@ -630,8 +629,7 @@ namespace Citric_Composer {
 
                 #endregion
 
-
-                //Sequence sound sets.
+                //Sequence sound sets. TODO.
                 #region SequenceSoundSets
 
                 //Header.
@@ -671,8 +669,7 @@ namespace Citric_Composer {
 
                 #endregion
 
-
-                //Sound set banks. WARC NEEDS ATTENTION.
+                //Sound set banks. WARC NEEDS ATTENTION. TODO.
                 #region SoundSetBanks
 
                 //Header.
@@ -706,11 +703,11 @@ namespace Citric_Composer {
 
                 //New bank.
                 int bankNumber = 0;
-                foreach (var bnk in b.info.banks) {
+                foreach (var bnk in a.Banks) {
 
                     //Get info.
                     string bName = "BANK_" + bankNumber.ToString("D4");
-                    if (bnk.flags.isFlagEnabled[0]) { bName = new string(b.strg.stringEntries[(int)bnk.flags.flagValues[0]].data); }
+                    if (bnk.Name != null) { bName = bnk.Name; }
 
                     //Write player.
                     x.WriteStartElement("SoundSetBank");
@@ -758,8 +755,7 @@ namespace Citric_Composer {
 
                 #endregion
 
-
-                //Wave archives.
+                //Wave archives. TODO.
                 #region WaveArchives
 
                 //Header.
@@ -793,11 +789,11 @@ namespace Citric_Composer {
 
                 //New war.
                 int warNumber = 0;
-                foreach (var w in b.info.wars) {
+                foreach (var w in a.WaveArchives) {
 
                     //Get info.
                     string wName = "WARC_" + warNumber.ToString("D4");
-                    if (w.flags.isFlagEnabled[0]) { wName = new string(b.strg.stringEntries[(int)w.flags.flagValues[0]].data); }
+                    if (w.Name != null) { wName = w.Name; }
 
                     //Write war.
                     x.WriteStartElement("WaveArchive");
@@ -827,7 +823,7 @@ namespace Citric_Composer {
                     x.WriteElementString("ColorIndex", "0");
                     x.WriteElementString("IsEnabled", "True");
 
-                    x.WriteElementString("WaveArchiveLoadType", w.loadIndividual >= 1 ? "Individual" : "Whole");
+                    x.WriteElementString("WaveArchiveLoadType", w.LoadIndividually ? "Individual" : "Whole");
 
                     x.WriteEndElement(); //Parameters.
                     x.WriteEndElement(); //War.
@@ -842,8 +838,7 @@ namespace Citric_Composer {
 
                 #endregion
 
-
-                //Groups.
+                //Groups. TODO.
                 #region Groups
 
                 //Header.
@@ -876,13 +871,55 @@ namespace Citric_Composer {
                 x.WriteStartElement("Items");
 
                 //Add items here.
+                int groupNumber = 0;
+                foreach (var g in a.Groups) {
+
+                    //Get info.
+                    string name = "GROUP_" + groupNumber.ToString("D4");
+                    if (g.Name != null) { name = g.Name; }
+
+                    //Write player.
+                    x.WriteStartElement("Group");
+                    x.WriteAttributeString("Name", name);
+
+                    x.WriteStartElement("Parameters");
+                    x.WriteStartElement("Comment");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment1");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment2");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment3");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment4");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment5");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment6");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment7");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment8");
+                    x.WriteEndElement();
+                    x.WriteStartElement("Comment9");
+                    x.WriteEndElement();
+                    x.WriteElementString("ColorIndex", "0");
+                    x.WriteElementString("IsEnabled", "True");
+
+                    x.WriteElementString("PlayerSoundLimit", g.Name + "");
+
+                    x.WriteEndElement(); //Parameters.
+                    x.WriteEndElement(); //Player
+
+                    groupNumber++;
+
+                }
 
                 //Footer.
                 x.WriteEndElement(); //Items.
                 x.WriteEndElement(); //Sound set item folder.
 
                 #endregion
-
 
                 //Players.
                 #region Players
@@ -918,13 +955,12 @@ namespace Citric_Composer {
 
                 //New player.
                 int playerNumber = 0;
-                foreach (var p in b.info.players) {
+                foreach (var p in a.Players) {
 
                     //Get info.
                     string pName = "PLAYER_" + playerNumber.ToString("D4");
                     uint pSoundHeap = 0;
-                    if (p.flags.isFlagEnabled[0]) { pName = new string(b.strg.stringEntries[(int)p.flags.flagValues[0]].data); }
-                    if (p.flags.isFlagEnabled[1]) { pSoundHeap = p.flags.flagValues[1]; }
+                    if (p.Name != null) { pName = p.Name; }
 
                     //Write player.
                     x.WriteStartElement("Player");
@@ -954,7 +990,7 @@ namespace Citric_Composer {
                     x.WriteElementString("ColorIndex", "0");
                     x.WriteElementString("IsEnabled", "True");
 
-                    x.WriteElementString("PlayerSoundLimit", p.playableSoundLimit + "");
+                    x.WriteElementString("PlayerSoundLimit", p.SoundLimit + "");
                     x.WriteElementString("PlayerHeapSize", pSoundHeap + "");
 
                     x.WriteEndElement(); //Parameters.
@@ -970,7 +1006,7 @@ namespace Citric_Composer {
 
                 #endregion
 
-
+                //Close elements.
                 x.WriteEndElement(); //Items.
                 x.WriteEndElement(); //Sound set.
 

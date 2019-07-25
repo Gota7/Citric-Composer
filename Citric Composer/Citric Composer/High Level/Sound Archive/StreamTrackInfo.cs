@@ -12,6 +12,31 @@ namespace CitraFileLoader {
     public class StreamTrackInfo {
 
         /// <summary>
+        /// Volume.
+        /// </summary>
+        public byte Volume = 96;
+
+        /// <summary>
+        /// Pan.
+        /// </summary>
+        public sbyte Pan = 64;
+
+        /// <summary>
+        /// Surround pan.
+        /// </summary>
+        public sbyte Span = 0;
+
+        /// <summary>
+        /// Surround pan.
+        /// </summary>
+        public bool SurroundMode;
+
+        /// <summary>
+        /// Channels.
+        /// </summary>
+        public List<byte> Channels;
+
+        /// <summary>
         /// Lpf frequency. Between 0 and 64.
         /// </summary>
         public sbyte LpfFrequency = 64;

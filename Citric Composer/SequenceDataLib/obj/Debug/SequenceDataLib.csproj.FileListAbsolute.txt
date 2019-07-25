@@ -1,0 +1,22 @@
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\bin\Debug\SequenceDataLib.exe.config
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\bin\Debug\SequenceDataLib.exe
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\bin\Debug\SequenceDataLib.pdb
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\bin\Debug\Syroot.BinaryData.xml
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\obj\Debug\SequenceDataLib.csproj.CoreCompileInputs.cache
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\obj\Debug\SequenceDataLib.csproj.CopyComplete
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\obj\Debug\SequenceDataLib.exe
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\obj\Debug\SequenceDataLib.pdb
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\bin\Debug\Melanchall.DryWetMidi.xml
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\obj\Debug\SequenceDataLib.csproj.Fody.CopyLocal.cache
+C:\Users\samsp\Documents\C#\SequenceDataLib\SequenceDataLib\obj\Debug\SequenceDataLib.csprojAssemblyReference.cache
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\bin\Debug\SequenceDataLib.exe.config
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\bin\Debug\SequenceDataLib.exe
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\bin\Debug\SequenceDataLib.pdb
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\bin\Debug\Melanchall.DryWetMidi.xml
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\bin\Debug\Syroot.BinaryData.xml
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\obj\Debug\SequenceDataLib.csprojAssemblyReference.cache
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\obj\Debug\SequenceDataLib.csproj.CoreCompileInputs.cache
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\obj\Debug\SequenceDataLib.csproj.Fody.CopyLocal.cache
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\obj\Debug\SequenceDataLib.csproj.CopyComplete
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\obj\Debug\SequenceDataLib.exe
+C:\Users\samsp\Documents\C#\Citric Composer\SequenceDataLib\obj\Debug\SequenceDataLib.pdb

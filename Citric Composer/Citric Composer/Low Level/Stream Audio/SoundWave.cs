@@ -557,8 +557,8 @@ namespace CitraFileLoader
             b.info.sampleRate = w.SampleRate;
             b.info.originalLoopStart = w.LoopStartSample;
             b.info.loopStart = w.LoopStartSample;
-            b.info.loopEnd = w.LoopEndSample;
-            b.info.isLoop = w.Loops;
+            b.info.loopEnd = w.LoopEndSample == 0xFFFFFFFF ? w.NumSamples : w.LoopEndSample;
+            b.info.isLoop = w.Loops && w.LoopEndSample != 0xFFFFFFFF;
             b.info.encoding = 2;
 
             b.info.channelInfo = new List<b_wav.InfoBlock.ChannelInfo>();

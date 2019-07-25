@@ -51,7 +51,6 @@ C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Com
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.BrewsterAbout.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.IsabelleAbout.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.IsabelleSoundEditor.resources
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.MainWindow.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.SaveCloseDialog.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.SaveQuitDialog.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Properties.Resources.resources
@@ -64,6 +63,13 @@ C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Com
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.RolfAbout.resources
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\VGAudio.xml
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.EditorBase.resources
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Goldi_GRP_Grouperz.resources
-C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csprojAssemblyReference.cache
 C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.VersionSelector.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\version.bin
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric Composer.csprojAssemblyReference.cache
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\SequenceDataLib.exe.config
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\ScintillaNET.xml
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\bin\Debug\caesar.exe
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.MainWindowOLD.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.Sound3dEditor.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.SoundEditor.resources
+C:\Users\samsp\Documents\C#\Citric Composer\Citric Composer\obj\Debug\Citric_Composer.FileWizard.resources

@@ -1,0 +1,2260 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syroot.BinaryData</name>
+    </assembly>
+    <members>
+        <member name="T:Syroot.BinaryData.BinaryDataReader">
+            <summary>
+            Represents an extended <see cref="T:System.IO.BinaryReader"/> supporting special file format data types.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataReader"/> class based on the specified stream and
+            using UTF-8 encoding.
+            </summary>
+            <param name="input">The input stream.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support reading, is null, or is already closed.
+            </exception>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.#ctor(System.IO.Stream,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataReader"/> class based on the specified stream, UTF-8
+            encoding and optionally leaves the stream open.
+            </summary>
+            <param name="input">The input stream.</param>
+            <param name="leaveOpen"><c>true</c> to leave the stream open after the <see cref="T:Syroot.BinaryData.BinaryDataReader"/> object
+            is disposed; otherwise <c>false</c>.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support reading, is null, or is already closed.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">encoding is null.</exception>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataReader"/> class based on the specified stream and
+            character encoding.
+            </summary>
+            <param name="input">The input stream.</param>
+            <param name="encoding">The character encoding to use.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support reading, is null, or is already closed.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">encoding is null.</exception>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.#ctor(System.IO.Stream,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataReader"/> class based on the specified stream and
+            character encoding, and optionally leaves the stream open.
+            </summary>
+            <param name="input">The input stream.</param>
+            <param name="encoding">The character encoding to use.</param>
+            <param name="leaveOpen"><c>true</c> to leave the stream open after the <see cref="T:Syroot.BinaryData.BinaryDataReader"/> object
+            is disposed; otherwise <c>false</c>.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support reading, is null, or is already closed.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">encoding is null.</exception>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataReader.ByteConverter">
+            <summary>
+            Gets or sets the <see cref="P:Syroot.BinaryData.BinaryDataReader.ByteConverter"/> instance used to parse multibyte binary data with.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataReader.ByteOrder">
+            <summary>
+            Gets or sets the byte order used to parse multibyte binary data with.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataReader.Encoding">
+            <summary>
+            Gets the encoding used for string related operations where no other encoding has been provided. Due to the
+            way the underlying <see cref="T:System.IO.BinaryReader"/> is instantiated, it can only be specified at creation time.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataReader.EndOfStream">
+            <summary>
+            Gets a value indicating whether the end of the stream has been reached and no more data can be read.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataReader.Length">
+            <summary>
+            Gets the length of the stream in bytes.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataReader.Position">
+            <summary>
+            Gets or sets the position within the current stream. This is a shortcut to the base stream Position
+            property.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.Align(System.Int32)">
+            <summary>
+            Aligns the reader to the next given byte multiple.
+            </summary>
+            <param name="alignment">The byte multiple.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.Seek(System.Int64)">
+            <summary>
+            Sets the position within the current stream. This is a shortcut to the base stream Seek method.
+            </summary>
+            <param name="offset">A byte offset relative to the current position in the stream.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Sets the position within the current stream. This is a shortcut to the base stream Seek method.
+            </summary>
+            <param name="offset">A byte offset relative to the origin parameter.</param>
+            <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain
+            the new position.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.TemporarySeek">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> to restore the current position after it has been disposed.
+            </summary>
+            <returns>The <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to restore to the current position.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.TemporarySeek(System.Int64)">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> with the given parameters. As soon as the returned <see cref="T:Syroot.BinaryData.SeekTask"/>
+            is disposed, the previous stream position will be restored.
+            </summary>
+            <param name="offset">A byte offset relative to the current position in the stream.</param>
+            <returns>The <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to undo the seek.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.TemporarySeek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> with the given parameters. As soon as the returned <see cref="T:Syroot.BinaryData.SeekTask"/>
+            is disposed, the previous stream position will be restored.
+            </summary>
+            <param name="offset">A byte offset relative to the origin parameter.</param>
+            <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain
+            the new position.</param>
+            <returns>The <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to undo the seek.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadBoolean(Syroot.BinaryData.BooleanDataFormat)">
+            <summary>
+            Reads a <see cref="T:System.Boolean"/> value from the current stream. The <see cref="T:System.Boolean"/> is available in the
+            specified binary format.
+            </summary>
+            <param name="format">The binary format, in which the <see cref="T:System.Boolean"/> will be read.</param>
+            <returns>The <see cref="T:System.Boolean"/> read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadBooleans(System.Int32,Syroot.BinaryData.BooleanDataFormat)">
+            <summary>
+            Reads the specified number of <see cref="T:System.Boolean"/> values from the current stream into a
+            <see cref="T:System.Boolean"/> array. The <see cref="T:System.Boolean"/> values are available in the specified binary format.
+            </summary>
+            <param name="count">The number of <see cref="T:System.Boolean"/> values to read.</param>
+            <param name="format">The binary format, in which the <see cref="T:System.Boolean"/> values will be read.</param>
+            <returns>The <see cref="T:System.Boolean"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadDateTime(Syroot.BinaryData.DateTimeDataFormat)">
+            <summary>
+            Reads a <see cref="T:System.DateTime"/> from the current stream. The <see cref="T:System.DateTime"/> is available in the
+            specified binary format.
+            </summary>
+            <param name="format">The binary format, in which the <see cref="T:System.DateTime"/> will be read.</param>
+            <returns>The <see cref="T:System.DateTime"/> read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadDateTimes(System.Int32,Syroot.BinaryData.DateTimeDataFormat)">
+            <summary>
+            Reads the specified number of <see cref="T:System.DateTime"/> values from the current stream into a
+            <see cref="T:System.DateTime"/> array. The <see cref="T:System.DateTime"/> values are available in the specified binary
+            format.
+            </summary>
+            <param name="count">The number of <see cref="T:System.DateTime"/> values to read.</param>
+            <param name="format">The binary format, in which the <see cref="T:System.DateTime"/> values will be read.</param>
+            <returns>The <see cref="T:System.DateTime"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadDecimal">
+            <summary>
+            Reads an 16-byte floating point value from the current stream and advances the current position of the
+            stream by sixteen bytes.
+            </summary>
+            <returns>The 16-byte floating point value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadDecimals(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.Decimal"/> values from the current stream into a
+            <see cref="T:System.Decimal"/> array and advances the current position by that number of <see cref="T:System.Decimal"/> values
+            multiplied with the size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.Decimal"/> values to read.</param>
+            <returns>The <see cref="T:System.Decimal"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadDouble">
+            <summary>
+            Reads an 8-byte floating point value from the current stream and advances the current position of the stream
+            by eight bytes.
+            </summary>
+            <returns>The 8-byte floating point value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadDoubles(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.Double"/> values from the current stream into a
+            <see cref="T:System.Double"/> array and advances the current position by that number of <see cref="T:System.Double"/> values
+            multiplied with the size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.Double"/> values to read.</param>
+            <returns>The <see cref="T:System.Double"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadEnum``1(System.Boolean)">
+            <summary>
+            Reads the specified enum value from the current stream and advances the current position by the size of the
+            underlying enum type. Optionally validates the value to be defined in the enum type.
+            </summary>
+            <typeparam name="T">The type of the enum.</typeparam>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if the value is not
+            defined in the enum type.</param>
+            <returns>The enum value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadEnums``1(System.Int32,System.Boolean)">
+            <summary>
+            Reads the specified number of enum values from the current stream into an array of the enum type. Optionally
+            validates values to be defined in the enum type.
+            </summary>
+            <typeparam name="T">The type of the enum.</typeparam>
+            <param name="count">The number of enum values to read.</param>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if a value is not
+            defined in the enum type.</param>
+            <returns>The enum values array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadInt16">
+            <summary>
+            Reads a 2-byte signed integer from the current stream and advances the current position of the stream by two
+            bytes.
+            </summary>
+            <returns>The 2-byte signed integer read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadInt16s(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.Int16"/> values from the current stream into a <see cref="T:System.Int16"/>
+            array and advances the current position by that number of <see cref="T:System.Int16"/> values multiplied with the
+            size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.Int16"/> values to read.</param>
+            <returns>The <see cref="T:System.Int16"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadInt32">
+            <summary>
+            Reads a 4-byte signed integer from the current stream and advances the current position of the stream by
+            four bytes.
+            </summary>
+            <returns>The 4-byte signed integer read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadInt32s(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.Int32"/> values from the current stream into a <see cref="T:System.Int32"/>
+            array and advances the current position by that number of <see cref="T:System.Int32"/> values multiplied with the
+            size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to read.</param>
+            <returns>The <see cref="T:System.Int32"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadInt64">
+            <summary>
+            Reads an 8-byte signed integer from the current stream and advances the current position of the stream by
+            eight bytes.
+            </summary>
+            <returns>The 8-byte signed integer read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadInt64s(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.Int64"/> values from the current stream into a <see cref="T:System.Int64"/>
+            array and advances the current position by that number of <see cref="T:System.Int64"/> values multiplied with the
+            size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.Int64"/> values to read.</param>
+            <returns>The <see cref="T:System.Int64"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadObject``1">
+            <summary>
+            Reads an object of type <typeparamref name="T"/> from the current stream.
+            </summary>
+            <typeparam name="T">The type of the object to load.</typeparam>
+            <returns>The object read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadObjects``1(System.Int32)">
+            <summary>
+            Reads the specified number of objects of type <typeparamref name="T"/> from the current stream.
+            </summary>
+            <typeparam name="T">The type of the objects to load.</typeparam>
+            <param name="count">The number of objects to read.</param>
+            <returns>The objects array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadSBytes(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.SByte"/> values from the current stream into a <see cref="T:System.SByte"/>
+            array and advances the current position by that number of <see cref="T:System.SByte"/> values multiplied with the
+            size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.SByte"/> values to read.</param>
+            <returns>The <see cref="T:System.SByte"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadSingle">
+            <summary>
+            Reads a 4-byte floating point value from the current stream and advances the current position of the stream
+            by four bytes.
+            </summary>
+            <returns>The 4-byte floating point value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadSingles(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.Single"/> values from the current stream into a
+            <see cref="T:System.Single"/> array and advances the current position by that number of <see cref="T:System.Single"/> values
+            multiplied with the size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.Single"/> values to read.</param>
+            <returns>The <see cref="T:System.Single"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadString(Syroot.BinaryData.StringDataFormat,System.Text.Encoding)">
+            <summary>
+            Reads a string from the current stream. The string is available in the specified binary format and encoding.
+            </summary>
+            <param name="format">The binary format, in which the string will be read.</param>
+            <param name="encoding">The encoding used for converting the string or <c>null</c> to use the encoding
+            configured for this instance.</param>
+            <returns>The string read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadString(System.Int32,System.Text.Encoding)">
+            <summary>
+            Reads a string from the current stream. The string has neither a prefix or postfix, the length has to be
+            specified manually. The string is available in the specified encoding.
+            </summary>
+            <param name="length">The length of the string.</param>
+            <param name="encoding">The encoding used for converting the string or <c>null</c> to use the encoding
+            configured for this instance.</param>
+            <returns>The <see cref="T:System.String"/> read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadStrings(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.String"/> values from the current stream into a
+            <see cref="T:System.String"/> array.
+            </summary>
+            <param name="count">The number of <see cref="T:System.String"/> values to read.</param>
+            <returns>The <see cref="T:System.String"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadStrings(System.Int32,Syroot.BinaryData.StringDataFormat,System.Text.Encoding)">
+            <summary>
+            Reads the specified number of <see cref="T:System.String"/> values from the current stream into a
+            <see cref="T:System.String"/> array. The strings are available in the specified binary format and encoding.
+            </summary>
+            <param name="count">The number of <see cref="T:System.String"/> values to read.</param>
+            <param name="format">The binary format, in which the string will be read.</param>
+            <param name="encoding">The encoding used for converting the string or <c>null</c> to use the encoding
+            configured for this instance.</param>
+            <returns>The <see cref="T:System.String"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadStrings(System.Int32,System.Int32,System.Text.Encoding)">
+            <summary>
+            Reads the specified number of <see cref="T:System.String"/> values from the current stream into a
+            <see cref="T:System.String"/> array. The strings have neither a prefix or postfix, the length has to be specified
+            manually. The strings are available in the specified encoding.
+            </summary>
+            <param name="count">The number of <see cref="T:System.String"/> values to read.</param>
+            <param name="length">The length of the string.</param>
+            <param name="encoding">The encoding used for converting the string or <c>null</c> to use the encoding
+            configured for this instance.</param>
+            <returns>The <see cref="T:System.String"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadUInt16">
+            <summary>
+            Reads a 2-byte unsigned integer from the current stream using little-endian encoding and advances the
+            position of the stream by two bytes.
+            </summary>
+            <returns>The 2-byte unsigned integer read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadUInt16s(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.UInt16"/> values from the current stream into a
+            <see cref="T:System.UInt16"/> array and advances the current position by that number of <see cref="T:System.UInt16"/> values
+            multiplied with the size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.UInt16"/> values to read.</param>
+            <returns>The <see cref="T:System.UInt16"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadUInt32">
+            <summary>
+            Reads an 8-byte unsigned integer from the current stream and advances the position of the stream by eight
+            bytes.
+            </summary>
+            <returns>The 8-byte unsigned integer read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadUInt32s(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.UInt32"/> values from the current stream into a
+            <see cref="T:System.UInt32"/> array and advances the current position by that number of <see cref="T:System.UInt32"/> values
+            multiplied with the size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.UInt32"/> values to read.</param>
+            <returns>The <see cref="T:System.UInt32"/> array read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadUInt64">
+            <summary>
+            Reads an 8-byte unsigned integer from the current stream and advances the position of the stream by eight
+            bytes.
+            </summary>
+            <returns>The 8-byte unsigned integer read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataReader.ReadUInt64s(System.Int32)">
+            <summary>
+            Reads the specified number of <see cref="T:System.UInt64"/> values from the current stream into a
+            <see cref="T:System.UInt64"/> array and advances the current position by that number of <see cref="T:System.UInt64"/> values
+            multiplied with the size of a single value.
+            </summary>
+            <param name="count">The number of <see cref="T:System.UInt64"/> values to read.</param>
+            <returns>The <see cref="T:System.UInt64"/> array read from the current stream.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.BinaryDataWriter">
+            <summary>
+            Represents an extended <see cref="T:System.IO.BinaryWriter"/> supporting special file format data types.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> class based on the specified stream and
+            using UTF-8 encoding.
+            </summary>
+            <param name="output">The output stream.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support writing or is already closed.</exception>
+            <exception cref="T:System.ArgumentNullException">output is null.</exception>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.#ctor(System.IO.Stream,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> class based on the specified stream, UTF-8
+            encoding and optionally leaves the stream open.
+            </summary>
+            <param name="output">The output stream.</param>
+            <param name="leaveOpen"><c>true</c> to leave the stream open after the <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> object
+            is disposed; otherwise <c>false</c>.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support writing or is already closed.</exception>
+            <exception cref="T:System.ArgumentNullException">output is null.</exception>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> class based on the specified stream and
+            character encoding.
+            </summary>
+            <param name="output">The output stream.</param>
+            <param name="encoding">The character encoding to use.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support writing or is already closed.</exception>
+            <exception cref="T:System.ArgumentNullException">output or encoding is null.</exception>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.#ctor(System.IO.Stream,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> class based on the specified stream and
+            character encoding, and optionally leaves the stream open.
+            </summary>
+            <param name="output">The output stream.</param>
+            <param name="encoding">The character encoding to use.</param>
+            <param name="leaveOpen"><c>true</c> to leave the stream open after the <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> object
+            is disposed; otherwise <c>false</c>.</param>
+            <exception cref="T:System.ArgumentException">The stream does not support writing or is already closed.</exception>
+            <exception cref="T:System.ArgumentNullException">output or encoding is null.</exception>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataWriter.ByteConverter">
+            <summary>
+            Gets or sets the <see cref="P:Syroot.BinaryData.BinaryDataWriter.ByteConverter"/> instance used to parse multibyte binary data with.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataWriter.ByteOrder">
+            <summary>
+            Gets or sets the byte order used to parse multibyte binary data with.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataWriter.Encoding">
+            <summary>
+            Gets the encoding used for string related operations where no other encoding has been provided. Due to the
+            way the underlying <see cref="T:System.IO.BinaryWriter"/> is instantiated, it can only be specified at creation time.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataWriter.EndOfStream">
+            <summary>
+            Gets a value indicating whether the end of the stream has been reached.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataWriter.Length">
+            <summary>
+            Gets or sets the length in bytes of the stream in bytes.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryDataWriter.Position">
+            <summary>
+            Gets or sets the position within the current stream. This is a shortcut to the base stream Position
+            property.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Align(System.Int32,System.Boolean)">
+            <summary>
+            Aligns the writer to the next given byte multiple.
+            </summary>
+            <param name="alignment">The byte multiple.</param>
+            <param name="grow"><c>true</c> to enlarge the stream size to include the final position in case it is larger
+            than the current stream length.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.ReserveOffset">
+            <summary>
+            Allocates space for an <see cref="T:Syroot.BinaryData.Offset"/> which can be satisfied later on.
+            </summary>
+            <returns>An <see cref="T:Syroot.BinaryData.Offset"/> to satisfy later on.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.ReserveOffset(System.Int32)">
+            <summary>
+            Allocates space for a given number of <see cref="T:Syroot.BinaryData.Offset"/> instances which can be satisfied later on.
+            </summary>
+            <param name="count">The number of <see cref="T:Syroot.BinaryData.Offset"/> instances to reserve.</param>
+            <returns>An array of <see cref="T:Syroot.BinaryData.Offset"/> instances to satisfy later on.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Seek(System.Int64)">
+            <summary>
+            Sets the position within the current stream. This is a shortcut to the base stream Seek method.
+            </summary>
+            <param name="offset">A byte offset relative to the current position in the stream.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Sets the position within the current stream. This is a shortcut to the base stream Seek method.
+            </summary>
+            <param name="offset">A byte offset relative to the origin parameter.</param>
+            <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain
+            the new position.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.TemporarySeek">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> to restore the current position after it has been disposed.
+            </summary>
+            <returns>The <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to restore to the current position.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.TemporarySeek(System.Int64)">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> with the given parameters. As soon as the returned <see cref="T:Syroot.BinaryData.SeekTask"/>
+            is disposed, the previous stream position will be restored.
+            </summary>
+            <param name="offset">A byte offset relative to the current position in the stream.</param>
+            <returns>A <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to undo the seek.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.TemporarySeek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> with the given parameters. As soon as the returned <see cref="T:Syroot.BinaryData.SeekTask"/>
+            is disposed, the previous stream position will be restored.
+            </summary>
+            <param name="offset">A byte offset relative to the origin parameter.</param>
+            <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain
+            the new position.</param>
+            <returns>A <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to undo the seek.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Boolean,Syroot.BinaryData.BooleanDataFormat)">
+            <summary>
+            Writes a <see cref="T:System.Boolean"/> value in the given format to the current stream, with 0 representing
+            <c>false</c> and 1 representing <c>true</c>.
+            </summary>
+            <param name="value">The <see cref="T:System.Boolean"/> value to write.</param>
+            <param name="format">The binary format in which the <see cref="T:System.Boolean"/> will be written.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.Boolean},Syroot.BinaryData.BooleanDataFormat)">
+            <summary>
+            Writes an enumeration of <see cref="T:System.Boolean"/> values to the current stream, with 0 representing
+            <c>false</c> and 1 representing <c>true</c>.
+            </summary>
+            <param name="values">The <see cref="T:System.Boolean"/> values to write.</param>
+            <param name="format">The binary format in which the <see cref="T:System.Boolean"/> will be written.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.DateTime,Syroot.BinaryData.DateTimeDataFormat)">
+            <summary>
+            Writes a <see cref="T:System.DateTime"/> value to this stream. The <see cref="T:System.DateTime"/> will be available in the
+            specified binary format.
+            </summary>
+            <param name="value">The <see cref="T:System.DateTime"/> value to write.</param>
+            <param name="format">The binary format in which the <see cref="T:System.DateTime"/> will be written.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.DateTime},Syroot.BinaryData.DateTimeDataFormat)">
+            <summary>
+            Writes an enumeration of <see cref="T:System.DateTime"/> values to this stream. The <see cref="T:System.DateTime"/> values
+            will be available in the specified binary format.
+            </summary>
+            <param name="values">The <see cref="T:System.DateTime"/> values to write.</param>
+            <param name="format">The binary format in which the <see cref="T:System.DateTime"/> values will be written.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Decimal)">
+            <summary>
+            Writes an 16-byte floating point value to this stream and advances the current position of the stream by
+            sixteen bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.Decimal"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.Decimal})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.Decimal"/> values to the current stream and advances the current
+            position by that number of <see cref="T:System.Decimal"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.Decimal"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Double)">
+            <summary>
+            Writes an 8-byte floating point value to this stream and advances the current position of the stream by
+            eight bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.Double"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.Double"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.Double"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.Double"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.WriteEnum``1(``0,System.Boolean)">
+            <summary>
+            Writes an enum value to this stream and advances the current position of the stream by the size of the
+            underlying enum type size. Optionally validates the value to be defined in the enum type.
+            </summary>
+            <param name="value">The enum value to write.</param>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if the value is not
+            defined in the enum type.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.WriteEnums``1(System.Collections.Generic.IEnumerable{``0},System.Boolean)">
+            <summary>
+            Writes an enumeration of enum values to this stream and advances the current position of the stream by the
+            size of the underlying enum type size multiplied by the number of values. Optionally validates the values to
+            be defined in the enum type.
+            </summary>
+            <param name="values">The enum values to write.</param>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if a value is not
+            defined in the enum type.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Int16)">
+            <summary>
+            Writes an 2-byte signed integer to this stream and advances the current position of the stream by two bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.Int16"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.Int16})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.Int16"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.Int16"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.Int16"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Int32)">
+            <summary>
+            Writes an 4-byte signed integer to this stream and advances the current position of the stream by four
+            bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.Int32"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.Int32"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.Int32"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.Int32"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Int64)">
+            <summary>
+            Writes an 8-byte signed integer to this stream and advances the current position of the stream by eight
+            bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.Int64"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.Int64"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.Int64"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.Int64"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.WriteObject(System.Object)">
+            <summary>
+            Writes an object or enumerable of objects to this stream.
+            </summary>
+            <param name="value">The object or enumerable of objects to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Single)">
+            <summary>
+            Writes an 4-byte floating point value to this stream and advances the current position of the stream by four
+            bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.Single"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.Single})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.Single"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.Single"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.Single"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.String,Syroot.BinaryData.StringDataFormat,System.Text.Encoding)">
+            <summary>
+            Writes a string to this stream with the given encoding and advances the current position of the stream in
+            accordance with the encoding used and the specific characters being written to the stream. The string will
+            be available in the specified binary format.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> value to write.</param>
+            <param name="format">The binary format in which the string will be written.</param>
+            <param name="encoding">The encoding used for converting the string.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.String},Syroot.BinaryData.StringDataFormat,System.Text.Encoding)">
+            <summary>
+            Writes an enumeration of <see cref="T:System.String"/> values to this stream with the given encoding. The strings
+            will be available in the specified binary format.
+            </summary>
+            <param name="values">The <see cref="T:System.String"/> values to write.</param>
+            <param name="format">The binary format in which the strings will be written.</param>
+            <param name="encoding">The encoding used for converting the strings.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.UInt16)">
+            <summary>
+            Writes an 2-byte unsigned integer value to this stream and advances the current position of the stream by
+            two bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.UInt16"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.UInt16})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.UInt16"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.UInt16"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.UInt16"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.UInt32)">
+            <summary>
+            Writes an 4-byte unsigned integer value to this stream and advances the current position of the stream by
+            four bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.UInt32"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.UInt32})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.UInt32"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.UInt32"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.UInt32"/> values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.UInt64)">
+            <summary>
+            Writes an 8-byte unsigned integer value to this stream and advances the current position of the stream by
+            eight bytes.
+            </summary>
+            <param name="value">The <see cref="T:System.UInt64"/> value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryDataWriter.Write(System.Collections.Generic.IEnumerable{System.UInt64})">
+            <summary>
+            Writes an enumeration of <see cref="T:System.UInt64"/> values to the current stream and advances the current position
+            by that number of <see cref="T:System.UInt64"/> values multiplied with the size of a single value.
+            </summary>
+            <param name="values">The <see cref="T:System.UInt64"/> values to write.</param>
+        </member>
+        <member name="T:Syroot.BinaryData.ByteConverter">
+            <summary>
+            Represents a <see cref="T:System.BitConverter"/> which handles a specific endianness.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.ByteConverter.BufferException">
+            <summary>
+            The exception thrown if a conversion buffer is too small or <c>null</c>.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Syroot.BinaryData.ByteConverter"/> class.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.ByteConverter"/> class.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.ByteConverter.LittleEndian">
+            <summary>
+            Gets a <see cref="T:Syroot.BinaryData.ByteConverter"/> instance converting data stored in little endian byte order.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.ByteConverter.BigEndian">
+            <summary>
+            Gets a <see cref="T:Syroot.BinaryData.ByteConverter"/> instance converting data stored in big endian byte order.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.ByteConverter.System">
+            <summary>
+            Gets a <see cref="T:Syroot.BinaryData.ByteConverter"/> instance converting data stored in the byte order of the system
+            executing the assembly.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.ByteConverter.ByteOrder">
+            <summary>
+            Gets the <see cref="T:Syroot.BinaryData.ByteOrder"/> in which data is stored as converted by this instance.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetConverter(Syroot.BinaryData.ByteOrder)">
+            <summary>
+            Returns a <see cref="T:Syroot.BinaryData.ByteConverter"/> for the given <paramref name="byteOrder"/>.
+            </summary>
+            <param name="byteOrder">The <see cref="P:Syroot.BinaryData.ByteConverter.ByteOrder"/> to retrieve a converter for.</param>
+            <returns>The corresponding <see cref="T:Syroot.BinaryData.ByteConverter"/> instance.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.Decimal,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Decimal"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.Double,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Double"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.Int16,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int16"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int32"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int64"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.Single,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Single"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.UInt16,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt16"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.UInt32,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt32"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.GetBytes(System.UInt64,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt64"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToDecimal(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Decimal"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToDouble(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Double"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int16"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int32"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int64"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToSingle(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Single"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToUInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt16"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToUInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt32"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverter.ToUInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt64"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.ByteConverterBigEndian">
+            <summary>
+            Represents a <see cref="T:Syroot.BinaryData.ByteConverter"/> which handles little endianness.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.ByteConverterBigEndian.ByteOrder">
+            <summary>
+            Gets the <see cref="T:Syroot.BinaryData.ByteOrder"/> in which data is stored as converted by this instance.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.Double,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Double"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.Int16,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int16"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int32"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int64"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.Single,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Single"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.UInt16,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt16"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.UInt32,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt32"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.GetBytes(System.UInt64,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt64"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToDouble(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Double"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int16"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int32"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int64"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToSingle(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Single"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToUInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt16"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToUInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt32"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterBigEndian.ToUInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt64"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.ByteConverterLittleEndian">
+            <summary>
+            Represents a <see cref="T:Syroot.BinaryData.ByteConverter"/> which handles little endianness.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.ByteConverterLittleEndian.ByteOrder">
+            <summary>
+            Gets the <see cref="T:Syroot.BinaryData.ByteOrder"/> in which data is stored as converted by this instance.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.Double,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Double"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.Int16,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int16"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int32"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Int64"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.Single,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.Single"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.UInt16,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt16"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.UInt32,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt32"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.GetBytes(System.UInt64,System.Byte[],System.Int32)">
+            <summary>
+            Stores the specified <see cref="T:System.UInt64"/> value as bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="buffer">The byte array to store the value in.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToDouble(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Double"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int16"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int32"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Int64"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToSingle(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.Single"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToUInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt16"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToUInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt32"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.ByteConverterLittleEndian.ToUInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns an <see cref="T:System.UInt64"/> instance converted from the bytes in the given <paramref name="buffer"/>.
+            </summary>
+            <param name="buffer">The byte array storing the raw data.</param>
+            <param name="startIndex">The index at which to start writing values into the buffer.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.ByteOrder">
+            <summary>
+            Represents the possible endianness of binary data.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.ByteOrder.System">
+            <summary>
+            Indicates the byte order of the system executing the assembly.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.ByteOrder.BigEndian">
+            <summary>
+            Indicates big endian byte order.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.ByteOrder.LittleEndian">
+            <summary>
+            Indicates little endian byte order.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.Core.EnumExtensions">
+            <summary>
+            Represents a collection of methods extending enum types.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.Core.EnumExtensions.IsValid(System.Type,System.Object)">
+            <summary>
+            Returns whether <paramref name="value"/> is a defined value in the enum of the given <paramref name="type"/>
+            or a valid set of flags for enums decorated with the <see cref="T:System.FlagsAttribute"/>.
+            </summary>
+            <param name="type">The type of the enum.</param>
+            <param name="value">The value to check against the enum type.</param>
+            <returns><c>true</c> if the value is valid; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.Core.TypeExtensions">
+            <summary>
+            Represents a collection of extension methods for the <see cref="T:System.Type"/> class.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.Core.TypeExtensions.IsEnumerable(System.Type)">
+            <summary>
+            Returns a value indicating whether the given <paramref name="type"/> is enumerable. Returns <c>false</c> for
+            non-enumerable objects and strings.
+            </summary>
+            <param name="type">The type which should be checked.</param>
+            <returns><c>true</c> if the type is enumerable and not a string; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Core.TypeExtensions.GetEnumerableElementType(System.Type)">
+            <summary>
+            Gets the element type of <see cref="T:System.Collections.IEnumerable"/> instances. Returns <c>null</c> for non-enumerable objects
+            and strings.
+            </summary>
+            <param name="type">The type which element type should be returned.</param>
+            <returns>The type of the elements, or <c>null</c>.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.BooleanDataFormat">
+            <summary>
+            Represents the set of formats of binary boolean encodings.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.BooleanDataFormat.Byte">
+            <summary>
+            The boolean is stored in 1 byte and is <c>true</c> when the value is not 0. This is the .NET default.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.BooleanDataFormat.Word">
+            <summary>
+            The boolean is stored in 2 bytes and is <c>true</c> when the value is not 0.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.BooleanDataFormat.Dword">
+            <summary>
+            The boolean is stored in 4 bytes and is <c>true</c> when the value is not 0.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.DateTimeDataFormat">
+            <summary>
+            Represents the set of formats of binary date and time encodings.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.DateTimeDataFormat.NetTicks">
+            <summary>
+            The <see cref="T:System.DateTime"/> is stored as the ticks of a .NET <see cref="T:System.DateTime"/> instance.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.DateTimeDataFormat.CTime">
+            <summary>
+            The <see cref="T:System.DateTime"/> has the 32-bit time_t format of the C library.
+            This is a <see cref="T:System.UInt32"/> which can store the seconds from 1970-01-01 until approx. 2106-02-07.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.DateTimeDataFormat.CTime64">
+            <summary>
+            The <see cref="T:System.DateTime"/> has the 64-bit time_t format of the C library.
+            This is an <see cref="T:System.Int64"/> which can store the seconds from 1970-01-01 until approx.
+            292277026596-12-04.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.StringDataFormat">
+            <summary>
+            Represents formats of binary string encodings.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.StringDataFormat.DynamicByteCount">
+            <summary>
+            The string has a prefix of a 7-bit encoded integer of variable size determining the number of bytes out of
+            which the string consists and no postfix. This is the .NET <see cref="T:System.IO.BinaryReader"/> and
+            <see cref="T:System.IO.BinaryWriter"/> default.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.StringDataFormat.ByteCharCount">
+            <summary>
+            The string has a prefix of 1 byte determining the number of chars out of which the string consists and no
+            postfix.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.StringDataFormat.Int16CharCount">
+            <summary>
+            The string has a prefix of 2 bytes determining the number of chars out of which the string consists and no
+            postfix.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.StringDataFormat.Int32CharCount">
+            <summary>
+            The string has a prefix of 4 bytes determining number of chars out of which the string consists and no
+            postfix.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.StringDataFormat.ZeroTerminated">
+            <summary>
+            The string has no prefix and is terminated with a 0 value. The size of this value depends on the encoding.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.StringDataFormat.Raw">
+            <summary>
+            The string has neither prefix nor postfix. This format is only valid for writing strings. For reading
+            strings, the length has to be specified manually.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.Extensions.StreamExtensions">
+            <summary>
+            Represents static extension methods for read and write operations on <see cref="T:System.IO.Stream"/> instances.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Align(System.IO.Stream,System.Int32,System.Boolean)">
+            <summary>
+            Aligns the reader to the next given byte multiple.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="alignment">The byte multiple.</param>
+            <param name="grow"><c>true</c> to enlarge the stream size to include the final position in case it is larger
+            than the current stream length.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.IsEndOfStream(System.IO.Stream)">
+            <summary>
+            Gets a value indicating whether the end of the <paramref name="stream"/> has been reached and no more data
+            can be read.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <returns>A value indicating whether the end of the stream has been reached.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Seek(System.IO.Stream,System.Int64)">
+            <summary>
+            Sets the position within the current <paramref name="stream"/> relative to the current position.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="offset">A byte offset relative to the current position in the stream.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.TemporarySeek(System.IO.Stream)">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> to restore the current position after it has been disposed.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <returns>The <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to restore to the current position.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.TemporarySeek(System.IO.Stream,System.Int64)">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> with the given parameters. As soon as the returned <see cref="T:Syroot.BinaryData.SeekTask"/>
+            is disposed, the previous stream position will be restored.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="offset">A byte offset relative to the current position in the stream.</param>
+            <returns>The <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to undo the seek.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.TemporarySeek(System.IO.Stream,System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Creates a <see cref="T:Syroot.BinaryData.SeekTask"/> with the given parameters. As soon as the returned <see cref="T:Syroot.BinaryData.SeekTask"/>
+            is disposed, the previous stream position will be restored.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="offset">A byte offset relative to the origin parameter.</param>
+            <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain
+            the new position.</param>
+            <returns>The <see cref="T:Syroot.BinaryData.SeekTask"/> to be disposed to undo the seek.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadBoolean(System.IO.Stream,Syroot.BinaryData.BooleanDataFormat)">
+            <summary>
+            Returns a <see cref="T:System.Boolean"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.BooleanDataFormat"/> format in which the data is stored.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadBooleans(System.IO.Stream,System.Int32,Syroot.BinaryData.BooleanDataFormat)">
+            <summary>
+            Returns an array of <see cref="T:System.Boolean"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.BooleanDataFormat"/> format in which the data is stored.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Read1Byte(System.IO.Stream)">
+            <summary>
+            Returns a <see cref="T:System.Byte"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadBytes(System.IO.Stream,System.Int32)">
+            <summary>
+            Returns an array of <see cref="T:System.Byte"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadDateTime(System.IO.Stream,Syroot.BinaryData.DateTimeDataFormat,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.DateTime"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.DateTimeDataFormat"/> format in which the data is stored.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadDateTimes(System.IO.Stream,System.Int32,Syroot.BinaryData.DateTimeDataFormat,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.DateTime"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.DateTimeDataFormat"/> format in which the data is stored.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadDecimal(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.Decimal"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadDecimals(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.Decimal"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadDouble(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.Double"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadDoubles(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.Double"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadEnum``1(System.IO.Stream,System.Boolean,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an <see cref="T:System.Enum"/> instance of type <typeparamref name="T"/> from the <paramref name="stream"/>.
+            </summary>
+            <typeparam name="T">The type of the enum.</typeparam>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if a value is not
+            defined in the enum type.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadEnums``1(System.IO.Stream,System.Int32,System.Boolean,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.Enum"/> instances of type <typeparamref name="T"/> read from the
+            <paramref name="stream"/>.
+            </summary>
+            <typeparam name="T">The type of the enum.</typeparam>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if a value is not
+            defined in the enum type.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadInt16(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an <see cref="T:System.Int16"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadInt16s(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.Int16"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadInt32(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an <see cref="T:System.Int32"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadInt32s(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.Int32"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadInt64(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an <see cref="T:System.Int64"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadInt64s(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.Int64"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadObject``1(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an object of type <typeparamref name="T"/> read from the <paramref name="stream"/>.
+            </summary>
+            <typeparam name="T">The type of the object to read.</typeparam>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadObjects``1(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of objects of type <typeparamref name="T"/> read from the <paramref name="stream"/>.
+            </summary>
+            <typeparam name="T">The type of the object to load.</typeparam>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadSByte(System.IO.Stream)">
+            <summary>
+            Returns an <see cref="T:System.SByte"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadSBytes(System.IO.Stream,System.Int32)">
+            <summary>
+            Returns an array of <see cref="T:System.SByte"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadSingle(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.Single"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadSingles(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.Single"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadString(System.IO.Stream,Syroot.BinaryData.StringDataFormat,System.Text.Encoding,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.String"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.StringDataFormat"/> format determining how the length of the string is
+            stored.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to parse the bytes with, or <c>null</c> to use
+            <see cref="P:System.Text.Encoding.UTF8"/>.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadStrings(System.IO.Stream,System.Int32,Syroot.BinaryData.StringDataFormat,System.Text.Encoding,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.String"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.StringDataFormat"/> format determining how the length of the strings is
+            stored.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to parse the bytes with, or <c>null</c> to use
+            <see cref="P:System.Text.Encoding.UTF8"/>.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadString(System.IO.Stream,System.Int32,System.Text.Encoding)">
+            <summary>
+            Returns a <see cref="T:System.String"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="length">The length of the string.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to parse the decode the chars with, or <c>null</c> to use
+            <see cref="P:System.Text.Encoding.UTF8"/>.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadStrings(System.IO.Stream,System.Int32,System.Int32,System.Text.Encoding)">
+            <summary>
+            Returns an array of <see cref="T:System.String"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="length">The length of the string.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to parse the bytes with, or <c>null</c> to use
+            <see cref="P:System.Text.Encoding.UTF8"/>.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadUInt16(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.UInt16"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadUInt16s(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.UInt16"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadUInt32(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.UInt32"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadUInt32s(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.UInt32"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadUInt64(System.IO.Stream,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns a <see cref="T:System.UInt64"/> instance read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The value read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.ReadUInt64s(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Returns an array of <see cref="T:System.UInt64"/> instances read from the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="count">The number of values to read.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+            <returns>The array of values read from the current stream.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Boolean,Syroot.BinaryData.BooleanDataFormat,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.Boolean"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.BooleanDataFormat"/> format in which the data is stored.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Boolean},Syroot.BinaryData.BooleanDataFormat,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Boolean"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.BooleanDataFormat"/> format in which the data is stored.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Byte)">
+            <summary>
+            Writes a <see cref="T:System.Byte"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Byte})">
+            <summary>
+            Writes an array of <see cref="T:System.Byte"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.DateTime,Syroot.BinaryData.DateTimeDataFormat,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.DateTime"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.DateTimeDataFormat"/> format in which the data is stored.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.DateTime},Syroot.BinaryData.DateTimeDataFormat,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.DateTime"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.DateTimeDataFormat"/> format in which the data is stored.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Decimal,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.Decimal"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Decimal},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Decimal"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Double,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.Double"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Double},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Double"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.WriteEnum``1(System.IO.Stream,``0,System.Boolean,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an <see cref="T:System.Enum"/> value of type <typeparamref name="T"/> to the <paramref name="stream"/>.
+            </summary>
+            <typeparam name="T">The type of the enum.</typeparam>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if the value is not
+            defined in the enum type.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.WriteEnums``1(System.IO.Stream,System.Collections.Generic.IEnumerable{``0},System.Boolean,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Enum"/> values of type <typeparamref name="T"/> to the
+            <paramref name="stream"/>.
+            </summary>
+            <typeparam name="T">The type of the enum.</typeparam>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="strict"><c>true</c> to raise an <see cref="T:System.ArgumentOutOfRangeException"/> if the value is not
+            defined in the enum type.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Int16,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an <see cref="T:System.Int16"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Int16},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Int16"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Int32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an <see cref="T:System.Int32"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Int32},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Int32"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Int64,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an <see cref="T:System.Int64"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Int64},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Int64"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.WriteObject(System.IO.Stream,System.Object,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an object or enumerable of objects to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The object or enumerable of objects to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.SByte)">
+            <summary>
+            Writes an <see cref="T:System.SByte"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.SByte})">
+            <summary>
+            Writes an array of <see cref="T:System.SByte"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Single,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.Single"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Single},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.Single"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.String,Syroot.BinaryData.StringDataFormat,System.Text.Encoding,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.String"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.StringDataFormat"/> format determining how the length of the string is
+            stored.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to parse the bytes with, or <c>null</c> to use
+            <see cref="P:System.Text.Encoding.UTF8"/>.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},Syroot.BinaryData.StringDataFormat,System.Text.Encoding,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.String"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="format">The <see cref="T:Syroot.BinaryData.StringDataFormat"/> format determining how the length of the strings is
+            stored.</param>
+            <param name="encoding">The <see cref="T:System.Text.Encoding"/> to parse the bytes with, or <c>null</c> to use
+            <see cref="P:System.Text.Encoding.UTF8"/>.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.UInt16,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an <see cref="T:System.UInt16"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.UInt16},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.UInt16"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.UInt32,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.UInt32"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.UInt32},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.UInt32"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.UInt64,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes a <see cref="T:System.UInt64"/> value to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="M:Syroot.BinaryData.Extensions.StreamExtensions.Write(System.IO.Stream,System.Collections.Generic.IEnumerable{System.UInt64},Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes an array of <see cref="T:System.UInt64"/> values to the <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The extended <see cref="T:System.IO.Stream"/> instance.</param>
+            <param name="values">The values to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multibyte data.</param>
+        </member>
+        <member name="T:Syroot.BinaryData.Offset">
+            <summary>
+            Represents a space of 4 bytes reserved in the underlying stream of a <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> which can
+            be comfortably satisfied later on.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.Offset.#ctor(Syroot.BinaryData.BinaryDataWriter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.Offset"/> class reserving an offset with the specified
+            <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> at the current position.
+            </summary>
+            <param name="writer">The <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> holding the stream in which the offset will be
+            reserved.</param>
+        </member>
+        <member name="P:Syroot.BinaryData.Offset.Writer">
+            <summary>
+            Gets the <see cref="T:Syroot.BinaryData.BinaryDataWriter"/> in which underlying stream the allocation is made.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.Offset.Position">
+            <summary>
+            Gets the address at which the allocation is made.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.Offset.Satisfy">
+            <summary>
+            Satisfies the offset by writing the current position of the underlying stream at the reserved
+            <see cref="P:Syroot.BinaryData.Offset.Position"/>, then seeking back to the current position.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.Offset.Satisfy(System.Int32)">
+            <summary>
+            Satisfies the offset by writing the given value of the underlying stream at the reserved
+            <see cref="P:Syroot.BinaryData.Offset.Position"/>, then seeking back to the current position.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.BinaryConverterCache">
+            <summary>
+            Represents a cache for <see cref="T:Syroot.BinaryData.IBinaryConverter"/> instances.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.BinaryConverterCache.GetConverter(System.Type)">
+            <summary>
+            Gets a possibly cached instance of a <see cref="T:Syroot.BinaryData.IBinaryConverter"/> of the given <paramref name="type"/>.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> of the <see cref="T:Syroot.BinaryData.IBinaryConverter"/> to return.</param>
+            <returns>An instance of the <see cref="T:Syroot.BinaryData.IBinaryConverter"/>.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.BinaryMemberAttribute">
+            <summary>
+            Represents a member configuration for reading and writing it as binary data.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.Order">
+            <summary>
+            Gets or sets the number determining the order in which the member is read or written. If not specified, the
+            members are written in alphabetical order.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.Offset">
+            <summary>
+            Gets or sets offset of this field in bytes. Can be negative. Defaults to 0.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.OffsetOrigin">
+            <summary>
+            Gets or sets the origin of the offset of this field. Defaults to <see cref="F:Syroot.BinaryData.OffsetOrigin.Current"/>.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.BooleanFormat">
+            <summary>
+            Gets or sets the format for <see cref="T:System.Boolean"/> members. Defaults to
+            <see cref="F:Syroot.BinaryData.BooleanDataFormat.Byte"/>.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.DateTimeFormat">
+            <summary>
+            Gets or sets the format for <see cref="T:System.DateTime"/> members. Defaults to
+            <see cref="F:Syroot.BinaryData.DateTimeDataFormat.NetTicks"/>.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.StringFormat">
+            <summary>
+            Gets or sets the format for <see cref="T:System.String"/> members. Defaults to
+            <see cref="F:Syroot.BinaryData.StringDataFormat.DynamicByteCount"/>.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.Length">
+            <summary>
+            Gets or sets the number of elements to read or write. Required for <see cref="T:System.Collections.IEnumerable"/> members or
+            strings when <see cref="P:Syroot.BinaryData.BinaryMemberAttribute.StringFormat"/> is <see cref="F:Syroot.BinaryData.StringDataFormat.Raw"/>.
+            Multidimensional arrays are not supported.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.Strict">
+            <summary>
+            Gets or sets a value indicating whether enum values are checked for a valid value or set of flags. Defaults
+            to <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryMemberAttribute.Converter">
+            <summary>
+            Gets or sets the <see cref="T:Syroot.BinaryData.IBinaryConverter"/> type to read and write the value with.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.OffsetOrigin">
+            <summary>
+            Represents the origins of offsets of a member.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.OffsetOrigin.Current">
+            <summary>
+            The origin is relative to the most recent position of the data stream.
+            </summary>
+        </member>
+        <member name="F:Syroot.BinaryData.OffsetOrigin.Begin">
+            <summary>
+            The origin is relative to the start of the class or structure, which is the position at which reading or
+            writing the instance of the top-most base type has been initiated.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.BinaryObjectAttribute">
+            <summary>
+            Represents a class or struct configuration for reading and writing it as binary data.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryObjectAttribute.Inherit">
+            <summary>
+            Gets or sets a value indicating whether inherited members are read and written first. Defaults to
+            <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.BinaryObjectAttribute.Explicit">
+            <summary>
+            Gets or sets a value indicating whether public members are not automatically read and written. Defaults to
+            <c>false</c>.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.IBinaryConverter">
+            <summary>
+            Represents a converter for reading and writing custom binary values.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.IBinaryConverter.Read(System.IO.Stream,System.Object,Syroot.BinaryData.BinaryMemberAttribute,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Reads the value from the given <paramref name="stream"/> and returns it to set the corresponding member.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to read the value from.</param>
+            <param name="instance">The instance to which the value belongs.</param>
+            <param name="memberAttribute">The <see cref="T:Syroot.BinaryData.BinaryMemberAttribute"/> containing configuration which can be
+            used to modify the behavior of the converter.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multi-byte data.</param>
+            <returns>The read value.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.IBinaryConverter.Write(System.IO.Stream,System.Object,Syroot.BinaryData.BinaryMemberAttribute,System.Object,Syroot.BinaryData.ByteConverter)">
+            <summary>
+            Writes the value with the given <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The <see cref="T:System.IO.Stream"/> to write the value with.</param>
+            <param name="instance">The instance to which the value belongs.</param>
+            <param name="memberAttribute">The <see cref="T:Syroot.BinaryData.BinaryMemberAttribute"/> containing configuration which can be
+            used to modify the behavior of the converter.</param>
+            <param name="value">The value to write.</param>
+            <param name="converter">The <see cref="T:Syroot.BinaryData.ByteConverter"/> to use for converting multi-byte data.</param>
+        </member>
+        <member name="T:Syroot.BinaryData.MemberData">
+            <summary>
+            Represents information on a member of a type cached as <see cref="T:Syroot.BinaryData.TypeData"/>.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.MemberData.#ctor(System.Reflection.MemberInfo,System.Type,Syroot.BinaryData.BinaryMemberAttribute)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.MemberData"/> class for the given <paramref name="memberInfo"/>
+            with the specified <paramref name="attribute"/> configuration.
+            </summary>
+            <param name="memberInfo">The <see cref="T:Syroot.BinaryData.MemberData"/> to represent.</param>
+            <param name="type">The type of the value stored by the member.</param>
+            <param name="attribute">The <see cref="T:Syroot.BinaryData.BinaryMemberAttribute"/> configuration.</param>
+        </member>
+        <member name="P:Syroot.BinaryData.MemberData.MemberInfo">
+            <summary>
+            Gets the <see cref="P:Syroot.BinaryData.MemberData.MemberInfo"/> represented.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.MemberData.Type">
+            <summary>
+            Gets the <see cref="P:Syroot.BinaryData.MemberData.Type"/> of the value stored by the member.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.MemberData.Attribute">
+            <summary>
+            Gets the <see cref="T:Syroot.BinaryData.BinaryMemberAttribute"/> configuration.
+            </summary>
+        </member>
+        <member name="T:Syroot.BinaryData.TypeData">
+            <summary>
+            Represents reflected type configuration required for reading and writing it as binary data.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.TypeData.Type">
+            <summary>
+            Gets the <see cref="P:Syroot.BinaryData.TypeData.Type"/> to which informations are stored.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.TypeData.Attribute">
+            <summary>
+            Gets the <see cref="T:Syroot.BinaryData.BinaryObjectAttribute"/> configuring how the object is read and written.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.TypeData.Constructor">
+            <summary>
+            Gets a parameterless <see cref="T:System.Reflection.ConstructorInfo"/> to instantiate the class.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.TypeData.OrderedMembers">
+            <summary>
+            Gets the dictionary of <see cref="T:Syroot.BinaryData.MemberData"/> for members with the
+            <see cref="P:Syroot.BinaryData.BinaryMemberAttribute.Order"/> property set.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.TypeData.UnorderedMembers">
+            <summary>
+            Gets the list of <see cref="T:Syroot.BinaryData.MemberData"/> for members missing the <see cref="P:Syroot.BinaryData.BinaryMemberAttribute.Order"/>
+            property.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.TypeData.GetTypeData(System.Type)">
+            <summary>
+            Gets the <see cref="T:Syroot.BinaryData.TypeData"/> instance for the given <paramref name="type"/> and caches the information on
+            it if necessary.
+            </summary>
+            <param name="type">The <see cref="P:Syroot.BinaryData.TypeData.Type"/> to query information about.</param>
+            <returns>The <see cref="T:Syroot.BinaryData.TypeData"/> instance holding information about the type.</returns>
+        </member>
+        <member name="M:Syroot.BinaryData.TypeData.GetInstance">
+            <summary>
+            Invokes the parameterless constructor on the object.
+            </summary>
+            <returns>A new instance of the object.</returns>
+        </member>
+        <member name="T:Syroot.BinaryData.SeekTask">
+            <summary>
+            Represents a temporary seek to another position which is undone after the task has been disposed.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.SeekTask.#ctor(System.IO.Stream,System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syroot.BinaryData.SeekTask"/> class to temporarily seek the given
+            <see cref="P:Syroot.BinaryData.SeekTask.Stream"/> to the specified position. The <see cref="T:System.IO.Stream"/> is rewound to its
+            previous position after the task is disposed.
+            </summary>
+            <param name="stream">A <see cref="T:System.IO.Stream"/> to temporarily seek.</param>
+            <param name="offset">A byte offset relative to the origin parameter.</param>
+            <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain
+            the new position.</param>
+        </member>
+        <member name="P:Syroot.BinaryData.SeekTask.Stream">
+            <summary>
+            Gets the <see cref="P:Syroot.BinaryData.SeekTask.Stream"/> which is temporarily sought to another position.
+            </summary>
+        </member>
+        <member name="P:Syroot.BinaryData.SeekTask.PreviousPosition">
+            <summary>
+            Gets the absolute position to which the <see cref="P:Syroot.BinaryData.SeekTask.Stream"/> will be rewound when this task is disposed.
+            </summary>
+        </member>
+        <member name="M:Syroot.BinaryData.SeekTask.Dispose">
+            <summary>
+            Rewinds the <see cref="P:Syroot.BinaryData.SeekTask.Stream"/> to its previous position.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -14,22 +14,22 @@ namespace CitraFileLoader {
         /// <summary>
         /// Volume.
         /// </summary>
-        public bool Volume;
+        public bool Volume = true;
 
         /// <summary>
         /// Priority.
         /// </summary>
-        public bool Priority;
+        public bool Priority = true;
 
         /// <summary>
         /// Pan.
         /// </summary>
-        public bool Pan;
+        public bool Pan = true;
 
         /// <summary>
         /// Surround pan.
         /// </summary>
-        public bool Span;
+        public bool Span = true;
 
         /// <summary>
         /// Filter.

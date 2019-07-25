@@ -587,7 +587,7 @@ namespace IsabelleLib
             //Stream info.
             stream.sampleRate = b.SampleRate;
             stream.encoding = 2;
-            stream.isLoop = b.Loops;
+            stream.isLoop = b.Loops && b.LoopEndSample != 0xFFFFFFFF;
             stream.loopEnd = b.LoopEndSample;
             stream.loopStart = b.LoopStartSample;
             stream.originalLoopEnd = b.LoopEndSample;
@@ -608,7 +608,7 @@ namespace IsabelleLib
             }
 
             //Data.
-            data.data = (b.Data.GetDataWAV(b.DspAdpcmInfo, b.LoopEndSample) as short[][]).ToList();
+            data.data = (b.Data.GetDataWAV(b.DspAdpcmInfo, b.LoopEndSample == 0xFFFFFFFF ? b.NumSamples : b.LoopEndSample) as short[][]).ToList();
 
         }
 

@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\Citric Composer\packages\Costura.Fody.4.0.0\build\Costura.Fody.props" Condition="Exists('..\..\Citric Composer\packages\Costura.Fody.4.0.0\build\Costura.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B5BEB626-C485-4F1B-BD57-EFA7A18D4BB5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SequenceDataLib</RootNamespace>
+    <AssemblyName>SequenceDataLib</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Costura, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\..\Citric Composer\packages\Costura.Fody.4.0.0\lib\net40\Costura.dll</HintPath>
+    </Reference>
+    <Reference Include="Melanchall.DryWetMidi, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Melanchall.DryWetMidi.4.0.0\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
+    </Reference>
+    <Reference Include="Syroot.BinaryData, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syroot.IO.BinaryData.4.0.4\lib\net45\Syroot.BinaryData.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SequenceDataLib\ByteExtensions.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ExtendedCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Comparison Commands\CompareNotEqualCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Comparison Commands\CompareLessThanCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Comparison Commands\CompareGreaterThanCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Comparison Commands\CompareLessThanOrEqualToCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Comparison Commands\CompareGreaterThanOrEqualToCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Comparison Commands\CompareEqualCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Function Commands\FunctionCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4CurveCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4DelayCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4DepthCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4PeriodCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4PhaseCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4RangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4SpeedCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 4 Commands\Mod4TypeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3CurveCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3DelayCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3DepthCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3PeriodCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3PhaseCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3RangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3SpeedCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 3 Commands\Mod3TypeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2CurveCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2DelayCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2DepthCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2PeriodCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2PhaseCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2RangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2SpeedCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Mod 2 Commands\Mod2TypeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\ModVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\NotVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\XorVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\OrVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\AndVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\RandomVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\ShiftVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\DivideVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\MultiplyVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\SubtractVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\AddVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Extended Commands\Operation Commands\SetVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\IfCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModPeriodCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModDelayCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\MuteModeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\PrintVarCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModRangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModTypeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModCurveCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModSpeedCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModDepthCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ModPhaseCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\FrontBypassCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\OpenTrackCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\TimeChangeRandomCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\VariableCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\RandomCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\TimeChangeVariableCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ReleaseCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\SustainCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\DecayCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\AttackCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\HoldCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\BankSelectCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\BiquadValueCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\EnvelopeResetCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\LoopStartCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\TimeChangeCommand.cs" />
+    <Compile Include="SequenceDataLib\CommandType.cs" />
+    <Compile Include="SequenceDataLib\Command Types\BiquadTypeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\CallCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\LoopEndCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ReturnCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\MainSendCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\FxSendCCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\FxSendBCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\FxSendACommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\LPFCutoffCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\AllocateTrackCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\JumpCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\SweepPitchCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\FinCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\BendRangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\InitialPanCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\DamperCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\MonophonicCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\PortamentoEnabledCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\NoteWaitCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\PortamentoTimeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\TieCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\SurroundPanCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\PanCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\VoicingPriorityCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\VelocityRangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\TransposeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\PitchBendCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\ProgramChangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\TempoChangeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\MainVolumeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\Volume2Command.cs" />
+    <Compile Include="SequenceDataLib\Command Types\PortamentoCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\VolumeCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\TimeBaseCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\WaitCommand.cs" />
+    <Compile Include="SequenceDataLib\Command Types\NoteCommand.cs" />
+    <Compile Include="SequenceDataLib\MidiGenerator.cs" />
+    <Compile Include="SequenceDataLib\ModCurveType.cs" />
+    <Compile Include="SequenceDataLib\ModType.cs" />
+    <Compile Include="SequenceDataLib\MuteMode.cs" />
+    <Compile Include="SequenceDataLib\Notes.cs" />
+    <Compile Include="SequenceDataLib\SbyteExtensions.cs" />
+    <Compile Include="SequenceDataLib\SequenceCommand.cs" />
+    <Compile Include="SequenceDataLib\SequenceCommandToString.cs" />
+    <Compile Include="SequenceDataLib\SequenceData.cs" />
+    <Compile Include="SequenceDataLib\StringToSequenceCommand.cs" />
+    <Compile Include="SequenceDataLib\UInt24.cs" />
+    <Compile Include="SequenceDataLib\ValueItemType.cs" />
+    <Compile Include="SequenceDataLib\VariableLength.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\Citric Composer\packages\Fody.5.0.0\build\Fody.targets" Condition="Exists('..\..\Citric Composer\packages\Fody.5.0.0\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\Citric Composer\packages\Fody.5.0.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Citric Composer\packages\Fody.5.0.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\Citric Composer\packages\Costura.Fody.4.0.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Citric Composer\packages\Costura.Fody.4.0.0\build\Costura.Fody.props'))" />
+  </Target>
+</Project>

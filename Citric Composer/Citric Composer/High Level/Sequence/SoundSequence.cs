@@ -33,6 +33,9 @@ namespace CitraFileLoader {
         /// </summary>
         public List<SequenceLabel> Labels;
 
+        /// <summary>
+        /// Only update when needed, so that I don't break everything.
+        /// </summary>
         private byte[] goodData;
 
         /// <summary>
@@ -158,11 +161,30 @@ namespace CitraFileLoader {
         }
 
         /// <summary>
+        /// Update sequence data.
+        /// </summary>
+        public void UpdateSeqData(WriteMode writeMode) {
+
+            //Write sequence data.
+            Syroot.BinaryData.ByteOrder bo = Syroot.BinaryData.ByteOrder.BigEndian;
+            if (writeMode == WriteMode.NX || writeMode == WriteMode.C_BE) {
+                bo = Syroot.BinaryData.ByteOrder.LittleEndian;
+            }
+            goodData = SequenceData.ToBytes(bo);
+
+        }
+
+        /// <summary>
         /// Write the sequence file.
         /// </summary>
         /// <param name="writeMode">Write mode.</param>
         /// <param name="bw">The writer.</param>
         public void Write(WriteMode writeMode, BinaryDataWriter bw) {
+
+            //Update sequence data if write mode changed.
+            if (this.writeMode != writeMode) {
+                UpdateSeqData(writeMode);
+            }
 
             //Set write mode.
             this.writeMode = writeMode;
@@ -179,8 +201,8 @@ namespace CitraFileLoader {
             if (writeMode == WriteMode.NX || writeMode == WriteMode.C_BE) {
                 bo = Syroot.BinaryData.ByteOrder.LittleEndian;
             }
-            bw.Write(SequenceData.ToBytes(bo));
-            //bw.Write(goodData);
+            //bw.Write(SequenceData.ToBytes(bo));
+            bw.Write(goodData);
 
             //Align.
             FileWriter.Align(bw, 0x20);

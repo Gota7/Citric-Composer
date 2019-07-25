@@ -91,6 +91,25 @@ namespace CitraFileLoader {
             SqrtNegative3, Sqrt0, Sqrt0Clamp, SinCoseNegative3, SinCos0, SinCos0Clamp, LinearNegative6, Linear0, Linear0Clamp
         }
 
+        /// <summary>
+        /// Copy sound info.
+        /// </summary>
+        /// <param name="s">Other sound info.</param>
+        public void CopySoundInfo(SoundInfo s) {
+            Name = s.Name;
+            File = s.File;
+            Sound3dInfo = s.Sound3dInfo;
+            Player = s.Player;
+            Volume = s.Volume;
+            RemoteFilter = s.RemoteFilter;
+            PanMode = s.PanMode;
+            PanCurve = s.PanCurve;
+            PlayerActorId = s.PlayerActorId;
+            PlayerPriority = s.PlayerPriority;
+            IsFrontBypass = s.IsFrontBypass;
+            UserParamsEnabled = s.UserParamsEnabled;
+            UserParameter = s.UserParameter;
+        }
 
         /// <summary>
         /// Write the sound info.

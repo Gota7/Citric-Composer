@@ -416,9 +416,128 @@ namespace CitraFileLoader {
                 //Send and filter exist.
                 else {
 
-                    //TODO!!!
+                    //Track info table.
+                    w.InitReference(bw, "TrackInfoTableRef");
 
-                    //Prefetch info here.
+                    //Pitch.
+                    bw.Write(e.Pitch);
+
+                    //Send value.
+                    w.InitReference(bw, "SendValueRef");
+
+                    //Stream sound extension.
+                    w.InitReference(bw, "StreamSoundExtension");
+
+                    //Prefetch file.
+                    if (SoundArchiveVersions.SupportsPrefetchInfo(a)) {
+                        if (e.GeneratePrefetchFile) {
+                            bw.Write((uint)e.PrefetchFile.FileId);
+                        } else {
+                            bw.Write((uint)0xFFFFFFFF);
+                        }
+                    }
+
+                    //Track info table.
+                    if (e.Tracks == null) {
+                        w.CloseNullReference(bw, "TrackInfoTableRef");
+                    } else {
+
+                        //Close reference.
+                        w.CloseReference(bw, ReferenceTypes.Tables + 1, "TrackInfoTableRef");
+
+                        //Start structure.
+                        w.StartStructure(bw);
+
+                        //Init reference table.
+                        w.InitReferenceTable(bw, e.Tracks.Count, "TrackInfoTable");
+
+                        //Write each track.
+                        foreach (var t in e.Tracks) {
+
+                            //Null.
+                            if (t == null) {
+                                w.AddReferenceTableNullReference("TrackInfoTable");
+                            } else {
+
+                                //Add track info.
+                                w.AddReferenceTableReference(bw, 0x220E, "TrackInfoTable");
+
+                                //Start structure.
+                                w.StartStructure(bw);
+
+                                //Write track.
+                                bw.Write(t.Volume);
+                                bw.Write(t.Pan);
+                                bw.Write(t.Span);
+                                bw.Write(t.SurroundMode);
+
+                                //References.
+                                w.InitReference(bw, "GlobalChannelTableRef");
+                                w.InitReference(bw, "SendValue2Ref");
+
+                                //More properties.
+                                bw.Write(t.LpfFrequency);
+                                bw.Write(t.BiquadType);
+                                bw.Write(t.BiquadValue);
+                                bw.Write((byte)0);
+
+                                //Global channel references.
+                                if (t.Channels == null) {
+                                    w.CloseNullReference(bw, "GlobalChannelTableRef");
+                                } else {
+
+                                    //Write channels.
+                                    w.CloseReference(bw, ReferenceTypes.Tables, "GlobalChannelTableRef");
+                                    bw.Write((uint)t.Channels.Count);
+                                    bw.Write(t.Channels.ToArray());
+                                    w.Align(bw, 4);
+
+                                }
+
+                                //Send value.
+                                if (t.SendValue == null) {
+                                    w.CloseNullReference(bw, "SendValue2Ref");
+                                } else {
+                                    w.CloseReference(bw, ReferenceTypes.SAR_Info_Send, "SendValue2Ref");
+                                    bw.Write(t.SendValue);
+                                    w.Align(bw, 4);
+                                    if (a.WriteMode != WriteMode.CTR) { bw.Write((uint)0); }
+                                }
+
+                                //End structure.
+                                w.EndStructure();
+
+                            }
+
+                        }
+
+                        //Close reference table.
+                        w.CloseReferenceTable(bw, "TrackInfoTable");
+
+                        //End structure.
+                        w.EndStructure();
+
+                    }
+
+                    //Send value.
+                    if (e.SendValue == null) {
+                        w.CloseNullReference(bw, "SendValueRef");
+                    } else {
+                        w.CloseReference(bw, ReferenceTypes.SAR_Info_Send, "SendValueRef");
+                        bw.Write(e.SendValue);
+                        w.Align(bw, 4);
+                        if (a.WriteMode != WriteMode.CTR) { bw.Write((uint)0); }
+                    }
+
+                    //Sound extension.
+                    if (!e.SoundExtensionIncluded) {
+                        w.CloseNullReference(bw, "StreamSoundExtension");
+                    } else {
+                        w.CloseReference(bw, ReferenceTypes.SAR_Info_StreamSoundExtension, "StreamSoundExtension");
+                        bw.Write((uint)e.StreamFileType);
+                        bw.Write(e.LoopStartFrame);
+                        bw.Write(e.LoopEndFrame);
+                    }
 
                 }
 
@@ -1001,7 +1120,7 @@ namespace CitraFileLoader {
             foreach (var f in a.Files) {
 
                 //Embedded.
-                if (f.Embed) {
+                if (f.FileType == EFileType.Internal) {
 
                     //Keep track of position.
                     long pos = bw.Position;
@@ -1025,7 +1144,7 @@ namespace CitraFileLoader {
             }
 
             //Correct each file needed.
-            foreach (var f in a.Files) {
+            /*foreach (var f in a.Files) {
 
                 //Write offset into group file data.
                 if (f.FileType == EFileType.Internal && !f.Embed) {
@@ -1067,7 +1186,7 @@ namespace CitraFileLoader {
                     bw.Position = origPos;
 
                     //Close reference.
-                    w.CloseSizedReference(bw, ReferenceTypes.General, (int)(bw.Position - fileBlockPos - 8), fileSize, "File" + f.FileId);
+                    //w.CloseSizedReference(bw, ReferenceTypes.General, (int)(bw.Position - fileBlockPos - 8), fileSize, "File" + f.FileId);
 
                     //Close rescources.
                     br.Dispose();
@@ -1076,7 +1195,7 @@ namespace CitraFileLoader {
 
                 }
 
-            }
+            }*/
 
             //Close the file block.
             w.CloseBlock(bw);

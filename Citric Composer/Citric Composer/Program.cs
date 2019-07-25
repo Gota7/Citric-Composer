@@ -62,7 +62,7 @@ namespace Citric_Composer
 
                         //Sequence editor.
                         case "seq":
-                            e = new SSS_Sequencer(args[0], null);
+                            e = new Static_Sequencer(args[0], null);
                             break;
 
                         //Group editor.

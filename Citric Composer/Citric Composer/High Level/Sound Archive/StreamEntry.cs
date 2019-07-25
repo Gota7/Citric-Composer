@@ -53,7 +53,7 @@ namespace CitraFileLoader {
         /// </summary>
         /// <param name="index">Flag to change the status of.</param>
         /// <param name="set">Whether to set it or not.</param>
-        public void SetChannelFlag(int index, bool set) {
+        public void SetTrackFlag(int index, bool set) {
             if (!set) {
                 if (TrackFlagEnabled(index)) {
                     m_trackFlags -= (ushort)(0b1 << index);
@@ -105,6 +105,11 @@ namespace CitraFileLoader {
         /// Generate prefetch file.
         /// </summary>
         public bool GeneratePrefetchFile;
+
+        /// <summary>
+        /// Sound extension included.
+        /// </summary>
+        public bool SoundExtensionIncluded;
 
         /// <summary>
         /// Prefetch file.

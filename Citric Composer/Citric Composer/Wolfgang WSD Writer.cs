@@ -13,19 +13,19 @@ using System.Windows.Forms;
 namespace Citric_Composer {
     public partial class Wolfgang_WSD_Writer : EditorBase {
 
-        public Wolfgang_WSD_Writer(MainWindow mainWindow) : base(typeof(WaveSoundData), "Wave Sound Data", "wsd", "Wolfgang's Writer", mainWindow) {
+        public Wolfgang_WSD_Writer(MainWindow mainWindow) : base(typeof(WaveSoundData), "Wave Sound Data", "wsd", "Wolfgang's Data Writer", mainWindow) {
             InitializeComponent();
-            Text = "Wolfgang's Writer";
+            Text = "Wolfgang's Data Writer";
             Icon = Properties.Resources.Wolfgang;
         }
 
-        public Wolfgang_WSD_Writer(string fileToOpen, MainWindow mainWindow) : base(typeof(WaveSoundData), "Wave Sound Data", "wsd", "Wolfgang's Writer", fileToOpen, mainWindow) {
+        public Wolfgang_WSD_Writer(string fileToOpen, MainWindow mainWindow) : base(typeof(WaveSoundData), "Wave Sound Data", "wsd", "Wolfgang's Data Writer", fileToOpen, mainWindow) {
             InitializeComponent();
-            Text = "Wolfgang's Writer - " + Path.GetFileName(fileToOpen);
+            Text = "Wolfgang's Data Writer - " + Path.GetFileName(fileToOpen);
             Icon = Properties.Resources.Wolfgang;
         }
 
-        public Wolfgang_WSD_Writer(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow) : base(typeof(WaveSoundData), "Wave Sound Data", "wsd", "Wolfgang's Writer", fileToOpen, mainWindow) {
+        public Wolfgang_WSD_Writer(SoundFile<ISoundFile> fileToOpen, MainWindow mainWindow) : base(typeof(WaveSoundData), "Wave Sound Data", "wsd", "Wolfgang's Data Writer", fileToOpen, mainWindow) {
             InitializeComponent();
             string name = ExtFile.FileName;
             if (name == null) {
@@ -88,8 +88,8 @@ namespace Citric_Composer {
                             if (MainWindow.File != null) {
 
                                 try {
-                                    if (MainWindow.File.WaveArchives[d.Waves[i].WarIndex].Name != null) {
-                                        warName = MainWindow.File.WaveArchives[d.Waves[i].WarIndex].Name;
+                                    if ((MainWindow.File as SoundArchive).WaveArchives[d.Waves[i].WarIndex].Name != null) {
+                                        warName = (MainWindow.File as SoundArchive).WaveArchives[d.Waves[i].WarIndex].Name;
                                     }
                                 } catch { }
 

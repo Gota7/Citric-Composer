@@ -66,6 +66,7 @@
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
@@ -109,7 +110,8 @@
     <Compile Include="Converters\FileWriter.cs" />
     <Compile Include="Converters\ReferenceStructures.cs" />
     <Compile Include="Converters\Sequence\SeqDataReader.cs" />
-    <Compile Include="Converters\Sound Archive\SoundArchiveReader.cs" />
+    <Compile Include="Converters\Sound Archive\Pitch.cs" />
+    <Compile Include="High Level\Sound Archive\SoundArchiveReader.cs" />
     <Compile Include="EditorBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +145,10 @@
     <Compile Include="High Level\Sound Archive\BankEntry.cs" />
     <Compile Include="High Level\Sound Archive\GroupEntry.cs" />
     <Compile Include="High Level\Sound Archive\PlayerEntry.cs" />
+    <Compile Include="High Level\Sound Archive\SDK_BNK.cs" />
+    <Compile Include="High Level\Sound Archive\SDK_Files.cs" />
+    <Compile Include="High Level\Sound Archive\SDK_SPJ.cs" />
+    <Compile Include="High Level\Sound Archive\SDK_SST.cs" />
     <Compile Include="High Level\Sound Archive\SequenceEntry.cs" />
     <Compile Include="High Level\Sound Archive\Sound3dInfo.cs" />
     <Compile Include="High Level\Sound Archive\SoundArchive.cs" />
@@ -168,11 +174,32 @@
     <Compile Include="High Level\Wave Sound Data\WaveSoundDataItem.cs" />
     <Compile Include="High Level\WaveArchivePair.cs" />
     <Compile Include="High Level\WriteMode.cs" />
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SDK Export\Export Project.cs" />
     <Compile Include="Sequence Emulation\SequenceParser.cs" />
     <Compile Include="Sequence Emulation\SequencePlayer.cs" />
     <Compile Include="Sequence Emulation\TickTime.cs" />
     <Compile Include="Sequence Emulation\Track.cs" />
+    <Compile Include="FileWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileWizard.Designer.cs">
+      <DependentUpon>FileWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoundEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoundEditor.Designer.cs">
+      <DependentUpon>SoundEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sound3dEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sound3dEditor.Designer.cs">
+      <DependentUpon>Sound3dEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="SoundWaveArchive.cs" />
     <Compile Include="Low Level\Stream Audio\DspAdpcmDecode.cs" />
     <Compile Include="Low Level\Stream Audio\DspAdpcmEncode.cs" />
@@ -203,11 +230,11 @@
     <Compile Include="IsabelleSoundEditor.Designer.cs">
       <DependentUpon>IsabelleSoundEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="MainWindowOLD.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <Compile Include="MainWindowOLD.Designer.cs">
+      <DependentUpon>MainWindowOLD.cs</DependentUpon>
     </Compile>
     <Compile Include="Mixer.cs" />
     <Compile Include="PatriciaTree.cs" />
@@ -244,7 +271,7 @@
     <Compile Include="Low Level\Stream Audio\SoundStream.cs" />
     <Compile Include="Low Level\Stream Audio\SoundWave.cs" />
     <Compile Include="Low Level\Stream Audio\StreamPrefetchFile.cs" />
-    <Compile Include="SSS Sequencer.cs">
+    <Compile Include="Static Sequencer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VersionSelector.cs">
@@ -277,8 +304,8 @@
     <EmbeddedResource Include="IsabelleSoundEditor.resx">
       <DependentUpon>IsabelleSoundEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <EmbeddedResource Include="MainWindowOLD.resx">
+      <DependentUpon>MainWindowOLD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Rolf Rescource Researcher.resx">
       <DependentUpon>Rolf Rescource Researcher.cs</DependentUpon>
@@ -302,6 +329,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="FileWizard.resx">
+      <DependentUpon>FileWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoundEditor.resx">
+      <DependentUpon>SoundEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sound3dEditor.resx">
+      <DependentUpon>Sound3dEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VersionSelector.resx">
       <DependentUpon>VersionSelector.cs</DependentUpon>
     </EmbeddedResource>
@@ -339,6 +375,16 @@
     <None Include="Data\Image\floweyIco.ico" />
     <None Include="bin\Debug\Data\Image\pause.png" />
     <None Include="bin\Debug\Data\Image\play4.png" />
+    <None Include="Data\Image\CafeTool.ico" />
+    <None Include="Data\Image\CtrTool.ico" />
+    <None Include="Data\Image\NxTool.ico" />
+    <None Include="Data\Image\CafeTool.png" />
+    <None Include="Data\Image\CtrTool.png" />
+    <None Include="Data\Image\NxTool.png" />
+    <Content Include="caesar.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Data\Image\icon.ico" />
     <Content Include="Data\Image\pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -349,10 +395,13 @@
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SequenceDataLib\SequenceDataLib\SequenceDataLib.csproj">
+    <ProjectReference Include="..\SequenceDataLib\SequenceDataLib.csproj">
       <Project>{b5beb626-c485-4f1b-bd57-efa7a18d4bb5}</Project>
       <Name>SequenceDataLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Caesar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.5\build\Fody.targets')" />

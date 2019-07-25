@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Citric Composer", "Citric Composer\Citric Composer.csproj", "{B7552A54-24E9-4BF9-B7E0-547ABB7C2BC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarFileLoader", "..\SolarFileLoader\SolarFileLoader\SolarFileLoader.csproj", "{4061C68E-CD19-494A-ACAE-4B645EF7F774}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarFileLoader", "SolarFileLoader\SolarFileLoader.csproj", "{4061C68E-CD19-494A-ACAE-4B645EF7F774}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solar Audio Slayer", "Solar Audio Slayer\Solar Audio Slayer.csproj", "{ACA41F98-93FE-4641-8D35-CF58F06FEF9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequenceDataLib", "..\SequenceDataLib\SequenceDataLib\SequenceDataLib.csproj", "{B5BEB626-C485-4F1B-BD57-EFA7A18D4BB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequenceDataLib", "SequenceDataLib\SequenceDataLib.csproj", "{B5BEB626-C485-4F1B-BD57-EFA7A18D4BB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

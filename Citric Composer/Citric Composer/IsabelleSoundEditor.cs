@@ -272,7 +272,11 @@ namespace Citric_Composer
         /// Index of the file opened if not in normal mode.
         /// </summary>
         public int fileIndex;
-    
+
+        /// <summary>
+        /// Updating time.
+        /// </summary>
+        public bool updatingTime;
 
         //Channel player.
         public struct channelPlayer {
@@ -2906,6 +2910,167 @@ namespace Citric_Composer
             }
 
         }
+
+        //Time conversion
+        #region TimeConversion
+
+        public TimeSpan Samples2TimeSpan(uint samples) {
+            if (fileOpen) {
+                return new TimeSpan(0, 0, 0, 0, (int)(samples / (decimal)file.stream.sampleRate * 1000));
+            } else { return new TimeSpan(); }
+        }
+
+        public uint TimeSpan2Samples(TimeSpan t) {
+            if (fileOpen) {
+                return (uint)(t.TotalMilliseconds / 1000d * file.stream.sampleRate);
+            } else { return 0; }
+        }
+
+        private void LoopStartBox_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                TimeSpan t = Samples2TimeSpan((uint)loopStartBox.Value);
+                loopStartMinutes.Value = (int)t.TotalMinutes;
+                loopStartSeconds.Value = t.Seconds;
+                loopStartMilliseconds.Value = t.Milliseconds;
+                updatingTime = false;
+            }
+        }
+
+        private void LoopStartMinutes_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                loopStartBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)loopStartMinutes.Value, (int)loopStartSeconds.Value, (int)loopStartMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void LoopStartSeconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                loopStartBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)loopStartMinutes.Value, (int)loopStartSeconds.Value, (int)loopStartMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void LoopStartMilliseconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                loopStartBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)loopStartMinutes.Value, (int)loopStartSeconds.Value, (int)loopStartMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void LoopEndBox_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                TimeSpan t = Samples2TimeSpan((uint)loopEndBox.Value);
+                loopEndMinutes.Value = (int)t.TotalMinutes;
+                loopEndSeconds.Value = t.Seconds;
+                loopEndMilliseconds.Value = t.Milliseconds;
+                updatingTime = false;
+            }
+        }
+
+        private void LoopEndMinutes_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                loopEndBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)loopEndMinutes.Value, (int)loopEndSeconds.Value, (int)loopEndMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void LoopEndSeconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                loopEndBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)loopEndMinutes.Value, (int)loopEndSeconds.Value, (int)loopEndMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void LoopEndMilliseconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                loopEndBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)loopEndMinutes.Value, (int)loopEndSeconds.Value, (int)loopEndMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopStartBox_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                TimeSpan t = Samples2TimeSpan((uint)originalLoopStartBox.Value);
+                originalLoopStartMinutes.Value = (int)t.TotalMinutes;
+                originalLoopStartSeconds.Value = t.Seconds;
+                originalLoopStartMilliseconds.Value = t.Milliseconds;
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopStartMinutes_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                originalLoopStartBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)originalLoopStartMinutes.Value, (int)originalLoopStartSeconds.Value, (int)originalLoopStartMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopStartSeconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                originalLoopStartBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)originalLoopStartMinutes.Value, (int)originalLoopStartSeconds.Value, (int)originalLoopStartMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopStartMilliseconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                originalLoopStartBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)originalLoopStartMinutes.Value, (int)originalLoopStartSeconds.Value, (int)originalLoopStartMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopEndBox_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                TimeSpan t = Samples2TimeSpan((uint)originalLoopEndBox.Value);
+                originalLoopEndMinutes.Value = (int)t.TotalMinutes;
+                originalLoopEndSeconds.Value = t.Seconds;
+                originalLoopEndMilliseconds.Value = t.Milliseconds;
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopEndMinutes_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                originalLoopEndBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)originalLoopEndMinutes.Value, (int)originalLoopEndSeconds.Value, (int)originalLoopEndMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopEndSeconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                originalLoopEndBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)originalLoopEndMinutes.Value, (int)originalLoopEndSeconds.Value, (int)originalLoopEndMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void OriginalLoopEndMilliseconds_ValueChanged(object sender, EventArgs e) {
+            if (!updatingTime) {
+                updatingTime = true;
+                originalLoopEndBox.Value = TimeSpan2Samples(new TimeSpan(0, 0, (int)originalLoopEndMinutes.Value, (int)originalLoopEndSeconds.Value, (int)originalLoopEndMilliseconds.Value));
+                updatingTime = false;
+            }
+        }
+
+        private void SecretBox_ValueChanged(object sender, EventArgs e) {
+
+        }
+
+        #endregion
 
     }
 

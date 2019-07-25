@@ -12,7 +12,7 @@ namespace CitraFileLoader {
     /// <summary>
     /// Binary wave.
     /// </summary>
-    public class BinaryWave {
+    public class BinaryWave : ISoundFile {
 
         /// <summary>
         /// Byte order.
@@ -385,6 +385,32 @@ namespace CitraFileLoader {
         /// <param name="r">Riff wave.</param>
         public static BinaryWave FromRiff(RiffWave r) {
             return new BinaryWave(StreamFactory.CreateStream(r, true, 4, 0, 0));
+        }
+
+        public void Write(WriteMode writeMode, BinaryDataWriter bw) {
+            switch (writeMode) {
+                case WriteMode.Cafe:
+                case WriteMode.C_BE:
+                    ByteOrder = Syroot.BinaryData.ByteOrder.BigEndian;
+                    break;
+                case WriteMode.NX:
+                case WriteMode.CTR:
+                    ByteOrder = Syroot.BinaryData.ByteOrder.LittleEndian;
+                    break;
+            }
+        }
+
+        public void Write(BinaryDataWriter bw) {
+            ByteOrder = bw.ByteOrder;
+            bw.Write(ToBytes());
+        }
+
+        public void Read(BinaryDataReader br) {
+            Load((br.BaseStream as MemoryStream).ToArray());
+        }
+
+        public string GetExtension() {
+            return "BWAV";
         }
 
     }

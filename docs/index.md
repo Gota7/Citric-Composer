@@ -1,6 +1,6 @@
 # Citric Composer
 Welcome to the Citric Composer collection by Gota7 and Aqua-San!
-Here you can find some useful tools for editing WiiU and 3ds sound.
+Here you can find some useful tools for editing Wii U and 3ds sound.
 
 
 # Downloads
