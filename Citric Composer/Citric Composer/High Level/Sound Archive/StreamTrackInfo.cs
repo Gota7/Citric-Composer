@@ -34,7 +34,7 @@ namespace CitraFileLoader {
         /// <summary>
         /// Channels.
         /// </summary>
-        public List<byte> Channels;
+        public List<byte> Channels = new List<byte>();
 
         /// <summary>
         /// Lpf frequency. Between 0 and 64.

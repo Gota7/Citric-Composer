@@ -44,6 +44,11 @@ namespace Citric_Composer {
             w.useExistingFile.Enabled = !w.useExistingFile.Enabled;
             w.okButton.Enabled = false;
 
+            //Stream specifics.
+            if (type == SoundArchive.NewFileEntryType.Stream) {
+                w.blankFile.Enabled = false;
+            }
+
             //Show.
             w.ShowDialog();
 
@@ -51,6 +56,11 @@ namespace Citric_Composer {
             if (w.cancel) {
                 return new SoundFile<ISoundFile>() { FileId = -1 };
             } else {
+
+                //Get versions.
+                byte maj = 1;
+                byte min = 0;
+                byte rev = 0;
 
                 //Use existing file.
                 if (w.useExistingFile.Checked) {
@@ -71,19 +81,84 @@ namespace Citric_Composer {
                     ISoundFile f = null;
                     switch (type) {
                         case SoundArchive.NewFileEntryType.Bank:
-                            f = new SoundBank();
+                            foreach (var fi in a.Files) {
+                                if (fi != null) {
+                                    if (fi.File != null) {
+                                        var z = fi.File as SoundBank;
+                                        if (z != null) {
+                                            maj = z.Version.Major;
+                                            min = z.Version.Minor;
+                                            rev = z.Version.Revision;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            f = new SoundBank() { Version = new FileWriter.Version(maj, min, rev) };
                             break;
                         case SoundArchive.NewFileEntryType.Group:
-                            f = new Group();
+                            foreach (var fi in a.Files) {
+                                if (fi != null) {
+                                    if (fi.File != null) {
+                                        var z = fi.File as Group;
+                                        if (z != null) {
+                                            maj = z.Version.Major;
+                                            min = z.Version.Minor;
+                                            rev = z.Version.Revision;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            f = new Group() { Version = new FileWriter.Version(maj, min, rev) };
                             break;
                         case SoundArchive.NewFileEntryType.Sequence:
-                            f = new SoundSequence();
+                            foreach (var fi in a.Files) {
+                                if (fi != null) {
+                                    if (fi.File != null) {
+                                        var z = fi.File as SoundSequence;
+                                        if (z != null) {
+                                            maj = z.Version.Major;
+                                            min = z.Version.Minor;
+                                            rev = z.Version.Revision;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            f = new SoundSequence() { Version = new FileWriter.Version(maj, min, rev) };
                             break;
                         case SoundArchive.NewFileEntryType.WaveArchive:
-                            f = new SoundWaveArchive();
+                            foreach (var fi in a.Files) {
+                                if (fi != null) {
+                                    if (fi.File != null) {
+                                        var z = fi.File as SoundWaveArchive;
+                                        if (z != null) {
+                                            maj = z.Version.Major;
+                                            min = z.Version.Minor;
+                                            rev = z.Version.Revision;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            f = new SoundWaveArchive() { Version = new FileWriter.Version(maj, min, rev) };
                             break;
                         case SoundArchive.NewFileEntryType.WaveSoundData:
-                            f = new WaveSoundData();
+                            foreach (var fi in a.Files) {
+                                if (fi != null) {
+                                    if (fi.File != null) {
+                                        var z = fi.File as WaveSoundData;
+                                        if (z != null) {
+                                            maj = z.Version.Major;
+                                            min = z.Version.Minor;
+                                            rev = z.Version.Revision;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            f = new WaveSoundData() { Version = new FileWriter.Version(maj, min, rev) };
                             break;
                     }
                     return new SoundFile<ISoundFile>() { Reference = a.AddNewFile(type, lastEntry, f) };
@@ -203,7 +278,7 @@ namespace Citric_Composer {
 
             l_builder.Length--;
 
-            return l_builder.ToString();
+            return l_builder.ToString().Replace('\\', '/');
         }
 
         private void ExistingFiles_SelectedIndexChanged(object sender, EventArgs e) {

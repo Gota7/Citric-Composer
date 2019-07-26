@@ -25,6 +25,7 @@ namespace Citric_Composer {
             Icon = Properties.Resources.Citric_Composer;
             toolsTabMainWindow.Visible = true;
             MainWindow = this;
+            EntryPlayer.Initialize();
         }
 
         public MainWindow(string fileToOpen) : base(typeof(SoundArchive), "Sound Archive", "sar", "Citric Composer", fileToOpen, null) {
@@ -32,6 +33,7 @@ namespace Citric_Composer {
             Text = "Citric Composer - " + Path.GetFileName(fileToOpen);
             Icon = Properties.Resources.Citric_Composer;
             toolsTabMainWindow.Visible = true;
+            EntryPlayer.Initialize();
         }
 
         //New.
@@ -93,6 +95,7 @@ namespace Citric_Composer {
 
                 //Read data.
                 File = SoundArchiveReader.ReadSoundArchive(path);
+                EntryPlayer.BasePath = Path.GetDirectoryName(FilePath);
 
                 //Update.
                 UpdateNodes();
@@ -1237,15 +1240,15 @@ namespace Citric_Composer {
             if (FileOpen && File != null) {
 
                 //Set context menus.
-                //tree.Nodes["streams"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["waveSoundDatas"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["sequences"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["soundGroups"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["banks"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["waveArchives"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["groups"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["players"].ContextMenuStrip = rootMenu;
-                //tree.Nodes["files"].ContextMenuStrip = CreateMenuStrip(rootMenu, new int[] { 1, 2 }, new EventHandler[] { null, new EventHandler(expandToolStripMenuItem_Click), new EventHandler(collapseToolStripMenuItem_Click) });
+                tree.Nodes["streams"].ContextMenuStrip = rootMenu;
+                tree.Nodes["waveSoundDatas"].ContextMenuStrip = rootMenu;
+                tree.Nodes["sequences"].ContextMenuStrip = rootMenu;
+                tree.Nodes["soundGroups"].ContextMenuStrip = rootMenu;
+                tree.Nodes["banks"].ContextMenuStrip = rootMenu;
+                tree.Nodes["waveArchives"].ContextMenuStrip = rootMenu;
+                tree.Nodes["groups"].ContextMenuStrip = rootMenu;
+                tree.Nodes["players"].ContextMenuStrip = rootMenu;
+                tree.Nodes["files"].ContextMenuStrip = CreateMenuStrip(rootMenu, new int[] { 1, 2 }, new EventHandler[] { null, new EventHandler(expandToolStripMenuItem_Click), new EventHandler(collapseToolStripMenuItem_Click) });
                 
                 //Load streams.
                 int stmCount = 0;
@@ -1272,11 +1275,18 @@ namespace Citric_Composer {
                                 //Add track.
                                 tree.Nodes["streams"].Nodes["stream" + stmCount].Nodes.Add("track" + trackCount, "Track " + trackCount, 9, 9);
 
+                                //Right click menu.
+                                tree.Nodes["streams"].Nodes["stream" + stmCount].Nodes["track" + trackCount].ContextMenuStrip = CreateMenuStrip(sarEntryMenu, new int[] { 0, 1, 3, 4, 9 }, new EventHandler[] { SarAddAbove_Click, SarAddBelow_Click, null, SarMoveUp_Click, SarMoveDown_Click, null, null, null, null, SarDelete_Click });
+
                                 //Increment count.
                                 trackCount++;
-                                
+
                             }
                         }
+
+                        //Right click menu.
+                        tree.Nodes["streams"].Nodes["stream" + stmCount].ContextMenuStrip = CreateMenuStrip(sarEntryMenu, new int[] { 0, 1, 2, 3, 4, 7, 8, 9 }, new EventHandler[] { SarAddAbove_Click, SarAddBelow_Click, SarAddInside_Click, SarMoveUp_Click, SarMoveDown_Click, null, null, SarRename_Click, SarNullify_Click, SarDelete_Click });
+                        tree.Nodes["streams"].Nodes["stream" + stmCount].ContextMenuStrip.Items[2].Visible = true;
 
                     }
 
@@ -1301,6 +1311,10 @@ namespace Citric_Composer {
                             name = "{ Null Name }";
                         }
                         tree.Nodes["waveSoundDatas"].Nodes.Add("waveSoundData" + wsdCount, "[" + wsdCount + "] " + name, 2, 2);
+
+                        //Right click menu.
+                        tree.Nodes["waveSoundDatas"].Nodes["waveSoundData" + wsdCount].ContextMenuStrip = sarEntryMenu;
+
                     }
 
                     //Increment count.
@@ -1324,6 +1338,10 @@ namespace Citric_Composer {
                             name = "{ Null Name }";
                         }
                         tree.Nodes["sequences"].Nodes.Add("sequence" + seqCount, "[" + seqCount + "] " + name, 3, 3);
+
+                        //Right click menu.
+                        tree.Nodes["sequences"].Nodes["sequence" + seqCount].ContextMenuStrip = sarEntryMenu;
+
                     }
 
                     //Increment count.
@@ -1347,6 +1365,10 @@ namespace Citric_Composer {
                             name = "{ Null Name }";
                         }
                         tree.Nodes["banks"].Nodes.Add("bank" + bCount, "[" + bCount + "] " + name, 5, 5);
+
+                        //Right click menu.
+                        tree.Nodes["banks"].Nodes["bank" + bCount].ContextMenuStrip = sarEntryMenu;
+
                     }
 
                     //Increment count.
@@ -1370,6 +1392,10 @@ namespace Citric_Composer {
                             name = "{ Null Name }";
                         }
                         tree.Nodes["players"].Nodes.Add("player" + pCount, "[" + pCount + "] " + name, 8, 8);
+
+                        //Right click menu.
+                        tree.Nodes["players"].Nodes["player" + pCount].ContextMenuStrip = CreateMenuStrip(sarEntryMenu, new int[] { 0, 1, 3, 4, 7, 8, 9 }, new EventHandler[] { SarAddAbove_Click, SarAddBelow_Click, null, SarMoveUp_Click, SarMoveDown_Click, null, null, SarRename_Click, SarNullify_Click, SarDelete_Click });
+
                     }
 
                     //Increment count.
@@ -1393,6 +1419,10 @@ namespace Citric_Composer {
                             name = "{ Null Name }";
                         }
                         tree.Nodes["groups"].Nodes.Add("group" + gCount, "[" + gCount + "] " + name, 7, 7);
+
+                        //Right click menu.
+                        tree.Nodes["groups"].Nodes["group" + gCount].ContextMenuStrip = sarEntryMenu;
+
                     }
 
                     //Increment count.
@@ -1416,6 +1446,10 @@ namespace Citric_Composer {
                             name = "{ Null Name }";
                         }
                         tree.Nodes["waveArchives"].Nodes.Add("waveArchive" + wCount, "[" + wCount + "] " + name, 6, 6);
+
+                        //Right click menu.
+                        tree.Nodes["waveArchives"].Nodes["waveArchive" + wCount].ContextMenuStrip = sarEntryMenu;
+
                     }
 
                     //Increment count.
@@ -1441,6 +1475,9 @@ namespace Citric_Composer {
                             name = "{ Null Name }";
                         }
                         tree.Nodes["soundGroups"].Nodes.Add("soundGroup" + sCount, "[" + sCount + "] " + name, 4, 4);
+
+                        //Right click menu.
+                        tree.Nodes["soundGroups"].Nodes["soundGroup" + sCount].ContextMenuStrip = CreateMenuStrip(sarEntryMenu, new int[] { 0, 1, 3, 4, 7, 8, 9 }, new EventHandler[] { SarAddAbove_Click, SarAddBelow_Click, null, SarMoveUp_Click, SarMoveDown_Click, null, null, SarRename_Click, SarNullify_Click, SarDelete_Click });
 
                         //Add each sub entry.
                         for (int i = s.StartIndex; i <= s.EndIndex; i++) {
@@ -2749,6 +2786,553 @@ namespace Citric_Composer {
 
         #endregion
 
+        //Node right click menu.
+        #region NodeRightClickMenu
+
+        public override void SarAddAbove_Click(object sender, EventArgs e) {
+
+            //Track.
+            if (tree.SelectedNode.Parent.Parent != null) {
+                if (File.Streams[tree.SelectedNode.Parent.Index].Tracks != null) {
+                    File.Streams[tree.SelectedNode.Parent.Index].Tracks.Insert(tree.SelectedNode.Index, new StreamTrackInfo());
+                    UpdateNodes();
+                } else {
+                    MessageBox.Show("Stream is not set to write track info!");
+                }
+                return;
+            }
+
+            //Get node.
+            string node = tree.SelectedNode.Parent.Name;
+
+            //Streams.
+            if (node.Equals("streams")) {
+                CreateStream(tree.SelectedNode.Index);
+            }
+
+            //Wave Sound Datas.
+            else if (node.Equals("waveSoundDatas")) {
+                CreateWaveSoundData(tree.SelectedNode.Index);
+            }
+
+            //Sequences.
+            else if (node.Equals("sequences")) {
+                CreateSequence(tree.SelectedNode.Index);
+            }
+
+            //Sound Sets.
+            else if (node.Equals("soundGroups")) {
+                CreateSoundSet(tree.SelectedNode.Index);
+            }
+
+            //Banks.
+            else if (node.Equals("banks")) {
+                CreateBank(tree.SelectedNode.Index);
+            }
+
+            //Wave Archives.
+            else if (node.Equals("waveArchives")) {
+                CreateWaveArchive(tree.SelectedNode.Index);
+            }
+
+            //Groups.
+            else if (node.Equals("groups")) {
+                CreateGroup(tree.SelectedNode.Index);
+            }
+
+            //Players.
+            else if (node.Equals("players")) {
+                CreatePlayer(tree.SelectedNode.Index);
+            }
+
+            //Update nodes.
+            UpdateNodes();
+
+        }
+
+        public override void SarAddBelow_Click(object sender, EventArgs e) {
+
+            //Track.
+            if (tree.SelectedNode.Parent.Parent != null) {
+                if (File.Streams[tree.SelectedNode.Parent.Index].Tracks != null) {
+                    File.Streams[tree.SelectedNode.Parent.Index].Tracks.Insert(tree.SelectedNode.Index + 1, new StreamTrackInfo());
+                    UpdateNodes();
+                } else {
+                    MessageBox.Show("Stream is not set to write track info!");
+                }
+                return;
+            }
+
+            //Get node.
+            string node = tree.SelectedNode.Parent.Name;
+
+            //Streams.
+            if (node.Equals("streams")) {
+                CreateStream(tree.SelectedNode.Index + 1);
+            }
+
+            //Wave Sound Datas.
+            else if (node.Equals("waveSoundDatas")) {
+                CreateWaveSoundData(tree.SelectedNode.Index + 1);
+            }
+
+            //Sequences.
+            else if (node.Equals("sequences")) {
+                CreateSequence(tree.SelectedNode.Index + 1);
+            }
+
+            //Sound Sets.
+            else if (node.Equals("soundGroups")) {
+                CreateSoundSet(tree.SelectedNode.Index + 1);
+            }
+
+            //Banks.
+            else if (node.Equals("banks")) {
+                CreateBank(tree.SelectedNode.Index + 1);
+            }
+
+            //Wave Archives.
+            else if (node.Equals("waveArchives")) {
+                CreateWaveArchive(tree.SelectedNode.Index + 1);
+            }
+
+            //Groups.
+            else if (node.Equals("groups")) {
+                CreateGroup(tree.SelectedNode.Index + 1);
+            }
+
+            //Players.
+            else if (node.Equals("players")) {
+                CreatePlayer(tree.SelectedNode.Index + 1);
+            }
+
+            //Update nodes.
+            UpdateNodes();
+
+        }
+
+        public override void SarAddInside_Click(object sender, EventArgs e) {
+
+            //Add new track info.
+            if (File.Streams[tree.SelectedNode.Index].Tracks != null) {
+                File.Streams[tree.SelectedNode.Index].Tracks.Add(new StreamTrackInfo());
+                UpdateNodes();
+            } else {
+                MessageBox.Show("Stream is not set to write track info!");
+            }
+
+        }
+
+        public override void SarMoveUp_Click(object sender, EventArgs e) {
+
+            //Track.
+            if (tree.SelectedNode.Parent.Parent != null) {
+                if (base.Swap(File.Streams[tree.SelectedNode.Parent.Index].Tracks, tree.SelectedNode.Index, tree.SelectedNode.Index - 1)) {
+                    UpdateNodes();
+                    DoInfoStuff();
+                    tree.SelectedNode = tree.Nodes[tree.SelectedNode.Parent.Parent.Index].Nodes[tree.SelectedNode.Parent.Index].Nodes[tree.SelectedNode.Index - 1];
+                }
+                return;
+            }
+
+            string node = tree.SelectedNode.Parent.Name;
+            bool ret = false;
+            if (node.Equals("stream")) {
+                ret = Swap(File.Streams, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            } else if (node.Equals("sequences")) {
+                ret = Swap(File.Sequences, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            } else if (node.Equals("waveSoundDatas")) {
+                ret = Swap(File.WaveSoundDatas, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            } else if (node.Equals("soundGroups")) {
+                ret = Swap(File.SoundSets, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            } else if (node.Equals("banks")) {
+                ret = Swap(File.Banks, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            } else if (node.Equals("waveArchives")) {
+                ret = Swap(File.WaveArchives, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            } else if (node.Equals("players")) {
+                ret = Swap(File.Players, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            } else if (node.Equals("groups")) {
+                ret = Swap(File.Groups, tree.SelectedNode.Index, tree.SelectedNode.Index - 1);
+            }
+            if (ret) {
+                tree.SelectedNode = tree.Nodes[tree.SelectedNode.Parent.Index].Nodes[tree.SelectedNode.Index - 1];
+                UpdateNodes();
+                DoInfoStuff();
+            }
+        }
+
+        public override void SarMoveDown_Click(object sender, EventArgs e) {
+
+            //Track.
+            if (tree.SelectedNode.Parent.Parent != null) {
+                if (base.Swap(File.Streams[tree.SelectedNode.Parent.Index].Tracks, tree.SelectedNode.Index, tree.SelectedNode.Index + 1)) {
+                    UpdateNodes();
+                    DoInfoStuff();
+                    tree.SelectedNode = tree.Nodes[tree.SelectedNode.Parent.Parent.Index].Nodes[tree.SelectedNode.Parent.Index].Nodes[tree.SelectedNode.Index + 1];
+                }
+                return;
+            }
+
+            string node = tree.SelectedNode.Parent.Name;
+            bool ret = false;
+            if (node.Equals("stream")) {
+                ret = Swap(File.Streams, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            } else if (node.Equals("sequences")) {
+                ret = Swap(File.Sequences, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            } else if (node.Equals("waveSoundDatas")) {
+                ret = Swap(File.WaveSoundDatas, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            } else if (node.Equals("soundGroups")) {
+                ret = Swap(File.SoundSets, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            } else if (node.Equals("banks")) {
+                ret = Swap(File.Banks, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            } else if (node.Equals("waveArchives")) {
+                ret = Swap(File.WaveArchives, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            } else if (node.Equals("players")) {
+                ret = Swap(File.Players, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            } else if (node.Equals("groups")) {
+                ret = Swap(File.Groups, tree.SelectedNode.Index, tree.SelectedNode.Index + 1);
+            }
+            if (ret) {
+                tree.SelectedNode = tree.Nodes[tree.SelectedNode.Parent.Index].Nodes[tree.SelectedNode.Index + 1];
+                UpdateNodes();
+                DoInfoStuff();
+            }
+        }
+
+        public override void SarExport_Click(object sender, EventArgs e) {
+
+            //Sound file.
+            SoundFile<ISoundFile> f = null;
+            string node = tree.SelectedNode.Parent.Name;
+            if (node.Equals("waveSoundDatas")) {
+                f = File.WaveSoundDatas[tree.SelectedNode.Index].File;
+            } else if (node.Equals("sequences")) {
+                f = File.Sequences[tree.SelectedNode.Index].File;
+            } else if (node.Equals("banks")) {
+                f = File.Banks[tree.SelectedNode.Index].File;
+            } else if (node.Equals("waveArchives")) {
+                f = File.WaveArchives[tree.SelectedNode.Index].File;
+            } else if (node.Equals("groups")) {
+                f = File.Groups[tree.SelectedNode.Index].File;
+            }
+
+            if (f == null) {
+                MessageBox.Show("You can't export an entry that has no file attached!");
+                return;
+            }
+
+            SaveFileDialog s = new SaveFileDialog();
+            s.RestoreDirectory = true;
+            string be = f.FileExtension.Substring(2, 3);
+            s.Filter = "Sound File|*.bf" + be + ";*.bc" + be + "|Switch Sound File|*.bf" + be;
+            if (File.WriteMode == WriteMode.NX) {
+                s.FilterIndex = 2;
+            }
+            s.FileName = f.FileName + "." + f.FileExtension;
+            s.ShowDialog();
+            if (s.FileName != "") {
+                WriteMode w = WriteMode.CTR;
+                if (s.FileName.ToLower().Contains(".bf")) {
+                    if (s.FilterIndex == 1) {
+                        w = WriteMode.Cafe;
+                    } else {
+                        w = WriteMode.CTR;
+                    }
+                }
+                MemoryStream o = new MemoryStream();
+                BinaryDataWriter bw = new BinaryDataWriter(o);
+                var f2 = SoundArchiveReader.ReadFile(SoundArchiveWriter.WriteFile(f.File));
+                f2.Write(w, bw);
+                System.IO.File.WriteAllBytes(s.FileName, o.ToArray());
+                try { bw.Dispose(); } catch { }
+                try { o.Dispose(); } catch { }
+            }
+        }
+
+        public override void SarReplace_Click(object sender, EventArgs e) {
+
+            //Sound file.
+            SoundFile<ISoundFile> f = null;
+            string node = tree.SelectedNode.Parent.Name;
+            if (node.Equals("waveSoundDatas")) {
+                f = File.WaveSoundDatas[tree.SelectedNode.Index].File;
+            } else if (node.Equals("sequences")) {
+                f = File.Sequences[tree.SelectedNode.Index].File;
+            } else if (node.Equals("banks")) {
+                f = File.Banks[tree.SelectedNode.Index].File;
+            } else if (node.Equals("waveArchives")) {
+                f = File.WaveArchives[tree.SelectedNode.Index].File;
+            } else if (node.Equals("groups")) {
+                f = File.Groups[tree.SelectedNode.Index].File;
+            }
+
+            if (f == null) {
+                MessageBox.Show("You can't import to an entry that has no file attached!");
+                return;
+            }
+
+            OpenFileDialog s = new OpenFileDialog();
+            s.RestoreDirectory = true;
+            string be = f.FileExtension.Substring(2, 3);
+            s.Filter = "Sound File|*.bf" + be + ";*.bc" + be;
+            s.ShowDialog();
+            if (s.FileName != "") {
+                f.File = SoundArchiveReader.ReadFile(System.IO.File.ReadAllBytes(s.FileName));
+            }
+            DoInfoStuff();
+
+        }
+
+        public override void SarRename_Click(object sender, EventArgs e) {
+            string h = Microsoft.VisualBasic.Interaction.InputBox("New Name", "Enter Name:", tree.SelectedNode.Text.Split(']')[1].Substring(1));
+            if (h != "") {
+                string node = tree.SelectedNode.Parent.Name;
+                if (node.Equals("stream")) {
+                    File.Streams[tree.SelectedNode.Index].Name = h;
+                } else if (node.Equals("sequences")) {
+                    File.Sequences[tree.SelectedNode.Index].Name = h;
+                } else if (node.Equals("waveSoundDatas")) {
+                    File.WaveSoundDatas[tree.SelectedNode.Index].Name = h;
+                } else if (node.Equals("soundGroups")) {
+                    File.SoundSets[tree.SelectedNode.Index].Name = h;
+                } else if (node.Equals("banks")) {
+                    File.Banks[tree.SelectedNode.Index].Name = h;
+                } else if (node.Equals("waveArchives")) {
+                    File.WaveArchives[tree.SelectedNode.Index].Name = h;
+                } else if (node.Equals("players")) {
+                    File.Players[tree.SelectedNode.Index].Name = h;
+                } else if (node.Equals("groups")) {
+                    File.Groups[tree.SelectedNode.Index].Name = h;
+                }
+                UpdateNodes();
+            }
+        }
+
+        public override void SarNullify_Click(object sender, EventArgs e) {
+            //Does this even... Exist?
+        }
+
+        public override void SarDelete_Click(object sender, EventArgs e) {
+
+            //Track.
+            if (tree.SelectedNode.Parent.Parent != null) {
+                File.Streams[tree.SelectedNode.Parent.Index].Tracks.RemoveAt(tree.SelectedNode.Index);
+                UpdateNodes();
+                return;
+            }
+
+            //Get node.
+            string node = tree.SelectedNode.Parent.Name;
+
+            //Streams.
+            if (node.Equals("streams")) {
+                RemoveStream(tree.SelectedNode.Index);
+            }
+
+            //Wave Sound Datas.
+            else if (node.Equals("waveSoundDatas")) {
+                RemoveWaveSoundData(tree.SelectedNode.Index);
+            }
+
+            //Sequences.
+            else if (node.Equals("sequences")) {
+                RemoveSequence(tree.SelectedNode.Index);
+            }
+
+            //Sound Sets.
+            else if (node.Equals("soundGroups")) {
+                RemoveSoundGroup(tree.SelectedNode.Index);
+            }
+
+            //Banks.
+            else if (node.Equals("banks")) {
+                RemoveBank(tree.SelectedNode.Index);
+            }
+
+            //Wave Archives.
+            else if (node.Equals("waveArchives")) {
+                RemoveWaveArchive(tree.SelectedNode.Index);
+            }
+
+            //Groups.
+            else if (node.Equals("groups")) {
+                RemoveGroup(tree.SelectedNode.Index);
+            }
+
+            //Players.
+            else if (node.Equals("players")) {
+                RemovePlayer(tree.SelectedNode.Index);
+            }
+
+            //Update nodes.
+            UpdateNodes();
+            DoInfoStuff();
+
+        }
+
+        #endregion
+
+        //Swap.
+        #region SwapFix
+
+        public new bool Swap<T>(IList<T> objects, int a, int b) {
+
+            //Make sure it is possible.
+            if (a < 0 || a >= objects.Count || b < 0 || b >= objects.Count) {
+                return false;
+            }
+
+            //Swap objects.
+            T temp = objects[a];
+            objects[a] = objects[b];
+            objects[b] = temp;
+
+            //Wave archives.
+            if (objects.Equals(File.WaveArchives)) {
+
+                //Go through each file.
+                for (int i = 0; i < File.Files.Count; i++) {
+
+                    //File is not null.
+                    if (File.Files[i].File != null) {
+
+                        //Bank.
+                        if (File.Files[i].File as SoundBank != null) {
+                            var f = File.Files[i].File as SoundBank;
+                            for (int j = 0; j < f.Waves.Count; j++) {
+                                if (f.Waves[j].WarIndex == a) {
+                                    f.Waves[j].WarIndex = b;
+                                } else if (f.Waves[j].WarIndex == b) {
+                                    f.Waves[j].WarIndex = a;
+                                }
+                            }
+                        }
+
+                        //WSD.
+                        if (File.Files[i].File as WaveSoundData != null) {
+                            var f = File.Files[i].File as WaveSoundData;
+                            for (int j = 0; j < f.Waves.Count; j++) {
+                                if (f.Waves[j].WarIndex == a) {
+                                    f.Waves[j].WarIndex = b;
+                                } else if (f.Waves[j].WarIndex == b) {
+                                    f.Waves[j].WarIndex = a;
+                                }
+                            }
+                        }
+
+                        //Group.
+                        if (File.Files[i].File as Group != null) {
+                            var f = File.Files[i].File as Group;
+                            for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                                if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.WaveArchive) {
+                                    if (f.ExtraInfo[j].ItemIndex == a) {
+                                        f.ExtraInfo[j].ItemIndex = b;
+                                    } else if (f.ExtraInfo[j].ItemIndex == b) {
+                                        f.ExtraInfo[j].ItemIndex = a;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //Banks.
+            else if (objects.Equals(File.Banks)) {
+
+                //Go through each file.
+                for (int i = 0; i < File.Files.Count; i++) {
+
+                    //File is not null.
+                    if (File.Files[i].File != null) {
+
+                        //Group.
+                        if (File.Files[i].File as Group != null) {
+                            var f = File.Files[i].File as Group;
+                            for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                                if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.Bank) {
+                                    if (f.ExtraInfo[j].ItemIndex == a) {
+                                        f.ExtraInfo[j].ItemIndex = b;
+                                    } else if (f.ExtraInfo[j].ItemIndex == b) {
+                                        f.ExtraInfo[j].ItemIndex = a;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //Sequences.
+            else if (objects.Equals(File.Sequences)) {
+
+                //Go through each file.
+                for (int i = 0; i < File.Files.Count; i++) {
+
+                    //File is not null.
+                    if (File.Files[i].File != null) {
+
+                        //Group.
+                        if (File.Files[i].File as Group != null) {
+                            var f = File.Files[i].File as Group;
+                            for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                                if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.Sound) {
+                                    if (f.ExtraInfo[j].ItemIndex == a) {
+                                        f.ExtraInfo[j].ItemIndex = b;
+                                    } else if (f.ExtraInfo[j].ItemIndex == b) {
+                                        f.ExtraInfo[j].ItemIndex = a;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //Sequence set.
+            else if (objects.Equals(File.SoundSets)) {
+
+                //Go through each file.
+                for (int i = 0; i < File.Files.Count; i++) {
+
+                    //File is not null.
+                    if (File.Files[i].File != null) {
+
+                        //Group.
+                        if (File.Files[i].File as Group != null) {
+                            var f = File.Files[i].File as Group;
+                            for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                                if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.SequenceSetOrWaveData) {
+                                    if (f.ExtraInfo[j].ItemIndex == a) {
+                                        f.ExtraInfo[j].ItemIndex = b;
+                                    } else if (f.ExtraInfo[j].ItemIndex == b) {
+                                        f.ExtraInfo[j].ItemIndex = a;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return true;
+
+        }
+
+        #endregion
+
         //Creators.
         #region Creators
 
@@ -2765,7 +3349,7 @@ namespace Citric_Composer {
             }
 
             //Get file.
-            SoundFile<ISoundFile> f = FileWizard.GetInfo(File, SoundArchive.NewFileEntryType.Sequence, index - 1, FilePath);
+            SoundFile<ISoundFile> f = FileWizard.GetInfo(File, SoundArchive.NewFileEntryType.Stream, index - 1, FilePath);
             if (f.FileId == -1) {
                 return;
             } else {
@@ -2778,6 +3362,19 @@ namespace Citric_Composer {
                 //New entry.
                 StreamEntry e = new StreamEntry() { Name = "STM_" + index, File = f, Player = File.Players[0], Sound3dInfo = new Sound3dInfo() };
                 File.Streams.Insert(index, e);
+
+                //Manage sound sets.
+                for (int i = 0; i < File.SoundSets.Count; i++) {
+                    if (File.SoundSets[i].StartIndex >= index && File.SoundSets[i].StartIndex != 0xFFFFFF) {
+                        File.SoundSets[i].StartIndex++;
+                    }
+                    if (File.SoundSets[i].EndIndex >= index && File.SoundSets[i].EndIndex != 0xFFFFFF) {
+                        File.SoundSets[i].EndIndex++;
+                        if (File.SoundSets[i].EndIndex < 0) {
+                            File.SoundSets[i].EndIndex = 0;
+                        }
+                    }
+                }
 
             }
 
@@ -2810,6 +3407,19 @@ namespace Citric_Composer {
                 WaveSoundDataEntry e = new WaveSoundDataEntry() { Name = "WSD_" + index, File = f, Player = File.Players[0], ChannelPriority = 64, Sound3dInfo = new Sound3dInfo() };
                 File.WaveSoundDatas.Insert(index, e);
 
+                //Manage sound sets.
+                for (int i = 0; i < File.SoundSets.Count; i++) {
+                    if (File.SoundSets[i].StartIndex >= index && File.SoundSets[i].StartIndex != 0xFFFFFF) {
+                        File.SoundSets[i].StartIndex++;
+                    }
+                    if (File.SoundSets[i].EndIndex >= index && File.SoundSets[i].EndIndex != 0xFFFFFF) {
+                        File.SoundSets[i].EndIndex++;
+                        if (File.SoundSets[i].EndIndex < 0) {
+                            File.SoundSets[i].EndIndex = 0;
+                        }
+                    }
+                }
+
             }
 
         }
@@ -2840,6 +3450,19 @@ namespace Citric_Composer {
                 //New entry.
                 SequenceEntry e = new SequenceEntry() { Name = "SEQ_" + index, File = f, Banks = new BankEntry[4], Player = File.Players[0], Sound3dInfo = new Sound3dInfo() };
                 File.Sequences.Insert(index, e);
+
+                //Manage sound sets.
+                for (int i = 0; i < File.SoundSets.Count; i++) {
+                    if (File.SoundSets[i].StartIndex >= index && File.SoundSets[i].StartIndex != 0xFFFFFF) {
+                        File.SoundSets[i].StartIndex++;
+                    }
+                    if (File.SoundSets[i].EndIndex >= index && File.SoundSets[i].EndIndex != 0xFFFFFF) {
+                        File.SoundSets[i].EndIndex++;
+                        if (File.SoundSets[i].EndIndex < 0) {
+                            File.SoundSets[i].EndIndex = 0;
+                        }
+                    }
+                }
 
             }
 
@@ -2941,6 +3564,479 @@ namespace Citric_Composer {
             //New entry.
             PlayerEntry e = new PlayerEntry() { Name = "PLAYER_" + index, PlayerHeapSize = 0, SoundLimit = 0 };
             File.Players.Insert(index, e);
+
+        }
+
+        #endregion
+
+        //Destroyers.
+        #region Destroyers
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemoveStream(int index) {
+
+            //Remove from any groups.
+            for (int i = 0; i < File.Files.Count; i++) {
+                if (File.Files[i].File != null) {
+                    var f = File.Files[i].File as Group;
+                    if (f != null) {
+                        for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                            if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.Sound && f.ExtraInfo[j].ItemIndex == index) {
+                                f.ExtraInfo.RemoveAt(j);
+                            }
+                        }
+                        if (File.Streams[index].File != null) {
+                            for (int j = 0; j < f.SoundFiles.Count; j++) {
+                                if (f.SoundFiles[j] != null) {
+                                    if (f.SoundFiles[j].FileId == File.Streams[index].File.FileId) {
+                                        f.SoundFiles.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                        if (File.Streams[index].PrefetchFile != null) {
+                            for (int j = 0; j < f.SoundFiles.Count; j++) {
+                                if (f.SoundFiles[j] != null) {
+                                    if (f.SoundFiles[j].FileId == File.Streams[index].PrefetchFile.FileId) {
+                                        f.SoundFiles.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Adjust sound groups.
+            if (File.Streams.Count - 1 + File.Sequences.Count + File.WaveSoundDatas.Count <= 0) {
+                File.SoundSets.Clear();
+            }
+            for (int i = 0; i < File.SoundSets.Count; i++) {
+                if (File.SoundSets[i].StartIndex >= index && File.SoundSets[i].StartIndex != 0xFFFFFF) {
+                    File.SoundSets[i].StartIndex--;
+                    if (File.SoundSets[i].StartIndex < 0) {
+                        File.SoundSets[i].StartIndex = 0;
+                    }
+                }
+                if (File.SoundSets[i].EndIndex >= index && File.SoundSets[i].EndIndex != 0xFFFFFF) {
+                    File.SoundSets[i].EndIndex--;
+                    if (File.SoundSets[i].EndIndex < 0) {
+                        File.SoundSets[i].EndIndex = 0;
+                    }
+                }
+            }
+
+            //Remove files.
+            if (File.Streams[index].File != null) {
+                if (File.FileUnique(File.Streams[index].File.FileId)) {
+                    File.Files.RemoveAt(File.Streams[index].File.FileId);
+                }
+            }
+            if (File.Streams[index].PrefetchFile != null) {
+                if (File.FileUnique(File.Streams[index].PrefetchFile.FileId)) {
+                    File.Files.RemoveAt(File.Streams[index].PrefetchFile.FileId);
+                }
+            }
+
+            //Remove stream.
+            File.Streams.RemoveAt(index);
+
+        }
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemoveWaveSoundData(int index) {
+
+            //Remove from any groups.
+            for (int i = 0; i < File.Files.Count; i++) {
+                if (File.Files[i].File != null) {
+                    var f = File.Files[i].File as Group;
+                    if (f != null) {
+                        for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                            if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.Sound && f.ExtraInfo[j].ItemIndex == index + File.Streams.Count) {
+                                f.ExtraInfo.RemoveAt(j);
+                            }
+                        }
+                        if (File.WaveSoundDatas[index].File != null) {
+                            for (int j = 0; j < f.SoundFiles.Count; j++) {
+                                if (f.SoundFiles[j] != null) {
+                                    if (f.SoundFiles[j].FileId == File.WaveSoundDatas[index].File.FileId) {
+                                        f.SoundFiles.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Adjust sound groups.
+            if (File.Streams.Count - 1 + File.Sequences.Count + File.WaveSoundDatas.Count <= 0) {
+                File.SoundSets.Clear();
+            }
+            for (int i = 0; i < File.SoundSets.Count; i++) {
+                if (File.SoundSets[i].StartIndex >= index && File.SoundSets[i].StartIndex != 0xFFFFFF) {
+                    File.SoundSets[i].StartIndex--;
+                    if (File.SoundSets[i].StartIndex < 0) {
+                        File.SoundSets[i].StartIndex = 0;
+                    }
+                }
+                if (File.SoundSets[i].EndIndex >= index && File.SoundSets[i].EndIndex != 0xFFFFFF) {
+                    File.SoundSets[i].EndIndex--;
+                    if (File.SoundSets[i].EndIndex < 0) {
+                        File.SoundSets[i].EndIndex = 0;
+                    }
+                }
+            }
+
+            //Remove files.
+            if (File.WaveSoundDatas[index].File != null) {
+                if (File.FileUnique(File.WaveSoundDatas[index].File.FileId)) {
+                    File.Files.RemoveAt(File.WaveSoundDatas[index].File.FileId);
+                }
+            }
+
+            //Remove entry.
+            File.WaveSoundDatas.RemoveAt(index);
+
+        }
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemoveSequence(int index) {
+
+            //Remove from any groups.
+            for (int i = 0; i < File.Files.Count; i++) {
+                if (File.Files[i].File != null) {
+                    var f = File.Files[i].File as Group;
+                    if (f != null) {
+                        for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                            if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.Sound && f.ExtraInfo[j].ItemIndex == index + File.Streams.Count + File.WaveSoundDatas.Count) {
+                                f.ExtraInfo.RemoveAt(j);
+                            }
+                        }
+                        if (File.Sequences[index].File != null) {
+                            for (int j = 0; j < f.SoundFiles.Count; j++) {
+                                if (f.SoundFiles[j] != null) {
+                                    if (f.SoundFiles[j].FileId == File.Sequences[index].File.FileId) {
+                                        f.SoundFiles.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Adjust sound groups.
+            if (File.Streams.Count - 1 + File.Sequences.Count + File.WaveSoundDatas.Count <= 0) {
+                File.SoundSets.Clear();
+            }
+            for (int i = 0; i < File.SoundSets.Count; i++) {
+                if (File.SoundSets[i].StartIndex >= index && File.SoundSets[i].StartIndex != 0xFFFFFF) {
+                    File.SoundSets[i].StartIndex--;
+                    if (File.SoundSets[i].StartIndex < 0) {
+                        File.SoundSets[i].StartIndex = 0;
+                    }
+                }
+                if (File.SoundSets[i].EndIndex >= index && File.SoundSets[i].EndIndex != 0xFFFFFF) {
+                    File.SoundSets[i].EndIndex--;
+                    if (File.SoundSets[i].EndIndex < 0) {
+                        File.SoundSets[i].EndIndex = 0;
+                    }
+                }
+            }
+
+            //Remove files.
+            if (File.Sequences[index].File != null) {
+                if (File.FileUnique(File.Sequences[index].File.FileId)) {
+                    File.Files.RemoveAt(File.Sequences[index].File.FileId);
+                }
+            }
+
+            //Remove entry.
+            File.Sequences.RemoveAt(index);
+
+        }
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemoveSoundGroup(int index) {
+
+            //Remove from any groups.
+            for (int i = 0; i < File.Files.Count; i++) {
+                if (File.Files[i].File != null) {
+                    var f = File.Files[i].File as Group;
+                    if (f != null) {
+                        for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                            if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.SequenceSetOrWaveData && f.ExtraInfo[j].ItemIndex == index) {
+                                f.ExtraInfo.RemoveAt(j);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Remove entry.
+            File.SoundSets.RemoveAt(index);
+
+        }
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemoveBank(int index) {
+
+            //Make sure it is not used in any sequence entries.
+            foreach (var e in File.Sequences) {
+                if (e.Banks.Contains(File.Banks[index])) {
+                    MessageBox.Show("You can't delete this bank, as it is used by sequence " + e.Name + ".");
+                    return;
+                }
+            }
+
+            //Remove from any groups.
+            for (int i = 0; i < File.Files.Count; i++) {
+                if (File.Files[i].File != null) {
+                    var f = File.Files[i].File as Group;
+                    if (f != null) {
+                        for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                            if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.Bank && f.ExtraInfo[j].ItemIndex == index) {
+                                f.ExtraInfo.RemoveAt(j);
+                            }
+                        }
+                        if (File.Banks[index].File != null) {
+                            for (int j = 0; j < f.SoundFiles.Count; j++) {
+                                if (f.SoundFiles[j] != null) {
+                                    if (f.SoundFiles[j].FileId == File.Banks[index].File.FileId) {
+                                        f.SoundFiles.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Remove file.
+            if (File.Banks[index].File != null) {
+                if (File.FileUnique(File.Banks[index].File.FileId)) {
+                    File.Files.RemoveAt(File.Banks[index].File.FileId);
+                }
+            }
+
+            //Remove entry.
+            File.Banks.RemoveAt(index);
+
+        }
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemoveWaveArchive(int index) {
+
+            //Make sure it is not used in any bank entries.
+            foreach (var e in File.Banks) {
+                if (e.WaveArchives.Contains(File.WaveArchives[index])) {
+                    MessageBox.Show("You can't delete this wave archive, as it is used by wave archive " + e.Name + ".");
+                    return;
+                }
+            }
+
+            //Make sure it is not used in any bank files.
+            foreach (var file in File.Files) {
+                if (file.File != null) {
+                    var f = file.File as SoundBank;
+                    if (f != null) {
+                        foreach (var w in f.Waves) {
+                            if (w.WarIndex == index) {
+                                MessageBox.Show("You can't delete this wave archive, as it is used inside bank file " + file.FileName + "." + file.FileExtension + ".");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Make sure it is not used in any WSD files.
+            foreach (var file in File.Files) {
+                if (file.File != null) {
+                    var f = file.File as WaveSoundData;
+                    if (f != null) {
+                        foreach (var w in f.Waves) {
+                            if (w.WarIndex == index) {
+                                MessageBox.Show("You can't delete this wave archive, as it is used inside wave sound data file " + file.FileName + "." + file.FileExtension + ".");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Remove from any groups.
+            for (int i = 0; i < File.Files.Count; i++) {
+                if (File.Files[i].File != null) {
+                    var f = File.Files[i].File as Group;
+                    if (f != null) {
+                        for (int j = 0; j < f.ExtraInfo.Count; j++) {
+                            if (f.ExtraInfo[j].ItemType == InfoExEntry.EItemType.WaveArchive && f.ExtraInfo[j].ItemIndex == index) {
+                                f.ExtraInfo.RemoveAt(j);
+                            }
+                        }
+                        if (File.WaveArchives[index].File != null) {
+                            for (int j = 0; j < f.SoundFiles.Count; j++) {
+                                if (f.SoundFiles[j] != null) {
+                                    if (f.SoundFiles[j].FileId == File.WaveArchives[index].File.FileId) {
+                                        f.SoundFiles.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Remove file.
+            if (File.WaveArchives[index].File != null) {
+                if (File.FileUnique(File.WaveArchives[index].File.FileId)) {
+                    File.Files.RemoveAt(File.WaveArchives[index].File.FileId);
+                }
+            }
+
+            //Remove entry.
+            File.WaveArchives.RemoveAt(index);
+
+        }
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemoveGroup(int index) {
+
+            //Remove file.
+            if (File.Groups[index].File != null) {
+                if (File.FileUnique(File.Groups[index].File.FileId)) {
+                    File.Files.RemoveAt(File.Groups[index].File.FileId);
+                }
+            }
+
+            //Remove.
+            File.Groups.RemoveAt(index);
+
+        }
+
+        /// <summary>
+        /// Remove the entry at the index.
+        /// </summary>
+        /// <param name="index">Index to remove entry at.</param>
+        public void RemovePlayer(int index) {
+
+            //Make sure no sounds use the player.
+            foreach (var e in File.Sequences) {
+                if (e.Player == File.Players[index]) {
+                    MessageBox.Show("You can't delete this player, as it is used by sequence " + e.Name + ".");
+                }
+            }
+            foreach (var e in File.Streams) {
+                if (e.Player == File.Players[index]) {
+                    MessageBox.Show("You can't delete this player, as it is used by stream " + e.Name + ".");
+                }
+            }
+            foreach (var e in File.WaveSoundDatas) {
+                if (e.Player == File.Players[index]) {
+                    MessageBox.Show("You can't delete this player, as it is used by wave sound data entry " + e.Name + ".");
+                }
+            }
+
+            //Remove.
+            File.Players.RemoveAt(index);
+
+        }
+
+        #endregion
+
+        //Players.
+        #region Players
+
+        public override void SarSeqPlay_Click(object sender, EventArgs e) {
+            bool unique = !EntryPlayer.CurrHash.Equals("SEQ_" + tree.SelectedNode.Index);
+            if (unique) {
+                EntryPlayer.PlaySequence(File, tree.SelectedNode.Index);
+            } else if (EntryPlayer.Paused) {
+                EntryPlayer.Resume();
+            } else {
+                EntryPlayer.PlaySequence(File, tree.SelectedNode.Index);
+            }
+        }
+
+        public override void SarWsdPlay_Click(object sender, EventArgs e) {
+            bool unique = !EntryPlayer.CurrHash.Equals("WSD_" + tree.SelectedNode.Index);
+            if (unique) {
+                EntryPlayer.PlayWsd(File, tree.SelectedNode.Index);
+            } else if (EntryPlayer.Paused) {
+                EntryPlayer.Resume();
+            } else {
+                EntryPlayer.PlayWsd(File, tree.SelectedNode.Index);
+            }
+        }
+
+        public override void StmPlay_Click(object sender, EventArgs e) {
+            bool unique = !EntryPlayer.CurrHash.Equals("STM_" + tree.SelectedNode.Index);
+            if (unique) {
+                EntryPlayer.PlayStream(File, tree.SelectedNode.Index);
+            } else if (EntryPlayer.Paused) {
+                EntryPlayer.Resume();
+            } else {
+                EntryPlayer.PlayStream(File, tree.SelectedNode.Index);
+            }
+        }
+
+        public override void SarSeqPause_Click(object sender, EventArgs e) {
+            if (EntryPlayer.Playing) {
+                EntryPlayer.Pause();
+            }
+        }
+
+        public override void SarWsdPause_Click(object sender, EventArgs e) {
+            if (EntryPlayer.Playing) {
+                EntryPlayer.Pause();
+            }
+        }
+
+        public override void StmPause_Click(object sender, EventArgs e) {
+            if (EntryPlayer.Playing) {
+                EntryPlayer.Pause();
+            }
+        }
+
+        public override void SarSeqStop_Click(object sender, EventArgs e) {
+            EntryPlayer.Stop();
+        }
+
+        public override void SarWsdStop_Click(object sender, EventArgs e) {
+            EntryPlayer.Stop();
+        }
+
+        public override void StmStop_Click(object sender, EventArgs e) {
+            EntryPlayer.Stop();
+        }
+
+        public override void OnClosing() {
+
+            //Kill the player.
+            EntryPlayer.Kill = true;
 
         }
 

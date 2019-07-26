@@ -435,7 +435,7 @@ namespace CitraFileLoader {
 
                         //Flags. F0 = String Index, F1 = Wave Count.
                         FlagParameters f = new FlagParameters(ref br);
-                        w.Name = GetString(f, strg, "WARC", i);
+                        w.Name = GetString(f, strg, "WARC", i, true);
                         if (w.File != null) {
                             if (w.File.FileName == null) {
                                 w.File.FileName = w.Name;
@@ -1531,6 +1531,13 @@ namespace CitraFileLoader {
             GuessWaveArchiveNames(a);
             GuessWaveNames(a);
 
+            //Fix wave archive names.
+            for (int i = 0; i < a.WaveArchives.Count; i++) {
+                if (a.WaveArchives[i].Name == null) {
+                    a.WaveArchives[i].Name = "WARC_" + i;
+                }
+            }
+
             //Return the archive.
             return a;
 
@@ -1965,8 +1972,9 @@ namespace CitraFileLoader {
         /// <param name="strg">Strings.</param>
         /// <param name="prefix">Item prefix.</param>
         /// <param name="index">Index of the item.</param>
+        /// <param name="allowNull">Allow a null return.</param>
         /// <returns>The string.</returns>
-        public static string GetString(FlagParameters f, List<string> strg, string prefix, int index) {
+        public static string GetString(FlagParameters f, List<string> strg, string prefix, int index, bool allowNull = false) {
 
             //Set up string.
             string s = prefix + "_" + index;
@@ -1980,7 +1988,7 @@ namespace CitraFileLoader {
             }
 
             //Return the found string.
-            return s;
+            return allowNull ? null : s;
 
         }
 

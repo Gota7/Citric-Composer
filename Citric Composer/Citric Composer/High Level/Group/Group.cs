@@ -203,7 +203,7 @@ namespace CitraFileLoader {
 
                             //Sound.
                             case SoundTypes.Sound:
-                                e.ItemType = InfoExEntry.EItemType.Sequence;
+                                e.ItemType = InfoExEntry.EItemType.Sound;
                                 break;
 
                             //Seq sound set or wave data.
@@ -432,7 +432,7 @@ namespace CitraFileLoader {
                                 type = SoundTypes.Bank;
                                 break;
 
-                            case InfoExEntry.EItemType.Sequence:
+                            case InfoExEntry.EItemType.Sound:
                                 type = SoundTypes.Sound;
                                 break;
 

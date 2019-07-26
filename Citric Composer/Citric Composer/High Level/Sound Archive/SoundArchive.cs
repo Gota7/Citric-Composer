@@ -202,8 +202,83 @@ namespace CitraFileLoader {
             Write(WriteMode, bw);
         }
 
+        /// <summary>
+        /// If a file is unused by any other entries, it is unique.
+        /// </summary>
+        /// <param name="fileIndex">Index of the file.</param>
+        /// <returns>If the file is unique.</returns>
         public bool FileUnique(int fileIndex) {
-            return true;
+
+            //What.
+            if (fileIndex == -1) {
+                return true;
+            }
+
+            //Number of uses.
+            int numUses = 0;
+
+            //Streams.
+            foreach (var e in Streams) {
+                if (e.File != null) {
+                    if (e.File.FileId == Files[fileIndex].FileId) {
+                        numUses++;
+                    }
+                }
+                if (e.PrefetchFile != null) {
+                    if (e.PrefetchFile.FileId == Files[fileIndex].FileId) {
+                        numUses++;
+                    }
+                }
+            }
+
+            //WSDs.
+            foreach (var e in WaveSoundDatas) {
+                if (e.File != null) {
+                    if (e.File.FileId == Files[fileIndex].FileId) {
+                        numUses++;
+                    }
+                }
+            }
+
+            //Sequences.
+            foreach (var e in Sequences) {
+                if (e.File != null) {
+                    if (e.File.FileId == Files[fileIndex].FileId) {
+                        numUses++;
+                    }
+                }
+            }
+
+            //Banks.
+            foreach (var e in Banks) {
+                if (e.File != null) {
+                    if (e.File.FileId == Files[fileIndex].FileId) {
+                        numUses++;
+                    }
+                }
+            }
+
+            //Wave archives.
+            foreach (var e in WaveArchives) {
+                if (e.File != null) {
+                    if (e.File.FileId == Files[fileIndex].FileId) {
+                        numUses++;
+                    }
+                }
+            }
+
+            //Groups.
+            foreach (var e in Groups) {
+                if (e.File != null) {
+                    if (e.File.FileId == Files[fileIndex].FileId) {
+                        numUses++;
+                    }
+                }
+            }
+
+            //Return unique.
+            return numUses <= 1;
+
         }
 
         /// <summary>
@@ -220,34 +295,99 @@ namespace CitraFileLoader {
             //Get proper file.
             ISoundFile f = file;
             if (f != null && !keepReference) {
-                f = SoundArchiveReader.ReadFile(SoundArchiveWriter.WriteFile(f));
+                MemoryStream o = new MemoryStream();
+                BinaryDataWriter bw = new BinaryDataWriter(o);
+                file.Write(WriteMode, bw);
+                f = SoundArchiveReader.ReadFile(o.ToArray());
+                try { bw.Dispose(); } catch { }
+                try { o.Dispose(); } catch { }        
             }
 
-            int index = -1;
+            int index = 0;
             switch (type) {
 
                 //Stream.
                 case NewFileEntryType.Stream:
+                    while (lastEntry >= 0) {
+                        if (Streams[lastEntry].File == null) {
+                            lastEntry--;
+                        } else {
+                            index = Streams[lastEntry].File.FileId + 1;
+                            break;
+                        }
+                    }
                     break;
 
                 //Wave sound data.
                 case NewFileEntryType.WaveSoundData:
+                    while (lastEntry >= 0) {
+                        if (WaveSoundDatas[lastEntry].File == null) {
+                            lastEntry--;
+                        } else {
+                            index = WaveSoundDatas[lastEntry].File.FileId + 1;
+                            break;
+                        }
+                    }
                     break;
 
                 //Sequence.
                 case NewFileEntryType.Sequence:
+                    while (lastEntry >= 0) {
+                        if (Sequences[lastEntry].File == null) {
+                            lastEntry--;
+                        } else {
+                            index = Sequences[lastEntry].File.FileId + 1;
+                            break;
+                        }
+                    }
                     break;
 
                 //Bank.
                 case NewFileEntryType.Bank:
+                    while (lastEntry >= 0) {
+                        if (Banks[lastEntry].File == null) {
+                            lastEntry--;
+                        } else {
+                            index = Banks[lastEntry].File.FileId + 1;
+                            break;
+                        }
+                    }
                     break;
 
                 //Wave archive.
                 case NewFileEntryType.WaveArchive:
+                    while (lastEntry >= 0) {
+                        if (WaveArchives[lastEntry].File == null) {
+                            lastEntry--;
+                        } else {
+                            index = WaveArchives[lastEntry].File.FileId + 1;
+                            break;
+                        }
+                    }
                     break;
 
                 //Group.
                 case NewFileEntryType.Group:
+                    while (lastEntry >= 0) {
+                        if (Groups[lastEntry].File == null) {
+                            lastEntry--;
+                        } else {
+                            index = Groups[lastEntry].File.FileId + 1;
+                            break;
+                        }
+                    }
+                    break;
+
+                //Prefech.
+                case NewFileEntryType.Prefetch:
+                    while (lastEntry >= 0) {
+                        if (Streams[lastEntry].PrefetchFile == null) {
+                            lastEntry--;
+                        } else {
+                            index = Streams[lastEntry].PrefetchFile.FileId + 1;
+                            break;
+                        }
+                    }
                     break;
 
             }

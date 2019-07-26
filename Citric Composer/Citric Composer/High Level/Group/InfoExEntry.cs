@@ -30,7 +30,7 @@ namespace CitraFileLoader {
         /// Item type.
         /// </summary>
         public enum EItemType {
-            Sequence, SequenceSetOrWaveData, Bank, WaveArchive
+            Sound, SequenceSetOrWaveData, Bank, WaveArchive
         }
 
         /// <summary>

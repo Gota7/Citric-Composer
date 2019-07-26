@@ -177,11 +177,12 @@
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Player Emulation\EntryPlayer.cs" />
     <Compile Include="SDK Export\Export Project.cs" />
-    <Compile Include="Sequence Emulation\SequenceParser.cs" />
-    <Compile Include="Sequence Emulation\SequencePlayer.cs" />
-    <Compile Include="Sequence Emulation\TickTime.cs" />
-    <Compile Include="Sequence Emulation\Track.cs" />
+    <Compile Include="Player Emulation\SequenceParser.cs" />
+    <Compile Include="Player Emulation\SequencePlayer.cs" />
+    <Compile Include="Player Emulation\TickTime.cs" />
+    <Compile Include="Player Emulation\Track.cs" />
     <Compile Include="FileWizard.cs">
       <SubType>Form</SubType>
     </Compile>

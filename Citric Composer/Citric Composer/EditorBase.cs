@@ -75,6 +75,17 @@ namespace Citric_Composer {
         private ToolStripMenuItem replaceToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem changeExternalPathToolStripMenuItem;
+        public ContextMenuStrip sarEntryMenu;
+        private ToolStripMenuItem sarAddAbove;
+        private ToolStripMenuItem sarAddBelow;
+        private ToolStripMenuItem sarMoveUp;
+        private ToolStripMenuItem sarMoveDown;
+        private ToolStripMenuItem sarReplace;
+        private ToolStripMenuItem sarExport;
+        private ToolStripMenuItem sarRename;
+        private ToolStripMenuItem sarNullify;
+        private ToolStripMenuItem sarDelete;
+        private ToolStripMenuItem sarAddInside;
 
         /// <summary>
         /// Main window.
@@ -667,6 +678,78 @@ namespace Citric_Composer {
             this.sSSsSequencerSEQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goldisGrouperGRPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.wsdPanel = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel26 = new System.Windows.Forms.TableLayoutPanel();
+            this.sarWsdPlayNext = new System.Windows.Forms.RadioButton();
+            this.sarWsdPlayLoop = new System.Windows.Forms.RadioButton();
+            this.sarWsdPlayOnce = new System.Windows.Forms.RadioButton();
+            this.tableLayoutPanel25 = new System.Windows.Forms.TableLayoutPanel();
+            this.sarWsdPause = new System.Windows.Forms.Button();
+            this.sarWsdStop = new System.Windows.Forms.Button();
+            this.tableLayoutPanel24 = new System.Windows.Forms.TableLayoutPanel();
+            this.sarWsdPlay = new System.Windows.Forms.Button();
+            this.label50 = new System.Windows.Forms.Label();
+            this.sarWsdFileIdBox = new System.Windows.Forms.ComboBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.wsdFixPriority = new System.Windows.Forms.CheckBox();
+            this.wsdChannelPriority = new System.Windows.Forms.NumericUpDown();
+            this.label40 = new System.Windows.Forms.Label();
+            this.wsdCopyCount = new System.Windows.Forms.Button();
+            this.wsdTracksToAllocate = new System.Windows.Forms.NumericUpDown();
+            this.label45 = new System.Windows.Forms.Label();
+            this.wsdWaveIndex = new System.Windows.Forms.NumericUpDown();
+            this.label46 = new System.Windows.Forms.Label();
+            this.wsdSound3dEnable = new System.Windows.Forms.CheckBox();
+            this.wsdSound3dButton = new System.Windows.Forms.Button();
+            this.wsdEditSoundInfoButton = new System.Windows.Forms.Button();
+            this.seqPanel = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel23 = new System.Windows.Forms.TableLayoutPanel();
+            this.sarSeqPlay = new System.Windows.Forms.Button();
+            this.label44 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel22 = new System.Windows.Forms.TableLayoutPanel();
+            this.sarSeqPause = new System.Windows.Forms.Button();
+            this.sarSeqStop = new System.Windows.Forms.Button();
+            this.tableLayoutPanel21 = new System.Windows.Forms.TableLayoutPanel();
+            this.sarSeqPlayNext = new System.Windows.Forms.RadioButton();
+            this.sarSeqPlayLoop = new System.Windows.Forms.RadioButton();
+            this.sarSeqPlayOnce = new System.Windows.Forms.RadioButton();
+            this.sarSeqFileIdBox = new System.Windows.Forms.ComboBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel19 = new System.Windows.Forms.TableLayoutPanel();
+            this.seqC12 = new System.Windows.Forms.CheckBox();
+            this.seqC0 = new System.Windows.Forms.CheckBox();
+            this.seqC1 = new System.Windows.Forms.CheckBox();
+            this.seqC2 = new System.Windows.Forms.CheckBox();
+            this.seqC3 = new System.Windows.Forms.CheckBox();
+            this.seqC4 = new System.Windows.Forms.CheckBox();
+            this.seqC5 = new System.Windows.Forms.CheckBox();
+            this.seqC6 = new System.Windows.Forms.CheckBox();
+            this.seqC7 = new System.Windows.Forms.CheckBox();
+            this.seqC8 = new System.Windows.Forms.CheckBox();
+            this.seqC9 = new System.Windows.Forms.CheckBox();
+            this.seqC10 = new System.Windows.Forms.CheckBox();
+            this.seqC11 = new System.Windows.Forms.CheckBox();
+            this.seqC15 = new System.Windows.Forms.CheckBox();
+            this.seqC14 = new System.Windows.Forms.CheckBox();
+            this.seqC13 = new System.Windows.Forms.CheckBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.seqIsReleasePriorityBox = new System.Windows.Forms.CheckBox();
+            this.seqChannelPriorityBox = new System.Windows.Forms.NumericUpDown();
+            this.label41 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel20 = new System.Windows.Forms.TableLayoutPanel();
+            this.seqOffsetFromLabelBox = new System.Windows.Forms.ComboBox();
+            this.seqOffsetManualButton = new System.Windows.Forms.RadioButton();
+            this.seqOffsetFromLabelButton = new System.Windows.Forms.RadioButton();
+            this.seqOffsetManualBox = new System.Windows.Forms.NumericUpDown();
+            this.label42 = new System.Windows.Forms.Label();
+            this.seqSound3dInfoExists = new System.Windows.Forms.CheckBox();
+            this.seqBank3Box = new System.Windows.Forms.ComboBox();
+            this.seqBank2Box = new System.Windows.Forms.ComboBox();
+            this.seqBank1Box = new System.Windows.Forms.ComboBox();
+            this.seqBank0Box = new System.Windows.Forms.ComboBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.seqEditSound3dInfoButton = new System.Windows.Forms.Button();
+            this.seqEditSoundInfoButton = new System.Windows.Forms.Button();
             this.versionPanel = new System.Windows.Forms.Panel();
             this.grpVersionUpdate = new System.Windows.Forms.Button();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
@@ -816,78 +899,6 @@ namespace Citric_Composer {
             this.stmPlayNext = new System.Windows.Forms.RadioButton();
             this.stmPlayLoop = new System.Windows.Forms.RadioButton();
             this.stmPlayOnce = new System.Windows.Forms.RadioButton();
-            this.wsdPanel = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel26 = new System.Windows.Forms.TableLayoutPanel();
-            this.sarWsdPlayNext = new System.Windows.Forms.RadioButton();
-            this.sarWsdPlayLoop = new System.Windows.Forms.RadioButton();
-            this.sarWsdPlayOnce = new System.Windows.Forms.RadioButton();
-            this.tableLayoutPanel25 = new System.Windows.Forms.TableLayoutPanel();
-            this.sarWsdPause = new System.Windows.Forms.Button();
-            this.sarWsdStop = new System.Windows.Forms.Button();
-            this.tableLayoutPanel24 = new System.Windows.Forms.TableLayoutPanel();
-            this.sarWsdPlay = new System.Windows.Forms.Button();
-            this.label50 = new System.Windows.Forms.Label();
-            this.sarWsdFileIdBox = new System.Windows.Forms.ComboBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.wsdFixPriority = new System.Windows.Forms.CheckBox();
-            this.wsdChannelPriority = new System.Windows.Forms.NumericUpDown();
-            this.label40 = new System.Windows.Forms.Label();
-            this.wsdCopyCount = new System.Windows.Forms.Button();
-            this.wsdTracksToAllocate = new System.Windows.Forms.NumericUpDown();
-            this.label45 = new System.Windows.Forms.Label();
-            this.wsdWaveIndex = new System.Windows.Forms.NumericUpDown();
-            this.label46 = new System.Windows.Forms.Label();
-            this.wsdSound3dEnable = new System.Windows.Forms.CheckBox();
-            this.wsdSound3dButton = new System.Windows.Forms.Button();
-            this.wsdEditSoundInfoButton = new System.Windows.Forms.Button();
-            this.seqPanel = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel23 = new System.Windows.Forms.TableLayoutPanel();
-            this.sarSeqPlay = new System.Windows.Forms.Button();
-            this.label44 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel22 = new System.Windows.Forms.TableLayoutPanel();
-            this.sarSeqPause = new System.Windows.Forms.Button();
-            this.sarSeqStop = new System.Windows.Forms.Button();
-            this.tableLayoutPanel21 = new System.Windows.Forms.TableLayoutPanel();
-            this.sarSeqPlayNext = new System.Windows.Forms.RadioButton();
-            this.sarSeqPlayLoop = new System.Windows.Forms.RadioButton();
-            this.sarSeqPlayOnce = new System.Windows.Forms.RadioButton();
-            this.sarSeqFileIdBox = new System.Windows.Forms.ComboBox();
-            this.label47 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel19 = new System.Windows.Forms.TableLayoutPanel();
-            this.seqC12 = new System.Windows.Forms.CheckBox();
-            this.seqC0 = new System.Windows.Forms.CheckBox();
-            this.seqC1 = new System.Windows.Forms.CheckBox();
-            this.seqC2 = new System.Windows.Forms.CheckBox();
-            this.seqC3 = new System.Windows.Forms.CheckBox();
-            this.seqC4 = new System.Windows.Forms.CheckBox();
-            this.seqC5 = new System.Windows.Forms.CheckBox();
-            this.seqC6 = new System.Windows.Forms.CheckBox();
-            this.seqC7 = new System.Windows.Forms.CheckBox();
-            this.seqC8 = new System.Windows.Forms.CheckBox();
-            this.seqC9 = new System.Windows.Forms.CheckBox();
-            this.seqC10 = new System.Windows.Forms.CheckBox();
-            this.seqC11 = new System.Windows.Forms.CheckBox();
-            this.seqC15 = new System.Windows.Forms.CheckBox();
-            this.seqC14 = new System.Windows.Forms.CheckBox();
-            this.seqC13 = new System.Windows.Forms.CheckBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.seqIsReleasePriorityBox = new System.Windows.Forms.CheckBox();
-            this.seqChannelPriorityBox = new System.Windows.Forms.NumericUpDown();
-            this.label41 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel20 = new System.Windows.Forms.TableLayoutPanel();
-            this.seqOffsetFromLabelBox = new System.Windows.Forms.ComboBox();
-            this.seqOffsetManualButton = new System.Windows.Forms.RadioButton();
-            this.seqOffsetFromLabelButton = new System.Windows.Forms.RadioButton();
-            this.seqOffsetManualBox = new System.Windows.Forms.NumericUpDown();
-            this.label42 = new System.Windows.Forms.Label();
-            this.seqSound3dInfoExists = new System.Windows.Forms.CheckBox();
-            this.seqBank3Box = new System.Windows.Forms.ComboBox();
-            this.seqBank2Box = new System.Windows.Forms.ComboBox();
-            this.seqBank1Box = new System.Windows.Forms.ComboBox();
-            this.seqBank0Box = new System.Windows.Forms.ComboBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.seqEditSound3dInfoButton = new System.Windows.Forms.Button();
-            this.seqEditSoundInfoButton = new System.Windows.Forms.Button();
             this.soundGrpPanel = new System.Windows.Forms.Panel();
             this.soundGrpGridTable = new System.Windows.Forms.TableLayoutPanel();
             this.soundGrpWaveArchives = new System.Windows.Forms.DataGridView();
@@ -1058,11 +1069,37 @@ namespace Citric_Composer {
             this.replaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeExternalPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarEntryMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sarAddAbove = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarAddBelow = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarAddInside = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarMoveUp = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarMoveDown = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarReplace = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarRename = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarNullify = new System.Windows.Forms.ToolStripMenuItem();
+            this.sarDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.wsdPanel.SuspendLayout();
+            this.tableLayoutPanel26.SuspendLayout();
+            this.tableLayoutPanel25.SuspendLayout();
+            this.tableLayoutPanel24.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wsdChannelPriority)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wsdTracksToAllocate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wsdWaveIndex)).BeginInit();
+            this.seqPanel.SuspendLayout();
+            this.tableLayoutPanel23.SuspendLayout();
+            this.tableLayoutPanel22.SuspendLayout();
+            this.tableLayoutPanel21.SuspendLayout();
+            this.tableLayoutPanel19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seqChannelPriorityBox)).BeginInit();
+            this.tableLayoutPanel20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seqOffsetManualBox)).BeginInit();
             this.versionPanel.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpVersionRev)).BeginInit();
@@ -1128,21 +1165,6 @@ namespace Citric_Composer {
             this.tableLayoutPanel30.SuspendLayout();
             this.tableLayoutPanel31.SuspendLayout();
             this.tableLayoutPanel32.SuspendLayout();
-            this.wsdPanel.SuspendLayout();
-            this.tableLayoutPanel26.SuspendLayout();
-            this.tableLayoutPanel25.SuspendLayout();
-            this.tableLayoutPanel24.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.wsdChannelPriority)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wsdTracksToAllocate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wsdWaveIndex)).BeginInit();
-            this.seqPanel.SuspendLayout();
-            this.tableLayoutPanel23.SuspendLayout();
-            this.tableLayoutPanel22.SuspendLayout();
-            this.tableLayoutPanel21.SuspendLayout();
-            this.tableLayoutPanel19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.seqChannelPriorityBox)).BeginInit();
-            this.tableLayoutPanel20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.seqOffsetManualBox)).BeginInit();
             this.soundGrpPanel.SuspendLayout();
             this.soundGrpGridTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.soundGrpWaveArchives)).BeginInit();
@@ -1224,6 +1246,7 @@ namespace Citric_Composer {
             this.nodeMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.filesMenu.SuspendLayout();
+            this.sarEntryMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -1352,7 +1375,7 @@ namespace Citric_Composer {
             this.batchExtractSwitchWavesToolStripMenuItem,
             this.batchImportToolStripMenuItem});
             this.toolsWarToolStripMenuItem.Name = "toolsWarToolStripMenuItem";
-            this.toolsWarToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsWarToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsWarToolStripMenuItem.Text = "Tools";
             this.toolsWarToolStripMenuItem.Visible = false;
             // 
@@ -1360,7 +1383,7 @@ namespace Citric_Composer {
             // 
             this.batchExtractWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtractWavesToolStripMenuItem.Image")));
             this.batchExtractWavesToolStripMenuItem.Name = "batchExtractWavesToolStripMenuItem";
-            this.batchExtractWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtractWavesToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.batchExtractWavesToolStripMenuItem.Text = "Batch Extract Waves";
             this.batchExtractWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtractWavesToolStripMenuItem_Click);
             // 
@@ -1368,7 +1391,7 @@ namespace Citric_Composer {
             // 
             this.batchExtract3dsWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtract3dsWavesToolStripMenuItem.Image")));
             this.batchExtract3dsWavesToolStripMenuItem.Name = "batchExtract3dsWavesToolStripMenuItem";
-            this.batchExtract3dsWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtract3dsWavesToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.batchExtract3dsWavesToolStripMenuItem.Text = "Batch Extract 3ds Waves";
             this.batchExtract3dsWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtract3dsWavesToolStripMenuItem_Click);
             // 
@@ -1376,7 +1399,7 @@ namespace Citric_Composer {
             // 
             this.batchExtractWiiUWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtractWiiUWavesToolStripMenuItem.Image")));
             this.batchExtractWiiUWavesToolStripMenuItem.Name = "batchExtractWiiUWavesToolStripMenuItem";
-            this.batchExtractWiiUWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtractWiiUWavesToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.batchExtractWiiUWavesToolStripMenuItem.Text = "Batch Extract Wii U Waves";
             this.batchExtractWiiUWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtractWiiUWavesToolStripMenuItem_Click);
             // 
@@ -1384,7 +1407,7 @@ namespace Citric_Composer {
             // 
             this.batchExtractSwitchWavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchExtractSwitchWavesToolStripMenuItem.Image")));
             this.batchExtractSwitchWavesToolStripMenuItem.Name = "batchExtractSwitchWavesToolStripMenuItem";
-            this.batchExtractSwitchWavesToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchExtractSwitchWavesToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.batchExtractSwitchWavesToolStripMenuItem.Text = "Batch Extract Switch Waves";
             this.batchExtractSwitchWavesToolStripMenuItem.Click += new System.EventHandler(this.batchExtractSwitchWavesToolStripMenuItem_Click);
             // 
@@ -1392,7 +1415,7 @@ namespace Citric_Composer {
             // 
             this.batchImportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("batchImportToolStripMenuItem.Image")));
             this.batchImportToolStripMenuItem.Name = "batchImportToolStripMenuItem";
-            this.batchImportToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.batchImportToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.batchImportToolStripMenuItem.Text = "Batch Import";
             this.batchImportToolStripMenuItem.Click += new System.EventHandler(this.batchImportToolStripMenuItem_Click);
             // 
@@ -1407,7 +1430,7 @@ namespace Citric_Composer {
             this.sSSsSequencerSEQToolStripMenuItem,
             this.goldisGrouperGRPToolStripMenuItem});
             this.toolsTabMainWindow.Name = "toolsTabMainWindow";
-            this.toolsTabMainWindow.Size = new System.Drawing.Size(47, 20);
+            this.toolsTabMainWindow.Size = new System.Drawing.Size(46, 20);
             this.toolsTabMainWindow.Text = "Tools";
             this.toolsTabMainWindow.Visible = false;
             // 
@@ -1415,7 +1438,7 @@ namespace Citric_Composer {
             // 
             this.solarAudioSlayerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("solarAudioSlayerToolStripMenuItem.Image")));
             this.solarAudioSlayerToolStripMenuItem.Name = "solarAudioSlayerToolStripMenuItem";
-            this.solarAudioSlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.solarAudioSlayerToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.solarAudioSlayerToolStripMenuItem.Text = "Solar Audio Slayer";
             this.solarAudioSlayerToolStripMenuItem.Click += new System.EventHandler(this.SolarAudioSlayerToolStripMenuItem_Click);
             // 
@@ -1423,7 +1446,7 @@ namespace Citric_Composer {
             // 
             this.isabelleSoundEditorWAVSTMToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("isabelleSoundEditorWAVSTMToolStripMenuItem.Image")));
             this.isabelleSoundEditorWAVSTMToolStripMenuItem.Name = "isabelleSoundEditorWAVSTMToolStripMenuItem";
-            this.isabelleSoundEditorWAVSTMToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.isabelleSoundEditorWAVSTMToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.isabelleSoundEditorWAVSTMToolStripMenuItem.Text = "Isabelle Sound Editor (WAV, STM)";
             this.isabelleSoundEditorWAVSTMToolStripMenuItem.Click += new System.EventHandler(this.IsabelleSoundEditorWAVSTMToolStripMenuItem_Click);
             // 
@@ -1431,7 +1454,7 @@ namespace Citric_Composer {
             // 
             this.brewstersWARBrewerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("brewstersWARBrewerToolStripMenuItem.Image")));
             this.brewstersWARBrewerToolStripMenuItem.Name = "brewstersWARBrewerToolStripMenuItem";
-            this.brewstersWARBrewerToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.brewstersWARBrewerToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.brewstersWARBrewerToolStripMenuItem.Text = "Brewster\'s Archive Brewer (WAR)";
             this.brewstersWARBrewerToolStripMenuItem.Click += new System.EventHandler(this.BrewstersWARBrewerToolStripMenuItem_Click);
             // 
@@ -1439,7 +1462,7 @@ namespace Citric_Composer {
             // 
             this.wolfgangsDataWriterWSDToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("wolfgangsDataWriterWSDToolStripMenuItem.Image")));
             this.wolfgangsDataWriterWSDToolStripMenuItem.Name = "wolfgangsDataWriterWSDToolStripMenuItem";
-            this.wolfgangsDataWriterWSDToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.wolfgangsDataWriterWSDToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.wolfgangsDataWriterWSDToolStripMenuItem.Text = "Wolfgang\'s Data Writer (WSD)";
             this.wolfgangsDataWriterWSDToolStripMenuItem.Click += new System.EventHandler(this.WolfgangsDataWriterWSDToolStripMenuItem_Click);
             // 
@@ -1447,7 +1470,7 @@ namespace Citric_Composer {
             // 
             this.bBBsBankerBNKToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("bBBsBankerBNKToolStripMenuItem.Image")));
             this.bBBsBankerBNKToolStripMenuItem.Name = "bBBsBankerBNKToolStripMenuItem";
-            this.bBBsBankerBNKToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.bBBsBankerBNKToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.bBBsBankerBNKToolStripMenuItem.Text = "Beau\'s Banker (BNK)";
             this.bBBsBankerBNKToolStripMenuItem.Click += new System.EventHandler(this.BBBsBankerBNKToolStripMenuItem_Click);
             // 
@@ -1455,7 +1478,7 @@ namespace Citric_Composer {
             // 
             this.sSSsSequencerSEQToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sSSsSequencerSEQToolStripMenuItem.Image")));
             this.sSSsSequencerSEQToolStripMenuItem.Name = "sSSsSequencerSEQToolStripMenuItem";
-            this.sSSsSequencerSEQToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.sSSsSequencerSEQToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.sSSsSequencerSEQToolStripMenuItem.Text = "Statics\'s Sequencer (SEQ)";
             this.sSSsSequencerSEQToolStripMenuItem.Click += new System.EventHandler(this.SSSsSequencerSEQToolStripMenuItem_Click);
             // 
@@ -1463,7 +1486,7 @@ namespace Citric_Composer {
             // 
             this.goldisGrouperGRPToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("goldisGrouperGRPToolStripMenuItem.Image")));
             this.goldisGrouperGRPToolStripMenuItem.Name = "goldisGrouperGRPToolStripMenuItem";
-            this.goldisGrouperGRPToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.goldisGrouperGRPToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.goldisGrouperGRPToolStripMenuItem.Text = "Goldi\'s Grouper (GRP)";
             this.goldisGrouperGRPToolStripMenuItem.Click += new System.EventHandler(this.GoldisGrouperGRPToolStripMenuItem_Click);
             // 
@@ -1476,12 +1499,12 @@ namespace Citric_Composer {
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.versionPanel);
-            this.splitContainer1.Panel1.Controls.Add(this.fileInfoPanel);
-            this.splitContainer1.Panel1.Controls.Add(this.trackPanel);
             this.splitContainer1.Panel1.Controls.Add(this.stmPanel);
             this.splitContainer1.Panel1.Controls.Add(this.wsdPanel);
             this.splitContainer1.Panel1.Controls.Add(this.seqPanel);
+            this.splitContainer1.Panel1.Controls.Add(this.versionPanel);
+            this.splitContainer1.Panel1.Controls.Add(this.fileInfoPanel);
+            this.splitContainer1.Panel1.Controls.Add(this.trackPanel);
             this.splitContainer1.Panel1.Controls.Add(this.soundGrpPanel);
             this.splitContainer1.Panel1.Controls.Add(this.bankPanel);
             this.splitContainer1.Panel1.Controls.Add(this.warInfoPanel);
@@ -1505,6 +1528,938 @@ namespace Citric_Composer {
             this.splitContainer1.Size = new System.Drawing.Size(917, 474);
             this.splitContainer1.SplitterDistance = 305;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // wsdPanel
+            // 
+            this.wsdPanel.Controls.Add(this.tableLayoutPanel26);
+            this.wsdPanel.Controls.Add(this.tableLayoutPanel25);
+            this.wsdPanel.Controls.Add(this.tableLayoutPanel24);
+            this.wsdPanel.Controls.Add(this.sarWsdFileIdBox);
+            this.wsdPanel.Controls.Add(this.label49);
+            this.wsdPanel.Controls.Add(this.wsdFixPriority);
+            this.wsdPanel.Controls.Add(this.wsdChannelPriority);
+            this.wsdPanel.Controls.Add(this.label40);
+            this.wsdPanel.Controls.Add(this.wsdCopyCount);
+            this.wsdPanel.Controls.Add(this.wsdTracksToAllocate);
+            this.wsdPanel.Controls.Add(this.label45);
+            this.wsdPanel.Controls.Add(this.wsdWaveIndex);
+            this.wsdPanel.Controls.Add(this.label46);
+            this.wsdPanel.Controls.Add(this.wsdSound3dEnable);
+            this.wsdPanel.Controls.Add(this.wsdSound3dButton);
+            this.wsdPanel.Controls.Add(this.wsdEditSoundInfoButton);
+            this.wsdPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wsdPanel.Location = new System.Drawing.Point(0, 0);
+            this.wsdPanel.Name = "wsdPanel";
+            this.wsdPanel.Size = new System.Drawing.Size(303, 472);
+            this.wsdPanel.TabIndex = 32;
+            // 
+            // tableLayoutPanel26
+            // 
+            this.tableLayoutPanel26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel26.ColumnCount = 3;
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel26.Controls.Add(this.sarWsdPlayNext, 2, 0);
+            this.tableLayoutPanel26.Controls.Add(this.sarWsdPlayLoop, 1, 0);
+            this.tableLayoutPanel26.Controls.Add(this.sarWsdPlayOnce, 0, 0);
+            this.tableLayoutPanel26.Location = new System.Drawing.Point(4, 146);
+            this.tableLayoutPanel26.Name = "tableLayoutPanel26";
+            this.tableLayoutPanel26.RowCount = 1;
+            this.tableLayoutPanel26.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel26.Size = new System.Drawing.Size(293, 28);
+            this.tableLayoutPanel26.TabIndex = 26;
+            // 
+            // sarWsdPlayNext
+            // 
+            this.sarWsdPlayNext.AutoSize = true;
+            this.sarWsdPlayNext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarWsdPlayNext.Location = new System.Drawing.Point(197, 3);
+            this.sarWsdPlayNext.Name = "sarWsdPlayNext";
+            this.sarWsdPlayNext.Size = new System.Drawing.Size(93, 22);
+            this.sarWsdPlayNext.TabIndex = 2;
+            this.sarWsdPlayNext.Text = "Play Next";
+            this.sarWsdPlayNext.UseVisualStyleBackColor = true;
+            this.sarWsdPlayNext.CheckedChanged += new System.EventHandler(this.SarWsdPlayNext_CheckedChanged);
+            // 
+            // sarWsdPlayLoop
+            // 
+            this.sarWsdPlayLoop.AutoSize = true;
+            this.sarWsdPlayLoop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarWsdPlayLoop.Location = new System.Drawing.Point(100, 3);
+            this.sarWsdPlayLoop.Name = "sarWsdPlayLoop";
+            this.sarWsdPlayLoop.Size = new System.Drawing.Size(91, 22);
+            this.sarWsdPlayLoop.TabIndex = 1;
+            this.sarWsdPlayLoop.Text = "Play Loop";
+            this.sarWsdPlayLoop.UseVisualStyleBackColor = true;
+            this.sarWsdPlayLoop.CheckedChanged += new System.EventHandler(this.SarWsdPlayLoop_CheckedChanged);
+            // 
+            // sarWsdPlayOnce
+            // 
+            this.sarWsdPlayOnce.AutoSize = true;
+            this.sarWsdPlayOnce.Checked = true;
+            this.sarWsdPlayOnce.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarWsdPlayOnce.Location = new System.Drawing.Point(3, 3);
+            this.sarWsdPlayOnce.Name = "sarWsdPlayOnce";
+            this.sarWsdPlayOnce.Size = new System.Drawing.Size(91, 22);
+            this.sarWsdPlayOnce.TabIndex = 0;
+            this.sarWsdPlayOnce.TabStop = true;
+            this.sarWsdPlayOnce.Text = "Play Once";
+            this.sarWsdPlayOnce.UseVisualStyleBackColor = true;
+            this.sarWsdPlayOnce.CheckedChanged += new System.EventHandler(this.SarWsdPlayOnce_CheckedChanged);
+            // 
+            // tableLayoutPanel25
+            // 
+            this.tableLayoutPanel25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel25.ColumnCount = 2;
+            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel25.Controls.Add(this.sarWsdPause, 0, 0);
+            this.tableLayoutPanel25.Controls.Add(this.sarWsdStop, 1, 0);
+            this.tableLayoutPanel25.Location = new System.Drawing.Point(3, 112);
+            this.tableLayoutPanel25.Name = "tableLayoutPanel25";
+            this.tableLayoutPanel25.RowCount = 1;
+            this.tableLayoutPanel25.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel25.Size = new System.Drawing.Size(292, 32);
+            this.tableLayoutPanel25.TabIndex = 27;
+            // 
+            // sarWsdPause
+            // 
+            this.sarWsdPause.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarWsdPause.Location = new System.Drawing.Point(3, 3);
+            this.sarWsdPause.Name = "sarWsdPause";
+            this.sarWsdPause.Size = new System.Drawing.Size(140, 26);
+            this.sarWsdPause.TabIndex = 0;
+            this.sarWsdPause.Text = "Pause";
+            this.sarWsdPause.UseVisualStyleBackColor = true;
+            this.sarWsdPause.Click += new System.EventHandler(this.SarWsdPause_Click);
+            // 
+            // sarWsdStop
+            // 
+            this.sarWsdStop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarWsdStop.Location = new System.Drawing.Point(149, 3);
+            this.sarWsdStop.Name = "sarWsdStop";
+            this.sarWsdStop.Size = new System.Drawing.Size(140, 26);
+            this.sarWsdStop.TabIndex = 1;
+            this.sarWsdStop.Text = "Stop";
+            this.sarWsdStop.UseVisualStyleBackColor = true;
+            this.sarWsdStop.Click += new System.EventHandler(this.SarWsdStop_Click);
+            // 
+            // tableLayoutPanel24
+            // 
+            this.tableLayoutPanel24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel24.ColumnCount = 1;
+            this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel24.Controls.Add(this.sarWsdPlay, 0, 1);
+            this.tableLayoutPanel24.Controls.Add(this.label50, 0, 0);
+            this.tableLayoutPanel24.Location = new System.Drawing.Point(2, 50);
+            this.tableLayoutPanel24.Name = "tableLayoutPanel24";
+            this.tableLayoutPanel24.RowCount = 2;
+            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel24.Size = new System.Drawing.Size(293, 59);
+            this.tableLayoutPanel24.TabIndex = 28;
+            // 
+            // sarWsdPlay
+            // 
+            this.sarWsdPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sarWsdPlay.Location = new System.Drawing.Point(3, 32);
+            this.sarWsdPlay.Name = "sarWsdPlay";
+            this.sarWsdPlay.Size = new System.Drawing.Size(287, 24);
+            this.sarWsdPlay.TabIndex = 10;
+            this.sarWsdPlay.Text = "Play";
+            this.sarWsdPlay.UseVisualStyleBackColor = true;
+            this.sarWsdPlay.Click += new System.EventHandler(this.SarWsdPlay_Click);
+            // 
+            // label50
+            // 
+            this.label50.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label50.Location = new System.Drawing.Point(3, 0);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(287, 29);
+            this.label50.TabIndex = 11;
+            this.label50.Text = "Sound Player Deluxe™";
+            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // sarWsdFileIdBox
+            // 
+            this.sarWsdFileIdBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sarWsdFileIdBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sarWsdFileIdBox.FormattingEnabled = true;
+            this.sarWsdFileIdBox.Location = new System.Drawing.Point(7, 22);
+            this.sarWsdFileIdBox.Name = "sarWsdFileIdBox";
+            this.sarWsdFileIdBox.Size = new System.Drawing.Size(289, 21);
+            this.sarWsdFileIdBox.TabIndex = 25;
+            this.sarWsdFileIdBox.SelectedIndexChanged += new System.EventHandler(this.SarWsdFileIdBox_SelectedIndexChanged);
+            // 
+            // label49
+            // 
+            this.label49.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label49.Location = new System.Drawing.Point(8, 4);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(286, 17);
+            this.label49.TabIndex = 24;
+            this.label49.Text = "File Id:";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // wsdFixPriority
+            // 
+            this.wsdFixPriority.AutoSize = true;
+            this.wsdFixPriority.Location = new System.Drawing.Point(6, 416);
+            this.wsdFixPriority.Name = "wsdFixPriority";
+            this.wsdFixPriority.Size = new System.Drawing.Size(128, 17);
+            this.wsdFixPriority.TabIndex = 21;
+            this.wsdFixPriority.Text = "Fix Priority At Release";
+            this.wsdFixPriority.UseVisualStyleBackColor = true;
+            this.wsdFixPriority.CheckedChanged += new System.EventHandler(this.WsdFixPriority_CheckedChanged);
+            // 
+            // wsdChannelPriority
+            // 
+            this.wsdChannelPriority.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wsdChannelPriority.Location = new System.Drawing.Point(5, 390);
+            this.wsdChannelPriority.Maximum = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
+            this.wsdChannelPriority.Name = "wsdChannelPriority";
+            this.wsdChannelPriority.Size = new System.Drawing.Size(290, 20);
+            this.wsdChannelPriority.TabIndex = 19;
+            this.wsdChannelPriority.ValueChanged += new System.EventHandler(this.WsdChannelPriority_ValueChanged);
+            // 
+            // label40
+            // 
+            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label40.Location = new System.Drawing.Point(3, 373);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(294, 17);
+            this.label40.TabIndex = 18;
+            this.label40.Text = "Channel Priority:";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // wsdCopyCount
+            // 
+            this.wsdCopyCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wsdCopyCount.Location = new System.Drawing.Point(5, 344);
+            this.wsdCopyCount.Name = "wsdCopyCount";
+            this.wsdCopyCount.Size = new System.Drawing.Size(290, 23);
+            this.wsdCopyCount.TabIndex = 17;
+            this.wsdCopyCount.Text = "Copy Count From Linked Wave";
+            this.wsdCopyCount.UseVisualStyleBackColor = true;
+            this.wsdCopyCount.Click += new System.EventHandler(this.WsdCopyCount_Click);
+            // 
+            // wsdTracksToAllocate
+            // 
+            this.wsdTracksToAllocate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wsdTracksToAllocate.Location = new System.Drawing.Point(6, 318);
+            this.wsdTracksToAllocate.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.wsdTracksToAllocate.Name = "wsdTracksToAllocate";
+            this.wsdTracksToAllocate.Size = new System.Drawing.Size(289, 20);
+            this.wsdTracksToAllocate.TabIndex = 16;
+            this.wsdTracksToAllocate.ValueChanged += new System.EventHandler(this.WsdTracksToAllocate_ValueChanged);
+            // 
+            // label45
+            // 
+            this.label45.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label45.Location = new System.Drawing.Point(2, 301);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(294, 17);
+            this.label45.TabIndex = 15;
+            this.label45.Text = "Number Of Tracks To Allocate:";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // wsdWaveIndex
+            // 
+            this.wsdWaveIndex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wsdWaveIndex.Location = new System.Drawing.Point(5, 275);
+            this.wsdWaveIndex.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.wsdWaveIndex.Name = "wsdWaveIndex";
+            this.wsdWaveIndex.Size = new System.Drawing.Size(289, 20);
+            this.wsdWaveIndex.TabIndex = 14;
+            this.wsdWaveIndex.ValueChanged += new System.EventHandler(this.WsdWaveIndex_ValueChanged);
+            // 
+            // label46
+            // 
+            this.label46.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label46.Location = new System.Drawing.Point(1, 258);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(294, 17);
+            this.label46.TabIndex = 13;
+            this.label46.Text = "Wave Index (In WSD File):";
+            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // wsdSound3dEnable
+            // 
+            this.wsdSound3dEnable.AutoSize = true;
+            this.wsdSound3dEnable.Location = new System.Drawing.Point(5, 210);
+            this.wsdSound3dEnable.Name = "wsdSound3dEnable";
+            this.wsdSound3dEnable.Size = new System.Drawing.Size(129, 17);
+            this.wsdSound3dEnable.TabIndex = 12;
+            this.wsdSound3dEnable.Text = "Enable Sound 3d Info";
+            this.wsdSound3dEnable.UseVisualStyleBackColor = true;
+            this.wsdSound3dEnable.CheckedChanged += new System.EventHandler(this.WsdSound3dEnable_CheckedChanged);
+            // 
+            // wsdSound3dButton
+            // 
+            this.wsdSound3dButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wsdSound3dButton.Location = new System.Drawing.Point(4, 227);
+            this.wsdSound3dButton.Name = "wsdSound3dButton";
+            this.wsdSound3dButton.Size = new System.Drawing.Size(290, 23);
+            this.wsdSound3dButton.TabIndex = 3;
+            this.wsdSound3dButton.Text = "Edit Sound 3d Info";
+            this.wsdSound3dButton.UseVisualStyleBackColor = true;
+            this.wsdSound3dButton.Click += new System.EventHandler(this.WsdSound3dButton_Click);
+            // 
+            // wsdEditSoundInfoButton
+            // 
+            this.wsdEditSoundInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wsdEditSoundInfoButton.Location = new System.Drawing.Point(4, 180);
+            this.wsdEditSoundInfoButton.Name = "wsdEditSoundInfoButton";
+            this.wsdEditSoundInfoButton.Size = new System.Drawing.Size(290, 23);
+            this.wsdEditSoundInfoButton.TabIndex = 1;
+            this.wsdEditSoundInfoButton.Text = "Edit Sound Info";
+            this.wsdEditSoundInfoButton.UseVisualStyleBackColor = true;
+            this.wsdEditSoundInfoButton.Click += new System.EventHandler(this.WsdEditSoundInfoButton_Click);
+            // 
+            // seqPanel
+            // 
+            this.seqPanel.Controls.Add(this.tableLayoutPanel23);
+            this.seqPanel.Controls.Add(this.tableLayoutPanel22);
+            this.seqPanel.Controls.Add(this.tableLayoutPanel21);
+            this.seqPanel.Controls.Add(this.sarSeqFileIdBox);
+            this.seqPanel.Controls.Add(this.label47);
+            this.seqPanel.Controls.Add(this.tableLayoutPanel19);
+            this.seqPanel.Controls.Add(this.label39);
+            this.seqPanel.Controls.Add(this.seqIsReleasePriorityBox);
+            this.seqPanel.Controls.Add(this.seqChannelPriorityBox);
+            this.seqPanel.Controls.Add(this.label41);
+            this.seqPanel.Controls.Add(this.tableLayoutPanel20);
+            this.seqPanel.Controls.Add(this.label42);
+            this.seqPanel.Controls.Add(this.seqSound3dInfoExists);
+            this.seqPanel.Controls.Add(this.seqBank3Box);
+            this.seqPanel.Controls.Add(this.seqBank2Box);
+            this.seqPanel.Controls.Add(this.seqBank1Box);
+            this.seqPanel.Controls.Add(this.seqBank0Box);
+            this.seqPanel.Controls.Add(this.label43);
+            this.seqPanel.Controls.Add(this.seqEditSound3dInfoButton);
+            this.seqPanel.Controls.Add(this.seqEditSoundInfoButton);
+            this.seqPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqPanel.Location = new System.Drawing.Point(0, 0);
+            this.seqPanel.Name = "seqPanel";
+            this.seqPanel.Size = new System.Drawing.Size(303, 472);
+            this.seqPanel.TabIndex = 31;
+            // 
+            // tableLayoutPanel23
+            // 
+            this.tableLayoutPanel23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel23.ColumnCount = 1;
+            this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel23.Controls.Add(this.sarSeqPlay, 0, 1);
+            this.tableLayoutPanel23.Controls.Add(this.label44, 0, 0);
+            this.tableLayoutPanel23.Location = new System.Drawing.Point(5, 54);
+            this.tableLayoutPanel23.Name = "tableLayoutPanel23";
+            this.tableLayoutPanel23.RowCount = 2;
+            this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel23.Size = new System.Drawing.Size(293, 59);
+            this.tableLayoutPanel23.TabIndex = 27;
+            // 
+            // sarSeqPlay
+            // 
+            this.sarSeqPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sarSeqPlay.Location = new System.Drawing.Point(3, 32);
+            this.sarSeqPlay.Name = "sarSeqPlay";
+            this.sarSeqPlay.Size = new System.Drawing.Size(287, 24);
+            this.sarSeqPlay.TabIndex = 10;
+            this.sarSeqPlay.Text = "Play";
+            this.sarSeqPlay.UseVisualStyleBackColor = true;
+            this.sarSeqPlay.Click += new System.EventHandler(this.SarSeqPlay_Click);
+            // 
+            // label44
+            // 
+            this.label44.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label44.Location = new System.Drawing.Point(3, 0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(287, 29);
+            this.label44.TabIndex = 11;
+            this.label44.Text = "Sound Player Deluxe™";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel22
+            // 
+            this.tableLayoutPanel22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel22.ColumnCount = 2;
+            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel22.Controls.Add(this.sarSeqPause, 0, 0);
+            this.tableLayoutPanel22.Controls.Add(this.sarSeqStop, 1, 0);
+            this.tableLayoutPanel22.Location = new System.Drawing.Point(6, 116);
+            this.tableLayoutPanel22.Name = "tableLayoutPanel22";
+            this.tableLayoutPanel22.RowCount = 1;
+            this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel22.Size = new System.Drawing.Size(291, 30);
+            this.tableLayoutPanel22.TabIndex = 26;
+            // 
+            // sarSeqPause
+            // 
+            this.sarSeqPause.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarSeqPause.Location = new System.Drawing.Point(3, 3);
+            this.sarSeqPause.Name = "sarSeqPause";
+            this.sarSeqPause.Size = new System.Drawing.Size(139, 24);
+            this.sarSeqPause.TabIndex = 0;
+            this.sarSeqPause.Text = "Pause";
+            this.sarSeqPause.UseVisualStyleBackColor = true;
+            this.sarSeqPause.Click += new System.EventHandler(this.SarSeqPause_Click);
+            // 
+            // sarSeqStop
+            // 
+            this.sarSeqStop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarSeqStop.Location = new System.Drawing.Point(148, 3);
+            this.sarSeqStop.Name = "sarSeqStop";
+            this.sarSeqStop.Size = new System.Drawing.Size(140, 24);
+            this.sarSeqStop.TabIndex = 1;
+            this.sarSeqStop.Text = "Stop";
+            this.sarSeqStop.UseVisualStyleBackColor = true;
+            this.sarSeqStop.Click += new System.EventHandler(this.SarSeqStop_Click);
+            // 
+            // tableLayoutPanel21
+            // 
+            this.tableLayoutPanel21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel21.ColumnCount = 3;
+            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel21.Controls.Add(this.sarSeqPlayNext, 2, 0);
+            this.tableLayoutPanel21.Controls.Add(this.sarSeqPlayLoop, 1, 0);
+            this.tableLayoutPanel21.Controls.Add(this.sarSeqPlayOnce, 0, 0);
+            this.tableLayoutPanel21.Location = new System.Drawing.Point(7, 149);
+            this.tableLayoutPanel21.Name = "tableLayoutPanel21";
+            this.tableLayoutPanel21.RowCount = 1;
+            this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel21.Size = new System.Drawing.Size(291, 26);
+            this.tableLayoutPanel21.TabIndex = 25;
+            // 
+            // sarSeqPlayNext
+            // 
+            this.sarSeqPlayNext.AutoSize = true;
+            this.sarSeqPlayNext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarSeqPlayNext.Location = new System.Drawing.Point(197, 3);
+            this.sarSeqPlayNext.Name = "sarSeqPlayNext";
+            this.sarSeqPlayNext.Size = new System.Drawing.Size(91, 20);
+            this.sarSeqPlayNext.TabIndex = 2;
+            this.sarSeqPlayNext.Text = "Play Next";
+            this.sarSeqPlayNext.UseVisualStyleBackColor = true;
+            this.sarSeqPlayNext.CheckedChanged += new System.EventHandler(this.SarSeqPlayNext_CheckedChanged);
+            // 
+            // sarSeqPlayLoop
+            // 
+            this.sarSeqPlayLoop.AutoSize = true;
+            this.sarSeqPlayLoop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarSeqPlayLoop.Location = new System.Drawing.Point(100, 3);
+            this.sarSeqPlayLoop.Name = "sarSeqPlayLoop";
+            this.sarSeqPlayLoop.Size = new System.Drawing.Size(91, 20);
+            this.sarSeqPlayLoop.TabIndex = 1;
+            this.sarSeqPlayLoop.Text = "Play Loop";
+            this.sarSeqPlayLoop.UseVisualStyleBackColor = true;
+            this.sarSeqPlayLoop.CheckedChanged += new System.EventHandler(this.SarSeqPlayLoop_CheckedChanged);
+            // 
+            // sarSeqPlayOnce
+            // 
+            this.sarSeqPlayOnce.AutoSize = true;
+            this.sarSeqPlayOnce.Checked = true;
+            this.sarSeqPlayOnce.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sarSeqPlayOnce.Location = new System.Drawing.Point(3, 3);
+            this.sarSeqPlayOnce.Name = "sarSeqPlayOnce";
+            this.sarSeqPlayOnce.Size = new System.Drawing.Size(91, 20);
+            this.sarSeqPlayOnce.TabIndex = 0;
+            this.sarSeqPlayOnce.TabStop = true;
+            this.sarSeqPlayOnce.Text = "Play Once";
+            this.sarSeqPlayOnce.UseVisualStyleBackColor = true;
+            this.sarSeqPlayOnce.CheckedChanged += new System.EventHandler(this.SarSeqPlayOnce_CheckedChanged);
+            // 
+            // sarSeqFileIdBox
+            // 
+            this.sarSeqFileIdBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sarSeqFileIdBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sarSeqFileIdBox.FormattingEnabled = true;
+            this.sarSeqFileIdBox.Location = new System.Drawing.Point(7, 25);
+            this.sarSeqFileIdBox.Name = "sarSeqFileIdBox";
+            this.sarSeqFileIdBox.Size = new System.Drawing.Size(289, 21);
+            this.sarSeqFileIdBox.TabIndex = 24;
+            this.sarSeqFileIdBox.SelectedIndexChanged += new System.EventHandler(this.SarSeqFileIdBox_SelectedIndexChanged);
+            // 
+            // label47
+            // 
+            this.label47.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label47.Location = new System.Drawing.Point(8, 4);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(286, 17);
+            this.label47.TabIndex = 23;
+            this.label47.Text = "File Id:";
+            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel19
+            // 
+            this.tableLayoutPanel19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel19.ColumnCount = 4;
+            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.Controls.Add(this.seqC12, 0, 3);
+            this.tableLayoutPanel19.Controls.Add(this.seqC0, 0, 0);
+            this.tableLayoutPanel19.Controls.Add(this.seqC1, 1, 0);
+            this.tableLayoutPanel19.Controls.Add(this.seqC2, 2, 0);
+            this.tableLayoutPanel19.Controls.Add(this.seqC3, 3, 0);
+            this.tableLayoutPanel19.Controls.Add(this.seqC4, 0, 1);
+            this.tableLayoutPanel19.Controls.Add(this.seqC5, 1, 1);
+            this.tableLayoutPanel19.Controls.Add(this.seqC6, 2, 1);
+            this.tableLayoutPanel19.Controls.Add(this.seqC7, 3, 1);
+            this.tableLayoutPanel19.Controls.Add(this.seqC8, 0, 2);
+            this.tableLayoutPanel19.Controls.Add(this.seqC9, 1, 2);
+            this.tableLayoutPanel19.Controls.Add(this.seqC10, 2, 2);
+            this.tableLayoutPanel19.Controls.Add(this.seqC11, 3, 2);
+            this.tableLayoutPanel19.Controls.Add(this.seqC15, 3, 3);
+            this.tableLayoutPanel19.Controls.Add(this.seqC14, 2, 3);
+            this.tableLayoutPanel19.Controls.Add(this.seqC13, 1, 3);
+            this.tableLayoutPanel19.Location = new System.Drawing.Point(2, 546);
+            this.tableLayoutPanel19.Name = "tableLayoutPanel19";
+            this.tableLayoutPanel19.RowCount = 4;
+            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel19.Size = new System.Drawing.Size(297, 94);
+            this.tableLayoutPanel19.TabIndex = 22;
+            // 
+            // seqC12
+            // 
+            this.seqC12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC12.Location = new System.Drawing.Point(3, 72);
+            this.seqC12.Name = "seqC12";
+            this.seqC12.Size = new System.Drawing.Size(68, 19);
+            this.seqC12.TabIndex = 35;
+            this.seqC12.Text = "12";
+            this.seqC12.UseVisualStyleBackColor = true;
+            this.seqC12.CheckedChanged += new System.EventHandler(this.SeqC12_CheckedChanged);
+            // 
+            // seqC0
+            // 
+            this.seqC0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC0.Location = new System.Drawing.Point(3, 3);
+            this.seqC0.Name = "seqC0";
+            this.seqC0.Size = new System.Drawing.Size(68, 17);
+            this.seqC0.TabIndex = 20;
+            this.seqC0.Text = "0";
+            this.seqC0.UseVisualStyleBackColor = true;
+            this.seqC0.CheckedChanged += new System.EventHandler(this.SeqC0_CheckedChanged);
+            // 
+            // seqC1
+            // 
+            this.seqC1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC1.Location = new System.Drawing.Point(77, 3);
+            this.seqC1.Name = "seqC1";
+            this.seqC1.Size = new System.Drawing.Size(68, 17);
+            this.seqC1.TabIndex = 21;
+            this.seqC1.Text = "1";
+            this.seqC1.UseVisualStyleBackColor = true;
+            this.seqC1.CheckedChanged += new System.EventHandler(this.SeqC1_CheckedChanged);
+            // 
+            // seqC2
+            // 
+            this.seqC2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC2.Location = new System.Drawing.Point(151, 3);
+            this.seqC2.Name = "seqC2";
+            this.seqC2.Size = new System.Drawing.Size(68, 17);
+            this.seqC2.TabIndex = 22;
+            this.seqC2.Text = "2";
+            this.seqC2.UseVisualStyleBackColor = true;
+            this.seqC2.CheckedChanged += new System.EventHandler(this.SeqC2_CheckedChanged);
+            // 
+            // seqC3
+            // 
+            this.seqC3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC3.Location = new System.Drawing.Point(225, 3);
+            this.seqC3.Name = "seqC3";
+            this.seqC3.Size = new System.Drawing.Size(69, 17);
+            this.seqC3.TabIndex = 23;
+            this.seqC3.Text = "3";
+            this.seqC3.UseVisualStyleBackColor = true;
+            this.seqC3.CheckedChanged += new System.EventHandler(this.SeqC3_CheckedChanged);
+            // 
+            // seqC4
+            // 
+            this.seqC4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC4.Location = new System.Drawing.Point(3, 26);
+            this.seqC4.Name = "seqC4";
+            this.seqC4.Size = new System.Drawing.Size(68, 17);
+            this.seqC4.TabIndex = 24;
+            this.seqC4.Text = "4";
+            this.seqC4.UseVisualStyleBackColor = true;
+            this.seqC4.CheckedChanged += new System.EventHandler(this.SeqC4_CheckedChanged);
+            // 
+            // seqC5
+            // 
+            this.seqC5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC5.Location = new System.Drawing.Point(77, 26);
+            this.seqC5.Name = "seqC5";
+            this.seqC5.Size = new System.Drawing.Size(68, 17);
+            this.seqC5.TabIndex = 25;
+            this.seqC5.Text = "5";
+            this.seqC5.UseVisualStyleBackColor = true;
+            this.seqC5.CheckedChanged += new System.EventHandler(this.SeqC5_CheckedChanged);
+            // 
+            // seqC6
+            // 
+            this.seqC6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC6.Location = new System.Drawing.Point(151, 26);
+            this.seqC6.Name = "seqC6";
+            this.seqC6.Size = new System.Drawing.Size(68, 17);
+            this.seqC6.TabIndex = 26;
+            this.seqC6.Text = "6";
+            this.seqC6.UseVisualStyleBackColor = true;
+            this.seqC6.CheckedChanged += new System.EventHandler(this.SeqC6_CheckedChanged);
+            // 
+            // seqC7
+            // 
+            this.seqC7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC7.Location = new System.Drawing.Point(225, 26);
+            this.seqC7.Name = "seqC7";
+            this.seqC7.Size = new System.Drawing.Size(69, 17);
+            this.seqC7.TabIndex = 27;
+            this.seqC7.Text = "7";
+            this.seqC7.UseVisualStyleBackColor = true;
+            this.seqC7.CheckedChanged += new System.EventHandler(this.SeqC7_CheckedChanged);
+            // 
+            // seqC8
+            // 
+            this.seqC8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC8.Location = new System.Drawing.Point(3, 49);
+            this.seqC8.Name = "seqC8";
+            this.seqC8.Size = new System.Drawing.Size(68, 17);
+            this.seqC8.TabIndex = 28;
+            this.seqC8.Text = "8";
+            this.seqC8.UseVisualStyleBackColor = true;
+            this.seqC8.CheckedChanged += new System.EventHandler(this.SeqC8_CheckedChanged);
+            // 
+            // seqC9
+            // 
+            this.seqC9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC9.Location = new System.Drawing.Point(77, 49);
+            this.seqC9.Name = "seqC9";
+            this.seqC9.Size = new System.Drawing.Size(68, 17);
+            this.seqC9.TabIndex = 29;
+            this.seqC9.Text = "9";
+            this.seqC9.UseVisualStyleBackColor = true;
+            this.seqC9.CheckedChanged += new System.EventHandler(this.SeqC9_CheckedChanged);
+            // 
+            // seqC10
+            // 
+            this.seqC10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC10.Location = new System.Drawing.Point(151, 49);
+            this.seqC10.Name = "seqC10";
+            this.seqC10.Size = new System.Drawing.Size(68, 17);
+            this.seqC10.TabIndex = 30;
+            this.seqC10.Text = "10";
+            this.seqC10.UseVisualStyleBackColor = true;
+            this.seqC10.CheckedChanged += new System.EventHandler(this.SeqC10_CheckedChanged);
+            // 
+            // seqC11
+            // 
+            this.seqC11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC11.Location = new System.Drawing.Point(225, 49);
+            this.seqC11.Name = "seqC11";
+            this.seqC11.Size = new System.Drawing.Size(69, 17);
+            this.seqC11.TabIndex = 31;
+            this.seqC11.Text = "11";
+            this.seqC11.UseVisualStyleBackColor = true;
+            this.seqC11.CheckedChanged += new System.EventHandler(this.SeqC11_CheckedChanged);
+            // 
+            // seqC15
+            // 
+            this.seqC15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC15.Location = new System.Drawing.Point(225, 72);
+            this.seqC15.Name = "seqC15";
+            this.seqC15.Size = new System.Drawing.Size(69, 19);
+            this.seqC15.TabIndex = 32;
+            this.seqC15.Text = "15";
+            this.seqC15.UseVisualStyleBackColor = true;
+            this.seqC15.CheckedChanged += new System.EventHandler(this.SeqC15_CheckedChanged);
+            // 
+            // seqC14
+            // 
+            this.seqC14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC14.Location = new System.Drawing.Point(151, 72);
+            this.seqC14.Name = "seqC14";
+            this.seqC14.Size = new System.Drawing.Size(68, 19);
+            this.seqC14.TabIndex = 33;
+            this.seqC14.Text = "14";
+            this.seqC14.UseVisualStyleBackColor = true;
+            this.seqC14.CheckedChanged += new System.EventHandler(this.SeqC14_CheckedChanged);
+            // 
+            // seqC13
+            // 
+            this.seqC13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqC13.Location = new System.Drawing.Point(77, 72);
+            this.seqC13.Name = "seqC13";
+            this.seqC13.Size = new System.Drawing.Size(68, 19);
+            this.seqC13.TabIndex = 34;
+            this.seqC13.Text = "13";
+            this.seqC13.UseVisualStyleBackColor = true;
+            this.seqC13.CheckedChanged += new System.EventHandler(this.SeqC13_CheckedChanged);
+            // 
+            // label39
+            // 
+            this.label39.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label39.Location = new System.Drawing.Point(5, 523);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(293, 17);
+            this.label39.TabIndex = 20;
+            this.label39.Text = "Channel Flags:";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // seqIsReleasePriorityBox
+            // 
+            this.seqIsReleasePriorityBox.AutoSize = true;
+            this.seqIsReleasePriorityBox.Location = new System.Drawing.Point(7, 503);
+            this.seqIsReleasePriorityBox.Name = "seqIsReleasePriorityBox";
+            this.seqIsReleasePriorityBox.Size = new System.Drawing.Size(132, 17);
+            this.seqIsReleasePriorityBox.TabIndex = 19;
+            this.seqIsReleasePriorityBox.Text = "Fix Priority On Release";
+            this.seqIsReleasePriorityBox.UseVisualStyleBackColor = true;
+            this.seqIsReleasePriorityBox.CheckedChanged += new System.EventHandler(this.SeqIsReleasePriorityBox_CheckedChanged);
+            // 
+            // seqChannelPriorityBox
+            // 
+            this.seqChannelPriorityBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seqChannelPriorityBox.Location = new System.Drawing.Point(5, 478);
+            this.seqChannelPriorityBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.seqChannelPriorityBox.Name = "seqChannelPriorityBox";
+            this.seqChannelPriorityBox.Size = new System.Drawing.Size(293, 20);
+            this.seqChannelPriorityBox.TabIndex = 17;
+            this.seqChannelPriorityBox.ValueChanged += new System.EventHandler(this.SeqChannelPriorityBox_ValueChanged);
+            // 
+            // label41
+            // 
+            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label41.Location = new System.Drawing.Point(1, 458);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(289, 17);
+            this.label41.TabIndex = 16;
+            this.label41.Text = "Channel Priority:";
+            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel20
+            // 
+            this.tableLayoutPanel20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel20.ColumnCount = 2;
+            this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel20.Controls.Add(this.seqOffsetFromLabelBox, 0, 1);
+            this.tableLayoutPanel20.Controls.Add(this.seqOffsetManualButton, 1, 0);
+            this.tableLayoutPanel20.Controls.Add(this.seqOffsetFromLabelButton, 0, 0);
+            this.tableLayoutPanel20.Controls.Add(this.seqOffsetManualBox, 1, 1);
+            this.tableLayoutPanel20.Location = new System.Drawing.Point(1, 399);
+            this.tableLayoutPanel20.Name = "tableLayoutPanel20";
+            this.tableLayoutPanel20.RowCount = 2;
+            this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel20.Size = new System.Drawing.Size(297, 56);
+            this.tableLayoutPanel20.TabIndex = 15;
+            // 
+            // seqOffsetFromLabelBox
+            // 
+            this.seqOffsetFromLabelBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqOffsetFromLabelBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.seqOffsetFromLabelBox.FormattingEnabled = true;
+            this.seqOffsetFromLabelBox.Location = new System.Drawing.Point(3, 31);
+            this.seqOffsetFromLabelBox.Name = "seqOffsetFromLabelBox";
+            this.seqOffsetFromLabelBox.Size = new System.Drawing.Size(142, 21);
+            this.seqOffsetFromLabelBox.TabIndex = 6;
+            this.seqOffsetFromLabelBox.SelectedIndexChanged += new System.EventHandler(this.SeqOffsetFromLabelBox_SelectedIndexChanged);
+            // 
+            // seqOffsetManualButton
+            // 
+            this.seqOffsetManualButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqOffsetManualButton.Location = new System.Drawing.Point(151, 3);
+            this.seqOffsetManualButton.Name = "seqOffsetManualButton";
+            this.seqOffsetManualButton.Size = new System.Drawing.Size(143, 22);
+            this.seqOffsetManualButton.TabIndex = 1;
+            this.seqOffsetManualButton.TabStop = true;
+            this.seqOffsetManualButton.Text = "Manual";
+            this.seqOffsetManualButton.UseVisualStyleBackColor = true;
+            this.seqOffsetManualButton.CheckedChanged += new System.EventHandler(this.SeqOffsetManualButton_CheckedChanged);
+            // 
+            // seqOffsetFromLabelButton
+            // 
+            this.seqOffsetFromLabelButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqOffsetFromLabelButton.Location = new System.Drawing.Point(3, 3);
+            this.seqOffsetFromLabelButton.Name = "seqOffsetFromLabelButton";
+            this.seqOffsetFromLabelButton.Size = new System.Drawing.Size(142, 22);
+            this.seqOffsetFromLabelButton.TabIndex = 0;
+            this.seqOffsetFromLabelButton.TabStop = true;
+            this.seqOffsetFromLabelButton.Text = "From Label";
+            this.seqOffsetFromLabelButton.UseVisualStyleBackColor = true;
+            this.seqOffsetFromLabelButton.CheckedChanged += new System.EventHandler(this.SeqOffsetFromLabelButton_CheckedChanged);
+            // 
+            // seqOffsetManualBox
+            // 
+            this.seqOffsetManualBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seqOffsetManualBox.Location = new System.Drawing.Point(151, 31);
+            this.seqOffsetManualBox.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.seqOffsetManualBox.Name = "seqOffsetManualBox";
+            this.seqOffsetManualBox.Size = new System.Drawing.Size(143, 20);
+            this.seqOffsetManualBox.TabIndex = 7;
+            this.seqOffsetManualBox.ValueChanged += new System.EventHandler(this.SeqOffsetManualBox_ValueChanged);
+            // 
+            // label42
+            // 
+            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label42.Location = new System.Drawing.Point(2, 379);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(289, 17);
+            this.label42.TabIndex = 13;
+            this.label42.Text = "Start Offset:";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // seqSound3dInfoExists
+            // 
+            this.seqSound3dInfoExists.AutoSize = true;
+            this.seqSound3dInfoExists.Location = new System.Drawing.Point(9, 210);
+            this.seqSound3dInfoExists.Name = "seqSound3dInfoExists";
+            this.seqSound3dInfoExists.Size = new System.Drawing.Size(129, 17);
+            this.seqSound3dInfoExists.TabIndex = 12;
+            this.seqSound3dInfoExists.Text = "Enable Sound 3d Info";
+            this.seqSound3dInfoExists.UseVisualStyleBackColor = true;
+            this.seqSound3dInfoExists.CheckedChanged += new System.EventHandler(this.SeqSound3dInfoExists_CheckedChanged);
+            // 
+            // seqBank3Box
+            // 
+            this.seqBank3Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seqBank3Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.seqBank3Box.FormattingEnabled = true;
+            this.seqBank3Box.Location = new System.Drawing.Point(5, 355);
+            this.seqBank3Box.Name = "seqBank3Box";
+            this.seqBank3Box.Size = new System.Drawing.Size(292, 21);
+            this.seqBank3Box.TabIndex = 11;
+            this.seqBank3Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank3Box_SelectedIndexChanged);
+            // 
+            // seqBank2Box
+            // 
+            this.seqBank2Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seqBank2Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.seqBank2Box.FormattingEnabled = true;
+            this.seqBank2Box.Location = new System.Drawing.Point(5, 328);
+            this.seqBank2Box.Name = "seqBank2Box";
+            this.seqBank2Box.Size = new System.Drawing.Size(292, 21);
+            this.seqBank2Box.TabIndex = 9;
+            this.seqBank2Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank2Box_SelectedIndexChanged);
+            // 
+            // seqBank1Box
+            // 
+            this.seqBank1Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seqBank1Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.seqBank1Box.FormattingEnabled = true;
+            this.seqBank1Box.Location = new System.Drawing.Point(5, 301);
+            this.seqBank1Box.Name = "seqBank1Box";
+            this.seqBank1Box.Size = new System.Drawing.Size(292, 21);
+            this.seqBank1Box.TabIndex = 7;
+            this.seqBank1Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank1Box_SelectedIndexChanged);
+            // 
+            // seqBank0Box
+            // 
+            this.seqBank0Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seqBank0Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.seqBank0Box.FormattingEnabled = true;
+            this.seqBank0Box.Location = new System.Drawing.Point(5, 274);
+            this.seqBank0Box.Name = "seqBank0Box";
+            this.seqBank0Box.Size = new System.Drawing.Size(292, 21);
+            this.seqBank0Box.TabIndex = 5;
+            this.seqBank0Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank0Box_SelectedIndexChanged);
+            // 
+            // label43
+            // 
+            this.label43.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label43.Location = new System.Drawing.Point(4, 254);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(291, 17);
+            this.label43.TabIndex = 4;
+            this.label43.Text = "Banks:";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // seqEditSound3dInfoButton
+            // 
+            this.seqEditSound3dInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seqEditSound3dInfoButton.Location = new System.Drawing.Point(5, 228);
+            this.seqEditSound3dInfoButton.Name = "seqEditSound3dInfoButton";
+            this.seqEditSound3dInfoButton.Size = new System.Drawing.Size(292, 23);
+            this.seqEditSound3dInfoButton.TabIndex = 3;
+            this.seqEditSound3dInfoButton.Text = "Edit Sound 3d Info";
+            this.seqEditSound3dInfoButton.UseVisualStyleBackColor = true;
+            this.seqEditSound3dInfoButton.Click += new System.EventHandler(this.SeqEditSound3dInfoButton_Click);
+            // 
+            // seqEditSoundInfoButton
+            // 
+            this.seqEditSoundInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seqEditSoundInfoButton.Location = new System.Drawing.Point(5, 181);
+            this.seqEditSoundInfoButton.Name = "seqEditSoundInfoButton";
+            this.seqEditSoundInfoButton.Size = new System.Drawing.Size(292, 23);
+            this.seqEditSoundInfoButton.TabIndex = 1;
+            this.seqEditSoundInfoButton.Text = "Edit Sound Info";
+            this.seqEditSoundInfoButton.UseVisualStyleBackColor = true;
+            this.seqEditSoundInfoButton.Click += new System.EventHandler(this.SeqEditSoundInfoButton_Click);
             // 
             // versionPanel
             // 
@@ -3587,6 +4542,7 @@ namespace Citric_Composer {
             this.stmPlayNext.TabIndex = 2;
             this.stmPlayNext.Text = "Play Next";
             this.stmPlayNext.UseVisualStyleBackColor = true;
+            this.stmPlayNext.CheckedChanged += new System.EventHandler(this.StmPlayNext_CheckedChanged);
             // 
             // stmPlayLoop
             // 
@@ -3598,6 +4554,7 @@ namespace Citric_Composer {
             this.stmPlayLoop.TabIndex = 1;
             this.stmPlayLoop.Text = "Play Loop";
             this.stmPlayLoop.UseVisualStyleBackColor = true;
+            this.stmPlayLoop.CheckedChanged += new System.EventHandler(this.StmPlayLoop_CheckedChanged);
             // 
             // stmPlayOnce
             // 
@@ -3611,932 +4568,7 @@ namespace Citric_Composer {
             this.stmPlayOnce.TabStop = true;
             this.stmPlayOnce.Text = "Play Once";
             this.stmPlayOnce.UseVisualStyleBackColor = true;
-            // 
-            // wsdPanel
-            // 
-            this.wsdPanel.Controls.Add(this.tableLayoutPanel26);
-            this.wsdPanel.Controls.Add(this.tableLayoutPanel25);
-            this.wsdPanel.Controls.Add(this.tableLayoutPanel24);
-            this.wsdPanel.Controls.Add(this.sarWsdFileIdBox);
-            this.wsdPanel.Controls.Add(this.label49);
-            this.wsdPanel.Controls.Add(this.wsdFixPriority);
-            this.wsdPanel.Controls.Add(this.wsdChannelPriority);
-            this.wsdPanel.Controls.Add(this.label40);
-            this.wsdPanel.Controls.Add(this.wsdCopyCount);
-            this.wsdPanel.Controls.Add(this.wsdTracksToAllocate);
-            this.wsdPanel.Controls.Add(this.label45);
-            this.wsdPanel.Controls.Add(this.wsdWaveIndex);
-            this.wsdPanel.Controls.Add(this.label46);
-            this.wsdPanel.Controls.Add(this.wsdSound3dEnable);
-            this.wsdPanel.Controls.Add(this.wsdSound3dButton);
-            this.wsdPanel.Controls.Add(this.wsdEditSoundInfoButton);
-            this.wsdPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wsdPanel.Location = new System.Drawing.Point(0, 0);
-            this.wsdPanel.Name = "wsdPanel";
-            this.wsdPanel.Size = new System.Drawing.Size(303, 472);
-            this.wsdPanel.TabIndex = 32;
-            // 
-            // tableLayoutPanel26
-            // 
-            this.tableLayoutPanel26.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel26.ColumnCount = 3;
-            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel26.Controls.Add(this.sarWsdPlayNext, 2, 0);
-            this.tableLayoutPanel26.Controls.Add(this.sarWsdPlayLoop, 1, 0);
-            this.tableLayoutPanel26.Controls.Add(this.sarWsdPlayOnce, 0, 0);
-            this.tableLayoutPanel26.Location = new System.Drawing.Point(4, 146);
-            this.tableLayoutPanel26.Name = "tableLayoutPanel26";
-            this.tableLayoutPanel26.RowCount = 1;
-            this.tableLayoutPanel26.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel26.Size = new System.Drawing.Size(293, 28);
-            this.tableLayoutPanel26.TabIndex = 26;
-            // 
-            // sarWsdPlayNext
-            // 
-            this.sarWsdPlayNext.AutoSize = true;
-            this.sarWsdPlayNext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarWsdPlayNext.Location = new System.Drawing.Point(197, 3);
-            this.sarWsdPlayNext.Name = "sarWsdPlayNext";
-            this.sarWsdPlayNext.Size = new System.Drawing.Size(93, 22);
-            this.sarWsdPlayNext.TabIndex = 2;
-            this.sarWsdPlayNext.Text = "Play Next";
-            this.sarWsdPlayNext.UseVisualStyleBackColor = true;
-            // 
-            // sarWsdPlayLoop
-            // 
-            this.sarWsdPlayLoop.AutoSize = true;
-            this.sarWsdPlayLoop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarWsdPlayLoop.Location = new System.Drawing.Point(100, 3);
-            this.sarWsdPlayLoop.Name = "sarWsdPlayLoop";
-            this.sarWsdPlayLoop.Size = new System.Drawing.Size(91, 22);
-            this.sarWsdPlayLoop.TabIndex = 1;
-            this.sarWsdPlayLoop.Text = "Play Loop";
-            this.sarWsdPlayLoop.UseVisualStyleBackColor = true;
-            // 
-            // sarWsdPlayOnce
-            // 
-            this.sarWsdPlayOnce.AutoSize = true;
-            this.sarWsdPlayOnce.Checked = true;
-            this.sarWsdPlayOnce.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarWsdPlayOnce.Location = new System.Drawing.Point(3, 3);
-            this.sarWsdPlayOnce.Name = "sarWsdPlayOnce";
-            this.sarWsdPlayOnce.Size = new System.Drawing.Size(91, 22);
-            this.sarWsdPlayOnce.TabIndex = 0;
-            this.sarWsdPlayOnce.TabStop = true;
-            this.sarWsdPlayOnce.Text = "Play Once";
-            this.sarWsdPlayOnce.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel25
-            // 
-            this.tableLayoutPanel25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel25.ColumnCount = 2;
-            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel25.Controls.Add(this.sarWsdPause, 0, 0);
-            this.tableLayoutPanel25.Controls.Add(this.sarWsdStop, 1, 0);
-            this.tableLayoutPanel25.Location = new System.Drawing.Point(3, 112);
-            this.tableLayoutPanel25.Name = "tableLayoutPanel25";
-            this.tableLayoutPanel25.RowCount = 1;
-            this.tableLayoutPanel25.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel25.Size = new System.Drawing.Size(292, 32);
-            this.tableLayoutPanel25.TabIndex = 27;
-            // 
-            // sarWsdPause
-            // 
-            this.sarWsdPause.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarWsdPause.Location = new System.Drawing.Point(3, 3);
-            this.sarWsdPause.Name = "sarWsdPause";
-            this.sarWsdPause.Size = new System.Drawing.Size(140, 26);
-            this.sarWsdPause.TabIndex = 0;
-            this.sarWsdPause.Text = "Pause";
-            this.sarWsdPause.UseVisualStyleBackColor = true;
-            this.sarWsdPause.Click += new System.EventHandler(this.SarWsdPause_Click);
-            // 
-            // sarWsdStop
-            // 
-            this.sarWsdStop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarWsdStop.Location = new System.Drawing.Point(149, 3);
-            this.sarWsdStop.Name = "sarWsdStop";
-            this.sarWsdStop.Size = new System.Drawing.Size(140, 26);
-            this.sarWsdStop.TabIndex = 1;
-            this.sarWsdStop.Text = "Stop";
-            this.sarWsdStop.UseVisualStyleBackColor = true;
-            this.sarWsdStop.Click += new System.EventHandler(this.SarWsdStop_Click);
-            // 
-            // tableLayoutPanel24
-            // 
-            this.tableLayoutPanel24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel24.ColumnCount = 1;
-            this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel24.Controls.Add(this.sarWsdPlay, 0, 1);
-            this.tableLayoutPanel24.Controls.Add(this.label50, 0, 0);
-            this.tableLayoutPanel24.Location = new System.Drawing.Point(2, 50);
-            this.tableLayoutPanel24.Name = "tableLayoutPanel24";
-            this.tableLayoutPanel24.RowCount = 2;
-            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel24.Size = new System.Drawing.Size(293, 59);
-            this.tableLayoutPanel24.TabIndex = 28;
-            // 
-            // sarWsdPlay
-            // 
-            this.sarWsdPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sarWsdPlay.Location = new System.Drawing.Point(3, 32);
-            this.sarWsdPlay.Name = "sarWsdPlay";
-            this.sarWsdPlay.Size = new System.Drawing.Size(287, 24);
-            this.sarWsdPlay.TabIndex = 10;
-            this.sarWsdPlay.Text = "Play";
-            this.sarWsdPlay.UseVisualStyleBackColor = true;
-            this.sarWsdPlay.Click += new System.EventHandler(this.SarWsdPlay_Click);
-            // 
-            // label50
-            // 
-            this.label50.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label50.Location = new System.Drawing.Point(3, 0);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(287, 29);
-            this.label50.TabIndex = 11;
-            this.label50.Text = "Sound Player Deluxe™";
-            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // sarWsdFileIdBox
-            // 
-            this.sarWsdFileIdBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sarWsdFileIdBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sarWsdFileIdBox.FormattingEnabled = true;
-            this.sarWsdFileIdBox.Location = new System.Drawing.Point(7, 22);
-            this.sarWsdFileIdBox.Name = "sarWsdFileIdBox";
-            this.sarWsdFileIdBox.Size = new System.Drawing.Size(289, 21);
-            this.sarWsdFileIdBox.TabIndex = 25;
-            this.sarWsdFileIdBox.SelectedIndexChanged += new System.EventHandler(this.SarWsdFileIdBox_SelectedIndexChanged);
-            // 
-            // label49
-            // 
-            this.label49.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label49.Location = new System.Drawing.Point(8, 4);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(286, 17);
-            this.label49.TabIndex = 24;
-            this.label49.Text = "File Id:";
-            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // wsdFixPriority
-            // 
-            this.wsdFixPriority.AutoSize = true;
-            this.wsdFixPriority.Location = new System.Drawing.Point(6, 416);
-            this.wsdFixPriority.Name = "wsdFixPriority";
-            this.wsdFixPriority.Size = new System.Drawing.Size(128, 17);
-            this.wsdFixPriority.TabIndex = 21;
-            this.wsdFixPriority.Text = "Fix Priority At Release";
-            this.wsdFixPriority.UseVisualStyleBackColor = true;
-            this.wsdFixPriority.CheckedChanged += new System.EventHandler(this.WsdFixPriority_CheckedChanged);
-            // 
-            // wsdChannelPriority
-            // 
-            this.wsdChannelPriority.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wsdChannelPriority.Location = new System.Drawing.Point(5, 390);
-            this.wsdChannelPriority.Maximum = new decimal(new int[] {
-            127,
-            0,
-            0,
-            0});
-            this.wsdChannelPriority.Name = "wsdChannelPriority";
-            this.wsdChannelPriority.Size = new System.Drawing.Size(290, 20);
-            this.wsdChannelPriority.TabIndex = 19;
-            this.wsdChannelPriority.ValueChanged += new System.EventHandler(this.WsdChannelPriority_ValueChanged);
-            // 
-            // label40
-            // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label40.Location = new System.Drawing.Point(3, 373);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(294, 17);
-            this.label40.TabIndex = 18;
-            this.label40.Text = "Channel Priority:";
-            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // wsdCopyCount
-            // 
-            this.wsdCopyCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wsdCopyCount.Location = new System.Drawing.Point(5, 344);
-            this.wsdCopyCount.Name = "wsdCopyCount";
-            this.wsdCopyCount.Size = new System.Drawing.Size(290, 23);
-            this.wsdCopyCount.TabIndex = 17;
-            this.wsdCopyCount.Text = "Copy Count From Linked Wave";
-            this.wsdCopyCount.UseVisualStyleBackColor = true;
-            this.wsdCopyCount.Click += new System.EventHandler(this.WsdCopyCount_Click);
-            // 
-            // wsdTracksToAllocate
-            // 
-            this.wsdTracksToAllocate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wsdTracksToAllocate.Location = new System.Drawing.Point(6, 318);
-            this.wsdTracksToAllocate.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.wsdTracksToAllocate.Name = "wsdTracksToAllocate";
-            this.wsdTracksToAllocate.Size = new System.Drawing.Size(289, 20);
-            this.wsdTracksToAllocate.TabIndex = 16;
-            this.wsdTracksToAllocate.ValueChanged += new System.EventHandler(this.WsdTracksToAllocate_ValueChanged);
-            // 
-            // label45
-            // 
-            this.label45.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label45.Location = new System.Drawing.Point(2, 301);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(294, 17);
-            this.label45.TabIndex = 15;
-            this.label45.Text = "Number Of Tracks To Allocate:";
-            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // wsdWaveIndex
-            // 
-            this.wsdWaveIndex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wsdWaveIndex.Location = new System.Drawing.Point(5, 275);
-            this.wsdWaveIndex.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.wsdWaveIndex.Name = "wsdWaveIndex";
-            this.wsdWaveIndex.Size = new System.Drawing.Size(289, 20);
-            this.wsdWaveIndex.TabIndex = 14;
-            this.wsdWaveIndex.ValueChanged += new System.EventHandler(this.WsdWaveIndex_ValueChanged);
-            // 
-            // label46
-            // 
-            this.label46.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label46.Location = new System.Drawing.Point(1, 258);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(294, 17);
-            this.label46.TabIndex = 13;
-            this.label46.Text = "Wave Index (In WSD File):";
-            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // wsdSound3dEnable
-            // 
-            this.wsdSound3dEnable.AutoSize = true;
-            this.wsdSound3dEnable.Location = new System.Drawing.Point(5, 210);
-            this.wsdSound3dEnable.Name = "wsdSound3dEnable";
-            this.wsdSound3dEnable.Size = new System.Drawing.Size(129, 17);
-            this.wsdSound3dEnable.TabIndex = 12;
-            this.wsdSound3dEnable.Text = "Enable Sound 3d Info";
-            this.wsdSound3dEnable.UseVisualStyleBackColor = true;
-            this.wsdSound3dEnable.CheckedChanged += new System.EventHandler(this.WsdSound3dEnable_CheckedChanged);
-            // 
-            // wsdSound3dButton
-            // 
-            this.wsdSound3dButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wsdSound3dButton.Location = new System.Drawing.Point(4, 227);
-            this.wsdSound3dButton.Name = "wsdSound3dButton";
-            this.wsdSound3dButton.Size = new System.Drawing.Size(290, 23);
-            this.wsdSound3dButton.TabIndex = 3;
-            this.wsdSound3dButton.Text = "Edit Sound 3d Info";
-            this.wsdSound3dButton.UseVisualStyleBackColor = true;
-            this.wsdSound3dButton.Click += new System.EventHandler(this.WsdSound3dButton_Click);
-            // 
-            // wsdEditSoundInfoButton
-            // 
-            this.wsdEditSoundInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wsdEditSoundInfoButton.Location = new System.Drawing.Point(4, 180);
-            this.wsdEditSoundInfoButton.Name = "wsdEditSoundInfoButton";
-            this.wsdEditSoundInfoButton.Size = new System.Drawing.Size(290, 23);
-            this.wsdEditSoundInfoButton.TabIndex = 1;
-            this.wsdEditSoundInfoButton.Text = "Edit Sound Info";
-            this.wsdEditSoundInfoButton.UseVisualStyleBackColor = true;
-            this.wsdEditSoundInfoButton.Click += new System.EventHandler(this.WsdEditSoundInfoButton_Click);
-            // 
-            // seqPanel
-            // 
-            this.seqPanel.Controls.Add(this.tableLayoutPanel23);
-            this.seqPanel.Controls.Add(this.tableLayoutPanel22);
-            this.seqPanel.Controls.Add(this.tableLayoutPanel21);
-            this.seqPanel.Controls.Add(this.sarSeqFileIdBox);
-            this.seqPanel.Controls.Add(this.label47);
-            this.seqPanel.Controls.Add(this.tableLayoutPanel19);
-            this.seqPanel.Controls.Add(this.label39);
-            this.seqPanel.Controls.Add(this.seqIsReleasePriorityBox);
-            this.seqPanel.Controls.Add(this.seqChannelPriorityBox);
-            this.seqPanel.Controls.Add(this.label41);
-            this.seqPanel.Controls.Add(this.tableLayoutPanel20);
-            this.seqPanel.Controls.Add(this.label42);
-            this.seqPanel.Controls.Add(this.seqSound3dInfoExists);
-            this.seqPanel.Controls.Add(this.seqBank3Box);
-            this.seqPanel.Controls.Add(this.seqBank2Box);
-            this.seqPanel.Controls.Add(this.seqBank1Box);
-            this.seqPanel.Controls.Add(this.seqBank0Box);
-            this.seqPanel.Controls.Add(this.label43);
-            this.seqPanel.Controls.Add(this.seqEditSound3dInfoButton);
-            this.seqPanel.Controls.Add(this.seqEditSoundInfoButton);
-            this.seqPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqPanel.Location = new System.Drawing.Point(0, 0);
-            this.seqPanel.Name = "seqPanel";
-            this.seqPanel.Size = new System.Drawing.Size(303, 472);
-            this.seqPanel.TabIndex = 31;
-            // 
-            // tableLayoutPanel23
-            // 
-            this.tableLayoutPanel23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel23.ColumnCount = 1;
-            this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel23.Controls.Add(this.sarSeqPlay, 0, 1);
-            this.tableLayoutPanel23.Controls.Add(this.label44, 0, 0);
-            this.tableLayoutPanel23.Location = new System.Drawing.Point(5, 54);
-            this.tableLayoutPanel23.Name = "tableLayoutPanel23";
-            this.tableLayoutPanel23.RowCount = 2;
-            this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel23.Size = new System.Drawing.Size(293, 59);
-            this.tableLayoutPanel23.TabIndex = 27;
-            // 
-            // sarSeqPlay
-            // 
-            this.sarSeqPlay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sarSeqPlay.Location = new System.Drawing.Point(3, 32);
-            this.sarSeqPlay.Name = "sarSeqPlay";
-            this.sarSeqPlay.Size = new System.Drawing.Size(287, 24);
-            this.sarSeqPlay.TabIndex = 10;
-            this.sarSeqPlay.Text = "Play";
-            this.sarSeqPlay.UseVisualStyleBackColor = true;
-            this.sarSeqPlay.Click += new System.EventHandler(this.SarSeqPlay_Click);
-            // 
-            // label44
-            // 
-            this.label44.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label44.Location = new System.Drawing.Point(3, 0);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(287, 29);
-            this.label44.TabIndex = 11;
-            this.label44.Text = "Sound Player Deluxe™";
-            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel22
-            // 
-            this.tableLayoutPanel22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel22.ColumnCount = 2;
-            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel22.Controls.Add(this.sarSeqPause, 0, 0);
-            this.tableLayoutPanel22.Controls.Add(this.sarSeqStop, 1, 0);
-            this.tableLayoutPanel22.Location = new System.Drawing.Point(6, 116);
-            this.tableLayoutPanel22.Name = "tableLayoutPanel22";
-            this.tableLayoutPanel22.RowCount = 1;
-            this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel22.Size = new System.Drawing.Size(291, 30);
-            this.tableLayoutPanel22.TabIndex = 26;
-            // 
-            // sarSeqPause
-            // 
-            this.sarSeqPause.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarSeqPause.Location = new System.Drawing.Point(3, 3);
-            this.sarSeqPause.Name = "sarSeqPause";
-            this.sarSeqPause.Size = new System.Drawing.Size(139, 24);
-            this.sarSeqPause.TabIndex = 0;
-            this.sarSeqPause.Text = "Pause";
-            this.sarSeqPause.UseVisualStyleBackColor = true;
-            this.sarSeqPause.Click += new System.EventHandler(this.SarSeqPause_Click);
-            // 
-            // sarSeqStop
-            // 
-            this.sarSeqStop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarSeqStop.Location = new System.Drawing.Point(148, 3);
-            this.sarSeqStop.Name = "sarSeqStop";
-            this.sarSeqStop.Size = new System.Drawing.Size(140, 24);
-            this.sarSeqStop.TabIndex = 1;
-            this.sarSeqStop.Text = "Stop";
-            this.sarSeqStop.UseVisualStyleBackColor = true;
-            this.sarSeqStop.Click += new System.EventHandler(this.SarSeqStop_Click);
-            // 
-            // tableLayoutPanel21
-            // 
-            this.tableLayoutPanel21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel21.ColumnCount = 3;
-            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel21.Controls.Add(this.sarSeqPlayNext, 2, 0);
-            this.tableLayoutPanel21.Controls.Add(this.sarSeqPlayLoop, 1, 0);
-            this.tableLayoutPanel21.Controls.Add(this.sarSeqPlayOnce, 0, 0);
-            this.tableLayoutPanel21.Location = new System.Drawing.Point(7, 149);
-            this.tableLayoutPanel21.Name = "tableLayoutPanel21";
-            this.tableLayoutPanel21.RowCount = 1;
-            this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel21.Size = new System.Drawing.Size(291, 26);
-            this.tableLayoutPanel21.TabIndex = 25;
-            // 
-            // sarSeqPlayNext
-            // 
-            this.sarSeqPlayNext.AutoSize = true;
-            this.sarSeqPlayNext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarSeqPlayNext.Location = new System.Drawing.Point(197, 3);
-            this.sarSeqPlayNext.Name = "sarSeqPlayNext";
-            this.sarSeqPlayNext.Size = new System.Drawing.Size(91, 20);
-            this.sarSeqPlayNext.TabIndex = 2;
-            this.sarSeqPlayNext.Text = "Play Next";
-            this.sarSeqPlayNext.UseVisualStyleBackColor = true;
-            // 
-            // sarSeqPlayLoop
-            // 
-            this.sarSeqPlayLoop.AutoSize = true;
-            this.sarSeqPlayLoop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarSeqPlayLoop.Location = new System.Drawing.Point(100, 3);
-            this.sarSeqPlayLoop.Name = "sarSeqPlayLoop";
-            this.sarSeqPlayLoop.Size = new System.Drawing.Size(91, 20);
-            this.sarSeqPlayLoop.TabIndex = 1;
-            this.sarSeqPlayLoop.Text = "Play Loop";
-            this.sarSeqPlayLoop.UseVisualStyleBackColor = true;
-            // 
-            // sarSeqPlayOnce
-            // 
-            this.sarSeqPlayOnce.AutoSize = true;
-            this.sarSeqPlayOnce.Checked = true;
-            this.sarSeqPlayOnce.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sarSeqPlayOnce.Location = new System.Drawing.Point(3, 3);
-            this.sarSeqPlayOnce.Name = "sarSeqPlayOnce";
-            this.sarSeqPlayOnce.Size = new System.Drawing.Size(91, 20);
-            this.sarSeqPlayOnce.TabIndex = 0;
-            this.sarSeqPlayOnce.TabStop = true;
-            this.sarSeqPlayOnce.Text = "Play Once";
-            this.sarSeqPlayOnce.UseVisualStyleBackColor = true;
-            // 
-            // sarSeqFileIdBox
-            // 
-            this.sarSeqFileIdBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sarSeqFileIdBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sarSeqFileIdBox.FormattingEnabled = true;
-            this.sarSeqFileIdBox.Location = new System.Drawing.Point(7, 25);
-            this.sarSeqFileIdBox.Name = "sarSeqFileIdBox";
-            this.sarSeqFileIdBox.Size = new System.Drawing.Size(289, 21);
-            this.sarSeqFileIdBox.TabIndex = 24;
-            this.sarSeqFileIdBox.SelectedIndexChanged += new System.EventHandler(this.SarSeqFileIdBox_SelectedIndexChanged);
-            // 
-            // label47
-            // 
-            this.label47.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label47.Location = new System.Drawing.Point(8, 4);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(286, 17);
-            this.label47.TabIndex = 23;
-            this.label47.Text = "File Id:";
-            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel19
-            // 
-            this.tableLayoutPanel19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel19.ColumnCount = 4;
-            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.Controls.Add(this.seqC12, 0, 3);
-            this.tableLayoutPanel19.Controls.Add(this.seqC0, 0, 0);
-            this.tableLayoutPanel19.Controls.Add(this.seqC1, 1, 0);
-            this.tableLayoutPanel19.Controls.Add(this.seqC2, 2, 0);
-            this.tableLayoutPanel19.Controls.Add(this.seqC3, 3, 0);
-            this.tableLayoutPanel19.Controls.Add(this.seqC4, 0, 1);
-            this.tableLayoutPanel19.Controls.Add(this.seqC5, 1, 1);
-            this.tableLayoutPanel19.Controls.Add(this.seqC6, 2, 1);
-            this.tableLayoutPanel19.Controls.Add(this.seqC7, 3, 1);
-            this.tableLayoutPanel19.Controls.Add(this.seqC8, 0, 2);
-            this.tableLayoutPanel19.Controls.Add(this.seqC9, 1, 2);
-            this.tableLayoutPanel19.Controls.Add(this.seqC10, 2, 2);
-            this.tableLayoutPanel19.Controls.Add(this.seqC11, 3, 2);
-            this.tableLayoutPanel19.Controls.Add(this.seqC15, 3, 3);
-            this.tableLayoutPanel19.Controls.Add(this.seqC14, 2, 3);
-            this.tableLayoutPanel19.Controls.Add(this.seqC13, 1, 3);
-            this.tableLayoutPanel19.Location = new System.Drawing.Point(2, 546);
-            this.tableLayoutPanel19.Name = "tableLayoutPanel19";
-            this.tableLayoutPanel19.RowCount = 4;
-            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel19.Size = new System.Drawing.Size(297, 94);
-            this.tableLayoutPanel19.TabIndex = 22;
-            // 
-            // seqC12
-            // 
-            this.seqC12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC12.Location = new System.Drawing.Point(3, 72);
-            this.seqC12.Name = "seqC12";
-            this.seqC12.Size = new System.Drawing.Size(68, 19);
-            this.seqC12.TabIndex = 35;
-            this.seqC12.Text = "12";
-            this.seqC12.UseVisualStyleBackColor = true;
-            this.seqC12.CheckedChanged += new System.EventHandler(this.SeqC12_CheckedChanged);
-            // 
-            // seqC0
-            // 
-            this.seqC0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC0.Location = new System.Drawing.Point(3, 3);
-            this.seqC0.Name = "seqC0";
-            this.seqC0.Size = new System.Drawing.Size(68, 17);
-            this.seqC0.TabIndex = 20;
-            this.seqC0.Text = "0";
-            this.seqC0.UseVisualStyleBackColor = true;
-            this.seqC0.CheckedChanged += new System.EventHandler(this.SeqC0_CheckedChanged);
-            // 
-            // seqC1
-            // 
-            this.seqC1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC1.Location = new System.Drawing.Point(77, 3);
-            this.seqC1.Name = "seqC1";
-            this.seqC1.Size = new System.Drawing.Size(68, 17);
-            this.seqC1.TabIndex = 21;
-            this.seqC1.Text = "1";
-            this.seqC1.UseVisualStyleBackColor = true;
-            this.seqC1.CheckedChanged += new System.EventHandler(this.SeqC1_CheckedChanged);
-            // 
-            // seqC2
-            // 
-            this.seqC2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC2.Location = new System.Drawing.Point(151, 3);
-            this.seqC2.Name = "seqC2";
-            this.seqC2.Size = new System.Drawing.Size(68, 17);
-            this.seqC2.TabIndex = 22;
-            this.seqC2.Text = "2";
-            this.seqC2.UseVisualStyleBackColor = true;
-            this.seqC2.CheckedChanged += new System.EventHandler(this.SeqC2_CheckedChanged);
-            // 
-            // seqC3
-            // 
-            this.seqC3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC3.Location = new System.Drawing.Point(225, 3);
-            this.seqC3.Name = "seqC3";
-            this.seqC3.Size = new System.Drawing.Size(69, 17);
-            this.seqC3.TabIndex = 23;
-            this.seqC3.Text = "3";
-            this.seqC3.UseVisualStyleBackColor = true;
-            this.seqC3.CheckedChanged += new System.EventHandler(this.SeqC3_CheckedChanged);
-            // 
-            // seqC4
-            // 
-            this.seqC4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC4.Location = new System.Drawing.Point(3, 26);
-            this.seqC4.Name = "seqC4";
-            this.seqC4.Size = new System.Drawing.Size(68, 17);
-            this.seqC4.TabIndex = 24;
-            this.seqC4.Text = "4";
-            this.seqC4.UseVisualStyleBackColor = true;
-            this.seqC4.CheckedChanged += new System.EventHandler(this.SeqC4_CheckedChanged);
-            // 
-            // seqC5
-            // 
-            this.seqC5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC5.Location = new System.Drawing.Point(77, 26);
-            this.seqC5.Name = "seqC5";
-            this.seqC5.Size = new System.Drawing.Size(68, 17);
-            this.seqC5.TabIndex = 25;
-            this.seqC5.Text = "5";
-            this.seqC5.UseVisualStyleBackColor = true;
-            this.seqC5.CheckedChanged += new System.EventHandler(this.SeqC5_CheckedChanged);
-            // 
-            // seqC6
-            // 
-            this.seqC6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC6.Location = new System.Drawing.Point(151, 26);
-            this.seqC6.Name = "seqC6";
-            this.seqC6.Size = new System.Drawing.Size(68, 17);
-            this.seqC6.TabIndex = 26;
-            this.seqC6.Text = "6";
-            this.seqC6.UseVisualStyleBackColor = true;
-            this.seqC6.CheckedChanged += new System.EventHandler(this.SeqC6_CheckedChanged);
-            // 
-            // seqC7
-            // 
-            this.seqC7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC7.Location = new System.Drawing.Point(225, 26);
-            this.seqC7.Name = "seqC7";
-            this.seqC7.Size = new System.Drawing.Size(69, 17);
-            this.seqC7.TabIndex = 27;
-            this.seqC7.Text = "7";
-            this.seqC7.UseVisualStyleBackColor = true;
-            this.seqC7.CheckedChanged += new System.EventHandler(this.SeqC7_CheckedChanged);
-            // 
-            // seqC8
-            // 
-            this.seqC8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC8.Location = new System.Drawing.Point(3, 49);
-            this.seqC8.Name = "seqC8";
-            this.seqC8.Size = new System.Drawing.Size(68, 17);
-            this.seqC8.TabIndex = 28;
-            this.seqC8.Text = "8";
-            this.seqC8.UseVisualStyleBackColor = true;
-            this.seqC8.CheckedChanged += new System.EventHandler(this.SeqC8_CheckedChanged);
-            // 
-            // seqC9
-            // 
-            this.seqC9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC9.Location = new System.Drawing.Point(77, 49);
-            this.seqC9.Name = "seqC9";
-            this.seqC9.Size = new System.Drawing.Size(68, 17);
-            this.seqC9.TabIndex = 29;
-            this.seqC9.Text = "9";
-            this.seqC9.UseVisualStyleBackColor = true;
-            this.seqC9.CheckedChanged += new System.EventHandler(this.SeqC9_CheckedChanged);
-            // 
-            // seqC10
-            // 
-            this.seqC10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC10.Location = new System.Drawing.Point(151, 49);
-            this.seqC10.Name = "seqC10";
-            this.seqC10.Size = new System.Drawing.Size(68, 17);
-            this.seqC10.TabIndex = 30;
-            this.seqC10.Text = "10";
-            this.seqC10.UseVisualStyleBackColor = true;
-            this.seqC10.CheckedChanged += new System.EventHandler(this.SeqC10_CheckedChanged);
-            // 
-            // seqC11
-            // 
-            this.seqC11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC11.Location = new System.Drawing.Point(225, 49);
-            this.seqC11.Name = "seqC11";
-            this.seqC11.Size = new System.Drawing.Size(69, 17);
-            this.seqC11.TabIndex = 31;
-            this.seqC11.Text = "11";
-            this.seqC11.UseVisualStyleBackColor = true;
-            this.seqC11.CheckedChanged += new System.EventHandler(this.SeqC11_CheckedChanged);
-            // 
-            // seqC15
-            // 
-            this.seqC15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC15.Location = new System.Drawing.Point(225, 72);
-            this.seqC15.Name = "seqC15";
-            this.seqC15.Size = new System.Drawing.Size(69, 19);
-            this.seqC15.TabIndex = 32;
-            this.seqC15.Text = "15";
-            this.seqC15.UseVisualStyleBackColor = true;
-            this.seqC15.CheckedChanged += new System.EventHandler(this.SeqC15_CheckedChanged);
-            // 
-            // seqC14
-            // 
-            this.seqC14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC14.Location = new System.Drawing.Point(151, 72);
-            this.seqC14.Name = "seqC14";
-            this.seqC14.Size = new System.Drawing.Size(68, 19);
-            this.seqC14.TabIndex = 33;
-            this.seqC14.Text = "14";
-            this.seqC14.UseVisualStyleBackColor = true;
-            this.seqC14.CheckedChanged += new System.EventHandler(this.SeqC14_CheckedChanged);
-            // 
-            // seqC13
-            // 
-            this.seqC13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqC13.Location = new System.Drawing.Point(77, 72);
-            this.seqC13.Name = "seqC13";
-            this.seqC13.Size = new System.Drawing.Size(68, 19);
-            this.seqC13.TabIndex = 34;
-            this.seqC13.Text = "13";
-            this.seqC13.UseVisualStyleBackColor = true;
-            this.seqC13.CheckedChanged += new System.EventHandler(this.SeqC13_CheckedChanged);
-            // 
-            // label39
-            // 
-            this.label39.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label39.Location = new System.Drawing.Point(5, 523);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(293, 17);
-            this.label39.TabIndex = 20;
-            this.label39.Text = "Channel Flags:";
-            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // seqIsReleasePriorityBox
-            // 
-            this.seqIsReleasePriorityBox.AutoSize = true;
-            this.seqIsReleasePriorityBox.Location = new System.Drawing.Point(7, 503);
-            this.seqIsReleasePriorityBox.Name = "seqIsReleasePriorityBox";
-            this.seqIsReleasePriorityBox.Size = new System.Drawing.Size(132, 17);
-            this.seqIsReleasePriorityBox.TabIndex = 19;
-            this.seqIsReleasePriorityBox.Text = "Fix Priority On Release";
-            this.seqIsReleasePriorityBox.UseVisualStyleBackColor = true;
-            this.seqIsReleasePriorityBox.CheckedChanged += new System.EventHandler(this.SeqIsReleasePriorityBox_CheckedChanged);
-            // 
-            // seqChannelPriorityBox
-            // 
-            this.seqChannelPriorityBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seqChannelPriorityBox.Location = new System.Drawing.Point(5, 478);
-            this.seqChannelPriorityBox.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.seqChannelPriorityBox.Name = "seqChannelPriorityBox";
-            this.seqChannelPriorityBox.Size = new System.Drawing.Size(293, 20);
-            this.seqChannelPriorityBox.TabIndex = 17;
-            this.seqChannelPriorityBox.ValueChanged += new System.EventHandler(this.SeqChannelPriorityBox_ValueChanged);
-            // 
-            // label41
-            // 
-            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label41.Location = new System.Drawing.Point(1, 458);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(289, 17);
-            this.label41.TabIndex = 16;
-            this.label41.Text = "Channel Priority:";
-            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel20
-            // 
-            this.tableLayoutPanel20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel20.ColumnCount = 2;
-            this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel20.Controls.Add(this.seqOffsetFromLabelBox, 0, 1);
-            this.tableLayoutPanel20.Controls.Add(this.seqOffsetManualButton, 1, 0);
-            this.tableLayoutPanel20.Controls.Add(this.seqOffsetFromLabelButton, 0, 0);
-            this.tableLayoutPanel20.Controls.Add(this.seqOffsetManualBox, 1, 1);
-            this.tableLayoutPanel20.Location = new System.Drawing.Point(1, 399);
-            this.tableLayoutPanel20.Name = "tableLayoutPanel20";
-            this.tableLayoutPanel20.RowCount = 2;
-            this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel20.Size = new System.Drawing.Size(297, 56);
-            this.tableLayoutPanel20.TabIndex = 15;
-            // 
-            // seqOffsetFromLabelBox
-            // 
-            this.seqOffsetFromLabelBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqOffsetFromLabelBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.seqOffsetFromLabelBox.FormattingEnabled = true;
-            this.seqOffsetFromLabelBox.Location = new System.Drawing.Point(3, 31);
-            this.seqOffsetFromLabelBox.Name = "seqOffsetFromLabelBox";
-            this.seqOffsetFromLabelBox.Size = new System.Drawing.Size(142, 21);
-            this.seqOffsetFromLabelBox.TabIndex = 6;
-            this.seqOffsetFromLabelBox.SelectedIndexChanged += new System.EventHandler(this.SeqOffsetFromLabelBox_SelectedIndexChanged);
-            // 
-            // seqOffsetManualButton
-            // 
-            this.seqOffsetManualButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqOffsetManualButton.Location = new System.Drawing.Point(151, 3);
-            this.seqOffsetManualButton.Name = "seqOffsetManualButton";
-            this.seqOffsetManualButton.Size = new System.Drawing.Size(143, 22);
-            this.seqOffsetManualButton.TabIndex = 1;
-            this.seqOffsetManualButton.TabStop = true;
-            this.seqOffsetManualButton.Text = "Manual";
-            this.seqOffsetManualButton.UseVisualStyleBackColor = true;
-            this.seqOffsetManualButton.CheckedChanged += new System.EventHandler(this.SeqOffsetManualButton_CheckedChanged);
-            // 
-            // seqOffsetFromLabelButton
-            // 
-            this.seqOffsetFromLabelButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqOffsetFromLabelButton.Location = new System.Drawing.Point(3, 3);
-            this.seqOffsetFromLabelButton.Name = "seqOffsetFromLabelButton";
-            this.seqOffsetFromLabelButton.Size = new System.Drawing.Size(142, 22);
-            this.seqOffsetFromLabelButton.TabIndex = 0;
-            this.seqOffsetFromLabelButton.TabStop = true;
-            this.seqOffsetFromLabelButton.Text = "From Label";
-            this.seqOffsetFromLabelButton.UseVisualStyleBackColor = true;
-            this.seqOffsetFromLabelButton.CheckedChanged += new System.EventHandler(this.SeqOffsetFromLabelButton_CheckedChanged);
-            // 
-            // seqOffsetManualBox
-            // 
-            this.seqOffsetManualBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seqOffsetManualBox.Location = new System.Drawing.Point(151, 31);
-            this.seqOffsetManualBox.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.seqOffsetManualBox.Name = "seqOffsetManualBox";
-            this.seqOffsetManualBox.Size = new System.Drawing.Size(143, 20);
-            this.seqOffsetManualBox.TabIndex = 7;
-            this.seqOffsetManualBox.ValueChanged += new System.EventHandler(this.SeqOffsetManualBox_ValueChanged);
-            // 
-            // label42
-            // 
-            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label42.Location = new System.Drawing.Point(2, 379);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(289, 17);
-            this.label42.TabIndex = 13;
-            this.label42.Text = "Start Offset:";
-            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // seqSound3dInfoExists
-            // 
-            this.seqSound3dInfoExists.AutoSize = true;
-            this.seqSound3dInfoExists.Location = new System.Drawing.Point(9, 210);
-            this.seqSound3dInfoExists.Name = "seqSound3dInfoExists";
-            this.seqSound3dInfoExists.Size = new System.Drawing.Size(129, 17);
-            this.seqSound3dInfoExists.TabIndex = 12;
-            this.seqSound3dInfoExists.Text = "Enable Sound 3d Info";
-            this.seqSound3dInfoExists.UseVisualStyleBackColor = true;
-            this.seqSound3dInfoExists.CheckedChanged += new System.EventHandler(this.SeqSound3dInfoExists_CheckedChanged);
-            // 
-            // seqBank3Box
-            // 
-            this.seqBank3Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seqBank3Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.seqBank3Box.FormattingEnabled = true;
-            this.seqBank3Box.Location = new System.Drawing.Point(5, 355);
-            this.seqBank3Box.Name = "seqBank3Box";
-            this.seqBank3Box.Size = new System.Drawing.Size(292, 21);
-            this.seqBank3Box.TabIndex = 11;
-            this.seqBank3Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank3Box_SelectedIndexChanged);
-            // 
-            // seqBank2Box
-            // 
-            this.seqBank2Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seqBank2Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.seqBank2Box.FormattingEnabled = true;
-            this.seqBank2Box.Location = new System.Drawing.Point(5, 328);
-            this.seqBank2Box.Name = "seqBank2Box";
-            this.seqBank2Box.Size = new System.Drawing.Size(292, 21);
-            this.seqBank2Box.TabIndex = 9;
-            this.seqBank2Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank2Box_SelectedIndexChanged);
-            // 
-            // seqBank1Box
-            // 
-            this.seqBank1Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seqBank1Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.seqBank1Box.FormattingEnabled = true;
-            this.seqBank1Box.Location = new System.Drawing.Point(5, 301);
-            this.seqBank1Box.Name = "seqBank1Box";
-            this.seqBank1Box.Size = new System.Drawing.Size(292, 21);
-            this.seqBank1Box.TabIndex = 7;
-            this.seqBank1Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank1Box_SelectedIndexChanged);
-            // 
-            // seqBank0Box
-            // 
-            this.seqBank0Box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seqBank0Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.seqBank0Box.FormattingEnabled = true;
-            this.seqBank0Box.Location = new System.Drawing.Point(5, 274);
-            this.seqBank0Box.Name = "seqBank0Box";
-            this.seqBank0Box.Size = new System.Drawing.Size(292, 21);
-            this.seqBank0Box.TabIndex = 5;
-            this.seqBank0Box.SelectedIndexChanged += new System.EventHandler(this.SeqBank0Box_SelectedIndexChanged);
-            // 
-            // label43
-            // 
-            this.label43.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label43.Location = new System.Drawing.Point(4, 254);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(291, 17);
-            this.label43.TabIndex = 4;
-            this.label43.Text = "Banks:";
-            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // seqEditSound3dInfoButton
-            // 
-            this.seqEditSound3dInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seqEditSound3dInfoButton.Location = new System.Drawing.Point(5, 228);
-            this.seqEditSound3dInfoButton.Name = "seqEditSound3dInfoButton";
-            this.seqEditSound3dInfoButton.Size = new System.Drawing.Size(292, 23);
-            this.seqEditSound3dInfoButton.TabIndex = 3;
-            this.seqEditSound3dInfoButton.Text = "Edit Sound 3d Info";
-            this.seqEditSound3dInfoButton.UseVisualStyleBackColor = true;
-            this.seqEditSound3dInfoButton.Click += new System.EventHandler(this.SeqEditSound3dInfoButton_Click);
-            // 
-            // seqEditSoundInfoButton
-            // 
-            this.seqEditSoundInfoButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seqEditSoundInfoButton.Location = new System.Drawing.Point(5, 181);
-            this.seqEditSoundInfoButton.Name = "seqEditSoundInfoButton";
-            this.seqEditSoundInfoButton.Size = new System.Drawing.Size(292, 23);
-            this.seqEditSoundInfoButton.TabIndex = 1;
-            this.seqEditSoundInfoButton.Text = "Edit Sound Info";
-            this.seqEditSoundInfoButton.UseVisualStyleBackColor = true;
-            this.seqEditSoundInfoButton.Click += new System.EventHandler(this.SeqEditSoundInfoButton_Click);
+            this.stmPlayOnce.CheckedChanged += new System.EventHandler(this.StmPlayOnce_CheckedChanged);
             // 
             // soundGrpPanel
             // 
@@ -6634,13 +6666,13 @@ namespace Citric_Composer {
             this.exportToolStripMenuItem,
             this.changeExternalPathToolStripMenuItem});
             this.filesMenu.Name = "contextMenuStrip1";
-            this.filesMenu.Size = new System.Drawing.Size(187, 70);
+            this.filesMenu.Size = new System.Drawing.Size(188, 70);
             // 
             // replaceToolStripMenuItem
             // 
             this.replaceToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("replaceToolStripMenuItem.Image")));
             this.replaceToolStripMenuItem.Name = "replaceToolStripMenuItem";
-            this.replaceToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.replaceToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.replaceToolStripMenuItem.Text = "Replace";
             this.replaceToolStripMenuItem.Click += new System.EventHandler(this.ReplaceToolStripMenuItem_Click);
             // 
@@ -6648,7 +6680,7 @@ namespace Citric_Composer {
             // 
             this.exportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportToolStripMenuItem.Image")));
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportToolStripMenuItem_Click);
             // 
@@ -6656,9 +6688,108 @@ namespace Citric_Composer {
             // 
             this.changeExternalPathToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("changeExternalPathToolStripMenuItem.Image")));
             this.changeExternalPathToolStripMenuItem.Name = "changeExternalPathToolStripMenuItem";
-            this.changeExternalPathToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.changeExternalPathToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.changeExternalPathToolStripMenuItem.Text = "Change External Path";
             this.changeExternalPathToolStripMenuItem.Click += new System.EventHandler(this.ChangeExternalPathToolStripMenuItem_Click);
+            // 
+            // sarEntryMenu
+            // 
+            this.sarEntryMenu.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.sarEntryMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sarAddAbove,
+            this.sarAddBelow,
+            this.sarAddInside,
+            this.sarMoveUp,
+            this.sarMoveDown,
+            this.sarReplace,
+            this.sarExport,
+            this.sarRename,
+            this.sarNullify,
+            this.sarDelete});
+            this.sarEntryMenu.Name = "contextMenuStrip1";
+            this.sarEntryMenu.Size = new System.Drawing.Size(139, 224);
+            // 
+            // sarAddAbove
+            // 
+            this.sarAddAbove.Image = ((System.Drawing.Image)(resources.GetObject("sarAddAbove.Image")));
+            this.sarAddAbove.Name = "sarAddAbove";
+            this.sarAddAbove.Size = new System.Drawing.Size(138, 22);
+            this.sarAddAbove.Text = "Add Above";
+            this.sarAddAbove.Click += new System.EventHandler(this.SarAddAbove_Click);
+            // 
+            // sarAddBelow
+            // 
+            this.sarAddBelow.Image = ((System.Drawing.Image)(resources.GetObject("sarAddBelow.Image")));
+            this.sarAddBelow.Name = "sarAddBelow";
+            this.sarAddBelow.Size = new System.Drawing.Size(138, 22);
+            this.sarAddBelow.Text = "Add Below";
+            this.sarAddBelow.Click += new System.EventHandler(this.SarAddBelow_Click);
+            // 
+            // sarAddInside
+            // 
+            this.sarAddInside.Image = ((System.Drawing.Image)(resources.GetObject("sarAddInside.Image")));
+            this.sarAddInside.Name = "sarAddInside";
+            this.sarAddInside.Size = new System.Drawing.Size(138, 22);
+            this.sarAddInside.Text = "Add Inside";
+            this.sarAddInside.Visible = false;
+            this.sarAddInside.Click += new System.EventHandler(this.SarAddInside_Click);
+            // 
+            // sarMoveUp
+            // 
+            this.sarMoveUp.Image = ((System.Drawing.Image)(resources.GetObject("sarMoveUp.Image")));
+            this.sarMoveUp.Name = "sarMoveUp";
+            this.sarMoveUp.Size = new System.Drawing.Size(138, 22);
+            this.sarMoveUp.Text = "Move Up";
+            this.sarMoveUp.Click += new System.EventHandler(this.SarMoveUp_Click);
+            // 
+            // sarMoveDown
+            // 
+            this.sarMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("sarMoveDown.Image")));
+            this.sarMoveDown.Name = "sarMoveDown";
+            this.sarMoveDown.Size = new System.Drawing.Size(138, 22);
+            this.sarMoveDown.Text = "Move Down";
+            this.sarMoveDown.Click += new System.EventHandler(this.SarMoveDown_Click);
+            // 
+            // sarReplace
+            // 
+            this.sarReplace.Image = ((System.Drawing.Image)(resources.GetObject("sarReplace.Image")));
+            this.sarReplace.Name = "sarReplace";
+            this.sarReplace.Size = new System.Drawing.Size(138, 22);
+            this.sarReplace.Text = "Replace";
+            this.sarReplace.Click += new System.EventHandler(this.SarReplace_Click);
+            // 
+            // sarExport
+            // 
+            this.sarExport.Image = ((System.Drawing.Image)(resources.GetObject("sarExport.Image")));
+            this.sarExport.Name = "sarExport";
+            this.sarExport.Size = new System.Drawing.Size(138, 22);
+            this.sarExport.Text = "Export";
+            this.sarExport.Click += new System.EventHandler(this.SarExport_Click);
+            // 
+            // sarRename
+            // 
+            this.sarRename.Image = ((System.Drawing.Image)(resources.GetObject("sarRename.Image")));
+            this.sarRename.Name = "sarRename";
+            this.sarRename.Size = new System.Drawing.Size(138, 22);
+            this.sarRename.Text = "Rename";
+            this.sarRename.Click += new System.EventHandler(this.SarRename_Click);
+            // 
+            // sarNullify
+            // 
+            this.sarNullify.Image = ((System.Drawing.Image)(resources.GetObject("sarNullify.Image")));
+            this.sarNullify.Name = "sarNullify";
+            this.sarNullify.Size = new System.Drawing.Size(138, 22);
+            this.sarNullify.Text = "Nullify";
+            this.sarNullify.Visible = false;
+            this.sarNullify.Click += new System.EventHandler(this.SarNullify_Click);
+            // 
+            // sarDelete
+            // 
+            this.sarDelete.Image = ((System.Drawing.Image)(resources.GetObject("sarDelete.Image")));
+            this.sarDelete.Name = "sarDelete";
+            this.sarDelete.Size = new System.Drawing.Size(138, 22);
+            this.sarDelete.Text = "Delete";
+            this.sarDelete.Click += new System.EventHandler(this.SarDelete_Click);
             // 
             // EditorBase
             // 
@@ -6675,6 +6806,25 @@ namespace Citric_Composer {
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.wsdPanel.ResumeLayout(false);
+            this.wsdPanel.PerformLayout();
+            this.tableLayoutPanel26.ResumeLayout(false);
+            this.tableLayoutPanel26.PerformLayout();
+            this.tableLayoutPanel25.ResumeLayout(false);
+            this.tableLayoutPanel24.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.wsdChannelPriority)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wsdTracksToAllocate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wsdWaveIndex)).EndInit();
+            this.seqPanel.ResumeLayout(false);
+            this.seqPanel.PerformLayout();
+            this.tableLayoutPanel23.ResumeLayout(false);
+            this.tableLayoutPanel22.ResumeLayout(false);
+            this.tableLayoutPanel21.ResumeLayout(false);
+            this.tableLayoutPanel21.PerformLayout();
+            this.tableLayoutPanel19.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.seqChannelPriorityBox)).EndInit();
+            this.tableLayoutPanel20.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.seqOffsetManualBox)).EndInit();
             this.versionPanel.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpVersionRev)).EndInit();
@@ -6745,25 +6895,6 @@ namespace Citric_Composer {
             this.tableLayoutPanel31.ResumeLayout(false);
             this.tableLayoutPanel32.ResumeLayout(false);
             this.tableLayoutPanel32.PerformLayout();
-            this.wsdPanel.ResumeLayout(false);
-            this.wsdPanel.PerformLayout();
-            this.tableLayoutPanel26.ResumeLayout(false);
-            this.tableLayoutPanel26.PerformLayout();
-            this.tableLayoutPanel25.ResumeLayout(false);
-            this.tableLayoutPanel24.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.wsdChannelPriority)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wsdTracksToAllocate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wsdWaveIndex)).EndInit();
-            this.seqPanel.ResumeLayout(false);
-            this.seqPanel.PerformLayout();
-            this.tableLayoutPanel23.ResumeLayout(false);
-            this.tableLayoutPanel22.ResumeLayout(false);
-            this.tableLayoutPanel21.ResumeLayout(false);
-            this.tableLayoutPanel21.PerformLayout();
-            this.tableLayoutPanel19.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.seqChannelPriorityBox)).EndInit();
-            this.tableLayoutPanel20.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.seqOffsetManualBox)).EndInit();
             this.soundGrpPanel.ResumeLayout(false);
             this.soundGrpGridTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.soundGrpWaveArchives)).EndInit();
@@ -6849,6 +6980,7 @@ namespace Citric_Composer {
             this.nodeMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.filesMenu.ResumeLayout(false);
+            this.sarEntryMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -8320,6 +8452,80 @@ namespace Citric_Composer {
         public virtual void ExportToolStripMenuItem_Click(object sender, EventArgs e) {}
 
         public virtual void ChangeExternalPathToolStripMenuItem_Click(object sender, EventArgs e) {}
+
+        public virtual void SarAddAbove_Click(object sender, EventArgs e) {}
+
+        public virtual void SarAddBelow_Click(object sender, EventArgs e) {}
+
+        public virtual void SarAddInside_Click(object sender, EventArgs e) {}
+
+        public virtual void SarMoveUp_Click(object sender, EventArgs e) {}
+
+        public virtual void SarMoveDown_Click(object sender, EventArgs e) {}
+
+        public virtual void SarReplace_Click(object sender, EventArgs e) {}
+
+        public virtual void SarExport_Click(object sender, EventArgs e) {}
+
+        public virtual void SarRename_Click(object sender, EventArgs e) {}
+
+        public virtual void SarNullify_Click(object sender, EventArgs e) {}
+
+        public virtual void SarDelete_Click(object sender, EventArgs e) {}
+
+        private void SarSeqPlayOnce_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("SEQ") || EntryPlayer.CurrHash == "") && sarSeqPlayOnce.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Once;
+            }
+        }
+
+        private void SarSeqPlayLoop_CheckedChanged(object sender, EventArgs e) {
+            if((EntryPlayer.CurrHash.StartsWith("SEQ") || EntryPlayer.CurrHash == "") && sarSeqPlayLoop.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Loop;
+            }
+        }
+
+        private void SarSeqPlayNext_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("SEQ") || EntryPlayer.CurrHash == "") && sarSeqPlayNext.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Next;
+            }
+        }
+
+        private void SarWsdPlayOnce_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("WSD") || EntryPlayer.CurrHash == "") && sarWsdPlayOnce.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Once;
+            }
+        }
+
+        private void SarWsdPlayLoop_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("WSD") || EntryPlayer.CurrHash == "") && sarWsdPlayLoop.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Loop;
+            }
+        }
+
+        private void SarWsdPlayNext_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("WSD") || EntryPlayer.CurrHash == "") && sarWsdPlayNext.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Next;
+            }
+        }
+
+        private void StmPlayOnce_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("STM") || EntryPlayer.CurrHash == "") && stmPlayOnce.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Once;
+            }
+        }
+
+        private void StmPlayLoop_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("STM") || EntryPlayer.CurrHash == "") && stmPlayLoop.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Loop;
+            }
+        }
+
+        private void StmPlayNext_CheckedChanged(object sender, EventArgs e) {
+            if ((EntryPlayer.CurrHash.StartsWith("STM") || EntryPlayer.CurrHash == "") && stmPlayNext.Checked) {
+                EntryPlayer.PlayMode = EntryPlayer.EPlayMode.Next;
+            }
+        }
 
     }
 

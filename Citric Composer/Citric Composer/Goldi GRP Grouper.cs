@@ -138,7 +138,7 @@ namespace Citric_Composer {
                         //Set data such as item type, entry combo box, and load flags.
                         switch (d.ItemType) {
 
-                            case InfoExEntry.EItemType.Sequence:
+                            case InfoExEntry.EItemType.Sound:
 
                                 //Entry type.
                                 grpDepEntryTypeBox.SelectedIndex = 0;
@@ -597,7 +597,7 @@ namespace Citric_Composer {
                                 break;
 
                             //Sequence.
-                            case InfoExEntry.EItemType.Sequence:
+                            case InfoExEntry.EItemType.Sound:
                                 icon = 3;
                                 break;
 
@@ -627,7 +627,7 @@ namespace Citric_Composer {
                                     switch (g.ExtraInfo[i].ItemType) {
 
                                         //Sequence.
-                                        case InfoExEntry.EItemType.Sequence:
+                                        case InfoExEntry.EItemType.Sound:
 
                                             int index = g.ExtraInfo[i].ItemIndex;
 
@@ -1198,7 +1198,7 @@ namespace Citric_Composer {
             InfoExEntry e = (File as Group).ExtraInfo[tree.SelectedNode.Index];
             switch (e.ItemType) {
 
-                case InfoExEntry.EItemType.Sequence:
+                case InfoExEntry.EItemType.Sound:
                     switch (grpDepLoadFlagsBox.SelectedIndex) {
 
                         case 1:
