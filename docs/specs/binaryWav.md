@@ -12,15 +12,15 @@ The main file consists of a File Header, an array of Channel Info, and an array 
 |ChannelSamples[NumChannels]|Array of Channel Samples. There is a padding of 0x40 before each channel's samples|
 
 ## File Header
-A really different header than most files. It is 0x10 bytes.
+A really different header than most files. It is 0x10 bytes. A prefetch file is much smaller version of the original file to load audio data in when the normal track loads. I've only seen it have a sample count of 0x3800, which is 0x2000 bytes. 
 
 | **Offset** | **Type** | **Description** |
 |------------|----------|-----------------|
 |0x00|char[4]|Magic|
 |0x04|u16|Byte Order. 0xFFFE in big endian is little endian|
 |0x06|u16|Version. &0xFF00 >> 8 is Major, &0xFF is Minor|
-|0x08|u32|CRC32 Hash. Combine all channels' sample data into one large byte array without padding, and CRC32 hash it to get this|
-|0x0C|u16|Padding|
+|0x08|u32|CRC32 Hash. Combine all channels' sample data into one large byte array without padding, and CRC32 hash it to get this. This does not change when generating prefetch files|
+|0x0C|u16|1 if prefetch file, otherwise 0|
 |0x0E|u16|Num Channels. How many channels this file contains|
 
 ## Channel Info
@@ -31,11 +31,11 @@ Gives the game info about how to play the audio of a certain channel. It's 0x4C 
 |0x00|u16|Always seems to be 1|
 |0x02|u16|Channel Pan. 0 for left, 1 for right, 2 for middle|
 |0x04|u32|Sample Rate|
-|0x08|u32|Number of samples|
-|0x0C|u32|Number of samples again?|
+|0x08|u32|Number of samples in non-prefetch file|
+|0x0C|u32|Number of samples in this file|
 |0x10|s16[8][2]|DSP-ADPCM Coefficients|
-|0x30|u32|Absolute start offset of the sample data|
-|0x34|u32|Absolute start offset of the sample data again?|
+|0x30|u32|Absolute start offset of the sample data in non-prefetch file|
+|0x34|u32|Absolute start offset of the sample data in this file|
 |0x38|u32|Is 1 if the channel loops|
 |0x3C|u32|Loop End Sample|
 |0x40|u32|Loop Start Sample|
