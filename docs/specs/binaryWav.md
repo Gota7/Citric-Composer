@@ -37,8 +37,8 @@ Gives the game info about how to play the audio of a certain channel. It's 0x4C 
 |0x30|u32|Absolute start offset of the sample data in non-prefetch file|
 |0x34|u32|Absolute start offset of the sample data in this file|
 |0x38|u32|Is 1 if the channel loops|
-|0x3C|u32|Loop End Sample|
-|0x40|u32|Loop Start Sample|
+|0x3C|u32|Loop End Sample (0xFFFFFFFF if doesn't loop)|
+|0x40|u32|Loop Start Sample (0 if doesn't loop)|
 |0x44|u16|Predictor Scale?|
 |0x46|u16|History Sample 1?|
 |0x48|u16|History Sample 2?|
