@@ -1192,7 +1192,16 @@ namespace CitraFileLoader {
                                         } else {
                                             FileReader.JumpToReference(br, "StreamSoundExtensionRef");
                                             m.SoundExtensionIncluded = true;
-                                            m.StreamFileType = (StreamEntry.EStreamFileType)br.ReadUInt32();
+
+                                            // FileType = static_cast<SoundArchive::StreamFileType>( Util::DevideBy8bit( streamTypeInfo, 0 ) );
+                                            m.StreamFileType = (StreamEntry.EStreamFileType)(br.ReadUInt32() & 0xff);
+                                            if (m.StreamFileType > StreamEntry.EStreamFileType.Max) {
+                                                throw new IndexOutOfRangeException();
+                                            }
+
+                                            // TODO: IsLoop = Util::DevideBy8bit( streamTypeInfo, 1 ) == 1;
+                                            // TODO: Unknown = Util::DevideBy8bit( streamTypeInfo, 2 );
+
                                             m.LoopStartFrame = br.ReadUInt32();
                                             m.LoopEndFrame = br.ReadUInt32();
                                         }

@@ -135,7 +135,8 @@ namespace CitraFileLoader {
         /// Stream file type.
         /// </summary>
         public enum EStreamFileType : uint {
-            Invalid, Binary, ADTS
+            Invalid, Binary, ADTS, Opus,
+            Max = Opus,
         };
 
     }

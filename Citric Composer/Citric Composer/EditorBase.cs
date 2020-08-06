@@ -4133,7 +4133,8 @@ namespace Citric_Composer {
             this.stmStreamType.Items.AddRange(new object[] {
             "Invalid",
             "Binary",
-            "ADTS"});
+            "ADTS",
+            "Opus"});
             this.stmStreamType.Location = new System.Drawing.Point(7, 280);
             this.stmStreamType.Name = "stmStreamType";
             this.stmStreamType.Size = new System.Drawing.Size(276, 21);
